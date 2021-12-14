@@ -1,1 +1,1 @@
-web: gunicorn mileage-tracker.wsgi
+web: gunicorn mileage_tracker.wsgi
