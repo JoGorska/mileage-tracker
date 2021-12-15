@@ -62,10 +62,11 @@ Wireframes created with Balsamiq. The project was developed from initial wirefra
 
 ## Existing Features 
 
-### Navbar 
+### Navbar and Footer
 
-+ Fixed Navbar with Home and Contact Us buttons to allow the user easy access to all pages. 
-+ Collapsed navbar on smaller devices to wrap in all options and assure better navbar design.
++ Navbar and footer has been copied from Bootstrap components and adjusted to the needs of the project
++ Navbar collapses into a hamburger button for easy navigation on mobile devices.
++ 
 
 ### Home page 
 
