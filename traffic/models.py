@@ -119,7 +119,8 @@ COUNTY_CHOICES = [
 
 class TrafficMessage(models.Model):
     area = models.CharField(max_length=200, unique=False)
-    # default = user's county, but can be changed
+    # ??? need to set default = user's county, but can be changed
+    # ??? do I have to set default in here, can I only set in forms?
     county = models.CharField(max_length=200, choices=COUNTY_CHOICES, default='Northamptonshire')
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="traffic_messages")
     created_on = models.DateTimeField(auto_now=True)
@@ -130,3 +131,16 @@ class TrafficMessage(models.Model):
     thanks = models.ManyToManyField(User, related_name='thanks', blank=True)
     cleared = thanks = models.ManyToManyField(User, related_name='cleared', blank=True)
 
+    # the newest traffic messages will show as first one on the list
+    class Meta:
+        ordering = ['-created_on']
+
+    def __str__(self):
+        return f"Reported {self.category} in the area {self.area} in {self.county}"
+    
+    def number_of_thanks(self):
+        return self.thanks.count()
+
+    # this is a repetition can it be made simler???
+    def number_of_cleared(self):
+        return self.cleared.count()
