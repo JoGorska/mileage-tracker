@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth import User
+from django.contrib.auth.models import User
 from cloudinary.models import CloudinaryField
 
 STATUS_CHOICES = ((0, "Draft"), (1, "Published"))
@@ -129,7 +129,7 @@ class TrafficMessage(models.Model):
     category = models.CharField(max_length=200, choices=CATEGORY_CHOICES, default='queueing traffic')
     status = models.IntegerField(choices=STATUS_CHOICES, default=0)
     thanks = models.ManyToManyField(User, related_name='thanks', blank=True)
-    cleared = thanks = models.ManyToManyField(User, related_name='cleared', blank=True)
+    cleared = models.ManyToManyField(User, related_name='cleared', blank=True)
 
     # the newest traffic messages will show as first one on the list
     class Meta:
