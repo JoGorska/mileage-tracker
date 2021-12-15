@@ -49,6 +49,7 @@ INSTALLED_APPS = [
 
     'users',
     'mileage',
+    'traffic',
 ]
 
 MIDDLEWARE = [
