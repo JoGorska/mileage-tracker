@@ -3,20 +3,21 @@
 {% block content %}
 
 <div class="row">
-    {% for traffic_message in traffic_messages_list %}
+    {% for trafficmessage in trafficmessage_list %}
 
       <div class="col">
         <div class="card border-warning">
-          <div class="card-header">{{traffic_message.category}}</div>
+          <div class="card-header">{{trafficmessage.category}}</div>
           <div class="card-body">
-            <h5 class="card-title">{{traffic_message.area}} in {{traffic_message.county}}</h5>
-            <p class="card-text">{{traffic_message.content}}</p>
+            <h5 class="card-title">{{trafficmessage.area}} in {{trafficmessage.county}}</h5>
+            <p class="card-text">{{trafficmessage.content}}</p>
             <div class="card-footer text-muted">
               <div class="row">
-                <div class="col">Posted by: {{traffic_message.author}} on {{traffic_message.created_on}}</div>
+                <div class="col">Posted by: {{trafficmessage.author}} on {{trafficmessage.created_on}}</div>
                 <div class="col">
-                  <img src="https://img.icons8.com/ios/50/000000/tank.png"/> <p>Tank You {{traffic_message.number_of_thanks}}</p>
-                  <i class="fas fa-road"></i>Road Clear {{traffic_message.number_of_clear}}</div>
+                  
+                  <i class="bi bi-hand-thumbs-up">{{trafficmessage.number_of_thanks}} Tank You </i>
+                  <i class="bi bi-arrow-down-up">{{trafficmessage.number_of_clear}} Road Clear </i>
               </div>
 
             </div>

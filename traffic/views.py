@@ -3,7 +3,7 @@ from django.views import generic
 from .models import TrafficMessage
 
 
-class PostMessages(generic.ListView):
+class TrafficMessagesList(generic.ListView):
     model = TrafficMessage
     queryset = TrafficMessage.objects.filter(status=1).order_by('-created_on')
     template_name = 'index.html'
