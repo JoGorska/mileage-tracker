@@ -1,73 +1,62 @@
 {% extends "base.html" %}
-
 {% block content %}
+  <div class="container">
+    <div class="row row-cols-3">
 
-<div class="row">
-    {% for trafficmessage in trafficmessage_list %}
+      <!-- forloop to display all messages in the database -->
+      {% for trafficmessage in trafficmessage_list %}
+        <div class="col">
+            <div class="card border-warning">
 
-      <div class="col">
-        <div class="card border-warning">
-          <div class="card-header">{{trafficmessage.category}}</div>
-          <div class="card-body">
-            <h5 class="card-title">{{trafficmessage.area}} in {{trafficmessage.county}}</h5>
-            <p class="card-text">{{trafficmessage.content}}</p>
-            <div class="card-footer text-muted">
-              <div class="row">
-                <div class="col">Posted by: {{trafficmessage.author}} on {{trafficmessage.created_on}}</div>
-                <div class="col">
-                  
-                  <i class="bi bi-hand-thumbs-up">{{trafficmessage.number_of_thanks}} Tank You </i>
-                  <i class="bi bi-arrow-down-up">{{trafficmessage.number_of_clear}} Road Clear </i>
+              <!-- card header -->
+
+              <div class="card-header">{{trafficmessage.category}}</div>
+
+              <!-- card body -->
+
+              <div class="card-body">
+                  <h5 class="card-title">{{trafficmessage.area}} in {{trafficmessage.county}}</h5>
+                  <p class="card-text">{{trafficmessage.content}}</p>
               </div>
 
+              <!-- card footer -->
+
+              <div class="card-footer text-muted">
+                <div class="row">
+                    <div class="col">Posted by: {{trafficmessage.author}} on {{trafficmessage.created_on}}</div>
+                    <div class="col">
+                      <i class="bi bi-hand-thumbs-up">{{trafficmessage.number_of_thanks}} Tank You </i>
+                      <i class="bi bi-arrow-down-up">{{trafficmessage.number_of_clear}} Road Clear </i>
+                    </div>
+                </div>
+              </div>
             </div>
-
-          </div>
         </div>
-      </div>
-        <!-- closes the previous one and creates new row every 3 messages -->
-        {% if forloop.counter|divisibleby:3 %}
-          </div>
-          <div class="row">
-        {% endif %}
-    {% endfor %}
 
-    <!-- pagination from django-->
-    {% if is_paginated %}
-    <nav aria-label="Page navigation">
-        <ul class="pagination justify-content-center">
-            {% if page_obj.has_previous %}
-            <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; PREV </a></li>
+            <!-- closes the previous row and creates new row every 3 messages -->
+            {% if forloop.counter|divisibleby:3 %}
+            </div>
+            <div class="row">
             {% endif %}
-            {% if page_obj.has_next %}
-            <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
+            
+      {% endfor %}
+    </div>
 
-            {% endif %}
-        </ul>
-    </nav>
-    {% endif %}
+      <!-- pagination from django-->
+      {% if is_paginated %}
+        <nav aria-label="Page navigation">
+          <ul class="pagination justify-content-center">
+              {% if page_obj.has_previous %}
+              <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; PREV </a></li>
+              {% endif %}
+              {% if page_obj.has_next %}
+              <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
+              {% endif %}
 
-</div>
+          </ul>
+        </nav>
+      {% endif %}
 
-<!-- pagination from bootstrap to remove ??? -->
+  </div>
 
-<!-- pagination
-  <nav aria-label="Page navigation example">
-    <ul class="pagination">
-      <li class="page-item">
-        <a class="page-link" href="#" aria-label="Previous">
-          <span aria-hidden="true">&laquo;</span>
-        </a>
-      </li>
-      <li class="page-item"><a class="page-link" href="#">1</a></li>
-      <li class="page-item"><a class="page-link" href="#">2</a></li>
-      <li class="page-item"><a class="page-link" href="#">3</a></li>
-      <li class="page-item">
-        <a class="page-link" href="#" aria-label="Next">
-          <span aria-hidden="true">&raquo;</span>
-        </a>
-      </li>
-    </ul>
-  </nav> -->
-
-  {%endblock%}
+{%endblock%}
