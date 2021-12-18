@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="container">
+    <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3">
+
+      <!-- forloop to display all messages in the database -->
+      {% for trafficmessage in trafficmessage_list %}
+        <div class="col mt-3 ">
+            <div class="card border-warning">
+
+              <!-- card header -->
+
+              <div class="card-header">
+                
+                <div class="row">
+                  <div class="col">
+                    {{trafficmessage.category}}
+                  </div>
+
+                  <div class="col text-end">
+                    <i class="bi bi-hand-thumbs-up">{{trafficmessage.number_of_thanks}}</i>
+                    <i class="bi bi-arrow-down-up">{{trafficmessage.number_of_clear}}</i>
+                  </div>
+                </div>
+              </div>
+
+              <!-- card body -->
+
+              <div class="card-body">
+                  <h5 class="card-title">{{trafficmessage.area}} in {{trafficmessage.county}}</h5>
+                  <p class="card-text">{{trafficmessage.content}}</p>
+              </div>
+
+              <!-- card footer -->
+
+              <div class="card-footer text-muted">
+
+                    <div>From: {{trafficmessage.author}} on {{trafficmessage.created_on}}</div>
+
+              </div>
+            </div>
+        </div>
+
+            <!-- closes the previous row and creates new row every 3 messages -->
+            {% if forloop.counter|divisibleby:3 %}
+            </div>
+            <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3">
+            {% endif %}
+
+      {% endfor %}
+    </div>
+
+      <!-- pagination from django-->
+      {% if is_paginated %}
+        <nav aria-label="Page navigation">
+          <ul class="pagination justify-content-center">
+              {% if page_obj.has_previous %}
+              <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; PREV </a></li>
+              {% endif %}
+              {% if page_obj.has_next %}
+              <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
+              {% endif %}
+
+          </ul>
+        </nav>
+      {% endif %}
+
+  </div>
+
+{%endblock%}

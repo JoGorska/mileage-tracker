@@ -1,0 +1,17 @@
+
+
+main > .container {
+    padding-top: 60px;
+}
+
+/*styling for sticky footer*/
+
+.my-footer {
+    display: inline-block;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    text-align: center;
+
+}
