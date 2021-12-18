@@ -11,7 +11,7 @@ class TrafficMessagesList(generic.ListView):
 
     # attempt to add functionality to add thanks and cleared
 
-    def get(self, request, id, *args,**kwargs):
+    def get(self, request, id, *args, **kwargs):
         queryset = TrafficMessage.objects.filter(status=1).order_by('-created_on')
         trafficmessage = get_object_or_404(queryset, id=id)
         thanks = False
