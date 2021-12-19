@@ -137,7 +137,7 @@ class TrafficMessage(models.Model):
 
     def __str__(self):
         return f"Reported {self.category} in the area {self.area} in {self.county}"
-    
+
     def number_of_thanks(self):
         return self.thanks.count()
 

@@ -20,4 +20,3 @@ class RegisterUserView(CreateView):
     def form_valid(self, form):
         form.save()
         return HttpResponseRedirect(self.success_url)
-
