@@ -15,8 +15,22 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from users.views import RegisterUserView
+from django.views.generic import TemplateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('traffic.urls'), name='traffic_urls')
+    path('', include('traffic.urls'), name='traffic_urls'),
+    path(
+        'register/success/',
+        TemplateView.as_view(template_name="register/success.html"),
+        name='register-success',
+    ),
+        path(
+        'login/',
+        TemplateView.as_view(template_name="register/login.html"),
+        name='login',
+    ),
+    path('register/', RegisterUserView.as_view(), name='register'),
+    path('', include('django.contrib.auth.urls')),
 ]
