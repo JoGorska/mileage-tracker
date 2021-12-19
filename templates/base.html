@@ -70,6 +70,9 @@
           </nav>
 
         <main>
+          {% if user.is_authenticaated %}
+          <h1>Hello, {{user.username}}</h1>
+          {% endif %}
 
             {% block content %}
             <!-- Content Goes here -->
