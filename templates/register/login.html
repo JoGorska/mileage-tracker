@@ -9,6 +9,10 @@
 <h1>Please Login</h1>
 <p>You must be logged in to access Tank mileage tracker</p>
 
+{% if form.errors %}
+<p>Your username and password didn't match. Please try again.</p>
+{% endif %}
+
 <form action="{% url 'login' %}" method="POST">
     {% csrf_token %}
     <table>
