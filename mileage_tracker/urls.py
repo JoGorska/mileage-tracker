@@ -25,8 +25,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('traffic.urls'), name='traffic_urls'),
     path(
-        'register/success/',
-        TemplateView.as_view(template_name="register/success.html"),
+        'users/success/',
+        TemplateView.as_view(template_name="users/success.html"),
         name='register-success',
     ),
     #     path(
@@ -34,7 +34,7 @@ urlpatterns = [
     #     TemplateView.as_view(template_name="register/login.html"),
     #     name='login',
     # ),
-    path('login/', auth_views.LoginView.as_view(template_name='register/login.html')),
+    path('login/', auth_views.LoginView.as_view(template_name='users/login.html')),
     path('register/', RegisterUserView.as_view(), name='register'),
     path('', include('django.contrib.auth.urls')),
 ]
