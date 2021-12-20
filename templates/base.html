@@ -55,14 +55,6 @@
           {% include 'partials/nav.html' %}
 
         <main>
-          <!-- user.is_authenticated doesnt work ??? -->
-          {% if user.is_active %}
-          <h1>Hello, {{user.username}} you are now active</h1>
-          {% elif user.is_authenticated %}
-          <h1>Hello, {{user.username}} you are now authenticated</h1>
-          {% else %}
-          <h1>please log in</h1>
-          {% endif %}
 
             {% block content %}
             <!-- Content Goes here -->

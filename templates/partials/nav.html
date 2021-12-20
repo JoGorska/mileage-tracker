@@ -1,3 +1,4 @@
+<!-- nav bar from django 5 examples - headers -->
 
 {% block content %}
 
@@ -33,7 +34,6 @@
         <path d="m9.97 4.88.953 3.811C10.159 8.878 9.14 9 8 9c-1.14 0-2.158-.122-2.923-.309L6.03 4.88C6.635 4.957 7.3 5 8 5s1.365-.043 1.97-.12zm-.245-.978L8.97.88C8.718-.13 7.282-.13 7.03.88L6.275 3.9C6.8 3.965 7.382 4 8 4c.618 0 1.2-.036 1.725-.098zm4.396 8.613a.5.5 0 0 1 .037.96l-6 2a.5.5 0 0 1-.316 0l-6-2a.5.5 0 0 1 .037-.96l2.391-.598.565-2.257c.862.212 1.964.339 3.165.339s2.303-.127 3.165-.339l.565 2.257 2.391.598z"/>
     </symbol>
     
-
   </svg>
 
 <header>
@@ -41,9 +41,9 @@
       <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
           <a href="/" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
-            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-cone-striped" viewBox="0 0 16 16"><use xlink:href="#cone"/>
+            <svg width="40" height="40" fill="currentColor" class="bi bi-cone-striped" viewBox="0 0 16 16"><use xlink:href="#cone"/>
                 </svg>
-              <h1>Cone</h1>
+              <h1>Tank</h1>
           </a>
 
           <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
@@ -60,10 +60,20 @@
               </a>
             </li>
             <li>
-              <a href="#" class="nav-link text-white">
+              <!-- date picker need to add ??? -->
+
+              <a href="#" class="nav-link text-white" id="dropdownDate" data-bs-toggle="dropdown" aria-expanded="false">
                 <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#table"/></svg>
-                Date
+              Date
               </a>
+              <ul class="dropdown-menu text-small" aria-labelledby="dropdownDate">
+                <li>
+                  <form class="form-group" action="#">
+                    <input class="form-control bg-secondary" type="date">
+                  </form>
+                </li>
+              </ul>
+
             </li>
             <li>
               <a href="#" class="nav-link text-white">
@@ -73,21 +83,34 @@
             </li>
             <li>
                 <a href="#" class="nav-link text-white">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi d-block mx-auto mb-1" viewBox="0 0 16 16"><use xlink:href="#message"/></svg>
+                    <svg width="24" height="24" fill="currentColor" class="bi d-block mx-auto mb-1" viewBox="0 0 16 16"><use xlink:href="#message"/></svg>
                   Message
                 </a>
               </li>
             <li>
+
+              <!-- user drop down menu displaying differently if user logged in-->
+
               <a href="#" class="nav-link text-white dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                 <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#people-circle"/></svg>
-                Log in
+              
+                {% if user.is_authenticated %}
+                {{user.first_name}}
               </a>
               <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
                 <li><a class="dropdown-item" href="#">Update</a></li>
-                <li><a class="dropdown-item" href="#">Register</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">Sign out</a></li>
+                <li><a class="dropdown-item" href="{% url 'logout' %}">Sign out</a></li>
               </ul>
+              <!-- user that is NOT logged in -->
+              {% else %}
+              Log in
+            </a>
+            <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+              <li><a class="dropdown-item" href="{% url 'register' %}">Register</a></li>
+              <li><a class="dropdown-item" href="{% url 'login' %}">Log in</a></li>
+            </ul>
+              {% endif %}
+
             </li>
           </ul>
         </div>
