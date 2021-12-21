@@ -34,17 +34,12 @@
               <!-- card body -->
 
               <div class="card-body">
-                  <h5 class="card-title">{{trafficmessage.area}} in {{trafficmessage.county}}</h5>
-                  <p class="card-text">{{trafficmessage.content}}</p>
+                <a href="{% url 'traffic_msg_detail' trafficmessage.id %}" class="text-decoration-none">
+                  <h5 class="card-title">{{trafficmessage.area}} in {{trafficmessage.county}} (more)</h5>
+                </a>
               </div>
 
-              <!-- card footer -->
 
-              <div class="card-footer text-muted">
-
-                    <div>From: {{trafficmessage.author}} on {{trafficmessage.created_on}}</div>
-
-              </div>
             </div>
         </div>
 

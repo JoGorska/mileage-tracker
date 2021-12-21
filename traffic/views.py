@@ -13,6 +13,7 @@ class TrafficMessagesList(generic.ListView):
 class TrafficMsgDetail(View):
 
     def get(self, request, id, *args, **kwargs):
+        model = TrafficMessage
         queryset = TrafficMessage.objects.filter(status=1).order_by('-created_on')
         trafficmessage = get_object_or_404(queryset, id=id)
         thanks = False
@@ -21,7 +22,7 @@ class TrafficMsgDetail(View):
             thanks = True
         if trafficmessage.cleared.filter(id=self.request.user.id).exists():
             cleared = True
-        
+
         return render(
             request,
             "traffic_msg_detail.html",
