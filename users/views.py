@@ -24,7 +24,9 @@ class RegisterUserView(CreateView):
 # this might fix issue with index.html not seeing that user is authenticated
 
 # from django.contrib.auth import authenticate, login as auth_login
+# function based view for custom user model
 
+# def add_user(request):
 # if request.method == 'POST':
 #     form = UserLoginForm(request.POST or None)
 #     if form.is_valid():
