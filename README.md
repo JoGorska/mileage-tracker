@@ -186,4 +186,7 @@ add the tag |as_bootstrap to every form you want to be styled with Django Bootst
 https://www.iconfinder.com/search?q=tank&price=free
  Ilham Albab
  license free to share https://creativecommons.org/licenses/by/3.0/
+
+ icon for thumbs up from fonawsome
+ https://github.com/FortAwesome/Font-Awesome/tree/master/svgs/regular
 ### Content
