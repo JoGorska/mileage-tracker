@@ -189,4 +189,8 @@ https://www.iconfinder.com/search?q=tank&price=free
 
  icon for thumbs up from fonawsome
  https://github.com/FortAwesome/Font-Awesome/tree/master/svgs/regular
+
+
+ crispy forms
+ commenting part 1 in Authorisation, Commenting and Likes 
 ### Content

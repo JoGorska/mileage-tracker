@@ -38,12 +38,19 @@ class TrafficMsgDetail(View):
 
 
 class AddNewTrafficMsg(CreateView):
-    model = TrafficMessage
-    form_class = TrafficMessageForm
-    template_name = 'add_traffic_msg.html'
+    def get(self, request, *args, **kwargs):
 
-    def post(self, request, id, *args, **kwargs):
-        queryset = User.objects.filter
+        return render(
+            request,
+            'add_traffic_msg.html',
+            {
+                'traffic_msg_form': TrafficMessageForm
+            },
+        )
+    def post()
+
+    # def post(self, request, id, *args, **kwargs):
+    #     queryset = User.objects.filter
 
 
         # user = get_object_or_404(queryset, id=id)

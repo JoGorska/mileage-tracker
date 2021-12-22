@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-form will go here
+
 
 <h1>Add New Traffic Message</h1>
 <p>Alert other drivers about current situation on the roads</p>
@@ -8,7 +8,7 @@ form will go here
 <form action="" method="POST">
 {% csrf_token %}
     <table>
-        {{ form.as_table }}
+        {{ traffic_msg_form.as_table }}
 
         <td>&nbsp;</td>
         <td><input type="submit" value="register"></td>
