@@ -1,9 +1,10 @@
 from django.shortcuts import render, get_object_or_404
 from django.views import generic, View
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, FormView
 from .models import TrafficMessage
 from .forms import TrafficMessageForm
 from django.urls import reverse_lazy
+from django.http import HttpResponseRedirect
 
 
 class TrafficMessagesList(generic.ListView):
@@ -38,16 +39,33 @@ class TrafficMsgDetail(View):
 
 
 class AddNewTrafficMsg(CreateView):
+    template_name = 'add_traffic_msg.html'
+    form_class = TrafficMessageForm
+    success_url = 'home'
+
     def get(self, request, *args, **kwargs):
 
         return render(
             request,
             'add_traffic_msg.html',
             {
-                'traffic_msg_form': TrafficMessageForm
+                'traffic_msg_form': TrafficMessageForm()
             },
         )
-    def post()
+
+    def post(self, request, *args, **kwargs):
+
+        traffic_msg_form = TrafficMessageForm(data=request.POST)
+        if traffic_msg_form.is_valid():
+            traffic_msg_form.instance.author_id = request.user.id
+            traffic_message = traffic_msg_form.save(commit=False)
+            traffic_message.save()
+        
+        else:
+            traffic_msg_form = TrafficMessageForm()
+
+        return HttpResponseRedirect('/')
+
 
     # def post(self, request, id, *args, **kwargs):
     #     queryset = User.objects.filter
