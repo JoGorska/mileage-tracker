@@ -171,9 +171,26 @@ $ git clone https://github.com/JoGorska/garage-bootstrap
 * [I Think Therefore I Blog]()
 * [Django Google API]()
 
-
+@igor_ci
+I used Crispy Forms in my MS4 and they worked nicely (except for a few HTML code validator errors that didn’t affect display in any way).
+But if you want to still use Django Bootstrap like in the videos, you need to
+pip3 install django-forms-bootstrap
+add "django_forms_bootstrap" to INSTALLED_APPS in settings.py
+add the tag {% load bootstrap_tags %} to the top of every template you want to use Django Bootstrap forms in.
+add the tag |as_bootstrap to every form you want to be styled with Django Bootstrap.
 
 )
 
  
+ icon for tank (simple)
+https://www.iconfinder.com/search?q=tank&price=free
+ Ilham Albab
+ license free to share https://creativecommons.org/licenses/by/3.0/
+
+ icon for thumbs up from fonawsome
+ https://github.com/FortAwesome/Font-Awesome/tree/master/svgs/regular
+
+
+ crispy forms
+ commenting part 1 in Authorisation, Commenting and Likes 
 ### Content

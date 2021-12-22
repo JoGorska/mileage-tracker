@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container"></div>
+
+{% if user.is_authenticated %}
+
+    <h1>Add New Traffic Message</h1>
+    <p>Alert other drivers about current situation on the roads</p>
+
+    <form action="" method="POST">
+    {% csrf_token %}
+            <table>
+            {{ traffic_msg_form.as_table }}
+
+                <td>&nbsp;</td>
+                <td><input type="submit" value="register"></td>
+            </table>
+
+        <input type="hidden" name="next" value="{{ next }}" />
+        <input type="hidden" name="author_id" value="{{ user.id }}">
+
+    </form>
+
+{% else %}
+
+    <h5>You must log in to add new traffic alert.</h5>
+
+    <div class="row">
+        <div class="col">
+            <a href="{% url 'login' %}" class="btn btn-primary">Log in</a>
+        </div>
+        <div class="col">
+            <a href="{% url 'register' %}" class="btn btn-primary">Register</a>
+        </div>
+    </div>
+
+    {% endif %}
+
+    </div>
+
+
+{%endblock%}
