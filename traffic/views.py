@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, reverse
 from django.views import generic, View
 from django.views.generic.edit import CreateView, FormView
 from .models import TrafficMessage
@@ -68,23 +68,12 @@ class AddNewTrafficMsg(CreateView):
         return HttpResponseRedirect('/')
 
 
-    # def post(self, request, id, *args, **kwargs):
-    #     queryset = User.objects.filter
+class MsgThanks(View):
+    def post(self, request, id):
+        traffic_message = get_object_or_404(TrafficMessage, id=id)
+        if traffic_message.thanks.filter(id=request.user.id).exists():
+            traffic_message.thanks.remove(request.user)
+        else:
+            traffic_message.thanks.add(request.user)
 
-
-        # user = get_object_or_404(queryset, id=id)
-        # user_id = user.id
-        # return render (
-        #     request,
-        #     "add_traffic_msg.html",
-
-        # )
-
-# class AddNewTrafficMsg(CreateView):
-#     template_name = 'add_traffic_msg.html'
-#     form_class = TrafficMessageForm
-#     success_url = reverse_lazy('/')
-
-#     def form_valid(self, form):
-#         form.save()
-#         return HttpResponseRedirect(self.success_url)
+        return HttpResponseRedirect(reverse('traffic_msg_detail', args=[id]))
