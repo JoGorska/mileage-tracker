@@ -1,12 +1,9 @@
 {% extends "base.html" %}
-
-
-{% block title %} User Registration {% endblock title%} 
-
 {% block content %}
+form will go here
 
-<h1>User Registration</h1>
-<p>Enter your details to register.</p>
+<h1>Add New Traffic Message</h1>
+<p>Alert other drivers about current situation on the roads</p>
 
 <form action="" method="POST">
 {% csrf_token %}
@@ -18,7 +15,11 @@
     </table>
 
 <input type="hidden" name="next" value="{{ next }}" />
+<input type="hidden" name="author_id" value="{{ user.id }}">
 
 </form>
 
-{% endblock content %}
+
+
+
+{%endblock%}
