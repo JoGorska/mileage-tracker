@@ -77,3 +77,14 @@ class MsgThanks(View):
             traffic_message.thanks.add(request.user)
 
         return HttpResponseRedirect(reverse('traffic_msg_detail', args=[id]))
+
+
+# class MsgCleared(View):
+#     def post(self, request, id):
+#         traffic_message = get_object_or_404(TrafficMessage, id=id)
+#         if traffic_message.cleared(id=request.user.id).exists():
+#             traffic_message.cleared.remove(request.user)
+#         else:
+#             traffic_message.cleared.add(request.user)
+
+#         return HttpResponseRedirect(reverse('traffic_msg_detail', args=[id]))
