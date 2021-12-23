@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'users',
     'mileage',
     'traffic',
+    'visits',
 ]
 
 SITE_ID = 1
