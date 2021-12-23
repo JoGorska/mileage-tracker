@@ -68,7 +68,14 @@
             <li>
               <!-- date picker need to add ??? -->
 
-              <a href="#" class="nav-link text-white" id="dropdownDate" data-bs-toggle="dropdown" aria-expanded="false">
+              <a href="{% url 'date_picker' %}" class="nav-link text-white">
+                <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#table"/></svg>
+              Date
+              </a>
+
+              <!-- commented out a drop down list with a form in it ??? -->
+
+              <!-- <a href="{% url 'date_picker' %}" class="nav-link text-white" id="dropdownDate" data-bs-toggle="dropdown" aria-expanded="false">
                 <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#table"/></svg>
               Date
               </a>
@@ -78,7 +85,7 @@
                     <input class="form-control bg-secondary" type="date">
                   </form>
                 </li>
-              </ul>
+              </ul> -->
 
             </li>
             <li>
