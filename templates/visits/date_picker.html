@@ -1,19 +1,20 @@
 {% extends "base.html" %}
+
 {% block content %}
 
-<h1>form will go here to display all day visits for</h1>
+<h1>form will go here to pick date</h1>
 
 
     {% if user.is_authenticated %}
 
-    <!-- <form action="" method="POST">
+    <form action="" method="POST">
     {% csrf_token %}
         <table>
             {{ date_picker_form.as_table }}
             <td>&nbsp;</td>
             <td><input type="submit" value="Go"></td>
         </table>
-    </form> -->
+    </form>
 
 
     {% else %}
@@ -23,3 +24,4 @@
     {% endif %}
 
 {% endblock %}
+
