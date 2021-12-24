@@ -35,6 +35,7 @@ class DatePickerView(View):
             date_picked = request.POST.get('date_picked')
             print(date_picked_record)
 
+
             date_string = str(date_picked)
 
             print(date_string)
@@ -46,7 +47,8 @@ class DatePickerView(View):
         
         # return HttpResponseRedirect('this_is_not_my_url')
         
-        return HttpResponseRedirect(reverse('date_view', args=[date_string]))
+        return redirect(reverse('date_view', args=[date_string]))
+        # return HttpResponseRedirect(reverse('date_view', args=[date_string]))
 
 class DateView(View):
     template_name = 'visits/visits_by_date.html'
