@@ -1,3 +1,7 @@
 from django.contrib import admin
+from .models import DatePicker
 
-# Register your models here.
+
+@admin.register(DatePicker)
+class DateAdmin(admin.ModelAdmin):
+    list_display = ('date_picked', )
