@@ -1,5 +1,10 @@
 from django import forms
+from .models import Journey
 from .models import DatePicker
+
+
+class JourneyForm(forms.ModelForm):
+    
 
 
 class DateInput(forms.DateInput):

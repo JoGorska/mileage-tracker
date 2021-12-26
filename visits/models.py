@@ -9,6 +9,28 @@ from datetime import datetime
 from django.contrib.auth.models import User
 
 
+class Journey(models.Model):
+
+    date_of_journey = models.DateField(verbose_name="Date of the Journey", unique=False)
+    created_on = models.DateTimeField(auto_now=True)
+    updated_on = models.DateTimeField(auto_now=True)
+
+    address_start = models.CharField(verbose_name="Start (full address)", max_length=100, null=True, blank=True)
+    # postcode is the end of the string of address before UK ???
+    postcode_start = models.CharField(verbose_name="Start Postcode", max_length=100, null=True, blank=True)
+    latitude_start = models.DecimalField(max_digits=19, decimal_places=10)
+    longitude_start= models.DecimalField(max_digits=19, decimal_places=10)
+
+    address_destination = models.CharField(verbose_name="Destination (full address)", max_length=100, null=True, blank=True)
+    postcode_destination = models.CharField(verbose_name="Destination Postcode", max_length=100, null=True, blank=True)
+    latitude_destination = models.DecimalField(max_digits=19, decimal_places=10)
+    longitude_destination = models.DecimalField(max_digits=19, decimal_places=10)
+
+    driver = models.ForeignKey(User, on_delete=models.CASCADE, related_name="visits")
+
+    distance = models.DecimalField(verbose_name="Distance Travelled", max_digits=19, decimal_places=10)
+
+
 # def rand_slug():
 #     return ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(6))
 
