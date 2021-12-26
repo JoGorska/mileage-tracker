@@ -8,9 +8,10 @@ from django.urls import reverse
 from django.conf import settings
 
 
-from .models import DatePicker
-from .forms import DatePickerForm
+from .models import Journey, DatePicker
+from .forms import JourneyForm, DatePickerForm
 from .mixins import Directions
+
 
 def drive(request):
     """
@@ -21,7 +22,6 @@ def drive(request):
 
     context = {"google_api_key": settings.GOOGLE_API_KEY}
     return render(request, 'visits/drive.html', context)
-
 
 
 def map_view(request):
@@ -36,23 +36,22 @@ def map_view(request):
     lat_b = request.GET.get("lat_b")
     long_b = request.GET.get("long_b")
     directions = Directions(
-		lat_a= lat_a,
-		long_a=long_a,
-		lat_b = lat_b,
-		long_b=long_b
-		)
+        lat_a=lat_a,
+        long_a=long_a,
+        lat_b=lat_b,
+        long_b=long_b
+        )
 
     context = {
-	"google_api_key": settings.GOOGLE_API_KEY,
-	"lat_a": lat_a,
-	"long_a": long_a,
-	"lat_b": lat_b,
-	"long_b": long_b,
-	"origin": f'{lat_a}, {long_a}',
-	"destination": f'{lat_b}, {long_b}',
-	"directions": directions,
-
-	}
+        "google_api_key": settings.GOOGLE_API_KEY,
+        "lat_a": lat_a,
+        "long_a": long_a,
+        "lat_b": lat_b,
+        "long_b": long_b,
+        "origin": f'{lat_a}, {long_a}',
+        "destination": f'{lat_b}, {long_b}',
+        "directions": directions,
+    }
     return render(request, 'visits/map.html', context)
 
 
