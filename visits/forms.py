@@ -9,8 +9,8 @@ class JourneyForm(forms.ModelForm):
         model = Journey
         fields = (
             'date_of_journey',
-            'created_on',
-            'updated_on',
+            # 'created_on',
+            # 'updated_on',
 
             'address_start',
 

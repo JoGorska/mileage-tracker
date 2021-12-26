@@ -26,7 +26,16 @@
 
 
         <body>
+        <table>
+          <form action="" method="POST">
+            {% csrf_token %}
+            {{ form.as_table}}
+            <tr>
+              <button type="submit">Add Item</button>
+            </tr>
 
+          </form>
+        </table>
 
             <h3 id="map">Map only</h3>
 
@@ -83,7 +92,7 @@
             
     <script type="text/javascript">
 
-      // error in lat_b
+      // error in lat_b ???
     
         var google_api_key = "{{google_api_key|safe}}";
         var lat_a = {{lat_a|safe}};

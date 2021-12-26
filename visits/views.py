@@ -30,7 +30,7 @@ def map_view(request):
     created by following 
     https://www.youtube.com/watch?v=wCn8WND-JpU&t=8s
     """
-
+    form = JourneyForm()
     lat_a = request.GET.get("lat_a")
     long_a = request.GET.get("long_a")
     lat_b = request.GET.get("lat_b")
@@ -43,6 +43,7 @@ def map_view(request):
         )
 
     context = {
+        "form": form,
         "google_api_key": settings.GOOGLE_API_KEY,
         "lat_a": lat_a,
         "long_a": long_a,

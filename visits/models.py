@@ -12,7 +12,7 @@ from django.contrib.auth.models import User
 class Journey(models.Model):
 
     date_of_journey = models.DateField(verbose_name="Date of the Journey", unique=False)
-    created_on = models.DateTimeField(auto_now=True)
+    created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 
     address_start = models.CharField(verbose_name="Start (full address)", max_length=100, null=True, blank=True)
