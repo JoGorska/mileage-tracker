@@ -193,4 +193,14 @@ https://www.iconfinder.com/search?q=tank&price=free
 
  crispy forms
  commenting part 1 in Authorisation, Commenting and Likes 
+
+
+google maps API + javascript map API
+
+Visits app is making API calls to get distance and lenght of the journey and displays a map. This was created by following tutorial [Python Django application walkthrough tutorial for Google maps](https://www.youtube.com/watch?v=wCn8WND-JpU&t=8s) Bobby did coding. For more details the repository is located [here](https://github.com/bobby-didcoding/did_django_google_maps_api).
+
+
+
+
+
 ### Content

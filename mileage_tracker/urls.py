@@ -37,5 +37,6 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(template_name='users/login.html')),
     path('register/', RegisterUserView.as_view(), name='register'),
     path('', include('django.contrib.auth.urls')),
-    path('date/', include('visits.urls'), name='date_urls'),
+    # path('date/', include('visits.urls'), name='date_urls'),
+    path('visits/', include('visits.urls', namespace="visits")),
 ]
