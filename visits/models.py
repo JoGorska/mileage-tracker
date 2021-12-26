@@ -8,7 +8,7 @@ from datetime import date
 from datetime import datetime
 from django.contrib.auth.models import User
 
-# Create your models here.
+
 # def rand_slug():
 #     return ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(6))
 
