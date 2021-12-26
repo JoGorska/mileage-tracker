@@ -28,7 +28,7 @@
         <body>
 
 
-            <h3 id="map">Map - only</h3>
+            <h3 id="map">Map only</h3>
 
             <!-- table contains information about the route
             need to add buttons ???  -->
@@ -39,7 +39,12 @@
                 <thead>
                   <tr>
                     <th>Field</th>
-                    <th></th>
+                    <th>
+
+                      <a href="https://www.google.com/maps/dir/?api=1&destination={{lat_b|safe}}%2C{{long_b|safe}}">
+                        Go to Maps
+                      </a>
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -77,6 +82,8 @@
         
             
     <script type="text/javascript">
+
+      // error in lat_b
     
         var google_api_key = "{{google_api_key|safe}}";
         var lat_a = {{lat_a|safe}};
