@@ -125,6 +125,54 @@ Javascript files were tested with the jshint and no errors were been found.
 ## Project Bugs and Solutions:
 
 
+### Unable to add "likes" to "cleared"
+User is supposed to have possiblity to marked message as Road clear by clicking "cleared" icon on the traffic alert details view. The function returns error:
+
+'ManyRelatedManager' object has no attribute 'cleared'
+
+The cleared was created 
+
+### requests==2.25.1
+
+requests==2.25.1 was installed and returned error during instalation. Need to check if it affects app in any way. 
+ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.
+dj3-cloudinary-storage 0.0.6 requires requests>=2.26.0, but you have requests 2.25.1 which is incompatible.
+
+### Link to Google Maps opens with no coordinates
+
+when user sees the preview map, he can click bottom left corner "google" to be transferred to google app (on mobile) or google maps website (on desctop computer), unfortunately at the minute the google app/website opens with no coordinates.
+
+read more:
+https://developers.google.com/maps/documentation/urls/get-started
+
+example url
+
+https://www.google.com/maps/place/47%C2%B035'42.6%22N+122%C2%B019'53.9%22W/@47.5951518,-122.3316393,17z/data=!3m1!4b1!4m5!3m4!1s0x0:0xca3d37fe916595c3!8m2!3d47.5951518!4d-122.3316393
+
+this url opens directions
+
+core:
+
+https://www.google.com/maps/dir/?api=1
+
+&origin=
+
+latitute
+%2C
+longtitute
+
+&destination=
+
+latitute
+%2C
+longtitute
+
+https://www.google.com/maps/dir/?api=1&origin=51.8630529%2C0.1755065&destination=52.5000791%2C-0.7110285
+
+
+
+
+
 ## Deployment
 
  The site was deployed to GitHub pages. 
@@ -193,4 +241,14 @@ https://www.iconfinder.com/search?q=tank&price=free
 
  crispy forms
  commenting part 1 in Authorisation, Commenting and Likes 
+
+
+google maps API + javascript map API
+
+Visits app is making API calls to get distance and lenght of the journey and displays a map. This was created by following tutorial [Python Django application walkthrough tutorial for Google maps](https://www.youtube.com/watch?v=wCn8WND-JpU&t=8s) Bobby did coding. For more details the repository is located [here](https://github.com/bobby-didcoding/did_django_google_maps_api).
+
+
+
+
+
 ### Content

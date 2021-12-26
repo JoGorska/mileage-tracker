@@ -1,0 +1,119 @@
+{% load static %}
+
+<!doctype html>
+    <html lang="en" class="h-100">
+        <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <meta name="description" content="Manage and report your daily mileage">
+            <meta name="keywords" content="mileage, driving, distance">
+            <meta name="author" content="JoGorska">
+
+
+            <!--google fonts-->
+
+            <!-- icons -->
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+            
+
+            <!--my stylesheet link-->
+
+            <link href="{% static 'css/map-only.css'%}" rel="stylesheet">
+
+              <!-- This allows us to extend the head scripts in HTML docs that have special requirements-->
+        </head>
+
+
+
+        <body>
+
+
+            <h3 id="map">Map only</h3>
+
+            <!-- table contains information about the route
+            need to add buttons ???  -->
+
+            <div class="container">
+            
+              <table>
+                <thead>
+                  <tr>
+                    <th>Field</th>
+                    <th>
+
+                      <a href="https://www.google.com/maps/dir/?api=1&destination={{lat_b|safe}}%2C{{long_b|safe}}">
+                        Go to Maps
+                      </a>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Start</td>
+                    <td>{{directions.origin}}</td>      
+                  </tr>
+                  <tr>
+                    <td>Destination</td>
+                    <td>{{directions.destination}}</td>      
+                  </tr>
+                  <tr>
+                    <td>Duration</td>
+                    <td>{{directions.duration}}</td>      
+                  </tr>
+                  <tr>
+                    <td>Distance</td>
+                    <td>{{directions.distance}}</td>      
+                  </tr>
+
+            
+                </tbody>
+              </table>
+            
+            
+            </div>
+
+            <!-- javascript map goes here -->
+            
+            <div class="map-container">
+           
+               <div id="map-route"></div>
+
+            </div>
+        
+            
+    <script type="text/javascript">
+
+      // error in lat_b
+    
+        var google_api_key = "{{google_api_key|safe}}";
+        var lat_a = {{lat_a|safe}};
+        var long_a = {{long_a|safe}};
+        var lat_b = {{lat_a|safe}};
+        var long_b = {{long_b|safe}};
+        var origin = "{{origin|safe}}";
+        var destination = "{{destination|safe}}";
+        var directions = {{directions|safe}}
+    
+    </script>
+    
+
+    <!--visit https://code.jquery.com/ for jquery script-->
+            
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <!-- jQuery -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script> -->
+    
+    <!--my javascript link-->
+
+
+    <!-- This allows us to extend the foot scripts in HTML docs that have special requirements-->
+
+    <!-- booby did coding js file -->
+    <script src="{% static 'js/google_maps.js' %}"></script>
+
+
+    <!-- <script src="#"></script> -->
+
+    </body>
+</html>

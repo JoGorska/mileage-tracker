@@ -43,11 +43,15 @@
             
 
             <!--my stylesheet link-->
-
             <link href="{% static 'css/style.css'%}" rel="stylesheet">
 
+            <!-- This allows us to extend the head scripts in HTML docs that have special requirements-->
+            {% block extend_head %}
+
+            {% endblock %}
+
             <title>Tank</title> 
-    
+
         </head>
 
         <body>
@@ -74,6 +78,11 @@
 
         <!-- jQuery -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+        <!-- This allows us to extend the foot scripts in HTML docs that have special requirements-->
+        {% block extend_footer %}
+
+        {% endblock %}
         
         <!--my javascript link-->
         <!-- <script src="#"></script> -->
