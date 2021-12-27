@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'cloudinary_storage',
     'django.contrib.staticfiles',
+    "django_forms_bootstrap",
     'cloudinary',
 
     'users',

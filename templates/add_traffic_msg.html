@@ -1,25 +1,31 @@
+
 {% extends "base.html" %}
+{% load bootstrap_tags %}
 {% block content %}
 <div class="container"></div>
 
 {% if user.is_authenticated %}
+<div class="container">
 
-    <h1>Add New Traffic Message</h1>
+    <h1>Add New Traffic Alert</h1>
     <p>Alert other drivers about current situation on the roads</p>
-
+</div>
+    
+        
     <form action="" method="POST">
     {% csrf_token %}
-            <table>
-            {{ traffic_msg_form.as_table }}
+        <div class="container">    {{ traffic_msg_form|as_bootstrap}}
 
-                <td>&nbsp;</td>
-                <td><input type="submit" value="register"></td>
-            </table>
+
+            <input class="btn btn-warning" type="submit" value="register"/>
+            
 
         <input type="hidden" name="next" value="{{ next }}" />
         <input type="hidden" name="author_id" value="{{ user.id }}">
-
+ 
     </form>
+    
+</div>
 
 {% else %}
 
