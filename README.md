@@ -168,24 +168,39 @@ Javascript files were tested with the jshint and no errors were been found.
 
 Forms with added |as_bootstrap display neatly on the page, unified with the style of the app. Unfortunately displaying form|as_bootstrap causes that fields display without proper gap between each line. The fields stick too close one above another. The label is nearly touching the field above. 
 
-First tried to loop through each field and use |as_bootstrap, but it was returning error. This ment that I had to prepare the whole html structure of label + input + help + wrapping div with bootstrap classes to acheve bootstrap styling. I added id, name, label information using field.{{...}}. All this seemed to work except of input type.
+First tried to loop through each field and use |as_bootstrap, but it was returning error. This ment that I had to prepare the whole html structure of label + input + help + wrapping div with bootstrap classes to acheve bootstrap styling. I added id, name, label information using `field.`. 
+```
+          {% for field in traffic_msg_form %}
+            <div class="mb-3">
 
-I tried to loop through each field, but the input type doesn't change. Django documentation about input type field ([here](https://docs.djangoproject.com/en/3.2/ref/forms/api/#django.forms.BoundField)) mentiones that field.widget_type should return the type of input for example:
+                <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                <input type="field.widget_type" class="form-control" id="{{ field.id_for_label }}" aria-describedby="{{ field.id_for_label }}-help" name="{{ field.html_name }}">
+                
+                <div id="{{ field.id_for_label }}-help" class="form-text">{{field.errors}}</div>
 
+             </div>
+          {% endfor %}
+```
+All this seemed to work and generated all fields that were needed by django model and set by forms.py, except of input type. The fields with text area or select input type just rendered as if the input type was set to text.
+
+I tried to loop through each field, but the input type doesn't change. Django documentation about input type field ([here](https://docs.djangoproject.com/en/3.2/ref/forms/api/#django.forms.BoundField)) mentiones that field.widget_type should return the type of input.
+
+
+django documentation provides example:
+```
   {% for field in form %}
       {% if field.widget_type == 'checkbox' %}
           # render one way
       {% else %}
           # render another way
       {% endif %}
-  {% endfor %}
-
-  how to write html code in markdown???
-
-when wrote ```<input type="field.widget_type">``` the page rendered with exactly the same ```<input type="field.widget_type">```. It did not fill in the apropriate input type for each field. I might have to adjust forms.py to add widgets.
+    {% endfor %}
+```
+when I wrote `<input type="field.widget_type">` the page rendered with exactly the same `<input type="field.widget_type">`. It did not fill in the apropriate input type for each field. I might have to adjust forms.py to add widgets.
 
 Even if the above works I would still have to loop throuogh options to display options in drop down. 
 
+For now I decided to leave the forms |as_bootstraps - because they actualy work and display the content and input type correctly. This might need addressing in further development of the site.
 
 ### Unable to add "likes" to "cleared"
 User is supposed to have possiblity to marked message as Road clear by clicking "cleared" icon on the traffic alert details view. The function returns error:
