@@ -44,6 +44,46 @@ Click [here](???) to live site.
 
 ## UX
 
+The app aims to record daily mileage for each journey.
+
+Workflow 1.
+App can be used every day for each journey and the driver can save each route as they go. 
+  - log in
+  - go to "drive"
+  - put in start and destination
+  - be transfered to map preview page
+  - add to database
+  - click to go to maps (google maps on mobile or google maps website on desktop)
+  - they arrive at destination
+  - to go to next location, they need to go back to the Tank website (they would still be on map preview)
+  - go back to "drive"
+  - put in start and destinaton
+
+This workflow requres too many steps - need to improve on this
+This workflow requires the driver to juggle beetween google maps and Tank website and the work app that tells him the next address. 
+
+This workflow makes sure that driver:
+  - adds each journey to database (because he puts the address in Tank website instead of google maps) 
+  - currently the driver needs to open work app - look up destination address and type postcode to google map.
+  - with Tank website he needs to type the address and it allows him quickly to add the journey to database and get transfered to maps
+
+Because the Tank website forces the user to regular use every day during the whole shift - it can be a good platform for:
+  - trafficc messages
+  - in work messages
+  - tracking employer's progres in mileage reporting
+  - advertising (if app is to be used commercialy)
+
+Database:
+  - each journey is saved as seperate position with start and destination saved with the distance.
+
+Workflow 2
+  - if drived didn't put in mileage for a particular day - needs to put in mileage in bulk
+
+Workflow 3 
+  - if driver has checked their daily report and realises he forgot to add one destination in the middle of the route. 
+
+
+
 ### User Stories
 
 + As a user, I would like to be able to …
@@ -138,7 +178,7 @@ requests==2.25.1 was installed and returned error during instalation. Need to ch
 ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.
 dj3-cloudinary-storage 0.0.6 requires requests>=2.26.0, but you have requests 2.25.1 which is incompatible.
 
-### Link to Google Maps opens with no coordinates
+### Link to Google Maps opens with no coordinates - resolved
 
 when user sees the preview map, he can click bottom left corner "google" to be transferred to google app (on mobile) or google maps website (on desctop computer), unfortunately at the minute the google app/website opens with no coordinates.
 
@@ -166,6 +206,8 @@ longtitute
 latitute
 %2C
 longtitute
+
+working example:
 
 https://www.google.com/maps/dir/?api=1&origin=51.8630529%2C0.1755065&destination=52.5000791%2C-0.7110285
 

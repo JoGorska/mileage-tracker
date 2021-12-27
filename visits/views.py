@@ -8,9 +8,10 @@ from django.urls import reverse
 from django.conf import settings
 
 
-from .models import DatePicker
-from .forms import DatePickerForm
+from .models import Journey, DatePicker
+from .forms import JourneyForm, DatePickerForm
 from .mixins import Directions
+
 
 def drive(request):
     """
@@ -23,36 +24,35 @@ def drive(request):
     return render(request, 'visits/drive.html', context)
 
 
-
 def map_view(request):
     """
     Basic view for displaying a map
     created by following 
     https://www.youtube.com/watch?v=wCn8WND-JpU&t=8s
     """
-
+    form = JourneyForm()
     lat_a = request.GET.get("lat_a")
     long_a = request.GET.get("long_a")
     lat_b = request.GET.get("lat_b")
     long_b = request.GET.get("long_b")
     directions = Directions(
-		lat_a= lat_a,
-		long_a=long_a,
-		lat_b = lat_b,
-		long_b=long_b
-		)
+        lat_a=lat_a,
+        long_a=long_a,
+        lat_b=lat_b,
+        long_b=long_b
+        )
 
     context = {
-	"google_api_key": settings.GOOGLE_API_KEY,
-	"lat_a": lat_a,
-	"long_a": long_a,
-	"lat_b": lat_b,
-	"long_b": long_b,
-	"origin": f'{lat_a}, {long_a}',
-	"destination": f'{lat_b}, {long_b}',
-	"directions": directions,
-
-	}
+        "form": form,
+        "google_api_key": settings.GOOGLE_API_KEY,
+        "lat_a": lat_a,
+        "long_a": long_a,
+        "lat_b": lat_b,
+        "long_b": long_b,
+        "origin": f'{lat_a}, {long_a}',
+        "destination": f'{lat_b}, {long_b}',
+        "directions": directions,
+    }
     return render(request, 'visits/map.html', context)
 
 

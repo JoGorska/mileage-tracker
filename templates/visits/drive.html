@@ -9,16 +9,54 @@ seems like a good idea
 
 
 {% block content %}
-
-<h3>Django Google Maps API Demo - Routing</h3>
+<div class="container">
+   <h3>Drive</h3>
+</div>
 
 <div class="container">
+   <div class="row justify-content-center">
 
-   <label for="id-google-address-a">Start Address</label>
-   <input type="text" placeholder="*Begin typing address" id="id-google-address-a" name="google_address_a">
+      <div class="col-6">
 
-   <label for="id-google-address-b">Destination Address</label>
-   <input type="text" placeholder="*Begin typing address" id="id-google-address-b" name="google_address_b">
+         <div class="mb-3">
+            <label for="journey-date" class="form-label">Date</label>
+            <input type="date" class="form-control" id="journey-date" aria-describedby="emailHelp" name="google_address_a">
+            <div id="emailHelp" class="form-text">Date of your journey</div>
+         </div>
+
+      </div>
+
+   </div>
+
+   <div class="row">
+
+      <div class="col-12 col-lg-6">
+
+         <div class="mb-3">
+            <label for="id-google-address-a" class="form-label">Start Address</label>
+            <input type="text" class="form-control" id="id-google-address-a" aria-describedby="google-address-a-help" name="google_address_a">
+            <div id="google-address-a-help" class="form-text">Type first line of the address</div>
+         </div>
+
+      </div>
+
+      <div class="col-12 col-lg-6">
+
+         <div class="mb-3">
+            <label for="id-google-address-b" class="form-label">Destination Address</label>
+            <input type="text" class="form-control" id="id-google-address-b" aria-describedby="google-address-b-help" name="google_address_b">
+            <div id="google-address-b-help" class="form-text">Type first line of the address</div>
+         </div>
+
+      </div>
+
+   </div>
+</div>
+   <!-- <label for="id-google-address-a">Start Address</label>
+   <input type="text" placeholder="*Begin typing address" id="id-google-address-a" name="google_address_a"> -->
+
+   <!-- <label for="id-google-address-b">Destination Address</label>
+   <input type="text" placeholder="*Begin typing address" id="id-google-address-b" name="google_address_b"> -->
 
 
    <input type="hidden" class="geo" id="id-lat-a" value="">
@@ -27,7 +65,7 @@ seems like a good idea
    <input type="hidden" class="geo" id="id-long-b" value="">
 
 
-</div>
+
 
 {% endblock %}
 
