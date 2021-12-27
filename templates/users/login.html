@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load bootstrap_tags %}
+
 <!-- test does block title work??? -->
 
 {% block title %} User Login {% endblock title%}
@@ -15,13 +17,13 @@
 
 <form action="{% url 'login' %}" method="POST">
     {% csrf_token %}
-    <table>
-        {{ form.as_table }}
-        <tr>
-            <td>&nbsp;</td>
-            <td><input type="submit" value="login"></td>
-        </tr>
-    </table>
+    <div class="container">
+        {{ form|as_bootstrap }}
+
+
+    <input type="submit" value="login" class="btn btn-warning">
+
+    </div>
 
 <p>Not registered yet? <a href="{% url 'register' %} "> Register here</a></p>
 <input type="hidden" name="next" value="{{ next }}" />
