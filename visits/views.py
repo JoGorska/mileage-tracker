@@ -2,6 +2,7 @@ from datetime import datetime
 from datetime import date
 
 from django.shortcuts import render, get_object_or_404, redirect
+from django.views.generic.edit import CreateView, FormView
 from django.views import generic, View
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
@@ -32,7 +33,7 @@ def map_view(request):
     and adjusted to the need of the project
     """
 
-    journey_form = JourneyForm()
+    form = JourneyForm()
     lat_a = request.GET.get("lat_a")
     long_a = request.GET.get("long_a")
     lat_b = request.GET.get("lat_b")
@@ -45,7 +46,7 @@ def map_view(request):
         )
 
     context = {
-        "journey_form": journey_form,
+        "form": form,
 
         "google_api_key": settings.GOOGLE_API_KEY,
         "lat_a": lat_a,
@@ -60,33 +61,24 @@ def map_view(request):
     return render(request, 'visits/map.html', context)
 
 
-def post_visit(request):
-    if request.method == 'POST':
+class AddVisit(CreateView):
+    template_name = 'map.html'
+    form_class = JourneyForm
+    success_url = 'home'
 
-        print("post request done")
-        journey_form = JourneyForm(request.POST)
+    def post(self, request, *args, **kwargs):
 
-        if journey_form.is_valid():
+        form = JourneyForm(data=request.POST)
+        if form.is_valid():
+            form.instance.author_id = request.user.id
 
-            print("form is valid")
-            journey = Journey()
-            journey.date_of_journey = journey_form.cleaned_data['date_of_journey']
-            journey.address_start = journey_form.cleaned_data["address_start"]
-            journey.postcode_start = journey_form.cleaned_datat["address_start"]
-            journey.latitude_start = journey_form.cleaned_data["latitude_start"]
-            journey.longitude_start = journey_form.cleaned_data["longitude_start"]
-
-            journey.address_destination = journey_form.cleaned_data["address_destination"]
-            journey.postcode_destination = journey_form.cleaned_data["address_destination"]
-            journey.latitude_destination = journey_form.cleaned_data["latitude_destination"]
-            journey.longitude_destination = journey_form.cleaned_data["longitude_destination"]
-            journey.driver = journey_form.cleaned_data["driver"]          
-            journey.distance = journey_form.cleaned_data["distance"]
-
-            pirnt(f'journey {journey}')
+            journey = form.save(commit=False)
             journey.save()
+        
+        else:
+            form = JourneyForm()
 
-            return render(request, 'visits/map.html')
+        return HttpResponseRedirect('/')
 
 
 # class DatePickerView(View):

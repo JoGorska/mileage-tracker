@@ -32,12 +32,12 @@
 
         <body>
 
-          <form action="" method="POST">
+          <form action="{% url 'visits:post_visit' %}" method="POST">
             {% csrf_token %}
 
             <!-- only the date input field is displayed to the user -->
 
-            {{ journey_form|as_bootstrap }}
+            {{ form|as_bootstrap }}
 
             <!-- <input type="date" name="date_of_journey" id="id_date_of_journey"> -->
 
@@ -53,7 +53,7 @@
 
             <!-- destination of the journey -->
 
-            <input type="hidden" name="{{form.address_destination}}" value="{{directions.destination}}">
+            <input type="hidden" name="address_destination" value="{{directions.destination}}">
             <input type="hidden" name="postcode_destination" value="{{directions.destination}}">
 
             <input type="hidden" name="latitude_destination" value="{{lat_b|safe}}">
