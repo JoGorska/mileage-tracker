@@ -8,7 +8,7 @@ urlpatterns = [
 
     path('', views.drive, name="drive"),
     path('map', views.map_view, name="map"),
-    path('post_visit_data', views.AddVisit.as_view(), name="post_visit"),
+    path('post_visit_data/<str:address_start>/<str:latitude_start>/', views.AddVisit.as_view(), name="post_visit"),
 	]
 
 # from . import views
