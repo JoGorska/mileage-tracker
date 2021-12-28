@@ -32,15 +32,7 @@
 
         <body>
 
-          <form action="{% url 'visits:post_visit' 
-          address_start=directions.origin 
-          latitude_start=lat_a 
-          longitude_start=long_a 
-          address_destination=directions.destination
-          latitude_destination=lat_b
-          longitude_destination=long_b
-          distance=directions.distance
-          %}" method="POST">
+          <form action="{% url 'visits:post_visit' address_start=directions.origin address_destination=directions.destination distance=directions.distance%}" method="POST">
             {% csrf_token %}
 
             <!-- only the date input field is displayed to the user -->
