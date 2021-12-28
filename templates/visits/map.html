@@ -32,7 +32,7 @@
 
         <body>
 
-          <form action="{% url 'visits:post_visit' argument %}" method="POST">
+          <form action="" method="POST">
             {% csrf_token %}
 
             <!-- only the date input field is displayed to the user -->
@@ -44,27 +44,27 @@
             <!-- start of the journey -->
 
 
-            <input type="text" name="address_start" value="{{directions.origin}}" id="id_address_start">
+            <input type="hidden" name="address_start" value="{{ directions.origin }}" id="id_address_start">
 
-            <input type="text" name="postcode_start" value="{{directions.origin}}">
+            <input type="hidden" name="postcode_start" value="{ {directions.origin }}">
 
-            <input type="text" name="latitude_start" value="{{lat_a|safe}}">
-            <input type="text" name="longitude_start" value="{{long_a|safe}}">
+            <input type="hidden" name="latitude_start" value="{{lat_a|safe}}">
+            <input type="hidden" name="longitude_start" value="{{long_a|safe}}">
 
             <!-- destination of the journey -->
 
-            <input type="text" name="{{form.address_destination}}" value="{{directions.destination}}">
-            <input type="text" name="postcode_destination" value="{{directions.destination}}">
+            <input type="hidden" name="{{form.address_destination}}" value="{{directions.destination}}">
+            <input type="hidden" name="postcode_destination" value="{{directions.destination}}">
 
-            <input type="text" name="latitude_destination" value="{{lat_b|safe}}">
-            <input type="text" name="longitude_destination" value="{{long_b|safe}}">
+            <input type="hidden" name="latitude_destination" value="{{lat_b|safe}}">
+            <input type="hidden" name="longitude_destination" value="{{long_b|safe}}">
 
 
-            <input type="text" name="driver" value="{{ user.id }}">
+            <input type="hidden" name="driver" value="{{ user.id }}">
             <!-- need to change to miles -->
 
-            <input type="text" name="distance" value="{{ directions.distance }}">
-            <input type="text" name="next" value="{{ next }}" />
+            <input type="hidden" name="distance" value="{{ directions.distance }}">
+            <input type="hidden" name="next" value="{{ next }}" />
 
             <button type="submit">Save</button>
 

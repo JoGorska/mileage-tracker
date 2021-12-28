@@ -60,39 +60,28 @@ def map_view(request):
     return render(request, 'visits/map.html', context)
 
 
-def post_visit(request, address_start, latitude_start, longitude_start, address_destination, latitude_destination, longitude_destination, driver, distance):
+def post_visit(request):
     if request.method == 'POST':
 
         print("post request done")
         journey_form = JourneyForm(request.POST)
 
         if journey_form.is_valid():
-            context = {
-                "journey_form": journey_form,
 
-                "google_api_key": settings.GOOGLE_API_KEY,
-                "lat_a": lat_a,
-                "long_a": long_a,
-                "lat_b": lat_b,
-                "long_b": long_b,
-                "origin": f'{lat_a}, {long_a}',
-                "destination": f'{lat_b}, {long_b}',
-                "directions": directions,
-            }
             print("form is valid")
             journey = Journey()
             journey.date_of_journey = journey_form.cleaned_data['date_of_journey']
-            journey.address_start = request.GET.get("address_start")
-            journey.postcode_start = request.GET.get("address_start")
-            journey.latitude_start = request.GET.get("latitude_start")
-            journey.longitude_start = request.GET.get("longitude_start")
+            journey.address_start = journey_form.cleaned_data["address_start"]
+            journey.postcode_start = journey_form.cleaned_datat["address_start"]
+            journey.latitude_start = journey_form.cleaned_data["latitude_start"]
+            journey.longitude_start = journey_form.cleaned_data["longitude_start"]
 
-            journey.address_destination = request.GET.get("address_destination")
-            journey.postcode_destination = request.GET.get("address_destination")
-            journey.latitude_destination = request.GET.get("latitude_destination")
-            journey.longitude_destination = request.GET.get("longitude_destination")
-            journey.driver = request.GET.get("driver")           
-            journey.distance = request.GET.get("distance")
+            journey.address_destination = journey_form.cleaned_data["address_destination"]
+            journey.postcode_destination = journey_form.cleaned_data["address_destination"]
+            journey.latitude_destination = journey_form.cleaned_data["latitude_destination"]
+            journey.longitude_destination = journey_form.cleaned_data["longitude_destination"]
+            journey.driver = journey_form.cleaned_data["driver"]          
+            journey.distance = journey_form.cleaned_data["distance"]
 
             pirnt(f'journey {journey}')
             journey.save()

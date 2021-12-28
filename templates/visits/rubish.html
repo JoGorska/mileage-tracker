@@ -20,3 +20,27 @@ var directions = {{directions|safe}}
 
 
 create variable called argument that would combine the path with all above data
+
+print("form is valid")
+journey = Journey()
+journey.date_of_journey = journey_form.cleaned_data['date_of_journey']
+journey.address_start = request.GET.get("address_start")
+journey.postcode_start = request.GET.get("address_start")
+journey.latitude_start = request.GET.get("latitude_start")
+journey.longitude_start = request.GET.get("longitude_start")
+
+journey.address_destination = request.GET.get("address_destination")
+journey.postcode_destination = request.GET.get("address_destination")
+journey.latitude_destination = request.GET.get("latitude_destination")
+journey.longitude_destination = request.GET.get("longitude_destination")
+journey.driver = request.GET.get("driver")           
+journey.distance = request.GET.get("distance")
+
+pirnt(f'journey {journey}')
+journey.save()
+
+return render(request, 'visits/map.html')
+
+address_start, latitude_start, longitude_start, address_destination, latitude_destination, longitude_destination, driver, distance
+
+<form action="{% url 'visits:post_visit' %}" method="POST">
