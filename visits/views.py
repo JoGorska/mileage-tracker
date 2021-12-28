@@ -66,7 +66,8 @@ class AddVisit(CreateView):
     form_class = JourneyForm
     success_url = 'home'
 
-    def post(self, request, address_start, latitude_start, *args, **kwargs):
+    def post(self, request, address_start, latitude_start, longitude_start, address_destination, latitude_destination, longitude_destination, distance, *args, **kwargs):
+
 
         form = JourneyForm(data=request.POST)
         if form.is_valid():
@@ -74,7 +75,12 @@ class AddVisit(CreateView):
             print(request.GET.get(address_start))
 
             form.instance.address_start = address_start
-
+            form.instance.latitude_start = latitude_start
+            form.instance.longitude_start = longitude_start
+            form.instance.address_destination = address_destination
+            form.instance.latitude_destination = latitude_destination
+            form.instance.longitude_destination = longitude_destination
+            form.instance.distance = distance
 
             journey = form.save(commit=False)
             journey.save()
