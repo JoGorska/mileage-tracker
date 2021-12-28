@@ -11,7 +11,7 @@ from django.conf import settings
 
 from .models import Journey, DatePicker
 from .forms import JourneyForm, DatePickerForm
-from .mixins import Directions
+from .mixins import Directions, extract_postcode
 
 
 def drive(request):
@@ -75,9 +75,11 @@ class AddVisit(CreateView):
             print(request.GET.get(address_start))
 
             form.instance.address_start = address_start
-            # form.instance.latitude_start = latitude_start
+            form.instance.postcode_start = extract_postcode(address_start)
+            # form.instance.latitude_start = lat_a
             # form.instance.longitude_start = longitude_start
             form.instance.address_destination = address_destination
+            form.instance.postcode_destination = extract_postcode(address_destination)
             # form.instance.latitude_destination = latitude_destination
             # form.instance.longitude_destination = longitude_destination
             form.instance.distance = distance

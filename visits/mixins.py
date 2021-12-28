@@ -7,8 +7,8 @@ import re
 def extract_postcode(full_address):
     result = ''.join([c for c in full_address if c.isupper()])
     matches = re.findall(r'([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})', full_address)
-    list_matches = matches[0]
-    postcode = list_matches[1]
+    list_of_matches = matches[0]
+    postcode = list_of_matches[1]
     return postcode
 
 
@@ -27,12 +27,12 @@ def Directions(*args, **kwargs):
     destination = f'{lat_b},{long_b}'
 
     result = requests.get(
-		'https://maps.googleapis.com/maps/api/directions/json?',
-		 params={
-		 'origin': origin,
-		 'destination': destination,
-		 "key": settings.GOOGLE_API_KEY
-		 })
+                        'https://maps.googleapis.com/maps/api/directions/json?',
+                        params={
+                         'origin': origin,
+                         'destination': destination,
+                         "key": settings.GOOGLE_API_KEY
+                        })
 
     directions = result.json()
 
