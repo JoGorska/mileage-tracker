@@ -46,3 +46,11 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay) {
       }
     });
 }
+
+// pre-fill the date field with today's date
+// https://css-tricks.com/prefilling-date-input/
+
+
+let today = new Date().toISOString().substr(0, 10);
+document.querySelector("#id_date_of_journey").value = today;
+

@@ -1,4 +1,5 @@
 {% load static %}
+{% load bootstrap_tags %}
 
 <!doctype html>
     <html lang="en" class="h-100">
@@ -23,22 +24,52 @@
               <!-- This allows us to extend the head scripts in HTML docs that have special requirements-->
         </head>
 
-
+        <!-- <div class="mb-3">
+          <label for="journey-date" class="form-label">Date</label>
+          <input type="date" class="form-control" id="journey-date" aria-describedby="journey-date-help" name="google_address_a" value="today">
+          <div id="journey-date-help" class="form-text">Date of your journey</div>
+       </div> -->
 
         <body>
-        <table>
-          <form action="" method="POST">
+
+          <form action="{% url 'visits:post_visit' address_start=directions.origin address_destination=directions.destination distance=directions.distance%}" method="POST">
             {% csrf_token %}
-            {{ form.as_table}}
+
+            <!-- only the date input field is displayed to the user -->
+
+            {{ form|as_bootstrap }}
+
+            <!-- <input type="date" name="date_of_journey" id="id_date_of_journey"> -->
+
+            <!-- start of the journey -->
 
 
+            <input type="hidden" name="address_start" value="{{ directions.origin }}" id="id_address_start">
 
-            <tr>
-              <button type="submit">Add Item</button>
-            </tr>
+            <input type="hidden" name="postcode_start" value="{ {directions.origin }}">
+
+            <input type="hidden" name="latitude_start" value="{{lat_a|safe}}">
+            <input type="hidden" name="longitude_start" value="{{long_a|safe}}">
+
+            <!-- destination of the journey -->
+
+            <input type="hidden" name="address_destination" value="{{ directions.destination }}">
+            <input type="hidden" name="postcode_destination" value="{{ directions.destination }}">
+
+            <input type="hidden" name="latitude_destination" value="{{lat_b|safe}}">
+            <input type="hidden" name="longitude_destination" value="{{long_b|safe}}">
+
+
+            <input type="hidden" name="driver" value="{{ user.id }}">
+            <!-- need to change to miles -->
+
+            <input type="hidden" name="distance" value="{{ directions.distance }}">
+            <input type="hidden" name="next" value="{{ next }}" />
+
+            <button type="submit">Save</button>
 
           </form>
-        </table>
+
 
             <h3 id="map">Map only</h3>
 
@@ -100,7 +131,7 @@
         var google_api_key = "{{google_api_key|safe}}";
         var lat_a = {{lat_a|safe}};
         var long_a = {{long_a|safe}};
-        var lat_b = {{lat_a|safe}};
+        var lat_b = {{lat_b|safe}};
         var long_b = {{long_b|safe}};
         var origin = "{{origin|safe}}";
         var destination = "{{destination|safe}}";

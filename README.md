@@ -164,6 +164,43 @@ Javascript files were tested with the jshint and no errors were been found.
 
 ## Project Bugs and Solutions:
 
+### Problem with displaying form fields using |as_bootstrap
+
+Forms with added |as_bootstrap display neatly on the page, unified with the style of the app. Unfortunately displaying form|as_bootstrap causes that fields display without proper gap between each line. The fields stick too close one above another. The label is nearly touching the field above. 
+
+First tried to loop through each field and use |as_bootstrap, but it was returning error. This ment that I had to prepare the whole html structure of label + input + help + wrapping div with bootstrap classes to acheve bootstrap styling. I added id, name, label information using `field.`. 
+```
+          {% for field in traffic_msg_form %}
+            <div class="mb-3">
+
+                <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                <input type="field.widget_type" class="form-control" id="{{ field.id_for_label }}" aria-describedby="{{ field.id_for_label }}-help" name="{{ field.html_name }}">
+                
+                <div id="{{ field.id_for_label }}-help" class="form-text">{{field.errors}}</div>
+
+             </div>
+          {% endfor %}
+```
+All this seemed to work and generated all fields that were needed by django model and set by forms.py, except of input type. The fields with text area or select input type just rendered as if the input type was set to text.
+
+I tried to loop through each field, but the input type doesn't change. Django documentation about input type field ([here](https://docs.djangoproject.com/en/3.2/ref/forms/api/#django.forms.BoundField)) mentiones that field.widget_type should return the type of input.
+
+
+django documentation provides example:
+```
+  {% for field in form %}
+      {% if field.widget_type == 'checkbox' %}
+          # render one way
+      {% else %}
+          # render another way
+      {% endif %}
+    {% endfor %}
+```
+when I wrote `<input type="field.widget_type">` the page rendered with exactly the same `<input type="field.widget_type">`. It did not fill in the apropriate input type for each field. I might have to adjust forms.py to add widgets.
+
+Even if the above works I would still have to loop throuogh options to display options in drop down. 
+
+For now I decided to leave the forms |as_bootstraps - because they actualy work and display the content and input type correctly. This might need addressing in further development of the site.
 
 ### Unable to add "likes" to "cleared"
 User is supposed to have possiblity to marked message as Road clear by clicking "cleared" icon on the traffic alert details view. The function returns error:
@@ -212,8 +249,14 @@ working example:
 https://www.google.com/maps/dir/?api=1&origin=51.8630529%2C0.1755065&destination=52.5000791%2C-0.7110285
 
 
+### Form on map.html not saving data
 
-
+I created form to save data to create instance of Journey model.
+1. I tried to add data using '<input type="hidden">' but the data wasn't being saved in the form, the view didn't recognize the manualy typed input fields as actual form and wasn't taking the data of those input fields.
+2. I tried to pass arguments in urls, but I strugled to find the right format to pass more than one argument. After reading the documentation I found solution [here](https://docs.djangoproject.com/en/3.2/topics/http/urls/#including-other-urlconfs), example that was given was passing multiple arguments using regular expession. Next step was to write correct expression to send the variables from form to view. I used [this](https://docs.djangoproject.com/en/3.2/topics/http/urls/#examples) example as guidance.
+3. I was able to pass 3 arguments in url. If I tried to add 4th (latitute), I had error return URL not found and the url did not contain data. I wasn't able to establish the reason for this error.
+4. I tried to get the latitute from map_view - latitute and longtitute are loaded on map view to URL, but I could not find the way to pass the arguments from get to post function (from map_view to add_visit)
+5. I came to the conclusion that the latitude and longditute are not essential for user to have, as they are unreadable long number. The user will be needing full address and postcode. I have decided not to post data for latitute and longditute for now. 
 
 ## Deployment
 

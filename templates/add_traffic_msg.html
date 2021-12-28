@@ -3,13 +3,13 @@
 {% block content %}
 <div class="container"></div>
 
-{% if user.is_authenticated %}
-<div class="container">
+    {% if user.is_authenticated %}
+    <div class="container">
 
-    <h1>Add New Traffic Alert</h1>
-    <p>Alert other drivers about current situation on the roads</p>
-</div>
-    
+        <h1>Add New Traffic Alert</h1>
+        <p>Alert other drivers about current situation on the roads</p>
+    </div>
+        
         
     <form action="" method="POST">
     {% csrf_token %}

@@ -12,20 +12,20 @@ class JourneyForm(forms.ModelForm):
             # 'created_on',
             # 'updated_on',
 
-            'address_start',
+            # 'address_start',
 
-            'postcode_start',
-            'latitude_start',
-            'longitude_start',
+            # 'postcode_start',
+            # 'latitude_start',
+            # 'longitude_start',
 
-            'address_destination',
-            'postcode_destination',
-            'latitude_destination',
-            'longitude_destination',
+            # 'address_destination',
+            # 'postcode_destination',
+            # 'latitude_destination',
+            # 'longitude_destination',
 
-            'driver',
+            # 'driver',
 
-            'distance',
+            # 'distance',
         )
 
 
