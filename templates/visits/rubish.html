@@ -1,0 +1,22 @@
+<form action="{% url 'visits:post_visit' %}
+?address_start={{directions.origin}}
+?latitude_start={{lat_a|safe}}
+?longitude_start=long_a
+?address_destination=directions.destination
+?latitude_destination=lat_b
+?longitude_destination=long_b
+?driver=user.id
+?distance=directions.distance
+" method="POST">
+
+var google_api_key = "{{google_api_key|safe}}";
+var lat_a = {{lat_a|safe}};
+var long_a = {{long_a|safe}};
+var lat_b = {{lat_b|safe}};
+var long_b = {{long_b|safe}};
+var origin = "{{origin|safe}}";
+var destination = "{{destination|safe}}";
+var directions = {{directions|safe}}
+
+
+create variable called argument that would combine the path with all above data
