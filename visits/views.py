@@ -62,6 +62,9 @@ def map_view(request):
 
 
 class AddVisit(CreateView):
+    '''
+    need to change the name to ADDJoruney without breaking the view???
+    '''
     template_name = 'map.html'
     form_class = JourneyForm
     success_url = 'home'
@@ -94,6 +97,10 @@ class AddVisit(CreateView):
 
 
 class DatePickerView(View):
+    '''
+    Date picker that allows the user to choose which day to display
+    successfull url redirects to the page where url contains date
+    '''
     template_name = 'visits/date_picker.html'
     form_class = DatePickerForm
 
@@ -118,7 +125,9 @@ class DatePickerView(View):
             slug = date_picked_instance.slug
 
             return redirect('visits:date_view', slug )
-
+        # it would be nice to add error handling...???
+        # right now else assumes that the date in date picker was a date
+        # that was already in the database
         else:
             slug = request.POST.get('date_picked')
 
@@ -128,12 +137,18 @@ class DatePickerView(View):
 
 
 class DateView(View):
-
-    # do I want to display the date picker form at the top???
-    # otherwise user needs to click day on the nav bar, choose date
-    # and be transferred to visits_by_date view (3 clicks)
+    '''
+    Displays the list of journeys that the user has made
+    on the day and date picker form in case if user
+    wants to display a different day
+    '''
     template_name = 'visits/visits_by_date.html'
     form_class = DatePickerForm
+
+    model = 
+
+
+
 
     def get(self, request, *args, **kwargs):
         # queryset = DatePicker.objects
@@ -145,3 +160,10 @@ class DateView(View):
                 'date_picker_form': DatePickerForm()
             },
         )
+
+
+class TrafficMessagesList(generic.ListView):
+    model = TrafficMessage
+    queryset = TrafficMessage.objects.filter(status=1).order_by('-created_on')
+    template_name = 'index.html'
+    paginate_by = 6
