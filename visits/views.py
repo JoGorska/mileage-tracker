@@ -116,7 +116,6 @@ class DatePickerView(View):
     def post(self, request, *args, **kwargs):
         
         date_picker_form = DatePickerForm(data=request.POST)
-        print(f'date_picker_form {date_picker_form}')
 
         if date_picker_form.is_valid():
 
@@ -133,37 +132,51 @@ class DatePickerView(View):
 
             return redirect('visits:date_view', slug )
 
-        
-
-
-class DateView(View):
+class DateView(generic.ListView):
     '''
-    Displays the list of journeys that the user has made
-    on the day and date picker form in case if user
-    wants to display a different day
+    gets the list of all visits
+
     '''
+    model = Journey
+    # need .filter(date_of_journey=slug).
+    queryset = Journey.objects.order_by('created_on')
     template_name = 'visits/visits_by_date.html'
-    form_class = DatePickerForm
 
-    model = 
-
-
-
-
-    def get(self, request, *args, **kwargs):
-        # queryset = DatePicker.objects
-        # date_picker = get_object_or_404(queryset, id=id)
-        return render(
-            request,
-            'visits/visits_by_date.html',
-            {
-                'date_picker_form': DatePickerForm()
-            },
-        )
+# class TrafficMessagesList(generic.ListView):
+#     model = TrafficMessage
+#     queryset = TrafficMessage.objects.filter(status=1).order_by('-created_on')
+#     template_name = 'index.html'
+#     paginate_by = 6
 
 
-class TrafficMessagesList(generic.ListView):
-    model = TrafficMessage
-    queryset = TrafficMessage.objects.filter(status=1).order_by('-created_on')
-    template_name = 'index.html'
-    paginate_by = 6
+
+# class DateView(View):
+#     '''
+#     Displays the list of journeys that the user has made
+#     on the day and date picker form in case if user
+#     wants to display a different day
+#     '''
+#     def get(self, request, *args, **kwargs):
+#         '''
+#         gets the date picker form and
+#         gets Journey objects
+#         takes slug from datepicker view
+#         '''
+#         slug = request.GET.get("date_picked")
+#         print(f'IS THIS SLUG? {slug}')
+#         template_name = 'visits/visits_by_date.html'
+#         form_class = DatePickerForm
+#         model = Journey
+#         # need .filter(date_of_journey=slug).
+#         queryset = Journey.objects.order_by('created_on')
+#         # queryset = DatePicker.objects
+#         # date_picker = get_object_or_404(queryset, id=id)
+#         return render(
+#             request,
+#             'visits/visits_by_date.html',
+#             {
+#                 'date_picker_form': DatePickerForm()
+#             },
+#         )
+
+

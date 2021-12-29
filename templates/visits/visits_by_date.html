@@ -11,19 +11,21 @@
     <form>
         <fieldset>
             <legend>Legend</legend>
+
+            {% for journey in journey_list %}
         
             <div class="input-group">
         
                 <span class="input-group-text">Start and Destination</span>
-                <input type="text" aria-label="First name" class="form-control">
-                <input type="text" aria-label="Last name" class="form-control">
+                <input type="text" aria-label="Start" readonly="" class="form-control" value="{{journey.postcode_start}}">
+                <input type="text" aria-label="Destination" readonly="" class="form-control" value="{{journey.postcode_destination}}">
         
-                <button class="btn btn-outline-secondary" type="button">Edit</button>
-                <button class="btn btn-outline-secondary" type="button">Delete</button>
+                <button class="btn btn-outline-warning" type="button">Edit</button>
+                <button class="btn btn-outline-danger" type="button">Delete</button>
         
             </div>
         
-        
+            {% endfor %}
         
         </fieldset>
     </form>
