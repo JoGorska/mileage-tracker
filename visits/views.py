@@ -116,13 +116,9 @@ class DatePickerView(View):
             date_picked_record = date_picker_form.save(commit=False)
             date_picked_record.save('date_picked')
             date_picked = request.POST.get('date_picked')
-            print(date_picked_record)
-            
+          
             date_string = str(date_picked)
 
-            
-
-            print(date_string)
             return redirect(reverse('visits:date_view', args=[date_string]))
 
             # return reverse('date_view', args=[date_string])
@@ -141,8 +137,6 @@ class DateView(View):
     # and be transferred to visits_by_date view (3 clicks)
     template_name = 'visits/visits_by_date.html'
     form_class = DatePickerForm
-
-
 
     def get(self, request, *args, **kwargs):
         # queryset = DatePicker.objects

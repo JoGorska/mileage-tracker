@@ -36,9 +36,19 @@ class Journey(models.Model):
 
 class DatePicker(models.Model):
     date_picked = models.DateField(unique=True)
-    
+    slug = models.SlugField(max_length=255, unique=True)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            date_string = str(self.date_picked)
+
+            self.slug = date_string
+        super(DatePicker, self).save(*args, **kwargs)
+
+
+
     # driver = models.ForeignKey(User, on_delete=models.CASCADE, related_name="date_picker")
-    # slug = models.SlugField(max_length=255, unique=True)
+    # 
 
     # slugify the field function from:
     # https://kodnito.com/posts/slugify-urls-django/
