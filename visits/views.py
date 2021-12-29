@@ -71,8 +71,8 @@ class AddVisit(CreateView):
 
         form = JourneyForm(data=request.POST)
         if form.is_valid():
+
             form.instance.driver_id = request.user.id
-            print(request.GET.get(address_start))
 
             form.instance.address_start = address_start
             form.instance.postcode_start = extract_postcode(address_start)
@@ -107,26 +107,28 @@ class DatePickerView(View):
         )
 
     def post(self, request, *args, **kwargs):
-
+        
         date_picker_form = DatePickerForm(data=request.POST)
-        date_string = ""
 
         if date_picker_form.is_valid():
 
-            date_picked_record = date_picker_form.save(commit=False)
-            date_picked_record.save('date_picked')
-            date_picked = request.POST.get('date_picked')
+            date_picked_instance = date_picker_form.save(commit=False)
+            date_picked_instance.save()
+            
+            slug = date_picked_instance.slug
+            print(f'THIS IS INSIDE FORM {date_picked_instance}')
+            print(f'THIS IS SLUG {date_picked_instance.slug}')
           
-            date_string = str(date_picked)
 
-            return redirect(reverse('visits:date_view', args=[date_string]))
 
-            # return reverse('date_view', args=[date_string])
+            # return redirect('visits:date_view')
+
+            return redirect('visits:date_view', slug )
 
         else:
-            date_picked = request.POST.get('date_picked')
-            date_string = str(date_picked)
-            return redirect(reverse('visits:date_view', args=[date_string]))
+            slug = request.POST.get('slug')
+            # return redirect('visits:date_view')
+            return redirect(reverse('visits:date_view', slug ))
         
 
 

@@ -1,19 +1,32 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h1>form will go here to display all day visits for</h1>
+<div class="container">
 
 
     {% if user.is_authenticated %}
+    
+    <h1>Routes travelled on ### </h1>
 
-    <!-- <form action="" method="POST">
-    {% csrf_token %}
-        <table>
-            {{ date_picker_form.as_table }}
-            <td>&nbsp;</td>
-            <td><input type="submit" value="Go"></td>
-        </table>
-    </form> -->
+    <form>
+        <fieldset>
+            <legend>Legend</legend>
+        
+            <div class="input-group">
+        
+                <span class="input-group-text">Start and Destination</span>
+                <input type="text" aria-label="First name" class="form-control">
+                <input type="text" aria-label="Last name" class="form-control">
+        
+                <button class="btn btn-outline-secondary" type="button">Edit</button>
+                <button class="btn btn-outline-secondary" type="button">Delete</button>
+        
+            </div>
+        
+        
+        
+        </fieldset>
+    </form>
 
 
     {% else %}
@@ -21,5 +34,7 @@
     <h1>You need to log in to view the visits</h1>
 
     {% endif %}
+
+</div>
 
 {% endblock %}

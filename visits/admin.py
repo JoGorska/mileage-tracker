@@ -5,8 +5,8 @@ from .models import Journey, DatePicker
 @admin.register(DatePicker)
 class DateAdmin(admin.ModelAdmin):
 
-    list_display = ('date_picked', )
-    readonly_fields = ['date_picked']
+    list_display = ('date_picked', 'slug', )
+
 
 
 @admin.register(Journey)
