@@ -109,26 +109,21 @@ class DatePickerView(View):
     def post(self, request, *args, **kwargs):
         
         date_picker_form = DatePickerForm(data=request.POST)
+        print(f'date_picker_form {date_picker_form}')
 
         if date_picker_form.is_valid():
 
             date_picked_instance = date_picker_form.save(commit=False)
             date_picked_instance.save()
-            
             slug = date_picked_instance.slug
-            print(f'THIS IS INSIDE FORM {date_picked_instance}')
-            print(f'THIS IS SLUG {date_picked_instance.slug}')
-          
-
-
-            # return redirect('visits:date_view')
 
             return redirect('visits:date_view', slug )
 
         else:
-            slug = request.POST.get('slug')
-            # return redirect('visits:date_view')
-            return redirect(reverse('visits:date_view', slug ))
+            slug = request.POST.get('date_picked')
+
+            return redirect('visits:date_view', slug )
+
         
 
 
