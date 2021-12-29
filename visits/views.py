@@ -132,14 +132,17 @@ class DatePickerView(View):
             date_string = str(date_picked)
             return redirect(reverse('visits:date_view', args=[date_string]))
         
-        # return HttpResponseRedirect('this_is_not_my_url')
-        
-        # return redirect(reverse('date_view', args=[date_string]))
-        # return HttpResponseRedirect(reverse('date_view', args=[date_string]))
+
 
 class DateView(View):
+
+    # do I want to display the date picker form at the top???
+    # otherwise user needs to click day on the nav bar, choose date
+    # and be transferred to visits_by_date view (3 clicks)
     template_name = 'visits/visits_by_date.html'
     form_class = DatePickerForm
+
+
 
     def get(self, request, *args, **kwargs):
         # queryset = DatePicker.objects
