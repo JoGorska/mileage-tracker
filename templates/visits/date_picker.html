@@ -1,3 +1,7 @@
+
+{% load static %}
+{% load bootstrap_tags %}
+
 {% extends "base.html" %}
 
 {% block content %}
@@ -10,7 +14,7 @@
     <form action="" method="POST">
     {% csrf_token %}
         <table>
-            {{ date_picker_form.as_table }}
+            {{ date_picker_form|as_bootstrap }}
             <td>&nbsp;</td>
             <td><input type="submit" value="Go"></td>
         </table>
