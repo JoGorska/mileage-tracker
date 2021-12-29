@@ -36,6 +36,7 @@ class Journey(models.Model):
 
 class DatePicker(models.Model):
     date_picked = models.DateField(unique=True)
+    
     # driver = models.ForeignKey(User, on_delete=models.CASCADE, related_name="date_picker")
     # slug = models.SlugField(max_length=255, unique=True)
 

@@ -109,7 +109,7 @@ class DatePickerView(View):
     def post(self, request, *args, **kwargs):
 
         date_picker_form = DatePickerForm(data=request.POST)
-
+        date_string = ""
 
         if date_picker_form.is_valid():
 
@@ -117,20 +117,24 @@ class DatePickerView(View):
             date_picked_record.save('date_picked')
             date_picked = request.POST.get('date_picked')
             print(date_picked_record)
-
-
+            
             date_string = str(date_picked)
 
+            
+
             print(date_string)
+            return redirect(reverse('visits:date_view', args=[date_string]))
 
             # return reverse('date_view', args=[date_string])
 
         else:
-            date_picker_form = DatePickerForm()
+            date_picked = request.POST.get('date_picked')
+            date_string = str(date_picked)
+            return redirect(reverse('visits:date_view', args=[date_string]))
         
         # return HttpResponseRedirect('this_is_not_my_url')
         
-        return redirect(reverse('date_view', args=[date_string]))
+        # return redirect(reverse('date_view', args=[date_string]))
         # return HttpResponseRedirect(reverse('date_view', args=[date_string]))
 
 class DateView(View):
