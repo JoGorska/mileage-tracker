@@ -62,17 +62,19 @@ def map_view(request):
 
 
 class AddVisit(CreateView):
+    '''
+    need to change the name to ADDJoruney without breaking the view???
+    '''
     template_name = 'map.html'
-    form_class = JourneyForm
+    form_class = JourneyForm()
     success_url = 'home'
 
     def post(self, request, address_start, address_destination, distance, *args, **kwargs):
 
-
         form = JourneyForm(data=request.POST)
         if form.is_valid():
+
             form.instance.driver_id = request.user.id
-            print(request.GET.get(address_start))
 
             form.instance.address_start = address_start
             form.instance.postcode_start = extract_postcode(address_start)
@@ -93,57 +95,86 @@ class AddVisit(CreateView):
         return HttpResponseRedirect('/')
 
 
-# class DatePickerView(View):
-#     template_name = 'visits/date_picker.html'
-#     form_class = DatePickerForm
+class DatePickerView(View):
+    '''
+    Date picker that allows the user to choose which day to display
+    successfull url redirects to the page where url contains date
+    '''
+    template_name = 'visits/date_picker.html'
+    form_class = DatePickerForm
 
-#     def get(self, request, *args, **kwargs):
-#         return render(
-#             request,
-#             'visits/date_picker.html',
-#             {
-#                 'date_picker_form': DatePickerForm()
-#             },
-#         )
+    def get(self, request, *args, **kwargs):
+        return render(
+            request,
+            'visits/date_picker.html',
+            {
+                'date_picker_form': DatePickerForm()
+            },
+        )
 
-#     def post(self, request, *args, **kwargs):
-
-#         date_picker_form = DatePickerForm(data=request.POST)
-
-
-#         if date_picker_form.is_valid():
-
-#             date_picked_record = date_picker_form.save(commit=False)
-#             date_picked_record.save('date_picked')
-#             date_picked = request.POST.get('date_picked')
-#             print(date_picked_record)
-
-
-#             date_string = str(date_picked)
-
-#             print(date_string)
-
-#             # return reverse('date_view', args=[date_string])
-
-#         else:
-#             date_picker_form = DatePickerForm()
+    def post(self, request, *args, **kwargs):
         
-#         # return HttpResponseRedirect('this_is_not_my_url')
-        
-#         return redirect(reverse('date_view', args=[date_string]))
-#         # return HttpResponseRedirect(reverse('date_view', args=[date_string]))
+        date_picker_form = DatePickerForm(data=request.POST)
 
-# class DateView(View):
+        if date_picker_form.is_valid():
+
+            date_picked_instance = date_picker_form.save(commit=False)
+            date_picked_instance.save()
+            slug = date_picked_instance.slug
+
+            return redirect('visits:date_view', slug )
+        # it would be nice to add error handling...???
+        # right now else assumes that the date in date picker was a date
+        # that was already in the database
+        else:
+            slug = request.POST.get('date_picked')
+
+            return redirect('visits:date_view', slug )
+
+# class DateView(generic.ListView):
+#     '''
+#     gets the list of all visits
+
+#     '''
+#     model = Journey
+#     # need .filter(date_of_journey=slug).
+#     queryset = Journey.objects.order_by('created_on')
 #     template_name = 'visits/visits_by_date.html'
-#     form_class = DatePickerForm
 
-#     def get(self, request, *args, **kwargs):
-#         # queryset = DatePicker.objects
-#         # date_picker = get_object_or_404(queryset, id=id)
-#         return render(
-#             request,
-#             'visits/visits_by_date.html',
-#             {
-#                 'date_picker_form': DatePickerForm()
-#             },
-#         )
+
+
+
+class DateView(View):
+    '''
+    Displays the list of journeys that the user has made
+    on the day and date picker form in case if user
+    wants to display a different day
+    '''
+    def get(self, request, slug, *args, **kwargs):
+        '''
+        gets the date picker form and
+        gets Journey objects
+        takes slug from datepicker view
+        '''
+        template_name = 'visits/visits_by_date.html'
+        form_class = DatePickerForm
+        date_picker_item = get_object_or_404(DatePicker, slug=slug)
+
+        date_picked = date_picker_item.date_picked
+        date_to_string = date_picked.strftime("%d %B %Y")
+
+        model = Journey
+
+        journeys = Journey.objects.filter(date_of_journey=date_picked).order_by('created_on')
+
+        return render(
+            request,
+            'visits/visits_by_date.html',
+            {
+                'date_picker_form': DatePickerForm(),
+                'journeys': journeys,
+                'date_to_string': date_to_string
+            },
+        )
+
+

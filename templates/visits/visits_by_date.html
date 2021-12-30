@@ -1,19 +1,73 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h1>form will go here to display all day visits for</h1>
+<div class="container">
 
 
     {% if user.is_authenticated %}
+    
+    <h1>Full day report</h1>
 
-    <!-- <form action="" method="POST">
-    {% csrf_token %}
-        <table>
-            {{ date_picker_form.as_table }}
-            <td>&nbsp;</td>
-            <td><input type="submit" value="Go"></td>
-        </table>
-    </form> -->
+    <form>
+        <fieldset>
+            <legend>{{date_to_string}}</legend>
+
+            <div class="accordion accordion-flush" id="list-of-journeys">
+
+            {% for journey in journeys %}
+    
+
+                <div class="accordion-item">
+
+                    <!-- accordeaon header -->
+                  <h2 class="accordion-header" id="heading-{{journey.id}}">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#journey-id-{{journey.id}}" aria-expanded="true" aria-controls="collapseOne">
+                        {{journey.postcode_start}} - {{journey.postcode_destination}}, distance: {{journey.distance}} miles
+                    </button>
+                  </h2>
+
+                  <!-- accordeon body -->
+                  <div id="journey-id-{{journey.id}}" class="accordion-collapse collapse" aria-labelledby="heading-{{journey.id}}" data-bs-parent="#list-of-journeys">
+                    <div class="accordion-body">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col">
+                                    start: {{journey.address_start}}
+                                </div>
+                                <div class="col">
+                                    destination: {{journey.address_destination}} 
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col text-end">
+                                    <button class="btn btn-outline-warning btn-sm" type="button">Edit</button>
+                                </div>
+                                <div class="col text-start">
+                                    <button class="btn btn-outline-danger btn-sm" type="button">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                  </div>
+                </div>
+
+
+
+
+            {% endfor %}
+           
+            </div>
+
+
+
+
+
+        
+
+        
+        </fieldset>
+    </form>
 
 
     {% else %}
@@ -21,5 +75,7 @@
     <h1>You need to log in to view the visits</h1>
 
     {% endif %}
+
+</div>
 
 {% endblock %}

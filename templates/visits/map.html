@@ -19,7 +19,7 @@
 
             <!--my stylesheet link-->
 
-            <link href="{% static 'css/map-only.css'%}" rel="stylesheet">
+            <link href="{% static 'css/map-only.css' %}" rel="stylesheet">
 
               <!-- This allows us to extend the head scripts in HTML docs that have special requirements-->
         </head>
@@ -32,7 +32,7 @@
 
         <body>
 
-          <form action="{% url 'visits:post_visit' address_start=directions.origin address_destination=directions.destination distance=directions.distance%}" method="POST">
+          <form action="{% url 'visits:post_visit' address_start=directions.origin address_destination=directions.destination distance=directions.distance %}" method="POST">
             {% csrf_token %}
 
             <!-- only the date input field is displayed to the user -->
@@ -44,24 +44,24 @@
             <!-- start of the journey -->
 
 
-            <input type="hidden" name="address_start" value="{{ directions.origin }}" id="id_address_start">
+            <!-- <input type="hidden" name="address_start" value="{{ directions.origin }}" id="id_address_start">
 
             <input type="hidden" name="postcode_start" value="{ {directions.origin }}">
 
             <input type="hidden" name="latitude_start" value="{{lat_a|safe}}">
-            <input type="hidden" name="longitude_start" value="{{long_a|safe}}">
+            <input type="hidden" name="longitude_start" value="{{long_a|safe}}"> -->
 
             <!-- destination of the journey -->
 
-            <input type="hidden" name="address_destination" value="{{ directions.destination }}">
+            <!-- <input type="hidden" name="address_destination" value="{{ directions.destination }}">
             <input type="hidden" name="postcode_destination" value="{{ directions.destination }}">
 
             <input type="hidden" name="latitude_destination" value="{{lat_b|safe}}">
-            <input type="hidden" name="longitude_destination" value="{{long_b|safe}}">
+            <input type="hidden" name="longitude_destination" value="{{long_b|safe}}"> -->
 
 
             <input type="hidden" name="driver" value="{{ user.id }}">
-            <!-- need to change to miles -->
+
 
             <input type="hidden" name="distance" value="{{ directions.distance }}">
             <input type="hidden" name="next" value="{{ next }}" />
