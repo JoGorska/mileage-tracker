@@ -2,19 +2,10 @@ from django.conf import settings
 import requests
 import json
 import re
+from datetime import datetime
 
 
-def extract_postcode(full_address):
-    '''
-    takes a string containing full adress and postcodes and returns postcode only
-    Regex from:
-    https://stackoverflow.com/questions/164979/regex-for-matching-uk-postcodes
-    '''
-    result = ''.join([c for c in full_address if c.isupper()])
-    matches = re.findall(r'([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})', full_address)
-    list_of_matches = matches[0]
-    postcode = list_of_matches[1]
-    return postcode
+
 
 
 def Directions(*args, **kwargs):
@@ -69,3 +60,18 @@ def Directions(*args, **kwargs):
 		# "duration": duration,
 		# "steps": steps
 		# }
+
+
+
+def extract_postcode(full_address):
+    '''
+    takes a string containing full adress and postcodes and returns postcode only
+    Regex from:
+    https://stackoverflow.com/questions/164979/regex-for-matching-uk-postcodes
+    '''
+    result = ''.join([c for c in full_address if c.isupper()])
+    matches = re.findall(r'([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})', full_address)
+    list_of_matches = matches[0]
+    postcode = list_of_matches[1]
+    return postcode
+
