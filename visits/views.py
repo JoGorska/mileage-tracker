@@ -164,11 +164,9 @@ class DateView(View):
         date_picked = date_picker_item.date_picked
         date_to_string = date_picked.strftime("%d %B %Y")
 
-        print(f'IS THIS PICKED DATE? {date_to_string}')
-
         model = Journey
         # need .filter(date_of_journey=slug).
-        queryset = Journey.objects.order_by('created_on')
+        journeys = Journey.objects.order_by('created_on')
         # queryset = DatePicker.objects
         # date_picker = get_object_or_404(queryset, id=id)
         return render(
@@ -176,6 +174,7 @@ class DateView(View):
             'visits/visits_by_date.html',
             {
                 'date_picker_form': DatePickerForm(),
+                'journeys': journeys,
                 'date_to_string': date_to_string
             },
         )
