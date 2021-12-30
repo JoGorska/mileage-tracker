@@ -92,7 +92,7 @@ class AddVisit(CreateView):
         else:
             form = JourneyForm()
 
-        return HttpResponseRedirect('/')
+        return redirect('visits:drive')
 
 
 class DatePickerView(View):
