@@ -66,11 +66,10 @@ class AddVisit(CreateView):
     need to change the name to ADDJoruney without breaking the view???
     '''
     template_name = 'map.html'
-    form_class = JourneyForm
+    form_class = JourneyForm()
     success_url = 'home'
 
     def post(self, request, address_start, address_destination, distance, *args, **kwargs):
-
 
         form = JourneyForm(data=request.POST)
         if form.is_valid():

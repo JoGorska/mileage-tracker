@@ -39,27 +39,27 @@ def Directions(*args, **kwargs):
         origin = route["start_address"]
         destination = route["end_address"]
 
-        # distance in km converted to miles:
+        # distance in km converted to miles need to round up to 2 decimal places???:
         distance = route["distance"]["value"]*0.000621371
         # duration is displayed as a string, not number
         duration = route["duration"]["text"]
 
-    #     steps = [
-		# 	[
-		# 		s["distance"]["text"],
-		# 		s["duration"]["text"],
-		# 		s["html_instructions"],
+      #   steps = [
+			# [
+			# 	s["distance"]["text"],
+			# 	s["duration"]["text"],
+			# 	s["html_instructions"],
 
-		# 	]
-		# 	for s in route["steps"]]
+			# ]
+			# for s in route["steps"]]
 
-    # return {
-		# "origin": origin,
-		# "destination": destination,
-		# "distance": distance,
-		# "duration": duration,
+    return {
+		"origin": origin,
+		"destination": destination,
+		"distance": distance,
+		"duration": duration,
 		# "steps": steps
-		# }
+		}
 
 
 

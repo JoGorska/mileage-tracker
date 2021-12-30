@@ -19,7 +19,7 @@
 
             <!--my stylesheet link-->
 
-            <link href="{% static 'css/map-only.css'%}" rel="stylesheet">
+            <link href="{% static 'css/map-only.css' %}" rel="stylesheet">
 
               <!-- This allows us to extend the head scripts in HTML docs that have special requirements-->
         </head>
@@ -32,7 +32,7 @@
 
         <body>
 
-          <form action="{% url 'visits:post_visit' address_start=directions.origin address_destination=directions.destination distance=directions.distance%}" method="POST">
+          <form action="{% url 'visits:post_visit' address_start=directions.origin address_destination=directions.destination distance=directions.distance %}" method="POST">
             {% csrf_token %}
 
             <!-- only the date input field is displayed to the user -->
