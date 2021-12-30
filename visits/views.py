@@ -165,10 +165,9 @@ class DateView(View):
         date_to_string = date_picked.strftime("%d %B %Y")
 
         model = Journey
-        # need .filter(date_of_journey=slug).
-        journeys = Journey.objects.order_by('created_on')
-        # queryset = DatePicker.objects
-        # date_picker = get_object_or_404(queryset, id=id)
+
+        journeys = Journey.objects.filter(date_of_journey=date_picked).order_by('created_on')
+
         return render(
             request,
             'visits/visits_by_date.html',
