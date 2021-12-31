@@ -1,16 +1,3 @@
-/*!
- * Bootswatch v5.1.3
- * Homepage: https://bootswatch.com
- * Copyright 2012-2021 Thomas Park
- * Licensed under MIT
- * Based on Bootstrap
-*/
-/*!
- * Bootstrap v5.1.3 (https://getbootstrap.com/)
- * Copyright 2011-2021 The Bootstrap Authors
- * Copyright 2011-2021 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
- */
 :root {
   --bs-blue: #007bff;
   --bs-indigo: #6610f2;
@@ -11752,3 +11739,18 @@ legend {
 .list-group-item-action:hover {
   background-color: #23272b;
 }
+
+
+/*!
+ * Bootswatch v5.1.3
+ * Homepage: https://bootswatch.com
+ * Copyright 2012-2021 Thomas Park
+ * Licensed under MIT
+ * Based on Bootstrap
+*/
+/*!
+ * Bootstrap v5.1.3 (https://getbootstrap.com/)
+ * Copyright 2011-2021 The Bootstrap Authors
+ * Copyright 2011-2021 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+ */

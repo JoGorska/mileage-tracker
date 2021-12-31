@@ -1,27 +1,4 @@
-/* https://developers.google.com/maps/documentation/javascript/overview
 
-these css are required for map to render correctly
-
-/* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
-       
-/* #map-route {
-height: 100%;
-} */
-      
-      /* Optional: Makes the sample page fill the window. */
-/* html, body {
-height: 100%;
-margin: 0;
-padding: 0;
-} */
-
-/* css for displaying map correctly created by 
-checking documentation
-https://developers.google.com/maps/documentation/javascript/overview
-
-and following tutorial
-https://www.youtube.com/watch?v=wCn8WND-JpU&t=8s */
 
 
 * {box-sizing: border-box;}
@@ -77,3 +54,28 @@ table th {
   background-color: #2a282b;
   color: white;
 }
+
+/* https://developers.google.com/maps/documentation/javascript/overview
+
+these css are required for map to render correctly
+
+/* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+       
+/* #map-route {
+height: 100%;
+} */
+      
+      /* Optional: Makes the sample page fill the window. */
+/* html, body {
+height: 100%;
+margin: 0;
+padding: 0;
+} */
+
+/* css for displaying map correctly created by 
+checking documentation
+https://developers.google.com/maps/documentation/javascript/overview
+
+and following tutorial
+https://www.youtube.com/watch?v=wCn8WND-JpU&t=8s */
