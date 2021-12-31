@@ -228,22 +228,19 @@ https://www.google.com/maps/place/47%C2%B035'42.6%22N+122%C2%B019'53.9%22W/@47.5
 
 this url opens directions
 
-core:
+the final api consists of those elements:
+```
 
 https://www.google.com/maps/dir/?api=1
-
 &origin=
-
 latitute
 %2C
 longtitute
-
 &destination=
-
 latitute
 %2C
 longtitute
-
+```
 working example:
 
 https://www.google.com/maps/dir/?api=1&origin=51.8630529%2C0.1755065&destination=52.5000791%2C-0.7110285
@@ -257,6 +254,33 @@ I created form to save data to create instance of Journey model.
 3. I was able to pass 3 arguments in url. If I tried to add 4th (latitute), I had error return URL not found and the url did not contain data. I wasn't able to establish the reason for this error.
 4. I tried to get the latitute from map_view - latitute and longtitute are loaded on map view to URL, but I could not find the way to pass the arguments from get to post function (from map_view to add_visit)
 5. I came to the conclusion that the latitude and longditute are not essential for user to have, as they are unreadable long number. The user will be needing full address and postcode. I have decided not to post data for latitute and longditute for now. 
+
+### Problem with static files not loading on deployed site
+
+Page was displaying white without any css or js files loaded. 
+
+![deployed site without static files](static/img/readme/static1.png)
+
+
+The below error was displaying on console:
+
+![error message on the console](static/img/readme/static2.png)
+
+Tried several solutions:
+
+- change DEBUG = False - solution found [here](https://stackoverflow.com/questions/35557129/css-not-loading-wrong-mime-type-django).
+- make DEBUG variable dependable on development - where gitpod development set to false, heroku to true. Solution proposed in [this](https://learn.codeinstitute.net/courses/course-v1:CodeInstitute+FST101+2021_T1/courseware/dc049b343a9b474f8d75822c5fda1582/00bc94313a374f519dbec8dfb7ed0fbd/) Code Institute video. 
+```
+development = os.environ.get('DEVELOPMENT', False)
+
+DEBUG = development
+
+if development:
+    ALLOWED_HOSTS = ['localhost', '127.0.0.1', '127.0.0.1:8000']
+else:
+    ALLOWED_HOSTS = ["mileage-tracker-app.herokuapp.com"]
+```
+DEVELOPMENT variable needs to be added to Heroku in settings -> reveal config vars
 
 ## Deployment
 

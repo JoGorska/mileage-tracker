@@ -31,19 +31,23 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-# development = os.environ.get('DEVELOPMENT', False)
+# would need to add DEVELOPMENT variable in settings in gitpod
+# main workspaces list page - upper right corner
+# this might cause a problem with vs code
 
-# DEBUG = development
+development = os.environ.get('DEVELOPMENT', False)
 
-# if development:
-#     ALLOWED_HOSTS = ['localhost']
-# else:
-#     ALLOWED_HOSTS = [os.environ.get('HEROKU_HOSTNAME')]
+DEBUG = development
+
+if development:
+    ALLOWED_HOSTS = ['localhost', '127.0.0.1', '127.0.0.1:8000']
+else:
+    ALLOWED_HOSTS = ["mileage-tracker-app.herokuapp.com"]
 
 
-DEBUG = False
+# DEBUG = False
 
-ALLOWED_HOSTS = ["mileage-tracker-app.herokuapp.com", "localhost", '127.0.0.1']
+# ALLOWED_HOSTS = ["mileage-tracker-app.herokuapp.com", "localhost", '127.0.0.1']
 
 
 # Application definition
