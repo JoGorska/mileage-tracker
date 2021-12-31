@@ -298,9 +298,12 @@ else:
  
  * The steps to deploy are as follows: 
 
-  - In the GitHub repository, navigate to the Settings tab; 
-  - From the source section drop-down menu, select the Master Branch;
-  - Once the master branch has been selected, the page will be automatically refreshed with a detailed ribbon display to indicate the successful deployment. 
+ ??? need to update this to explain heroku steps
+
+ plus install requirements txt
+ plus obtain google api key
+
+
 
 The live link can be found [here](https://mileage-tracker-app.herokuapp.com/).
 
@@ -308,13 +311,13 @@ The live link can be found [here](https://mileage-tracker-app.herokuapp.com/).
 
 By forking the GitHub Repository you will be able to make a copy of the original repository on your own GitHub account allowing you to view and/or make changes without affecting the original repository by using the following steps:
 
-1. Log in to GitHub and locate the [GitHub Repository](https://github.com/JoGorska/garage-bootstrap)
+1. Log in to GitHub and locate the [GitHub Repository](https://github.com/JoGorska/mileage-tracker)
 2. At the top of the Repository (not top of page) just above the "Settings" button on the menu, locate the "Fork" button.
 3. You should now have a copy of the original repository in your GitHub account.
 
 ### Making a Local Clone
 
-1. Log in to GitHub and locate the [GitHub Repository](https://github.com/JoGorska/garage-bootstrap)
+1. Log in to GitHub and locate the [GitHub Repository](https://github.com/JoGorska/mileage-tracker)
 2. Under the repository name, click "Clone or download".
 3. To clone the repository using HTTPS, under "Clone with HTTPS", copy the link.
 4. Open Git Bash
@@ -322,7 +325,7 @@ By forking the GitHub Repository you will be able to make a copy of the original
 6. Type `git clone`, and then paste the URL you copied in Step 3.
 
 ```
-$ git clone https://github.com/JoGorska/garage-bootstrap
+$ git clone https://github.com/JoGorska/mileage-tracker
 ```
 
 7. Press Enter. Your local clone will be created.
