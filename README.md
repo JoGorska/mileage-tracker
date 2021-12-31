@@ -259,7 +259,7 @@ I created form to save data to create instance of Journey model.
 
 Page was displaying white without any css or js files loaded. 
 
-![deployed site without static files](static/img/readme/static1.png)
+![deployed site without static files rendering correctly](static/img/readme/static1.png)
 
 
 The below error was displaying on console:
@@ -268,8 +268,18 @@ The below error was displaying on console:
 
 Tried several solutions:
 
-- change DEBUG = False - solution found [here](https://stackoverflow.com/questions/35557129/css-not-loading-wrong-mime-type-django).
-- make DEBUG variable dependable on development - where gitpod development set to false, heroku to true. Solution proposed in [this](https://learn.codeinstitute.net/courses/course-v1:CodeInstitute+FST101+2021_T1/courseware/dc049b343a9b474f8d75822c5fda1582/00bc94313a374f519dbec8dfb7ed0fbd/) Code Institute video. 
+Not worked:
+
+- import mimetypes - solution found [here](https://stackoverflow.com/questions/35557129/css-not-loading-wrong-mime-type-django) 
+- changes to file path in settings and / or in base.html file, which was suggested in one of the answeres [here](https://stackoverflow.com/questions/48248832/stylesheet-not-loaded-because-of-mime-type)
+
+- assumption that the problem is caused by CSS library starting with comments - solution found [here](https://stackoverflow.com/questions/48248832/stylesheet-not-loaded-because-of-mime-type)
+
+Worked:
+
+- change `DEBUG = False` - solution found [here](https://stackoverflow.com/questions/35557129/css-not-loading-wrong-mime-type-django).
+
+- make DEBUG variable dependable on development variable. If app can find development variable in enviroment - it sets the debug to the value of the variable, if no development variable found - the debug goes to False as default. Solution proposed in [this](https://learn.codeinstitute.net/courses/course-v1:CodeInstitute+FST101+2021_T1/courseware/dc049b343a9b474f8d75822c5fda1582/00bc94313a374f519dbec8dfb7ed0fbd/) Code Institute video. 
 ```
 development = os.environ.get('DEVELOPMENT', False)
 
@@ -280,11 +290,11 @@ if development:
 else:
     ALLOWED_HOSTS = ["mileage-tracker-app.herokuapp.com"]
 ```
-DEVELOPMENT variable needs to be added to Heroku in settings -> reveal config vars
+`os.environ["DEVELOPMENT"] = "True"` variable needs to be added to env.py file, while in heroku - do not add this variable at all. 
 
 ## Deployment
 
- The site was deployed to GitHub pages. 
+ The site was deployed to Heroku pages. 
  
  * The steps to deploy are as follows: 
 
@@ -292,7 +302,7 @@ DEVELOPMENT variable needs to be added to Heroku in settings -> reveal config va
   - From the source section drop-down menu, select the Master Branch;
   - Once the master branch has been selected, the page will be automatically refreshed with a detailed ribbon display to indicate the successful deployment. 
 
-The live link can be found [here](https://jogorska.github.io/garage-bootstrap/).
+The live link can be found [here](https://mileage-tracker-app.herokuapp.com/).
 
 ### Forking the GitHub Repository
 

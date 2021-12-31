@@ -30,10 +30,9 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-
-# would need to add DEVELOPMENT variable in settings in gitpod
-# main workspaces list page - upper right corner
-# this might cause a problem with vs code
+# solution to setting debug to false for heroku found here:
+# https://learn.codeinstitute.net/courses/course-v1:CodeInstitute+FST101+2021_T1/courseware/dc049b343a9b474f8d75822c5fda1582/00bc94313a374f519dbec8dfb7ed0fbd/
+# can this stay ???
 
 development = os.environ.get('DEVELOPMENT', False)
 
