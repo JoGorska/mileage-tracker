@@ -30,7 +30,18 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+
+# development = os.environ.get('DEVELOPMENT', False)
+
+# DEBUG = development
+
+# if development:
+#     ALLOWED_HOSTS = ['localhost']
+# else:
+#     ALLOWED_HOSTS = [os.environ.get('HEROKU_HOSTNAME')]
+
+
+DEBUG = False
 
 ALLOWED_HOSTS = ["mileage-tracker-app.herokuapp.com", "localhost", '127.0.0.1']
 
