@@ -290,6 +290,18 @@ else:
 ```
 `os.environ["DEVELOPMENT"] = "True"` variable needs to be added to env.py file, while in heroku - do not add this variable at all. 
 
+### Problem with styling the map.html template
+
+The google javascript api map requires special setting on the body and element that will hold the map:
+```
+#map-route {
+height: 100%;
+```
+
+Unfortunately once the bootstrap css have been applied, this setting was not correct for page to render the map. I have tried to add `!important` but this has not worked. I tried all settings that were working from oryginal map-only.css and set them all as `!important` but this has not worked either. I could see on the developer's tools that map's div was rendering, but the div size was 0px hight. I tried various different settings in dev tools in chrome but none gave right scale of the map. I wasn't able to locate which part of bootstrap's styling needs to be overriden.
+
+In the end I decided to style this page similarly as bootstrap looks - same background color and fonts. I have also styled javascript map in night mode to blend into the overall style of the app. 
+
 ## Deployment
 
  The site was deployed to Heroku pages. 
