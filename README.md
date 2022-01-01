@@ -2,9 +2,7 @@
 
 [Tank Mileage Tracker](#tank-mileage-tracker)
 
-tutorial link https://www.youtube.com/watch?v=_vCT42vDfgw&t=962s
 
-link to the oryginal repository https://github.com/bobby-didcoding/did_django_google_api_tutorial
 
 [UX](#ux)
 + [User Stories](#user-stories)
@@ -338,8 +336,12 @@ $ git clone https://github.com/JoGorska/mileage-tracker
 * [unsplash](https://unsplash.com/)
 * [Fontawsome](https://fontawesome.com/)
 * [Bootstrap 5]()
-* [I Think Therefore I Blog]()
-* [Django Google API]()
+* The project walkthrough I Think Therefore I Blog tutorial provided instpiration for traffic alerts the repository can be found [here]()
+* Django Google API by Bobby did coding [tutorial](https://www.youtube.com/watch?v=_vCT42vDfgw&t=962s) provided clear guidance how to use google API in a django project, how to fetch data and how to use them within the project. 
+* Django Google API tutorial repository can be found [here](https://github.com/bobby-didcoding/did_django_google_api_tutorial)
+* Igor_ci for explaining how to do django forms styled by bootstrap
+
+Zielinski
 
 @igor_ci
 I used Crispy Forms in my MS4 and they worked nicely (except for a few HTML code validator errors that didn’t affect display in any way).

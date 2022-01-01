@@ -11,6 +11,7 @@ urlpatterns = [
     path('post_visit_data/<str:address_start>/<str:address_destination>/<str:distance>/', views.AddVisit.as_view(), name="post_visit"),
     path('date', views.DatePickerView.as_view(), name='date_picker'),
     path('date/<slug:slug>/', views.DateView.as_view(), name='date_view'),
+    path('next_journey/<str:address_destination>/', views.drive_next_journey, name="next_journey")
 	]
 
 
