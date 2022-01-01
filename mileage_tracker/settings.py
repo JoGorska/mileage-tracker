@@ -30,9 +30,23 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# solution to setting debug to false for heroku found here:
+# https://learn.codeinstitute.net/courses/course-v1:CodeInstitute+FST101+2021_T1/courseware/dc049b343a9b474f8d75822c5fda1582/00bc94313a374f519dbec8dfb7ed0fbd/
+# can this stay ???
 
-ALLOWED_HOSTS = ["mileage-tracker-app.herokuapp.com", "localhost", '127.0.0.1']
+development = os.environ.get('DEVELOPMENT', False)
+
+DEBUG = development
+
+if development:
+    ALLOWED_HOSTS = ['localhost', '127.0.0.1', '127.0.0.1:8000']
+else:
+    ALLOWED_HOSTS = ["mileage-tracker-app.herokuapp.com"]
+
+
+# DEBUG = False
+
+# ALLOWED_HOSTS = ["mileage-tracker-app.herokuapp.com", "localhost", '127.0.0.1']
 
 
 # Application definition
@@ -142,7 +156,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')

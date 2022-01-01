@@ -21,9 +21,24 @@ def drive(request):
     https://www.youtube.com/watch?v=wCn8WND-JpU&t=8s
     """
 
-    context = {"google_api_key": settings.GOOGLE_API_KEY}
+    context = {
+        "google_api_key": settings.GOOGLE_API_KEY
+        }
     return render(request, 'visits/drive.html', context)
 
+
+def drive_next_journey(request, address_destination):
+    """
+    view that is used for the driver to continue the journey
+    without inputing the start address again
+    """
+    template_name = 'drive.html'
+    context = {
+        "address_destination": address_destination,
+        "google_api_key": settings.GOOGLE_API_KEY
+        }
+    return render(request, 'visits/drive.html', context)
+    # return redirect('visits:drive', context)
 
 def map_view(request):
     """
@@ -61,38 +76,85 @@ def map_view(request):
     return render(request, 'visits/map.html', context)
 
 
-class AddVisit(CreateView):
+def map_view_next_journey(request, address_destination):
+    """
+    view to display map if user was redirected from 
+    drive_next_journey view it duplicates the above ???
+    """
+
+    form = JourneyForm()
+    lat_a = request.GET.get("lat_a")
+    long_a = request.GET.get("long_a")
+    lat_b = request.GET.get("lat_b")
+    long_b = request.GET.get("long_b")
+    directions = Directions(
+        lat_a=lat_a,
+        long_a=long_a,
+        lat_b=lat_b,
+        long_b=long_b
+        )
+
+    context = {
+        "form": form,
+
+        "google_api_key": settings.GOOGLE_API_KEY,
+        "lat_a": lat_a,
+        "long_a": long_a,
+        "lat_b": lat_b,
+        "long_b": long_b,
+        "origin": f'{lat_a}, {long_a}',
+        "destination": f'{lat_b}, {long_b}',
+        "directions": directions,
+    }
+
+    return render(request, 'visits/map.html', context)
+
+
+class AddJourney(CreateView):
     '''
     need to change the name to ADDJoruney without breaking the view???
     '''
     template_name = 'map.html'
     form_class = JourneyForm()
-    success_url = 'home'
+
 
     def post(self, request, address_start, address_destination, distance, *args, **kwargs):
 
         form = JourneyForm(data=request.POST)
         if form.is_valid():
 
-            form.instance.driver_id = request.user.id
+            driver_id = request.user.id
 
-            form.instance.address_start = address_start
-            form.instance.postcode_start = extract_postcode(address_start)
-            # form.instance.latitude_start = lat_a
-            # form.instance.longitude_start = longitude_start
-            form.instance.address_destination = address_destination
-            form.instance.postcode_destination = extract_postcode(address_destination)
-            # form.instance.latitude_destination = latitude_destination
-            # form.instance.longitude_destination = longitude_destination
-            form.instance.distance = distance
+            date_of_journey = request.POST.get("date_of_journey")
 
-            journey = form.save(commit=False)
-            journey.save()
-        
+            address_start = address_start
+            postcode_start = extract_postcode(address_start)
+            latitude_start = request.POST.get("latitude_start")
+            longitude_start = request.POST.get("longitude_start")
+            address_destination = address_destination
+            postcode_destination = extract_postcode(address_destination)
+            latitude_destination = request.POST.get("latitude_destination")
+            longitude_destination = request.POST.get("longitude_destination")
+            distance = distance
+
+            Journey.objects.create(
+                date_of_journey=date_of_journey,
+                driver_id=driver_id,
+                address_start=address_start,
+                postcode_start=postcode_start,
+                latitude_start=latitude_start,
+                longitude_start=longitude_start,
+                address_destination=address_destination,
+                postcode_destination=postcode_destination,
+                latitude_destination=latitude_destination,
+                longitude_destination=longitude_destination,
+                distance=distance
+            )
+
         else:
             form = JourneyForm()
 
-        return redirect('visits:drive')
+        return redirect('visits:next_journey', address_destination)
 
 
 class DatePickerView(View):

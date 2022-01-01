@@ -2,9 +2,7 @@
 
 [Tank Mileage Tracker](#tank-mileage-tracker)
 
-tutorial link https://www.youtube.com/watch?v=_vCT42vDfgw&t=962s
 
-link to the oryginal repository https://github.com/bobby-didcoding/did_django_google_api_tutorial
 
 [UX](#ux)
 + [User Stories](#user-stories)
@@ -228,22 +226,19 @@ https://www.google.com/maps/place/47%C2%B035'42.6%22N+122%C2%B019'53.9%22W/@47.5
 
 this url opens directions
 
-core:
+the final api consists of those elements:
+```
 
 https://www.google.com/maps/dir/?api=1
-
 &origin=
-
 latitute
 %2C
 longtitute
-
 &destination=
-
 latitute
 %2C
 longtitute
-
+```
 working example:
 
 https://www.google.com/maps/dir/?api=1&origin=51.8630529%2C0.1755065&destination=52.5000791%2C-0.7110285
@@ -258,29 +253,69 @@ I created form to save data to create instance of Journey model.
 4. I tried to get the latitute from map_view - latitute and longtitute are loaded on map view to URL, but I could not find the way to pass the arguments from get to post function (from map_view to add_visit)
 5. I came to the conclusion that the latitude and longditute are not essential for user to have, as they are unreadable long number. The user will be needing full address and postcode. I have decided not to post data for latitute and longditute for now. 
 
+### Problem with static files not loading on deployed site
+
+Page was displaying white without any css or js files loaded. 
+
+![deployed site without static files rendering correctly](static/img/readme/static1.png)
+
+
+The below error was displaying on console:
+
+![error message on the console](static/img/readme/static2.png)
+
+Tried several solutions:
+
+Not worked:
+
+- import mimetypes - solution found [here](https://stackoverflow.com/questions/35557129/css-not-loading-wrong-mime-type-django) 
+- changes to file path in settings and / or in base.html file, which was suggested in one of the answeres [here](https://stackoverflow.com/questions/48248832/stylesheet-not-loaded-because-of-mime-type)
+
+- assumption that the problem is caused by CSS library starting with comments - solution found [here](https://stackoverflow.com/questions/48248832/stylesheet-not-loaded-because-of-mime-type)
+
+Worked:
+
+- change `DEBUG = False` - solution found [here](https://stackoverflow.com/questions/35557129/css-not-loading-wrong-mime-type-django).
+
+- make DEBUG variable dependable on development variable. If app can find development variable in enviroment - it sets the debug to the value of the variable, if no development variable found - the debug goes to False as default. Solution proposed in [this](https://learn.codeinstitute.net/courses/course-v1:CodeInstitute+FST101+2021_T1/courseware/dc049b343a9b474f8d75822c5fda1582/00bc94313a374f519dbec8dfb7ed0fbd/) Code Institute video. 
+```
+development = os.environ.get('DEVELOPMENT', False)
+
+DEBUG = development
+
+if development:
+    ALLOWED_HOSTS = ['localhost', '127.0.0.1', '127.0.0.1:8000']
+else:
+    ALLOWED_HOSTS = ["mileage-tracker-app.herokuapp.com"]
+```
+`os.environ["DEVELOPMENT"] = "True"` variable needs to be added to env.py file, while in heroku - do not add this variable at all. 
+
 ## Deployment
 
- The site was deployed to GitHub pages. 
+ The site was deployed to Heroku pages. 
  
  * The steps to deploy are as follows: 
 
-  - In the GitHub repository, navigate to the Settings tab; 
-  - From the source section drop-down menu, select the Master Branch;
-  - Once the master branch has been selected, the page will be automatically refreshed with a detailed ribbon display to indicate the successful deployment. 
+ ??? need to update this to explain heroku steps
 
-The live link can be found [here](https://jogorska.github.io/garage-bootstrap/).
+ plus install requirements txt
+ plus obtain google api key
+
+
+
+The live link can be found [here](https://mileage-tracker-app.herokuapp.com/).
 
 ### Forking the GitHub Repository
 
 By forking the GitHub Repository you will be able to make a copy of the original repository on your own GitHub account allowing you to view and/or make changes without affecting the original repository by using the following steps:
 
-1. Log in to GitHub and locate the [GitHub Repository](https://github.com/JoGorska/garage-bootstrap)
+1. Log in to GitHub and locate the [GitHub Repository](https://github.com/JoGorska/mileage-tracker)
 2. At the top of the Repository (not top of page) just above the "Settings" button on the menu, locate the "Fork" button.
 3. You should now have a copy of the original repository in your GitHub account.
 
 ### Making a Local Clone
 
-1. Log in to GitHub and locate the [GitHub Repository](https://github.com/JoGorska/garage-bootstrap)
+1. Log in to GitHub and locate the [GitHub Repository](https://github.com/JoGorska/mileage-tracker)
 2. Under the repository name, click "Clone or download".
 3. To clone the repository using HTTPS, under "Clone with HTTPS", copy the link.
 4. Open Git Bash
@@ -288,7 +323,7 @@ By forking the GitHub Repository you will be able to make a copy of the original
 6. Type `git clone`, and then paste the URL you copied in Step 3.
 
 ```
-$ git clone https://github.com/JoGorska/garage-bootstrap
+$ git clone https://github.com/JoGorska/mileage-tracker
 ```
 
 7. Press Enter. Your local clone will be created.
@@ -301,8 +336,12 @@ $ git clone https://github.com/JoGorska/garage-bootstrap
 * [unsplash](https://unsplash.com/)
 * [Fontawsome](https://fontawesome.com/)
 * [Bootstrap 5]()
-* [I Think Therefore I Blog]()
-* [Django Google API]()
+* The project walkthrough I Think Therefore I Blog tutorial provided instpiration for traffic alerts the repository can be found [here]()
+* Django Google API by Bobby did coding [tutorial](https://www.youtube.com/watch?v=_vCT42vDfgw&t=962s) provided clear guidance how to use google API in a django project, how to fetch data and how to use them within the project. 
+* Django Google API tutorial repository can be found [here](https://github.com/bobby-didcoding/did_django_google_api_tutorial)
+* Igor_ci for explaining how to do django forms styled by bootstrap
+
+Zielinski
 
 @igor_ci
 I used Crispy Forms in my MS4 and they worked nicely (except for a few HTML code validator errors that didn’t affect display in any way).
