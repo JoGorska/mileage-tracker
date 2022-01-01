@@ -3,37 +3,34 @@ from .models import Journey
 from .models import DatePicker
 
 
+class DateInput(forms.DateInput):
+    '''
+    class that ads input_type date to to the widget
+    '''
+    input_type = 'date'
+
+
 class JourneyForm(forms.ModelForm):
+    '''
+    form to input the date of the journey on the map view,
+    the rest of data needed for Journey model are taken from the
+    variables that are already on map page
+    '''
 
     class Meta:
         model = Journey
         fields = (
             'date_of_journey',
-            # 'created_on',
-            # 'updated_on',
-
-            # 'address_start',
-
-            # 'postcode_start',
-            # 'latitude_start',
-            # 'longitude_start',
-
-            # 'address_destination',
-            # 'postcode_destination',
-            # 'latitude_destination',
-            # 'longitude_destination',
-
-            # 'driver',
-
-            # 'distance',
         )
-
-
-class DateInput(forms.DateInput):
-    input_type = 'date'
+        widgets = {
+            'date_of_journey': DateInput(),
+        }
 
 
 class DatePickerForm(forms.ModelForm):
+    '''
+    form to pick a date for a list of journeys to be displayed
+    '''
     class Meta:
         model = DatePicker
         # important - don't forget coma at the end of the list of fields
