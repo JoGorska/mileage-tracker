@@ -29,7 +29,7 @@ class TrafficMsgDetail(View):
 
         return render(
             request,
-            "traffic_msg_detail.html",
+            "traffic/traffic_msg_detail.html",
             {
                 "trafficmessage": trafficmessage,
                 "thanks": thanks,
@@ -39,7 +39,7 @@ class TrafficMsgDetail(View):
 
 
 class AddNewTrafficMsg(CreateView):
-    template_name = 'add_traffic_msg.html'
+    template_name = 'traffic/add_traffic_msg.html'
     form_class = TrafficMessageForm
     success_url = 'home'
 
@@ -47,7 +47,7 @@ class AddNewTrafficMsg(CreateView):
 
         return render(
             request,
-            'add_traffic_msg.html',
+            'traffic/add_traffic_msg.html',
             {
                 'traffic_msg_form': TrafficMessageForm()
             },
@@ -76,7 +76,7 @@ class MsgThanks(View):
         else:
             traffic_message.thanks.add(request.user)
 
-        return HttpResponseRedirect(reverse('traffic_msg_detail', args=[id]))
+        return HttpResponseRedirect(reverse('traffic/traffic_msg_detail', args=[id]))
 
 
 # class MsgCleared(View):
@@ -87,4 +87,4 @@ class MsgThanks(View):
 #         else:
 #             traffic_message.cleared.add(request.user)
 
-#         return HttpResponseRedirect(reverse('traffic_msg_detail', args=[id]))
+#         return HttpResponseRedirect(reverse('traffic/traffic_msg_detail', args=[id]))
