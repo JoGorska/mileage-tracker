@@ -12,6 +12,7 @@ from django.conf import settings
 from .models import Journey, DatePicker
 from .forms import JourneyForm, DatePickerForm
 from .mixins import Directions, extract_postcode
+from traffic.models import TrafficMessage
 
 
 def drive(request):
@@ -20,8 +21,16 @@ def drive(request):
     created by following 
     https://www.youtube.com/watch?v=wCn8WND-JpU&t=8s
     """
+    model = TrafficMessage
+    trafficmessage_list = TrafficMessage.objects.filter(status=1).order_by('-created_on')
+    template_name = 'drive.html'
+    is_paginated = True
+    paginate_by = 6
 
     context = {
+        "trafficmessage_list": trafficmessage_list,
+        "paginate_by": paginate_by,
+        "is_paginated": is_paginated,
         "google_api_key": settings.GOOGLE_API_KEY
         }
     return render(request, 'visits/drive.html', context)
@@ -32,8 +41,15 @@ def drive_next_journey(request, address_destination):
     view that is used for the driver to continue the journey
     without inputing the start address again
     """
+    model = TrafficMessage
+    trafficmessage_list = TrafficMessage.objects.filter(status=1).order_by('-created_on')
+    is_paginated = True
+    paginate_by = 6
     template_name = 'drive.html'
     context = {
+        "trafficmessage_list": trafficmessage_list,
+        "paginate_by": paginate_by,
+        "is_paginated": is_paginated,
         "address_destination": address_destination,
         "google_api_key": settings.GOOGLE_API_KEY
         }
