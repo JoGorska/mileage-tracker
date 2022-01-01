@@ -26,17 +26,19 @@ def drive(request):
         }
     return render(request, 'visits/drive.html', context)
 
+
 def drive_next_journey(request, address_destination):
     """
     view that is used for the driver to continue the journey
     without inputing the start address again
     """
-
+    template_name = 'drive.html'
     context = {
         "address_destination": address_destination,
         "google_api_key": settings.GOOGLE_API_KEY
         }
     return render(request, 'visits/drive.html', context)
+    # return redirect('visits:drive', context)
 
 def map_view(request):
     """
@@ -74,13 +76,49 @@ def map_view(request):
     return render(request, 'visits/map.html', context)
 
 
-class AddVisit(CreateView):
+def map_view_next_journey(request, address_destination):
+    """
+    Basic view for displaying a map
+    created by following (link below)
+    https://www.youtube.com/watch?v=wCn8WND-JpU&t=8s
+    and adjusted to the need of the project
+    """
+
+    form = JourneyForm()
+    lat_a = request.GET.get("lat_a")
+    long_a = request.GET.get("long_a")
+    lat_b = request.GET.get("lat_b")
+    long_b = request.GET.get("long_b")
+    directions = Directions(
+        lat_a=lat_a,
+        long_a=long_a,
+        lat_b=lat_b,
+        long_b=long_b
+        )
+
+    context = {
+        "form": form,
+
+        "google_api_key": settings.GOOGLE_API_KEY,
+        "lat_a": lat_a,
+        "long_a": long_a,
+        "lat_b": lat_b,
+        "long_b": long_b,
+        "origin": f'{lat_a}, {long_a}',
+        "destination": f'{lat_b}, {long_b}',
+        "directions": directions,
+    }
+
+    return render(request, 'visits/map.html', context)
+
+
+class AddJourney(CreateView):
     '''
     need to change the name to ADDJoruney without breaking the view???
     '''
     template_name = 'map.html'
     form_class = JourneyForm()
-    success_url = 'home'
+
 
     def post(self, request, address_start, address_destination, distance, *args, **kwargs):
 

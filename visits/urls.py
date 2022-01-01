@@ -8,24 +8,9 @@ urlpatterns = [
 
     path('', views.drive, name="drive"),
     path('map', views.map_view, name="map"),
-    path('post_visit_data/<str:address_start>/<str:address_destination>/<str:distance>/', views.AddVisit.as_view(), name="post_visit"),
+    path('post_visit_data/<str:address_start>/<str:address_destination>/<str:distance>/', views.AddJourney.as_view(), name="post_visit"),
     path('date', views.DatePickerView.as_view(), name='date_picker'),
     path('date/<slug:slug>/', views.DateView.as_view(), name='date_view'),
-    path('next_journey/<str:address_destination>/', views.drive_next_journey, name="next_journey")
+    path('next_journey/<str:address_destination>/', views.drive_next_journey, name="next_journey"),
+    path('next_journey/<str:address_destination>/map', views.map_view_next_journey, name="map_next_journey")
 	]
-
-
-# from . import views
-# from django.urls import path
-# from .views import DateView
-
-# urlpatterns = [
-
-#     
-#     path('<str:date_string>/', views.DateView.as_view(), name='date_view'),
-    # path('<str:address_start>/', views.post_visit, name="post_visit"),
-        # path('post_visit_data/', views.post_visit, name="post_visit"),
-
-# ]
-
-# views.AddNewTrafficMsg.as_view()
