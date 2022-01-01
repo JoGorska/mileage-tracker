@@ -1,4 +1,9 @@
+/* css for displaying map correctly created by 
+checking documentation
+https://developers.google.com/maps/documentation/javascript/overview
 
+and following tutorial
+https://www.youtube.com/watch?v=wCn8WND-JpU&t=8s */
 
 
 * {box-sizing: border-box;}
@@ -31,7 +36,7 @@ body, html, .map-container {
 
 .container {
   border-radius: 5px;
-  background-color: #f2f2f2;
+  background-color: #272b30;
   padding: 20px;
 }
 
@@ -45,7 +50,7 @@ table td, table th {
   padding: 8px;
 }
 
-table tr:hover {background-color: #ddd;}
+table tr:hover {color: rgb(179, 178, 178);}
 
 table th {
   padding-top: 12px;
@@ -55,27 +60,17 @@ table th {
   color: white;
 }
 
-/* https://developers.google.com/maps/documentation/javascript/overview
 
-these css are required for map to render correctly
 
-/* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
-       
-/* #map-route {
-height: 100%;
-} */
-      
-      /* Optional: Makes the sample page fill the window. */
-/* html, body {
-height: 100%;
-margin: 0;
-padding: 0;
-} */
+/* styling imitating bootstrap for the purpose of map.html template */
 
-/* css for displaying map correctly created by 
-checking documentation
-https://developers.google.com/maps/documentation/javascript/overview
+body {
+  background-color: #272b30;
+  color: whitesmoke;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
 
-and following tutorial
-https://www.youtube.com/watch?v=wCn8WND-JpU&t=8s */
+a {
+  color: whitesmoke;
+  text-decoration: none;
+}

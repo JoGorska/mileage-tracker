@@ -26,31 +26,10 @@
 
         <body>
 
-          <form action="{% url 'visits:post_visit' address_start=directions.origin address_destination=directions.destination distance=directions.distance %}" method="POST">
-            {% csrf_token %}
-
-            <!-- only the date input field is displayed to the user -->
-
-            {{ form|as_bootstrap }}
-
-            <input type="hidden" name="latitude_start" value="{{lat_a|safe}}">
-            <input type="hidden" name="longitude_start" value="{{long_a|safe}}">
-
-            <input type="hidden" name="latitude_destination" value="{{lat_b|safe}}">
-            <input type="hidden" name="longitude_destination" value="{{long_b|safe}}">
+          
 
 
-            <input type="hidden" name="driver" value="{{ user.id }}">
-
-            <input type="hidden" name="distance" value="{{ directions.distance }}">
-            <input type="hidden" name="next" value="{{ next }}" />
-
-            <button type="submit">Save</button>
-
-          </form>
-
-
-            <h3 id="map">Map only</h3>
+            <h1 id="map">Map only</h1>
 
             <!-- 
             table contains information about the route
@@ -65,13 +44,48 @@
               <table>
                 <thead>
                   <tr>
-                    <th>Field</th>
                     <th>
 
-                      <a href="https://www.google.com/maps/dir/?api=1&destination={{lat_b|safe}}%2C{{long_b|safe}}">
-                        Go to Maps
-                      </a>
+
+                          <a href="https://www.google.com/maps/dir/?api=1&destination={{lat_b|safe}}%2C{{long_b|safe}}">
+                            Go to Maps
+                          </a>
+                          </th>
+                          <th>
+                          <a href="https://www.google.com/maps/dir/?api=1&destination={{lat_b|safe}}%2C{{long_b|safe}}">
+                            Click (here) to be transfered to Google Maps
+                          </a>
+                        </th>
+                    </tr>
+
+                        <!-- only the date input field is displayed to the user -->
+                        <form action="{% url 'visits:post_visit' address_start=directions.origin address_destination=directions.destination distance=directions.distance %}" method="POST">
+                          {% csrf_token %}
+                        {{ form.as_table }}
+            
+                        <input type="hidden" name="latitude_start" value="{{lat_a|safe}}">
+                        <input type="hidden" name="longitude_start" value="{{long_a|safe}}">
+            
+                        <input type="hidden" name="latitude_destination" value="{{lat_b|safe}}">
+                        <input type="hidden" name="longitude_destination" value="{{long_b|safe}}">
+            
+            
+                        <input type="hidden" name="driver" value="{{ user.id }}">
+            
+                        <input type="hidden" name="distance" value="{{ directions.distance }}">
+                        <input type="hidden" name="next" value="{{ next }}" />
+                      </form>
+
+                    
+                    
+                    <th>
+
+                      <button type="submit">Save Journey and Drive</button>
+
                     </th>
+
+                    <th>
+                      Click "Save" button, you will be transferred to Drive"
                   </tr>
                 </thead>
                 <tbody>
