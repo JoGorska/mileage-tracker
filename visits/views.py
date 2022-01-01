@@ -78,10 +78,8 @@ def map_view(request):
 
 def map_view_next_journey(request, address_destination):
     """
-    Basic view for displaying a map
-    created by following (link below)
-    https://www.youtube.com/watch?v=wCn8WND-JpU&t=8s
-    and adjusted to the need of the project
+    view to display map if user was redirected from 
+    drive_next_journey view it duplicates the above ???
     """
 
     form = JourneyForm()

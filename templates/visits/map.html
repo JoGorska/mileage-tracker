@@ -21,14 +21,8 @@
 
             <link href="{% static 'css/map-only.css' %}" rel="stylesheet">
 
-              <!-- This allows us to extend the head scripts in HTML docs that have special requirements-->
-        </head>
 
-        <!-- <div class="mb-3">
-          <label for="journey-date" class="form-label">Date</label>
-          <input type="date" class="form-control" id="journey-date" aria-describedby="journey-date-help" name="google_address_a" value="today">
-          <div id="journey-date-help" class="form-text">Date of your journey</div>
-       </div> -->
+        </head>
 
         <body>
 
@@ -39,29 +33,14 @@
 
             {{ form|as_bootstrap }}
 
-            <!-- <input type="date" name="date_of_journey" id="id_date_of_journey"> -->
-
-            <!-- start of the journey -->
-
-
-            <!-- <input type="hidden" name="address_start" value="{{ directions.origin }}" id="id_address_start">
-
-            <input type="hidden" name="postcode_start" value="{ {directions.origin }}"> -->
-
             <input type="hidden" name="latitude_start" value="{{lat_a|safe}}">
             <input type="hidden" name="longitude_start" value="{{long_a|safe}}">
-
-            <!-- destination of the journey -->
-
-            <!-- <input type="hidden" name="address_destination" value="{{ directions.destination }}">
-            <input type="hidden" name="postcode_destination" value="{{ directions.destination }}"> -->
 
             <input type="hidden" name="latitude_destination" value="{{lat_b|safe}}">
             <input type="hidden" name="longitude_destination" value="{{long_b|safe}}">
 
 
             <input type="hidden" name="driver" value="{{ user.id }}">
-
 
             <input type="hidden" name="distance" value="{{ directions.distance }}">
             <input type="hidden" name="next" value="{{ next }}" />
@@ -73,8 +52,13 @@
 
             <h3 id="map">Map only</h3>
 
-            <!-- table contains information about the route
-            need to add buttons ???  -->
+            <!-- 
+            table contains information about the route
+            need to add buttons ???  
+          
+            button1 - go to maps
+            button2 - go to drive for next journey
+            -->
 
             <div class="container">
             
@@ -144,8 +128,6 @@
             
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
-    <!-- jQuery -->
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script> -->
     
     <!--my javascript link-->
 
