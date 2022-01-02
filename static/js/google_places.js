@@ -11,6 +11,9 @@ $.getScript( "https://maps.googleapis.com/maps/api/js?key=" + google_api_key + "
 
 let autocomplete_a;
 let autocomplete_b;
+/**
+ * function that initializes autocomplete from google maps places
+ */
 
 function initAutocomplete() {
 
@@ -38,7 +41,11 @@ function initAutocomplete() {
   });
 
 }
-
+/**
+ * 
+ * function that listens for input / place changed in the start and destination fields and
+ * autocompletes the address and latutude and longditude fields
+ */
 
 function onPlaceChanged (addy){
 
@@ -76,7 +83,10 @@ function onPlaceChanged (addy){
         } 
     }); 
 }
-
+/**
+ * function to validate form
+ * 
+ */
 
 function validateForm() {
     var valid = true;
@@ -89,7 +99,12 @@ function validateForm() {
     return valid
 }
 
-
+/**
+ * validates the longditute and latitude input
+ * takes longtitude and latitude of start and destination and returns url string
+ * if query contains journey_id this means that this is a user that edits the journey,
+ * the function adds this journey_id to the url
+ */
 function CalcRoute(){
 
     if ( validateForm() == true){
@@ -112,9 +127,5 @@ function CalcRoute(){
             url = 'map?' + query
             window.location.assign(url)
         }
-
-        
-
     }
-
 }

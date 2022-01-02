@@ -104,8 +104,6 @@ function initMap() {
     directionsDisplay.setMap(map);
     calculateAndDisplayRoute(directionsService, directionsDisplay);
 
-
-
 }
 
 // google directions api documentation

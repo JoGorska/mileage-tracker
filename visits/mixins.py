@@ -44,21 +44,11 @@ def Directions(*args, **kwargs):
         # duration is displayed as a string, not number
         duration = route["duration"]["text"]
 
-      #   steps = [
-			# [
-			# 	s["distance"]["text"],
-			# 	s["duration"]["text"],
-			# 	s["html_instructions"],
-
-			# ]
-			# for s in route["steps"]]
-
     return {
-		"origin": origin,
-		"destination": destination,
-		"distance": distance,
-		"duration": duration,
-		# "steps": steps
+    "origin": origin,
+    "destination": destination,
+    "distance": distance,
+    "duration": duration,
     }
 
 
