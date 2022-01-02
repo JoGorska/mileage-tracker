@@ -59,8 +59,7 @@ def Directions(*args, **kwargs):
 		"distance": distance,
 		"duration": duration,
 		# "steps": steps
-		}
-
+    }
 
 
 def extract_postcode(full_address):
@@ -69,7 +68,6 @@ def extract_postcode(full_address):
     Regex from:
     https://stackoverflow.com/questions/164979/regex-for-matching-uk-postcodes
     '''
-    result = ''.join([c for c in full_address if c.isupper()])
     matches = re.findall(r'([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})', full_address)
     list_of_matches = matches[0]
     postcode = list_of_matches[1]

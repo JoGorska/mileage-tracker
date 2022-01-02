@@ -12,5 +12,5 @@ class DateAdmin(admin.ModelAdmin):
 @admin.register(Journey)
 class JourneyAdmin(admin.ModelAdmin):
 
-    list_display = ('date_of_journey', 'address_start', 'address_destination', )
-    readonly_fields = ['created_on', 'updated_on']
+    list_display = ('id', 'date_of_journey', 'address_start', 'address_destination', )
+    readonly_fields = ['id', 'created_on', 'updated_on']

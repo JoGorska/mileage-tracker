@@ -54,7 +54,33 @@ def drive_next_journey(request, address_destination):
         "google_api_key": settings.GOOGLE_API_KEY
         }
     return render(request, 'visits/drive.html', context)
-    # return redirect('visits:drive', context)
+
+
+def drive_edit_journey(request, journey_id):
+    """
+    takes journey_id and pre fills the fields
+    with address_start and address_destination
+    """
+    model = TrafficMessage
+    trafficmessage_list = TrafficMessage.objects.filter(status=1).order_by('-created_on')
+    is_paginated = True
+    paginate_by = 6
+    print(f'JOURNEY ID HERE {journey_id}')
+
+    model = Journey
+    journey = get_object_or_404(Journey, id=journey_id)
+    print(f'JOURNEY START {journey.address_start}')
+
+    template_name = 'drive.html'
+    context = {
+        "trafficmessage_list": trafficmessage_list,
+        "paginate_by": paginate_by,
+        "is_paginated": is_paginated,
+        "journey": journey,
+        "google_api_key": settings.GOOGLE_API_KEY
+        }
+    return render(request, 'visits/drive.html', context)
+
 
 def map_view(request):
     """
@@ -126,6 +152,45 @@ def map_view_next_journey(request, address_destination):
     return render(request, 'visits/map.html', context)
 
 
+def map_view_edit_journey(request, journey_id):
+    """
+    view to display map if user was redirected from 
+    drive_next_journey view it duplicates the above ???
+    """
+    model = Journey
+    journey = get_object_or_404(Journey, id=journey_id)
+
+    form = JourneyForm()
+    lat_a = request.GET.get("lat_a")
+    long_a = request.GET.get("long_a")
+    lat_b = request.GET.get("lat_b")
+    long_b = request.GET.get("long_b")
+    directions = Directions(
+        lat_a=lat_a,
+        long_a=long_a,
+        lat_b=lat_b,
+        long_b=long_b
+        )
+
+    context = {
+        "journey": journey,
+        "journey_id": journey_id,
+        "form": form,
+
+        "google_api_key": settings.GOOGLE_API_KEY,
+        "lat_a": lat_a,
+        "long_a": long_a,
+        "lat_b": lat_b,
+        "long_b": long_b,
+        "origin": f'{lat_a}, {long_a}',
+        "destination": f'{lat_b}, {long_b}',
+        "directions": directions,
+
+    }
+
+    return render(request, 'visits/map.html', context)
+
+
 class AddJourney(CreateView):
     '''
     need to change the name to ADDJoruney without breaking the view???
@@ -172,6 +237,40 @@ class AddJourney(CreateView):
 
         return redirect('visits:next_journey', address_destination)
 
+class UpdateJourney(CreateView):
+    '''
+    need to change the name to ADDJoruney without breaking the view???
+    '''
+    template_name = 'map.html'
+    form_class = JourneyForm()
+
+
+    def post(self, request, journey_id, address_start, address_destination, distance, *args, **kwargs):
+
+        form = JourneyForm(data=request.POST)
+        model = Journey()
+
+        journey = get_object_or_404(Journey, id=journey_id)
+
+        # some form validation would be nice???
+
+        journey.address_start = address_start
+        journey.postcode_start = extract_postcode(address_start)
+        journey.latitude_start = request.POST.get("latitude_start")
+        journey.longitude_start = request.POST.get("longitude_start")
+        journey.address_destination = address_destination
+        journey.postcode_destination = extract_postcode(address_destination)
+        journey.latitude_destination = request.POST.get("latitude_destination")
+        journey.longitude_destination = request.POST.get("longitude_destination")
+        journey.distance = distance
+
+        date_of_journey = journey.date_of_journey
+        slug = str(date_of_journey)
+
+        journey.save()
+
+        return redirect('visits:date_view', slug)
+
 
 class DatePickerView(View):
     '''
@@ -208,17 +307,6 @@ class DatePickerView(View):
             slug = request.POST.get('date_picked')
 
             return redirect('visits:date_view', slug )
-
-# class DateView(generic.ListView):
-#     '''
-#     gets the list of all visits
-
-#     '''
-#     model = Journey
-#     # need .filter(date_of_journey=slug).
-#     queryset = Journey.objects.order_by('created_on')
-#     template_name = 'visits/visits_by_date.html'
-
 
 
 

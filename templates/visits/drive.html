@@ -20,10 +20,22 @@
    <div class="row">
 
       <div class="col-12 col-lg-6">
-
+         <!--
+         if user is redirected as basic drive - both address fields should be empty 
+         if user is redirected as next journey, the address should pre fill with address_destination from the prevous journey
+         else if user is redirected as edit journey, the address should pre fill with journey.address_start
+         -->
          <div class="mb-3">
             <label for="id-google-address-a" class="form-label">Start Address</label>
-            <input type="text" class="form-control" id="id-google-address-a" aria-describedby="google-address-a-help" name="google_address_a" value="{{address_destination}}">
+            <input type="text" class="form-control" id="id-google-address-a" aria-describedby="google-address-a-help" name="google_address_a"
+
+            {% if journey.address_start %} 
+            value="{{journey.address_start}}"
+            {% else %}
+            value="{{address_destination}}"
+            {% endif %}
+            >
+
             <div id="google-address-a-help" class="form-text">Type first line of the address, than choose from drop down list</div>
          </div>
 
@@ -33,7 +45,7 @@
 
          <div class="mb-3">
             <label for="id-google-address-b" class="form-label">Destination Address</label>
-            <input type="text" class="form-control" id="id-google-address-b" aria-describedby="google-address-b-help" name="google_address_b">
+            <input type="text" class="form-control" id="id-google-address-b" aria-describedby="google-address-b-help" name="google_address_b" value="{{journey.address_destination}}">
             <div id="google-address-b-help" class="form-text">Type first line of the address, than choose from drop down list</div>
          </div>
 
@@ -41,7 +53,7 @@
 
    </div>
 </div>
-
+   <input type="hidden" id="journey_id" name="journey_id" value={{journey.id}}>
    <input type="hidden" class="geo" id="id-lat-a" value="">
    <input type="hidden" class="geo" id="id-long-a" value="">
    <input type="hidden" class="geo" id="id-lat-b" value="">
