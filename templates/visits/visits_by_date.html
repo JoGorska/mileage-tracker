@@ -5,7 +5,7 @@
 <div class="container">
     <div class="row">
        <div class="col-4">
-          <h1 class="display-5 fw-bold lh-1 mb-5 border-warning pb-3 border-bottom">Drive</h1>
+          <h1 class="display-5 fw-bold lh-1 ">Full day report</h1>
        </div>
        <div class="col-4"></div>
        <div class="col-4"></div>
@@ -14,11 +14,11 @@
 
     {% if user.is_authenticated %} 
     
-    <h1>Full day report</h1>
+
 
     <form>
         <fieldset>
-            <legend>{{date_to_string}}</legend>
+            <legend class="mb-5 border-warning pb-3 border-bottom">{{date_to_string}}</legend>
 
             <div class="accordion accordion-flush" id="list-of-journeys">
 
