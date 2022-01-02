@@ -245,13 +245,16 @@ class DateView(View):
 
         journeys = Journey.objects.filter(date_of_journey=date_picked).order_by('created_on')
 
+        driver_id = request.user.id
+
         return render(
             request,
             'visits/visits_by_date.html',
             {
                 'date_picker_form': DatePickerForm(),
                 'journeys': journeys,
-                'date_to_string': date_to_string
+                'date_to_string': date_to_string,
+                'driver_id': driver_id
             },
         )
 
