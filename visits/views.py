@@ -68,7 +68,7 @@ def drive_edit_journey(request, journey_id):
     print(f'JOURNEY ID HERE {journey_id}')
 
     model = Journey
-    journey = get_object_or_404(id=journey_id)
+    journey = get_object_or_404(Journey, id=journey_id)
     print(f'JOURNEY START {journey.address_start}')
 
     template_name = 'drive.html'
@@ -147,6 +147,45 @@ def map_view_next_journey(request, address_destination):
         "origin": f'{lat_a}, {long_a}',
         "destination": f'{lat_b}, {long_b}',
         "directions": directions,
+    }
+
+    return render(request, 'visits/map.html', context)
+
+
+def map_view_edit_journey(request, journey_id):
+    """
+    view to display map if user was redirected from 
+    drive_next_journey view it duplicates the above ???
+    """
+    model = Journey
+    journey = get_object_or_404(Journey, id=journey_id)
+
+    form = JourneyForm()
+    lat_a = request.GET.get("lat_a")
+    long_a = request.GET.get("long_a")
+    lat_b = request.GET.get("lat_b")
+    long_b = request.GET.get("long_b")
+    directions = Directions(
+        lat_a=lat_a,
+        long_a=long_a,
+        lat_b=lat_b,
+        long_b=long_b
+        )
+
+    context = {
+        "journey": journey,
+        "journey_id": journey_id,
+        "form": form,
+
+        "google_api_key": settings.GOOGLE_API_KEY,
+        "lat_a": lat_a,
+        "long_a": long_a,
+        "lat_b": lat_b,
+        "long_b": long_b,
+        "origin": f'{lat_a}, {long_a}',
+        "destination": f'{lat_b}, {long_b}',
+        "directions": directions,
+
     }
 
     return render(request, 'visits/map.html', context)
