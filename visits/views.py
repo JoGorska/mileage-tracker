@@ -54,7 +54,33 @@ def drive_next_journey(request, address_destination):
         "google_api_key": settings.GOOGLE_API_KEY
         }
     return render(request, 'visits/drive.html', context)
-    # return redirect('visits:drive', context)
+
+
+def drive_edit_journey(request, journey_id):
+    """
+    takes journey_id and pre fills the fields
+    with address_start and address_destination
+    """
+    model = TrafficMessage
+    trafficmessage_list = TrafficMessage.objects.filter(status=1).order_by('-created_on')
+    is_paginated = True
+    paginate_by = 6
+    print(f'JOURNEY ID HERE {journey_id}')
+
+    model = Journey
+    journey = get_object_or_404(id=journey_id)
+    print(f'JOURNEY START {journey.address_start}')
+
+    template_name = 'drive.html'
+    context = {
+        "trafficmessage_list": trafficmessage_list,
+        "paginate_by": paginate_by,
+        "is_paginated": is_paginated,
+        "journey": journey,
+        "google_api_key": settings.GOOGLE_API_KEY
+        }
+    return render(request, 'visits/drive.html', context)
+
 
 def map_view(request):
     """
@@ -208,17 +234,6 @@ class DatePickerView(View):
             slug = request.POST.get('date_picked')
 
             return redirect('visits:date_view', slug )
-
-# class DateView(generic.ListView):
-#     '''
-#     gets the list of all visits
-
-#     '''
-#     model = Journey
-#     # need .filter(date_of_journey=slug).
-#     queryset = Journey.objects.order_by('created_on')
-#     template_name = 'visits/visits_by_date.html'
-
 
 
 

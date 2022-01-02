@@ -4,6 +4,18 @@
 
 <!-- icons for the nav bar -->
 
+<!-- https://stackoverflow.com/questions/38808810/django-change-active-navbar-template-based-on-webpage -->
+<ul class="sidebar-nav--primary">
+  {% url 'main:home' as home %}
+  {% url 'main:work' as work %}
+  {% url 'main:personal' as personal %}
+
+  <li><a href="{{ home }}" {% if request.path == home %}class="active"{% endif %}>Home</a></li>
+  <li><a href="{{ work }}" {% if request.path == work %}class="active"{% endif %}>Work</a></li>
+  <li><a href="{{ personal }}" {% if request.path == personal %}class="active"{% endif %}>Personal</a></li>
+
+</ul>
+
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
     <symbol id="bootstrap" viewBox="0 0 118 94">
       <title>Bootstrap</title>
