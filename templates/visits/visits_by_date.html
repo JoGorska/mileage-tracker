@@ -41,11 +41,13 @@
                             </div>
                             <div class="row mt-3">
                                 <div class="col text-end">
-                                    <a href="{% url 'visits:edit_journey' journey_id=journey.id %}" class="btn btn-outline-warning btn-sm" type="button">Edit</a>
+                                    <a href="{% url 'visits:edit_journey' journey_id=journey.id %}" class="btn btn-outline-warning btn-sm">Edit</a>
                                 </div>
                                 <div class="col text-start">
-                                    <a href="" class="btn btn-outline-danger btn-sm" type="button">Delete</a>
+                                    <!-- Modal Trigger -->
+                                    <button class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#id-modal-{{journey.id}}"type="button">Delete</button>
                                 </div>
+
                             </div>
                         </div>
 
@@ -53,6 +55,7 @@
                   </div>
                 </div>
 
+                    
             <!-- if there is no journeys -->
             {% empty %}
 
@@ -64,10 +67,36 @@
         
         </fieldset>
     </form>
-        <!-- if the there is no journeys assigned to this driver -->
+
+    
+
+    {% for journey in journeys %}
+
+    <!-- Modal -->
+<div class="modal fade" id="id-modal-{{journey.id}}" tabindex="-1" aria-labelledby="modal-label-{{journey.id}}" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modal-label-{{journey.id}}">Confirm Deleting the journey</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <h4>Are you sure you want to delete journey from {{ journey.postcode_start }} to {{journey.postcode_destination }}</h4>
+            <p class="red-text">This will change the summary of your miles for the day</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancell</button>
+          <button type="button" class="btn btn-danger">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+    
+    {% endfor %}
+
 
     {% else %}
-
+    <!-- if the there is no journeys assigned to this driver -->
     <h1>You need to log in to view the visits</h1>
 
     {% endif %}

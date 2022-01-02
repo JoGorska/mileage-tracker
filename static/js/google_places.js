@@ -41,8 +41,8 @@ function initAutocomplete() {
   });
 
 }
+
 /**
- * 
  * function that listens for input / place changed in the start and destination fields and
  * autocompletes the address and latutude and longditude fields
  */
