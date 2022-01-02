@@ -10,23 +10,20 @@
             <meta name="keywords" content="mileage, driving, distance">
             <meta name="author" content="JoGorska">
 
-
             <!--google fonts-->
 
             <!-- icons -->
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
-            
 
             <!--my stylesheet link-->
 
             <link href="{% static 'css/map-only.css' %}" rel="stylesheet">
 
-
         </head>
 
         <body>
 
-            <h1 id="map">Map only</h1>
+            <h1 id="map">Map</h1>
 
             <div class="container">
             
@@ -34,7 +31,6 @@
                 <thead>
                   <tr>
                     <th>
-
 
                           <a href="https://www.google.com/maps/dir/?api=1&destination={{lat_b|safe}}%2C{{long_b|safe}}">
                             Go to Maps
@@ -48,7 +44,14 @@
                     </tr>
 
                         <!-- only the date input field is displayed to the user -->
+                        {% if journey_id %}
+                        <form action="{% url 'visits:post_update_visit' address_start=directions.origin address_destination=directions.destination distance=directions.distance %}" method="POST">
+                        
+                          {% else %}
+
                         <form action="{% url 'visits:post_visit' address_start=directions.origin address_destination=directions.destination distance=directions.distance %}" method="POST">
+                        
+                        {% endif %}
                           {% csrf_token %}
                         {{ form.as_table }}
             
