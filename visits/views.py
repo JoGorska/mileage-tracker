@@ -237,6 +237,40 @@ class AddJourney(CreateView):
 
         return redirect('visits:next_journey', address_destination)
 
+class UpdateJourney(CreateView):
+    '''
+    need to change the name to ADDJoruney without breaking the view???
+    '''
+    template_name = 'map.html'
+    form_class = JourneyForm()
+
+
+    def post(self, request, journey_id, address_start, address_destination, distance, *args, **kwargs):
+
+        form = JourneyForm(data=request.POST)
+        model = Journey()
+
+        journey = get_object_or_404(Journey, id=journey_id)
+
+        # some form validation would be nice???
+
+        journey.address_start = address_start
+        journey.postcode_start = extract_postcode(address_start)
+        journey.latitude_start = request.POST.get("latitude_start")
+        journey.longitude_start = request.POST.get("longitude_start")
+        journey.address_destination = address_destination
+        journey.postcode_destination = extract_postcode(address_destination)
+        journey.latitude_destination = request.POST.get("latitude_destination")
+        journey.longitude_destination = request.POST.get("longitude_destination")
+        journey.distance = distance
+
+        date_of_journey = journey.date_of_journey
+        slug = str(date_of_journey)
+
+        journey.save()
+
+        return redirect('visits:date_view', slug)
+
 
 class DatePickerView(View):
     '''
