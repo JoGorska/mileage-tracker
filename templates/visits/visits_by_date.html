@@ -6,8 +6,6 @@
 
 
     {% if user.is_authenticated %} 
-        <!-- checks if the driver on the queryset is the same as the user that is currently logged in -->
-        {% if journey.driver == user.login %}
     
     <h1>Full day report</h1>
 
@@ -67,11 +65,6 @@
         </fieldset>
     </form>
         <!-- if the there is no journeys assigned to this driver -->
-        {% else %}
-        <h1>You have no journeys for this date</h1>
-
-        {% endif %}
-
 
     {% else %}
 
