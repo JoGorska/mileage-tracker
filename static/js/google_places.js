@@ -93,20 +93,28 @@ function validateForm() {
 function CalcRoute(){
 
     if ( validateForm() == true){
-      var params = {
-          lat_a: $('#id-lat-a').val(),
-          long_a: $('#id-long-a').val(),
-          lat_b: $('#id-lat-b').val(),
-          long_b: $('#id-long-b').val(),
-      };
+        var params = {
+            lat_a: $('#id-lat-a').val(),
+            long_a: $('#id-long-a').val(),
+            lat_b: $('#id-lat-b').val(),
+            long_b: $('#id-long-b').val(),
+        };
 
-      var esc = encodeURIComponent;
-      var query = Object.keys(params)
-          .map(k => esc(k) + '=' + esc(params[k]))
-          .join('&');
+        var esc = encodeURIComponent;
+        var query = Object.keys(params)
+            .map(k => esc(k) + '=' + esc(params[k]))
+            .join('&');
+        var journey_id =  $('#journey_id').val()
+        if (journey_id) {
+            url = journey_id + '/' + 'map?' + query
+            window.location.assign(url)
+        } else {
+            url = 'map?' + query
+            window.location.assign(url)
+        }
 
-      url = 'map?' + query
-      window.location.assign(url)
+        
+
     }
 
 }
