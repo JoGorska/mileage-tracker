@@ -8,26 +8,35 @@
 
 {% block content %}
 
-<div class="container">
+    <div class="container">
+
+        <h1 class="display-5 fw-bold lh-1 mb-3">Pick the date</h1>
+        <h2 class="border-warning pb-3 border-bottom mb-5">you wish to view</h2>
 
 
     {% if user.is_authenticated %}
 
-    <h1 class="mt-3 mb-3">Pick the date you wish to view</h1>
 
-    <form action="" method="POST">
+
+    <form class="mt-5 mb-5" action="" method="POST">
     {% csrf_token %}
+<div class="row mb-5">
+    <div class="col"></div>
+    <div class="col">
+        {{ date_picker_form|as_bootstrap }}
 
-            {{ date_picker_form|as_bootstrap }}
+        <input class="btn btn-warning mt-5" type="submit" value="Go"></div>
 
-    <input class="btn btn-warning mt-5" type="submit" value="Go">
+    <div class="col"></div>
+</div>
+
 
     </form>
 
 
     {% else %}
 
-    <h1>You need to log in to view the visits</h1>
+    <h2>You need to log in to view the journeys</h2>
 
     {% endif %}
 </div>
