@@ -53,18 +53,44 @@
 
           <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
             <li>
-              <!-- need to change text-white to text-secondary - for the current path on nav bar ??? -->
-              <a href="{% url 'home' %}" class="nav-link text-secondary">
+              <!-- 
+              "if" statement changes the text color for nav item depending on url name
+
+              logic operator "or" for multiple url names???
+              -->
+
+              <a href="{% url 'home' %}" 
+              class="nav-link {% if request.resolver_match.url_name == 'home' %} text-secondary {% else %} text-white {% endif %}">
                 <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#home"/></svg>
                 Home
               </a>
             </li>
             <li>
-              <a href="{% url 'visits:drive' %}" class="nav-link text-white">
+              <a href="{% url 'visits:drive' %}" class="nav-link {% if request.resolver_match.url_name == 'drive' %} text-secondary {% else %} text-white {% endif %}">
                 <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#speedometer2"/></svg>
                 Drive
               </a>
             </li>
+
+            <li>
+              <a href="{% url 'visits:date_picker' %}" 
+              class="nav-link {% if request.resolver_match.url_name == 'date_picker'%}
+              text-secondary
+              {% elif request.resolver_match.url_name == 'date_view' %}
+              text-secondary 
+
+              {% elif request.resolver_match.url_name == 'next_journey' %}
+              text-secondary 
+
+              {% elif request.resolver_match.url_name == 'edit_journey' %}
+              text-secondary 
+               
+               {% else %} text-white {% endif %}">
+                <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#grid"/></svg>
+                Day
+              </a>
+            </li>
+
             <li>
               <!-- date picker need to add ??? -->
 
@@ -88,14 +114,14 @@
               </ul> -->
 
             </li>
+            
             <li>
-              <a href="{% url 'visits:date_picker' %}" class="nav-link text-white">
-                <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#grid"/></svg>
-                Day
-              </a>
-            </li>
-            <li>
-                <a href="{% url 'add_traffic_msg' %}" class="nav-link text-white">
+              
+                 
+                
+                <a href="{% url 'add_traffic_msg' %}" 
+                class="nav-link {% if request.resolver_match.url_name == 'add_traffic_msg' %} text-secondary {% else %} text-white{% endif %}">
+                
                     <svg width="24" height="24" fill="currentColor" class="bi d-block mx-auto mb-1" viewBox="0 0 16 16"><use xlink:href="#message"/></svg>
                   Message
                 </a>
@@ -104,7 +130,18 @@
 
               <!-- user drop down menu displaying differently if user logged in-->
 
-              <a href="#" class="nav-link text-white dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+              <a href="#" class="nav-link
+              
+              {% if request.resolver_match.url_name == 'login' %}
+              text-secondary
+
+              {% elif request.resolver_match.url_name == 'register' %}
+              text-secondary
+              
+              {% else %} text-white{% endif %}
+              
+              
+              dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                 <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#people-circle"/></svg>
               
                 {% if user.is_authenticated %}

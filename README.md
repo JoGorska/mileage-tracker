@@ -310,6 +310,7 @@ I've noticed when testing responsivness on chrome dev tools that hero image on i
 
 - the number of road cleared has not been displaying on the messages list view - found error in spelling, which has resolved the issue
 - the view that was supposed to submit the `cleared` to the database was returning various different errors. I found missing `filter` method in the view
+- number of Thanks wasn't increasing after the button to thank was clicked. I found that closing tag for form was missing.
 
 ## Deployment
 
