@@ -14,32 +14,6 @@ class TrafficMessagesList(generic.ListView):
     paginate_by = 6
 
 
-class TrafficMsgDetail(View):
-
-    def get(self, request, id, *args, **kwargs):
-        model = TrafficMessage
-        trafficmessage_list = TrafficMessage.objects.filter(status=1).order_by('-created_on')
-        current_traffic_msg = get_object_or_404(trafficmessage_list, id=id)
-        thanks = False
-        cleared = False
-        template_name = 'index.html'
-        if current_traffic_msg.thanks.filter(id=self.request.user.id).exists():
-            thanks = True
-        if current_traffic_msg.cleared.filter(id=self.request.user.id).exists():
-            cleared = True
-
-        return render(
-                request,
-                "traffic/traffic_msg_detail.html",
-                {
-                    "trafficmessage_list": trafficmessage_list,
-                    "current_traffic_msg ": current_traffic_msg,
-                    "thanks": thanks,
-                    "cleared": cleared,
-                },
-            )
-
-
 class AddNewTrafficMsg(CreateView):
     template_name = 'traffic/add_traffic_msg.html'
     form_class = TrafficMessageForm
@@ -79,7 +53,6 @@ class MsgThanks(View):
             traffic_message.thanks.add(request.user)
 
         return HttpResponseRedirect('/')
-
 
 # class MsgCleared(View):
 #     def post(self, request, id):
