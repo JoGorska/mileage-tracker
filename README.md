@@ -302,6 +302,15 @@ Unfortunately once the bootstrap css have been applied, this setting was not cor
 
 In the end I decided to style this page similarly as bootstrap looks - same background color and fonts. I have also styled javascript map in night mode to blend into the overall style of the app. 
 
+### Hero image wondering to the left on the smaller screen sizes
+
+I've noticed when testing responsivness on chrome dev tools that hero image on index.html is moving to the left of the screen, doesn't stay in the middle. I have tested in dev tools various different bootstrap classes and different css properties. The solution was adding some more classes in row div to control the number of columns depending on the screen size (`row row-cols-1 row-cols-sm-1 row-cols-md-1 row-cols-lg-2`), while the col divs will have only `col` class. Previously img div had set col width depending on screen size, while text col div had only settings for large screens. They did not seem to add up to 12 as per bootstrap's standard. I copied the classes from dev tools to the template, which has resolved the issue.
+
+### Road cleared column of the TrafficMessage model
+
+- the number of road cleared has not been displaying on the messages list view - found error in spelling, which has resolved the issue
+- the view that was supposed to submit the `cleared` to the database was returning various different errors. I found missing `filter` method in the view
+
 ## Deployment
 
  The site was deployed to Heroku pages. 
