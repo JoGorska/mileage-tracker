@@ -330,10 +330,11 @@ class DateView(View):
         date_to_string = date_picked.strftime("%d %B %Y")
 
         model = Journey
-
-        journeys = Journey.objects.filter(date_of_journey=date_picked).order_by('created_on')
-
         driver_id = request.user.id
+
+        journeys = Journey.objects.filter(date_of_journey=date_picked).filter(driver=driver_id).order_by('created_on')
+
+        
 
         return render(
             request,
