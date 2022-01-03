@@ -17,25 +17,27 @@ class TrafficMessagesList(generic.ListView):
 class TrafficMsgDetail(View):
 
     def get(self, request, id, *args, **kwargs):
-        # model = TrafficMessage
-        queryset = TrafficMessage.objects.filter(status=1).order_by('-created_on')
-        trafficmessage = get_object_or_404(queryset, id=id)
+        model = TrafficMessage
+        trafficmessage_list = TrafficMessage.objects.filter(status=1).order_by('-created_on')
+        current_traffic_msg = get_object_or_404(trafficmessage_list, id=id)
         thanks = False
         cleared = False
-        if trafficmessage.thanks.filter(id=self.request.user.id).exists():
+        template_name = 'index.html'
+        if current_traffic_msg.thanks.filter(id=self.request.user.id).exists():
             thanks = True
-        if trafficmessage.cleared.filter(id=self.request.user.id).exists():
+        if current_traffic_msg.cleared.filter(id=self.request.user.id).exists():
             cleared = True
 
         return render(
-            request,
-            "traffic/traffic_msg_detail.html",
-            {
-                "trafficmessage": trafficmessage,
-                "thanks": thanks,
-                "cleared": cleared
-            },
-        )
+                request,
+                "traffic/traffic_msg_detail.html",
+                {
+                    "trafficmessage_list": trafficmessage_list,
+                    "current_traffic_msg ": current_traffic_msg,
+                    "thanks": thanks,
+                    "cleared": cleared,
+                },
+            )
 
 
 class AddNewTrafficMsg(CreateView):
@@ -76,7 +78,7 @@ class MsgThanks(View):
         else:
             traffic_message.thanks.add(request.user)
 
-        return HttpResponseRedirect(reverse('traffic/traffic_msg_detail', args=[id]))
+        return HttpResponseRedirect('/')
 
 
 # class MsgCleared(View):

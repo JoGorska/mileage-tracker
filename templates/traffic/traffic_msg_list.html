@@ -34,7 +34,9 @@
               <!-- card body -->
 
               <div class="card-body">
-                <a href="{% url 'traffic_msg_detail' trafficmessage.id %}" class="text-decoration-none">
+
+                <!-- Modal Trigger -->
+                <a href="{% url 'traffic_msg_detail' trafficmessage.id %}" class="text-decoration-none" data-bs-toggle="modal" data-bs-target="#id-modal-{{trafficmessage.id}}" data-bs-toggle="modal" data-bs-show="true" type="button">
                   <h5 class="card-title">{{trafficmessage.area}} in {{trafficmessage.county}} (more)</h5>
                 </a>
               </div>
@@ -68,4 +70,36 @@
       {% endif %}
 
   </div>
+{% for trafficmessage in trafficmessage_list %}
+      <!-- Modal is generated for each traffic message and called on trigger button click -->
+<div data-bs-show="true" class="modal fade" id="id-modal-{{trafficmessage.id}}" tabindex="-1" aria-labelledby="modal-label-{{trafficmessage.id}}" >
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modal-label-{{trafficmessage.id}}">{{trafficmessage.area}} in {{trafficmessage.county}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <h4>{{trafficmessage.content}}</h4>
+          <p class="red-text">From: {{trafficmessage.author}} on {{trafficmessage.created_on}}</p>
+      </div>
+      <div class="modal-footer">
+        {% if user.is_authenticated %}
+        <form action="{% url 'msg_thanks' trafficmessage.id %}" class="d-inline" method="POST">
+          {% csrf_token %}
+
+
+              <button class="btn btn-warning" type="submit" name="traffic_message_id" value="{{trafficmessage.id}}" class="btn btn-success">Tank you!</button>
+
+          {% endif %}
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Go Back</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endfor %}
+
+
+
   {%endblock%}
