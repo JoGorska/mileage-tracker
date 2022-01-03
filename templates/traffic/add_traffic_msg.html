@@ -2,24 +2,24 @@
 {% load static %}
 {% load bootstrap_tags %}
 {% block content %}
-<div class="container"></div>
+<div class="container">
 
-    {% if user.is_authenticated %}
-    <div class="container">
+{% if user.is_authenticated %}
 
-        <h1>Add New Traffic Alert</h1>
-        <p>Alert other drivers about current situation on the roads</p>
+    <div class="">
+
+        <h1 class="display-5 fw-bold lh-1">Add new Traffic Alert</h1>
+        <h2><span class="pb-3 border-warning border-bottom">Alert other drivers about current situation on the roads</span></h2>
     </div>
         
-        
-    <form action="" method="POST">
+    <form class="py-5" action="" method="POST">
     {% csrf_token %}
         <div class="container">    
             
             {{ traffic_msg_form|as_bootstrap}}
 
 
-            <input class="btn btn-warning mt-3" type="submit" value="register"/>
+            <input class="btn btn-warning my-3 py-3" type="submit" value="register"/>
             
 
         <input type="hidden" name="next" value="{{ next }}" />
@@ -27,7 +27,7 @@
  
     </form>
     
-</div>
+
 
 {% else %}
 
