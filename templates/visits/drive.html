@@ -9,14 +9,11 @@
 
 
 {% block content %}
-<div class="container">
-   <div class="row">
-      <div class="col-4">
-         <h1 class="display-5 fw-bold lh-1 mb-5 border-warning pb-3 border-bottom">Drive</h1>
-      </div>
-      <div class="col-4"></div>
-      <div class="col-4"></div>
-   </div>
+
+<!-- page title -->
+
+<h1 class="display-5 fw-bold lh-1 mb-5 mx-5 mt-3"><span class="border-warning pb-3 border-bottom mx-5">Drive</span></h1>
+
 
 
 
@@ -65,16 +62,16 @@
    <input type="hidden" class="geo" id="id-long-a" value="">
    <input type="hidden" class="geo" id="id-lat-b" value="">
    <input type="hidden" class="geo" id="id-long-b" value="">
-
+</div>
    {% else %}
-   <h5>You need to log in to use Drive</h5>
+   <h2 class="mx-5"><spanc class="mx-5">You need to log in to use Drive</span></h2>
 
    {% endif %}
 
 
 
    {% include 'traffic/traffic_msg_list.html' %}
-</div>
+
 {% endblock %}
 
 
