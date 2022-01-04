@@ -2,15 +2,16 @@
 {% load static %}
 {% load bootstrap_tags %}
 {% block content %}
-<div class="container">
+
+<div class="container my-3"><h1 class="display-5 fw-bold lh-1 "><span class="border-warning pb-3 border-bottom">Add new Traffic Alert</span></h1></div>
+
 
 {% if user.is_authenticated %}
 
-    <div class="">
+<div class="container pt-3 mt-4 mb-5"><h2>Alert other drivers about current situation on the roads</h2></div>
 
-        <h1 class="display-5 fw-bold lh-1">Add new Traffic Alert</h1>
-        <h2><span class="pb-3 border-warning border-bottom">Alert other drivers about current situation on the roads</span></h2>
-    </div>
+<div class="container">
+
         
     <form class="py-5" action="" method="POST">
     {% csrf_token %}
@@ -27,24 +28,23 @@
  
     </form>
     
-
+</div>
 
 {% else %}
+<div class="container pt-3 mt-4 mb-5">
+    <h2>You must log in to add a new traffic alert.</h2>
+    <p class="pt-3 my-3"></p>
+        Click <a href="{% url 'login' %}?next/">here</a> to log in or 
+        <a href="{% url 'register' %}">here</a>
 
-    <h5>You must log in to add new traffic alert.</h5>
+        to register
+    </p>
 
-    <div class="row">
-        <div class="col">
-            <a href="{% url 'login' %}" class="btn btn-primary">Log in</a>
-        </div>
-        <div class="col">
-            <a href="{% url 'register' %}" class="btn btn-primary">Register</a>
-        </div>
-    </div>
+</div>
 
     {% endif %}
 
-    </div>
+
 
 
 {%endblock%}

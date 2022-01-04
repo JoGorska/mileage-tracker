@@ -2,7 +2,9 @@
 {% load static %}
 {% block content %}
 
-<h1 class="display-5 fw-bold lh-1 mb-5 mx-5 mt-3"><span class="border-warning pb-3 border-bottom mx-5">Full day report</span></h1>
+<div class="container my-3"><h1 class="display-5 fw-bold lh-1 "><span class="border-warning pb-3 border-bottom">Full day report</span></h1></div>
+
+
 
     {% if user.is_authenticated %} 
 
@@ -95,7 +97,7 @@
 
     {% else %}
 
-    <h2 class="mx-5"><spanc class="mx-5">You need to log in to see your visits</span></h2>
+    <div class="container pt-3 mt-4 mb-5"><h2>You need to log in to see your journeys</h2></div>
 
     {% endif %}
 

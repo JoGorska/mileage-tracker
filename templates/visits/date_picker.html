@@ -6,14 +6,16 @@
 
 
 {% block content %}
+<div class="container my-3"><h1 class="display-5 fw-bold lh-1 "><span class="border-warning pb-3 border-bottom">Pick the date</span></h1></div>
 
-        <h1 class="display-5 fw-bold lh-1 mb-5 mx-5 mt-3"><span class="border-warning pb-3 border-bottom mx-5">Pick the date</span></h1>
+
 
     {% if user.is_authenticated %}
 
-    <div class="container">
 
-        <h2 class="pb-3 mb-5 mx-5"><span class="mx-5">you wish to view</span> </h2>
+        <div class="container pt-3 mt-4 mb-5"><h2>you wish to view</h2></div>
+
+        <div class="container">
 
         <form class="mt-5 mb-5" action="" method="POST">
         {% csrf_token %}
@@ -32,7 +34,9 @@
 
     </div>
     {% else %}
-    <h2 class="pb-3 mb-5 mx-5"><span class="mx-5">You need to log in to view day report</span> </h2>
+
+    <div class="container pt-3 mt-4 mb-5"><h2>You need to log in to view day report</h2></div>
+
 
     {% endif %}
 
