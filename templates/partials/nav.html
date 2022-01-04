@@ -36,7 +36,7 @@
     
   </svg>
 
-<header>
+  <header>
     <div class="px-3 pt-2 bg-dark text-white">
       <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
@@ -137,9 +137,11 @@
 
               {% elif request.resolver_match.url_name == 'register' %}
               text-secondary
+
+              {% elif request.resolver_match.url_name == 'register-success' %}
+              text-secondary
               
               {% else %} text-white{% endif %}
-              
               
               dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                 <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#people-circle"/></svg>

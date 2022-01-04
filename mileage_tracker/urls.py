@@ -29,14 +29,9 @@ urlpatterns = [
         TemplateView.as_view(template_name="users/success.html"),
         name='register-success',
     ),
-    #     path(
-    #     'login/',
-    #     TemplateView.as_view(template_name="register/login.html"),
-    #     name='login',
-    # ),
     path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
     path('register/', RegisterUserView.as_view(), name='register'),
     path('', include('django.contrib.auth.urls')),
-    # path('date/', include('visits.urls'), name='date_urls'),
+
     path('visits/', include('visits.urls', namespace="visits")),
 ]
