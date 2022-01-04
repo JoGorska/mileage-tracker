@@ -8,24 +8,22 @@
 
 {% block content %}
 
-<h1>Please Login</h1>
-<p>You must be logged in to access Tank mileage tracker</p>
+<div class="container my-3"><h1 class="display-5 fw-bold lh-1 "><span class="border-warning pb-3 border-bottom">Login</span></h1></div>
 
-{% if form.errors %}
-<p>Your username and password didn't match. Please try again.</p>
-{% endif %}
+<div class="container pt-3 mt-4 mb-5"><h2 class="">You must be logged in to access Tank mileage tracker</h2></div>
 
 <form action="{% url 'login' %}" method="POST">
     {% csrf_token %}
-    <div class="container">
+    <div class="container ">
         {{ form|as_bootstrap }}
 
 
-    <input type="submit" value="login" class="btn btn-warning mt-3">
+    <input type="submit" value="login" class="btn btn-warning mt-4">
 
-    </div>
 
-<p>Not registered yet? <a href="{% url 'register' %} "> Register here</a></p>
+
+    <p class="mt-3">Not registered yet? <a href="{% url 'register' %} "> Register here</a></p>
+</div>
 <input type="hidden" name="next" value="{{ next }}" />
 
 </form>

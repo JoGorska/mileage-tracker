@@ -5,41 +5,41 @@
 {% load bootstrap_tags %}
 
 
-
 {% block content %}
+<div class="container my-3"><h1 class="display-5 fw-bold lh-1 "><span class="border-warning pb-3 border-bottom">Pick the date</span></h1></div>
 
-    <div class="container">
-
-        <h1 class="display-5 fw-bold lh-1 mb-3">Pick the date</h1>
-        <h2 class="border-warning pb-3 border-bottom mb-5">you wish to view</h2>
 
 
     {% if user.is_authenticated %}
 
 
+        <div class="container pt-3 mt-4 mb-5"><h2>you wish to view</h2></div>
 
-    <form class="mt-5 mb-5" action="" method="POST">
-    {% csrf_token %}
-<div class="row mb-5">
-    <div class="col"></div>
-    <div class="col">
-        {{ date_picker_form|as_bootstrap }}
+        <div class="container">
 
-        <input class="btn btn-warning mt-5" type="submit" value="Go"></div>
+        <form class="mt-5 mb-5" action="" method="POST">
+        {% csrf_token %}
+            <div class="row mb-5">
+                <div class="col"></div>
+                <div class="col">
+                    {{ date_picker_form|as_bootstrap }}
 
-    <div class="col"></div>
-</div>
+                    <input class="btn btn-warning mt-5" type="submit" value="Go"></div>
+
+                <div class="col"></div>
+            </div>
 
 
-    </form>
+        </form>
 
-
+    </div>
     {% else %}
 
-    <h2>You need to log in to view the journeys</h2>
+    <div class="container pt-3 mt-4 mb-5"><h2>You need to log in to view day report</h2></div>
+
 
     {% endif %}
-</div>
+
 
 {% endblock %}
 

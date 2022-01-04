@@ -2,23 +2,15 @@
 {% load static %}
 {% block content %}
 
-<div class="container">
-    <div class="row">
-       <div class="col-4">
-          <h1 class="display-5 fw-bold lh-1 ">Full day report</h1>
-       </div>
-       <div class="col-4"></div>
-       <div class="col-4"></div>
-    </div>
+<div class="container my-3"><h1 class="display-5 fw-bold lh-1 "><span class="border-warning pb-3 border-bottom">Full day report</span></h1></div>
+
 
 
     {% if user.is_authenticated %} 
-    
 
-
-    <form>
+    <form class="container">
         <fieldset>
-            <legend class="mb-5 border-warning pb-3 border-bottom">{{date_to_string}}</legend>
+            <legend class="mb-5 pb-3">{{date_to_string}}</legend>
 
             <div class="accordion accordion-flush" id="list-of-journeys">
 
@@ -98,16 +90,17 @@
       </div>
     </div>
   </div>
+</div>
     
     {% endfor %}
 
 
     {% else %}
-    <!-- if the there is no journeys assigned to this driver -->
-    <h1>You need to log in to view the visits</h1>
+
+    <div class="container pt-3 mt-4 mb-5"><h2>You need to log in to see your journeys</h2></div>
 
     {% endif %}
 
-</div>
+
 
 {% endblock %}

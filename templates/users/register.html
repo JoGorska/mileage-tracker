@@ -6,19 +6,22 @@
 
 {% block content %}
 
-<h1>User Registration</h1>
-<p>Enter your details to register.</p>
+<div class="container my-3"><h1 class="display-5 fw-bold lh-1 "><span class="border-warning pb-3 border-bottom">Register</span></h1></div>
 
-<form action="" method="POST">
-{% csrf_token %}
-    <div class="container">
-        {{ form|as_bootstrap}}
+<div class="container pt-3 mt-4 mb-5"><h2>Enter your details to register.</h2></div>
 
-    <input type="submit" value="register" class="btn btn-warning mt-3">
-    </div>
+<div class="container">
+    <form action="" method="POST">
+    {% csrf_token %}
+        <div class="container">
+            {{ form|as_bootstrap}}
 
-<input type="hidden" name="next" value="{{ next }}" />
+        <input type="submit" value="register" class="btn btn-warning mt-3">
+        </div>
 
-</form>
+    <input type="hidden" name="next" value="{{ next }}" />
+
+    </form>
+</div>
 
 {% endblock content %}

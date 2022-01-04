@@ -17,23 +17,6 @@
             <link rel="stylesheet" href="{% static 'css/bootstrap-css/nav.css' %}" type="text/css">
             <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/headers/">
             
-            <!-- additional style for the nav template -->
-            <style>
-              .bd-placeholder-img {
-                font-size: 1.125rem;
-                text-anchor: middle;
-                -webkit-user-select: none;
-                -moz-user-select: none;
-                user-select: none;
-              }
-        
-              @media (min-width: 768px) {
-                .bd-placeholder-img-lg {
-                  font-size: 3.5rem;
-                }
-              }
-            </style>
-
             <!--link to Bootswatch file to replace Bootstrap's css-->
             <link rel="stylesheet" href="{% static 'css/bootswatch-css/bootstrap.min.css' %}">
             <!--google fonts-->
@@ -55,8 +38,10 @@
         </head>
 
         <body>
+
           <!-- navbar is placed in partials folder -->
-          {% include 'partials/nav.html' %}
+          {% include 'partials/nav.html' %}       
+
 
         <main class="mb-5">
 

@@ -1,7 +1,7 @@
 {% block traffic_alerts %}
 
-<div class="container">
-    <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3">
+<div class="container my-5 py-5">
+    <div class="row row-cols-1 row-cols-sm-1 row-cols-md-3 row-cols-lg-3">
 
       <!-- forloop to display all messages in the database -->
       {% for trafficmessage in trafficmessage_list %}
@@ -48,7 +48,7 @@
             <!-- closes the previous row and creates new row every 3 messages -->
             {% if forloop.counter|divisibleby:3 %}
             </div>
-            <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3">
+            <div class="row row-cols-1 row-cols-sm-1 row-cols-md-3 row-cols-lg-3">
             {% endif %}
 
       {% endfor %}
