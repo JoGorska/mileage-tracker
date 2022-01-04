@@ -36,7 +36,7 @@
     
   </svg>
 
-  <header id="nav-bar-up-to-768px">
+  <header>
     <div class="px-3 pt-2 bg-dark text-white">
       <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
@@ -170,56 +170,5 @@
     </div>
 
   </header>
-
-
-
-  <!-- navbar for mobile phones only -->
-
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary" id="nav-bar-mobile">
-    <div class="container-fluid">
-
-
-      <a class="navbar-brand" href="{% url 'home' %}">
-        <svg class="pb-2" width="15%" height="15%" fill="currentColor" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;" version="1.1" viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:serif="http://www.serif.com/" xmlns:xlink="http://www.w3.org/1999/xlink"><g transform="matrix(1,0,0,1,-508,-162.338)"><g id="tank" transform="matrix(1,0,0,1,174.83,162.338)"><rect height="16" width="16" style="fill:none;" x="333.17" y="0"/><g transform="matrix(1,0,0,1,141.17,-256)"><path d="M233.236,278L246,278C247.105,278 248,278.895 248,280C248,281.105 247.105,282 246,282C242.408,282 235.236,282 235.236,282L237.236,286L238,286C242.418,286 246,289.582 246,294C246,294 246,294 246,294C246,298.418 242.418,302 238,302C229.584,302 216.416,302 208,302C203.582,302 200,298.418 200,294C200,294 200,294 200,294C200,289.582 203.582,286 208,286C208.195,286 208.306,286 208.306,286C208.306,286 209.477,278.97 210.027,275.671C210.188,274.707 211.022,274 212,274C216.09,274 226.429,274 230,274C230.758,274 231.45,274.428 231.789,275.106C232.381,276.289 233.236,278 233.236,278ZM208,290C205.791,290 204,291.791 204,294C204,294 204,294 204,294C204,296.209 205.791,298 208,298C215.3,298 230.7,298 238,298C240.209,298 242,296.209 242,294C242,294 242,294 242,294C242,291.791 240.209,290 238,290C230.7,290 215.3,290 208,290ZM232.764,286L228.764,278L213.694,278L212.361,286L232.764,286Z"/></g></g></g></svg>
-        
-        Tank</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-  
-      <div class="collapse navbar-collapse" id="navbarColor01">
-        <ul class="navbar-nav me-auto">
-          <li class="nav-item">
-            <a class="nav-link active" href="#">Home
-              <span class="visually-hidden">(current)</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Features</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Pricing</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">About</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-            <div class="dropdown-menu">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Separated link</a>
-            </div>
-          </li>
-        </ul>
-        <form class="d-flex">
-          <input class="form-control me-sm-2" type="text" placeholder="Search">
-          <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-        </form>
-      </div>
-    </div>
-  </nav>
 
   {%endblock%}
