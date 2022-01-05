@@ -4,8 +4,7 @@
 
 $.getScript( "https://maps.googleapis.com/maps/api/js?key=" + google_api_key + "&libraries=places") 
 .done(function( script, textStatus ) {
-    google.maps.event.addDomListener(window, "load", initAutocomplete()),
-    google.maps.event.addDomListener(document.getElementById('btn'),'click', calcDistance)
+    google.maps.event.addDomListener(window, "load", initAutocomplete())
 
 })
 
@@ -43,6 +42,22 @@ function initAutocomplete() {
 
 }
 
+
+/**
+ * function to validate form for empty fields
+ * 
+ */
+
+ function validateForm() {
+    var valid = true;
+    $('.geo').each(function () {
+        if ($(this).val() === '') {
+            valid = false;
+            return false;
+        }
+    });
+    return valid
+}
 /**
  * function that listens for input / place changed in the start and destination fields and
  * autocompletes the address and latutude and longditude fields
@@ -87,71 +102,16 @@ function onPlaceChanged (addy){
                 $('#' + lat_id).val(latitude) 
                 $('#' + long_id).val(longitude) 
 
-                $('#calculate-route').click(get_long_lat);
+            } else {
+
+                alert('Directions request failed due to ' + status);
+                window.location.assign("/visits/")
+            
+
+                // $('#calculate-route').click(get_long_lat);
             } 
         
         }); 
     }
 }
-
-
-// functions created based on developers. google documentation
-// and following tutorial
-// https://www.youtube.com/watch?v=wCn8WND-JpU&t=8s
-
-// loading map 
-// https://developers.google.com/maps/documentation/javascript/overview
-
-
-
-function get_long_lat() {
-   
-    lat_a = $('#id-lat-a').val()
-    long_a = $('#id-long-a').val()
-    lat_b = $('#id-lat-b').val()
-    long_b = $('#id-long-b').val()
-    var directionsService = new google.maps.DirectionsService;
-    var directionsDisplay = new google.maps.DirectionsRenderer;
-    var map = new google.maps.Map(document.getElementById('map-route'), {
-        zoom: 7,
-        // center: {lat: lat_a, lng: long_a}
-
-    });
-    directionsDisplay.setMap(map);
-    calculateAndDisplayRoute(directionsService, directionsDisplay);
-
-}
-
-// google directions api documentation
-// https://developers.google.com/maps/documentation/directions/overview
-
-// https://developers.google.com/maps/documentation/javascript/directions
-
-function calculateAndDisplayRoute(directionsService, directionsDisplay) {
-    var origin = $('#id-google-address-a').val()
-    var destination = $('#id-google-address-b').val()
-    
-    directionsService.route({
-        origin: origin,
-        destination: destination,
-        travelMode: 'DRIVING'
-    }, function(response, status) {
-      if (status === 'OK') {
-        directionsDisplay.setDirections(response);
-
-
-      } else {
-
-        alert('Directions request failed due to ' + status);
-        window.location.assign("/visits/")
-      }
-    });
-}
-
-// pre-fill the date field with today's date
-// https://css-tricks.com/prefilling-date-input/
-
-
-// let today = new Date().toISOString().substr(0, 10);
-// document.querySelector("#id_date_of_journey").value = today;
 
