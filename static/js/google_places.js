@@ -20,14 +20,15 @@ function initAutocomplete() {
   autocomplete_a = new google.maps.places.Autocomplete(
    document.getElementById('id-google-address-a'),
    {
-       types: ['regions'],
-       types: ['address'],
+    //    types: ['regions'],
+    //    types: ['address'],
+       regions: ['postal_code'],
        componentRestrictions: {'country': ['uk']},
    })
   
 
 //    add button here not place changed, not very reliable place changed
-  autocomplete_a.change(function(){
+  autocomplete_a.addListener('place_changed', function(){
     onPlaceChanged('a')
   });
 
@@ -36,6 +37,7 @@ function initAutocomplete() {
    document.getElementById('id-google-address-b'),
    {
        types: ['regions'],
+       types: ['address'],
        componentRestrictions: {'country': ['uk']},
    })
   
@@ -46,21 +48,7 @@ function initAutocomplete() {
 }
 
 
-/**
- * function to validate form for empty fields
- * 
- */
 
- function validateForm() {
-    var valid = true;
-    $('.geo').each(function () {
-        if ($(this).val() === '') {
-            valid = false;
-            return false;
-        }
-    });
-    return valid
-}
 /**
  * function that listens for input / place changed in the start and destination fields and
  * autocompletes the address and latutude and longditude fields
@@ -104,6 +92,7 @@ function onPlaceChanged (addy){
 
                 $('#' + lat_id).val(latitude) 
                 $('#' + long_id).val(longitude) 
+                
 
             } else {
 
@@ -111,10 +100,37 @@ function onPlaceChanged (addy){
                 window.location.assign("/visits/")
             
 
-                // $('#calculate-route').click(get_long_lat);
+                
             } 
         
         }); 
     }
 }
 
+
+/**
+ * function to validate form for empty fields
+ * 
+ */
+
+ function validateForm() {
+    var valid = true;
+    $('.geo').each(function () {
+        if ($(this).val() === '') {
+            valid = false;
+            return false;
+        }
+    });
+    return valid
+}
+
+function get_long_lat(){
+
+    if ( validateForm() == true){
+       
+        lat_a = $('#id-lat-a').val();
+        long_a = $('#id-long-a').val();
+        lat_b = $('#id-lat-b').val();
+        long_b = $('#id-long-b').val();
+    };
+};
