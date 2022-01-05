@@ -20,7 +20,7 @@ function initAutocomplete() {
   autocomplete_a = new google.maps.places.Autocomplete(
    document.getElementById('id-google-address-a'),
    {
-       types: ['regions'],
+       types: ['address'],
        componentRestrictions: {'country': ['uk']},
    })
   
@@ -32,7 +32,7 @@ function initAutocomplete() {
   autocomplete_b = new google.maps.places.Autocomplete(
    document.getElementById('id-google-address-b'),
    {
-       types: ['regions'],
+       types: ['address'],
        componentRestrictions: {'country': ['uk']},
    })
   
