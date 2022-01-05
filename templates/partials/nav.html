@@ -195,8 +195,24 @@
 
           <!-- home -->
           <li class="nav-item">
-            <a class="nav-link active" href="{% url 'home' %}">Home
+            <a href="{% url 'home' %}" 
+              class="d-flex nav-link {% if request.resolver_match.url_name == 'home' %} text-secondary {% else %} text-white {% endif %}">
+            <div class="row d-flex justify-content-center">
+              <div class="col-6">
+                <svg class="bi" width="24" height="24"><use xlink:href="#home"/></svg>
+              </div>
+              <div class="col-6">
+                <p class="pt-1">Home</p>
+              </div>
+            </div>
+            
+                
+               
+              <!-- nav link active and teh aria label (current) -->
+
+              {% if request.resolver_match.url_name == 'home' %}
               <span class="visually-hidden">(current)</span>
+              {% endif %}
             </a>
           </li>
 
