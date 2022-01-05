@@ -312,6 +312,17 @@ I've noticed when testing responsivness on chrome dev tools that hero image on i
 - the view that was supposed to submit the `cleared` to the database was returning various different errors. I found missing `filter` method in the view
 - number of Thanks wasn't increasing after the button to thank was clicked. I found that closing tag for form was missing.
 
+
+### User unable to reaserch places using UK postcode
+
+Drivers in UK are using postcodes (combination of letters and numbers) to get to next location. In uk postcode area is relatively small and google maps takes you ony a few doors down from the right address. It is much quicker to input postccode than type number, road and town.
+
+Initial function that I found at Bobby did Coding has been using full address. After reading extensive documentation I have found out that I only need to replace the word "address" with "postal code". 
+
+The function started getting the longtitude and latitude of the given postcode, but I've lost autocomplete. I added the "postal code" as a second argument together with address and now user has ability to input full address and use drop down box or postal code. 
+
+Right now user has to click into the field and press enter. This will not work right on the mobile. 
+
 ## Deployment
 
  The site was deployed to Heroku pages. 

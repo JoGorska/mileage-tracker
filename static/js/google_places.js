@@ -21,6 +21,7 @@ function initAutocomplete() {
    document.getElementById('id-google-address-a'),
    {
        types: ['regions'],
+       types: ['address'],
        componentRestrictions: {'country': ['uk']},
    })
   
