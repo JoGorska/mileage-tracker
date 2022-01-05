@@ -25,7 +25,9 @@ function initAutocomplete() {
        componentRestrictions: {'country': ['uk']},
    })
   
-  autocomplete_a.addListener('place_changed', function(){
+
+//    add button here not place changed, not very reliable place changed
+  autocomplete_a.change(function(){
     onPlaceChanged('a')
   });
 

@@ -323,6 +323,8 @@ The function started getting the longtitude and latitude of the given postcode, 
 
 Right now user has to click into the field and press enter. This will not work right on the mobile. 
 
+This article [about](https://atomizedobjects.com/blog/javascript/how-to-get-postcodes-from-google-places-and-google-maps/) has helped me understand what sort of data I am getting from google places API. Google documentation can be found [here](https://developers.google.com/maps/documentation/places/web-service/supported_types#table3) that describes exactly what types I can get. 
+
 ## Deployment
 
  The site was deployed to Heroku pages. 
