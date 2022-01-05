@@ -7,6 +7,7 @@ app_name = "visits"
 urlpatterns = [
 
     path('', views.drive, name="drive"),
+    path('calc-distance', views.calculate_distance, name="calc-distance"),
     path('map', views.map_view, name="map"),
     path('post_visit_data/<str:address_start>/<str:address_destination>/<str:distance>/', views.AddJourney.as_view(), name="post_visit"),
 

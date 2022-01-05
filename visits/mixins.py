@@ -18,6 +18,7 @@ def Directions(*args, **kwargs):
     long_a = kwargs.get("long_a")
     lat_b = kwargs.get("lat_b")
     long_b = kwargs.get("long_b")
+    print(long_b)
 
     origin = f'{lat_a},{long_a}'
     destination = f'{lat_b},{long_b}'

@@ -115,7 +115,36 @@ def map_view(request):
         "directions": directions,
     }
 
-    return render(request, 'visits/map.html', context)
+def calculate_distance(request):
+    form = JourneyForm()
+    if request.method == 'POST':
+        print(request.POST)
+        lat_a = request.POST.get("lat_a")
+        long_a = request.POST.get("long_a")
+        lat_b = request.POST.get("lat_b")
+        long_b = request.POST.get("long_b")
+        print(long_b)
+        # this takes the above as parameters and makes API query in mixins
+        directions = Directions(
+            lat_a=lat_a,
+            long_a=long_a,
+            lat_b=lat_b,
+            long_b=long_b
+            )
+        context = {
+            "form": form,
+
+            "google_api_key": settings.GOOGLE_API_KEY,
+            "lat_a": lat_a,
+            "long_a": long_a,
+            "lat_b": lat_b,
+            "long_b": long_b,
+            "origin": f'{lat_a}, {long_a}',
+            "destination": f'{lat_b}, {long_b}',
+            "directions": directions,
+        }
+
+        return render(request, 'visits/drive.html', context)
 
 
 def map_view_next_journey(request, address_destination):
