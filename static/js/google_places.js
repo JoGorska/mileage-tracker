@@ -4,7 +4,8 @@
 
 $.getScript( "https://maps.googleapis.com/maps/api/js?key=" + google_api_key + "&libraries=places") 
 .done(function( script, textStatus ) {
-    google.maps.event.addDomListener(window, "load", initAutocomplete())
+    google.maps.event.addDomListener(window, "load", initAutocomplete()),
+    google.maps.event.addDomListener(document.getElementById('btn'),'click', calcDistance)
 
 })
 
@@ -68,64 +69,89 @@ function onPlaceChanged (addy){
     }
 
     var geocoder = new google.maps.Geocoder()
-    var address = document.getElementById(el_id).value
+    var address_start = document.getElementById('id-google-address-a').value
+    var address_destination = document.getElementById('id-google-address-b').value
+    var address_list = [address_start, address_destination]
+    console.log(address_list)
 
-    geocoder.geocode( { 'address': address}, function(results, status) {
+    for (address in address_list) {
+        var address = document.getElementById(el_id).value
+        
 
-        if (status == google.maps.GeocoderStatus.OK) {
-            var latitude = results[0].geometry.location.lat();
-            var longitude = results[0].geometry.location.lng();
+        geocoder.geocode( { 'address': address}, function(results, status) {
 
-            $('#' + lat_id).val(latitude) 
-            $('#' + long_id).val(longitude) 
+            if (status == google.maps.GeocoderStatus.OK) {
+                var latitude = results[0].geometry.location.lat();
+                var longitude = results[0].geometry.location.lng();
 
-            CalcRoute()
-        } 
-    }); 
-}
-/**
- * function to validate form
- * 
- */
+                $('#' + lat_id).val(latitude) 
+                $('#' + long_id).val(longitude) 
 
-function validateForm() {
-    var valid = true;
-    $('.geo').each(function () {
-        if ($(this).val() === '') {
-            valid = false;
-            return false;
-        }
-    });
-    return valid
-}
-
-/**
- * validates the longditute and latitude input
- * takes longtitude and latitude of start and destination and returns url string
- * if query contains journey_id this means that this is a user that edits the journey,
- * the function adds this journey_id to the url
- */
-function CalcRoute(){
-
-    if ( validateForm() == true){
-        var params = {
-            lat_a: $('#id-lat-a').val(),
-            long_a: $('#id-long-a').val(),
-            lat_b: $('#id-lat-b').val(),
-            long_b: $('#id-long-b').val(),
-        };
-
-        var esc = encodeURIComponent;
-        var query = Object.keys(params)
-            .map(k => esc(k) + '=' + esc(params[k]))
-            .join('&');
-        var journey_id =  $('#journey_id').val()
-        if (journey_id) {
-            url = journey_id + '/' + 'map?' + query
-            window.location.assign(url)
-        } else {
-            url = 'map?' + query
-            window.location.assign(url)
-        }
+                $('#calculate-route').click(get_long_lat);
+            } 
+        
+        }); 
     }
 }
+
+
+// functions created based on developers. google documentation
+// and following tutorial
+// https://www.youtube.com/watch?v=wCn8WND-JpU&t=8s
+
+// loading map 
+// https://developers.google.com/maps/documentation/javascript/overview
+
+
+
+function get_long_lat() {
+   
+    lat_a = $('#id-lat-a').val()
+    long_a = $('#id-long-a').val()
+    lat_b = $('#id-lat-b').val()
+    long_b = $('#id-long-b').val()
+    var directionsService = new google.maps.DirectionsService;
+    var directionsDisplay = new google.maps.DirectionsRenderer;
+    var map = new google.maps.Map(document.getElementById('map-route'), {
+        zoom: 7,
+        // center: {lat: lat_a, lng: long_a}
+
+    });
+    directionsDisplay.setMap(map);
+    calculateAndDisplayRoute(directionsService, directionsDisplay);
+
+}
+
+// google directions api documentation
+// https://developers.google.com/maps/documentation/directions/overview
+
+// https://developers.google.com/maps/documentation/javascript/directions
+
+function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+    var origin = $('#id-google-address-a').val()
+    var destination = $('#id-google-address-b').val()
+    
+    directionsService.route({
+        origin: origin,
+        destination: destination,
+        travelMode: 'DRIVING'
+    }, function(response, status) {
+      if (status === 'OK') {
+        directionsDisplay.setDirections(response);
+
+
+      } else {
+
+        alert('Directions request failed due to ' + status);
+        window.location.assign("/visits/")
+      }
+    });
+}
+
+// pre-fill the date field with today's date
+// https://css-tricks.com/prefilling-date-input/
+
+
+// let today = new Date().toISOString().substr(0, 10);
+// document.querySelector("#id_date_of_journey").value = today;
+
