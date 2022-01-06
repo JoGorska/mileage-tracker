@@ -20,13 +20,11 @@
             <form class="" action="{% url 'visits:date_picker_drive' %}" method="POST">
             {% csrf_token %}
                
-                  <div class="input-group mt-3">
+                  <div class="input-group">
 
-                        <!-- input field to post date and be transfered to url reflecting date -->
+                        <!-- input field to post date and be transfered to url containing date -->
                         {% for field in date_picker_form %}
 
-
-                     
                         <input type="date" 
                               class="form-control"
                               id="{{field.id_for_label}}"  
@@ -34,39 +32,27 @@
                               aria-describedby="submit-button"
                               name="{{field.html_name}}"
                               value="{{date_of_journey|date:'Y-m-d' }}">
+                        <!-- submit button for date picker -->
                         <button class="btn btn-warning" type="submit" id="submit-button">Go</button>
                       
-
-
-                        <!-- <label for="id-{{field.id_for_label}}" class="form-label">Date of the journey</label>
-                        <input 
-                           type="date" 
-                           class="form-control" 
-                           id="id-{{field.id_for_label}}" 
-                           aria-describedby="{{field.id_for_label}}-help" 
-                           name="{{field.html_name}}"
-                           value="{{date_of_journey|date:'Y-m-d' }}">
-                                       
-                        <div id="{{field.id_for_label}}-help" class="form-text">Pick the date</div> -->
                         {% endfor %}
-                        <!-- <input class="btn btn-warning mt-4 mb-3" type="submit" value="Go"> -->
 
                   </div>
-
-                     <!-- submit button for date picker -->
-                     
-
-                  
-               
             </form>
          </div>
-         <div class="col-6 mt-3">
-               <div class="input-group">
 
-               <!-- <label for="id-distance" class="form-label">Distance</label> -->
-               <input type="text" class="form-control" id="id-distance" disabled placeholder="Distance (click calculate distance to see the value)" aria-label="Distance (field will be filled in automaticaly)" name="distance">
-   
-               <!-- <div id="distance-help" class="form-text">Distance value will be automatically added from Google Maps</div> -->
+         <div class="col-6">
+               <div class="input-group">
+               <!-- distance input field, this will be filled in automaticaly -->
+               <input type="text" 
+                  class="form-control" 
+                  id="id-distance" 
+                  disabled
+                  placeholder="Distance (click calculate distance to see the value)" 
+                  aria-label="Distance (field will be filled in automaticaly)" 
+                  name="distance"
+                  value="{{directions.distance}}">
+
             </div>
          </div>
    </div>
