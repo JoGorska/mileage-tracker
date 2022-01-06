@@ -23,6 +23,5 @@ urlpatterns = [
     path('next_journey/<str:address_destination>/', views.drive_next_journey, name="next_journey"),
 
     path('edit_journey/<int:journey_id>', views.drive_edit_journey, name="edit_journey"),
-    path('edit_journey/<int:journey_id>/map', views.map_view_edit_journey, name="map_edit_journey"),
     path('edit_journey/<int:journey_id>/<str:address_start>/<str:address_destination>/<str:distance>', views.UpdateJourney.as_view(), name="post_update_visit"),
 	]

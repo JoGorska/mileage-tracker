@@ -1,3 +1,4 @@
+import json
 from datetime import datetime
 from datetime import date
 
@@ -15,33 +16,6 @@ from .mixins import Directions, extract_postcode
 from traffic.models import TrafficMessage
 
 
-def drive(request):
-    """
-    Basic view for adding start and destination
-    created by following 
-    https://www.youtube.com/watch?v=wCn8WND-JpU&t=8s
-    """
-    model = TrafficMessage
-    trafficmessage_list = TrafficMessage.objects.filter(status=1).order_by('-created_on')
-    template_name = 'drive.html'
-    is_paginated = True
-    paginate_by = 6
-
-    model = DatePicker
-    form_class = DatePickerForm
-    driver_id = request.user.id
-
-    context = {
-        'date_picker_form': DatePickerForm(),
-        'driver_id': driver_id,
-        'trafficmessage_list': trafficmessage_list,
-        'paginate_by': paginate_by,
-        'is_paginated': is_paginated,
-        'google_api_key': settings.GOOGLE_API_KEY
-
-        }
-    return render(request, 'visits/drive.html', context)
-
 def drive_date_ready(request, slug):
     """
     drive view after the date is chosen
@@ -54,8 +28,6 @@ def drive_date_ready(request, slug):
 
     model = DatePicker
     form_class = DatePickerForm
-
-    # name 'driver_id' is not defined ???
 
     driver_id = request.user.id
     
@@ -135,7 +107,6 @@ def calculate_distance(request, slug):
         long_a = request.POST.get("long_a")
         lat_b = request.POST.get("lat_b")
         long_b = request.POST.get("long_b")
-        print(long_b)
         # this takes the above as parameters and makes API query in mixins
         directions = Directions(
             lat_a=lat_a,
@@ -143,6 +114,7 @@ def calculate_distance(request, slug):
             lat_b=lat_b,
             long_b=long_b
             )
+        print(f' DIRECTIONS DISTANCE {directions}')
         context = {
            "date_to_string": date_to_string,
             "slug": slug,
