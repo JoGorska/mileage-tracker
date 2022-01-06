@@ -5,12 +5,10 @@ from . import views
 app_name = "visits"
 
 urlpatterns = [
-    # I might be able to skip this view if I add datepicker for drive to nav bar???
-    path('drive', views.drive, name="drive"),
-    path('drive/date_picker/', views.DatePostDrive.as_view(), name='date_picker_drive'),
+    
+    path('drive', views.DatePickerDrive.as_view(), name="date_picker_drive"),
     path('drive/<slug:slug>/ready/', views.drive_date_ready, name='drive_date_ready'),
-
-    path('drive/<slug:slug>/ready/calc-distance/', views.calculate_distance, name="calc-distance"),
+    path('drive/<slug:slug>/calc-distance/', views.calculate_distance, name="calc-distance"),
 
     # post visit data is for the form to post data in database and return user to drive/slug/next_journey.
     # need to fill in the start address => postcode and date from datepicker model from slug

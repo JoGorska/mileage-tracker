@@ -344,12 +344,23 @@ class DatePickerView(View):
 
             return redirect('visits:date_view', slug )
 
-class DatePostDrive(View):
+class DatePickerDrive(View):
     '''
     view that posts the data from the date picker form
     and transfers the user to vie drive_date_ready
     with pre-filled date and url reflecting the date
     '''
+    template_name = 'visits/date_picker.html'
+    form_class = DatePickerForm
+
+    def get(self, request, *args, **kwargs):
+        return render(
+            request,
+            'visits/date_picker.html',
+            {
+                'date_picker_form': DatePickerForm()
+            },
+        )
 
     def post(self, request, *args, **kwargs):
         
@@ -361,14 +372,14 @@ class DatePostDrive(View):
             date_picked_instance.save()
             slug = date_picked_instance.slug
 
-            return redirect('visits:drive_date_ready', slug )
+            return redirect('visits:drive_date_ready', slug)
         # it would be nice to add error handling...???
         # right now else assumes that the date in date picker was a date
         # that was already in the database
         else:
             slug = request.POST.get('date_picked')
 
-            return redirect('visits:drive_date_ready', slug )
+            return redirect('visits:drive_date_ready', slug)
 
 class DateView(View):
     '''
