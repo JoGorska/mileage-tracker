@@ -123,7 +123,14 @@ def calculate_distance(request, slug):
     date_picker_form = DatePickerForm
     if request.method == 'POST':
         print(request.POST)
-        date_of_journey = request.POST.get("date_of_journey")
+
+        date_picker_item = get_object_or_404(DatePicker, slug=slug)
+
+        date_of_journey = date_picker_item.date_picked
+        date_to_string = date_of_journey.strftime("%d %B %Y")
+
+        model = Journey
+        driver_id = request.user.id
         lat_a = request.POST.get("lat_a")
         long_a = request.POST.get("long_a")
         lat_b = request.POST.get("lat_b")
@@ -137,10 +144,10 @@ def calculate_distance(request, slug):
             long_b=long_b
             )
         context = {
+           "date_to_string": date_to_string,
+            "slug": slug,
             "jourey_form": journey_form,
             "date_picker_form": date_picker_form,
-            "slug": slug,
-            "date_of_journey": date_of_journey,
             "google_api_key": settings.GOOGLE_API_KEY,
             "lat_a": lat_a,
             "long_a": long_a,
@@ -152,79 +159,6 @@ def calculate_distance(request, slug):
         }
 
         return render(request, 'visits/drive.html', context)
-
-
-def map_view_next_journey(request, address_destination):
-    """
-    view to display map if user was redirected from 
-    drive_next_journey view it duplicates the above ???
-    """
-
-    form = JourneyForm()
-    lat_a = request.GET.get("lat_a")
-    long_a = request.GET.get("long_a")
-    lat_b = request.GET.get("lat_b")
-    long_b = request.GET.get("long_b")
-    directions = Directions(
-        lat_a=lat_a,
-        long_a=long_a,
-        lat_b=lat_b,
-        long_b=long_b
-        )
-
-    context = {
-        "form": form,
-
-        "google_api_key": settings.GOOGLE_API_KEY,
-        "lat_a": lat_a,
-        "long_a": long_a,
-        "lat_b": lat_b,
-        "long_b": long_b,
-        "origin": f'{lat_a}, {long_a}',
-        "destination": f'{lat_b}, {long_b}',
-        "directions": directions,
-    }
-
-    return render(request, 'visits/map.html', context)
-
-
-def map_view_edit_journey(request, journey_id):
-    """
-    view to display map if user was redirected from 
-    drive_next_journey view it duplicates the above ???
-    """
-    model = Journey
-    journey = get_object_or_404(Journey, id=journey_id)
-
-    form = JourneyForm()
-    lat_a = request.GET.get("lat_a")
-    long_a = request.GET.get("long_a")
-    lat_b = request.GET.get("lat_b")
-    long_b = request.GET.get("long_b")
-    directions = Directions(
-        lat_a=lat_a,
-        long_a=long_a,
-        lat_b=lat_b,
-        long_b=long_b
-        )
-
-    context = {
-        "journey": journey,
-        "journey_id": journey_id,
-        "form": form,
-
-        "google_api_key": settings.GOOGLE_API_KEY,
-        "lat_a": lat_a,
-        "long_a": long_a,
-        "lat_b": lat_b,
-        "long_b": long_b,
-        "origin": f'{lat_a}, {long_a}',
-        "destination": f'{lat_b}, {long_b}',
-        "directions": directions,
-
-    }
-
-    return render(request, 'visits/map.html', context)
 
 
 class AddJourney(CreateView):
@@ -335,14 +269,14 @@ class DatePickerView(View):
             date_picked_instance.save()
             slug = date_picked_instance.slug
 
-            return redirect('visits:date_view', slug )
+            return redirect('visits:date_view', slug)
         # it would be nice to add error handling...???
         # right now else assumes that the date in date picker was a date
         # that was already in the database
         else:
             slug = request.POST.get('date_picked')
 
-            return redirect('visits:date_view', slug )
+            return redirect('visits:date_view', slug)
 
 class DatePickerDrive(View):
     '''
