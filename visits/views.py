@@ -91,10 +91,13 @@ def drive_edit_journey(request, journey_id):
     return render(request, 'visits/drive.html', context)
 
 def calculate_distance(request, slug):
+    '''
+    takes the latitude and longditude inputed by javascript and posts it to google maps api
+    gets the variable directions in a form of a dictionary
+    '''
     journey_form = JourneyForm()
     date_picker_form = DatePickerForm
     if request.method == 'POST':
-        print(request.POST)
 
         date_picker_item = get_object_or_404(DatePicker, slug=slug)
 
@@ -114,7 +117,9 @@ def calculate_distance(request, slug):
             lat_b=lat_b,
             long_b=long_b
             )
-        print(f' DIRECTIONS DISTANCE {directions}')
+        # change json to python object
+        # directions = json.loads(directions)
+        print(f' DIRECTIONS DISTANCE {directions["distance"]}')
         context = {
            "date_to_string": date_to_string,
             "slug": slug,
