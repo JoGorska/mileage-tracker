@@ -44,8 +44,6 @@ function initAutocomplete() {
 
 }
 
-
-
 /**
  * function that listens for input / place changed in the start and destination fields and
  * autocompletes the address and latutude and longditude fields
@@ -96,8 +94,6 @@ function onPlaceChanged (addy){
                 alert('Directions request failed due to ' + status);
                 window.location.assign("/visits/")
             
-
-                
             } 
         
         }); 
@@ -110,24 +106,24 @@ function onPlaceChanged (addy){
  * 
  */
 
- function validateForm() {
-    var valid = true;
-    $('.geo').each(function () {
-        if ($(this).val() === '') {
-            valid = false;
-            return false;
-        }
-    });
-    return valid
-}
+//  function validateForm() {
+//     var valid = true;
+//     $('.geo').each(function () {
+//         if ($(this).val() === '') {
+//             valid = false;
+//             return false;
+//         }
+//     });
+//     return valid
+// }
 
-function get_long_lat(){
+// function get_long_lat(){
 
-    if ( validateForm() == true){
+//     if ( validateForm() == true){
        
-        lat_a = $('#id-lat-a').val();
-        long_a = $('#id-long-a').val();
-        lat_b = $('#id-lat-b').val();
-        long_b = $('#id-long-b').val();
-    };
-};
+//         lat_a = $('#id-lat-a').val();
+//         long_a = $('#id-long-a').val();
+//         lat_b = $('#id-lat-b').val();
+//         long_b = $('#id-long-b').val();
+//     };
+// };
