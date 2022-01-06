@@ -13,6 +13,7 @@ urlpatterns = [
 
     path('date', views.DatePickerView.as_view(), name='date_picker'),
     path('date/<slug:slug>/', views.DateView.as_view(), name='date_view'),
+    path('drive/<slug:slug>/', views.DatePickerDrive.as_view(), name='date_picker_drive'),
     
     path('next_journey/<str:address_destination>/', views.drive_next_journey, name="next_journey"),
     path('next_journey/<str:address_destination>/map', views.map_view_next_journey, name="map_next_journey"),

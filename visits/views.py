@@ -27,11 +27,15 @@ def drive(request):
     is_paginated = True
     paginate_by = 6
 
+    
+    form_class = DatePickerForm
+
     context = {
-        "trafficmessage_list": trafficmessage_list,
-        "paginate_by": paginate_by,
-        "is_paginated": is_paginated,
-        "google_api_key": settings.GOOGLE_API_KEY
+        'date_picker_form': DatePickerForm()
+        'trafficmessage_list': trafficmessage_list,
+        'paginate_by': paginate_by,
+        'is_paginated': is_paginated,
+        'google_api_key': settings.GOOGLE_API_KEY
         }
     return render(request, 'visits/drive.html', context)
 
@@ -337,7 +341,30 @@ class DatePickerView(View):
 
             return redirect('visits:date_view', slug )
 
+class DatePickerDrive(View):
+    '''
+    Date picker that allows the user to choose which day 
+    to add journeys to
+    '''
 
+    def post(self, request, *args, **kwargs):
+        
+        date_picker_form = DatePickerForm(data=request.POST)
+
+        if date_picker_form.is_valid():
+
+            date_picked_instance = date_picker_form.save(commit=False)
+            date_picked_instance.save()
+            slug = date_picked_instance.slug
+
+            return redirect('visits:date_view', slug )
+        # it would be nice to add error handling...???
+        # right now else assumes that the date in date picker was a date
+        # that was already in the database
+        else:
+            slug = request.POST.get('date_picked')
+
+            return redirect('visits:date_picker_drive', slug )
 
 class DateView(View):
     '''
