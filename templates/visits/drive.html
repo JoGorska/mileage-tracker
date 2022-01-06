@@ -71,11 +71,10 @@
          <div class="mb-3">
             <label for="id-google-address-a" class="form-label">Start Address</label>
             <input type="text" class="form-control" id="id-google-address-a" aria-describedby="google-address-a-help" name="google_address_a"
-
-            {% if journey.address_start %} 
-            value="{{journey.address_start}}"
+            {% if request.resolver_match.url_name == 'next_journey' %}
+            value="{{directions.destination}}"
             {% else %}
-            value="{{address_destination}}"
+            value="{{directions.origin}}"
             {% endif %}
             >
 
@@ -90,28 +89,10 @@
             <label for="id-google-address-b" class="form-label">Destination Address</label>
             <input type="text" class="form-control" id="id-google-address-b" aria-describedby="google-address-b-help" name="google_address_b" value="{{journey.address_destination}}">
             <div id="google-address-b-help" class="form-text">Type first line of the address, than choose from drop down list</div>
-            <button id="calculate-route">Calculate route</button>
          </div>
 
       </div>
-   </div>  
-   <div class="row">
-      <div class="col-12 col-lg-6">
-         <button id="btn">Test-me</button>
-      </div>
-      <div class="col-12 col-lg-6">
-         <div id="map-route"></div>
-
-      </div>
-      <div class="row">
-         <p>journey url here</p>
-         <div id="journey-url">
-
-         </div>
-      </div>
-   </div>
-
-   
+   </div>     
 
 
 <h1 id="map">Map</h1>
@@ -167,20 +148,25 @@
 
 
 </div>
+      {% if date_of_journey %}
+            <!-- this form will only apear if the date_of_journey variable was passed in the context -->
+            <!-- slug isn't date of journey slug is date.slug, check if it works??? -->
+            <div>
+               <form action="{% url 'visits:calc-distance' date_of_journey %}" method="POST">
+                  {% csrf_token %}
 
 
+               <input type="date" id="id-date-for-distance-form" name="date_of_journey" value="{{date_of_journey|date:'Y-m-d' }}">
+               <input type="text" id="journey_id" name="journey_id" value={{journey.id}}>
+               <input type="text" class="geo" id="id-lat-a" name="lat_a" value="">
+               <input type="text" class="geo" id="id-long-a" name="long_a" value="">
+               <input type="text" class="geo" id="id-lat-b" name="lat_b" value="">
+               <input type="text" class="geo" id="id-long-b" name="long_b" value="">
+               <button type="submit">submit</button>
+               </form>
+            </div>
+      {% endif %}
 
-<div>
-   <form action="{% url 'visits:calc-distance' %}" method="POST">
-      {% csrf_token %}
-   <input type="text" id="journey_id" name="journey_id" value={{journey.id}}>
-   <input type="text" class="geo" id="id-lat-a" name="lat_a" value="">
-   <input type="text" class="geo" id="id-long-a" name="long_a" value="">
-   <input type="text" class="geo" id="id-lat-b" name="lat_b" value="">
-   <input type="text" class="geo" id="id-long-b" name="long_b" value="">
-   <button type="submit">submit</button>
-   </form>
-</div>
    {% else %}
 
    <div class="container pt-3 mt-4 mb-5"><h2>You need to log in to use Drive</h2></div>

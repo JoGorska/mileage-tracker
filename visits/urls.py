@@ -10,9 +10,8 @@ urlpatterns = [
     path('drive/date_picker/', views.DatePostDrive.as_view(), name='date_picker_drive'),
     path('drive/<slug:slug>/ready/', views.drive_date_ready, name='drive_date_ready'),
 
-    path('calc-distance', views.calculate_distance, name="calc-distance"),
-    # map is not needed
-    path('map', views.map_view, name="map"),
+    path('drive/<slug:slug>/ready/calc-distance/', views.calculate_distance, name="calc-distance"),
+
     # post visit data is for the form to post data in database and return user to drive/slug/next_journey.
     # need to fill in the start address => postcode and date from datepicker model from slug
     path('post_visit_data/<str:address_start>/<str:address_destination>/<str:distance>/', views.AddJourney.as_view(), name="post_visit"),
@@ -24,7 +23,7 @@ urlpatterns = [
     # need to fill in the start address => postcode and date from datepicker model from slug
     # url needs to change drive/<slug:slug>/next_journey/<str:addres_destination>/
     path('next_journey/<str:address_destination>/', views.drive_next_journey, name="next_journey"),
-    path('next_journey/<str:address_destination>/map', views.map_view_next_journey, name="map_next_journey"),
+    # path('next_journey/<str:address_destination>/map', views.map_view_next_journey, name="map_next_journey"),
 
     path('edit_journey/<int:journey_id>', views.drive_edit_journey, name="edit_journey"),
     path('edit_journey/<int:journey_id>/map', views.map_view_edit_journey, name="map_edit_journey"),

@@ -119,43 +119,45 @@ def drive_edit_journey(request, journey_id):
     return render(request, 'visits/drive.html', context)
 
 
-def map_view(request):
-    """
-    Basic view for displaying a map
-    created by following (link below)
-    https://www.youtube.com/watch?v=wCn8WND-JpU&t=8s
-    and adjusted to the need of the project
-    """
+# def map_view(request):
+#     """
+#     Basic view for displaying a map
+#     created by following (link below)
+#     https://www.youtube.com/watch?v=wCn8WND-JpU&t=8s
+#     and adjusted to the need of the project
+#     """
 
-    form = JourneyForm()
-    lat_a = request.GET.get("lat_a")
-    long_a = request.GET.get("long_a")
-    lat_b = request.GET.get("lat_b")
-    long_b = request.GET.get("long_b")
-    directions = Directions(
-        lat_a=lat_a,
-        long_a=long_a,
-        lat_b=lat_b,
-        long_b=long_b
-        )
+#     form = JourneyForm()
+#     lat_a = request.GET.get("lat_a")
+#     long_a = request.GET.get("long_a")
+#     lat_b = request.GET.get("lat_b")
+#     long_b = request.GET.get("long_b")
+#     directions = Directions(
+#         lat_a=lat_a,
+#         long_a=long_a,
+#         lat_b=lat_b,
+#         long_b=long_b
+#         )
 
-    context = {
-        "form": form,
+#     context = {
+#         "form": form,
 
-        "google_api_key": settings.GOOGLE_API_KEY,
-        "lat_a": lat_a,
-        "long_a": long_a,
-        "lat_b": lat_b,
-        "long_b": long_b,
-        "origin": f'{lat_a}, {long_a}',
-        "destination": f'{lat_b}, {long_b}',
-        "directions": directions,
-    }
+#         "google_api_key": settings.GOOGLE_API_KEY,
+#         "lat_a": lat_a,
+#         "long_a": long_a,
+#         "lat_b": lat_b,
+#         "long_b": long_b,
+#         "origin": f'{lat_a}, {long_a}',
+#         "destination": f'{lat_b}, {long_b}',
+#         "directions": directions,
+#     }
 
-def calculate_distance(request):
-    form = JourneyForm()
+def calculate_distance(request, slug):
+    journey_form = JourneyForm()
+    date_picker_form = DatePickerForm
     if request.method == 'POST':
         print(request.POST)
+        date_of_journey = request.POST.get("date_of_journey")
         lat_a = request.POST.get("lat_a")
         long_a = request.POST.get("long_a")
         lat_b = request.POST.get("lat_b")
@@ -169,8 +171,10 @@ def calculate_distance(request):
             long_b=long_b
             )
         context = {
-            "form": form,
-
+            "jourey_form": journey_form,
+            "date_picker_form": date_picker_form,
+            "slug": slug,
+            "date_of_journey": date_of_journey,
             "google_api_key": settings.GOOGLE_API_KEY,
             "lat_a": lat_a,
             "long_a": long_a,
