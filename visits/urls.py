@@ -23,7 +23,6 @@ urlpatterns = [
     # need to fill in the start address => postcode and date from datepicker model from slug
     # url needs to change drive/<slug:slug>/next_journey/<str:addres_destination>/
     path('next_journey/<str:address_destination>/', views.drive_next_journey, name="next_journey"),
-    # path('next_journey/<str:address_destination>/map', views.map_view_next_journey, name="map_next_journey"),
 
     path('edit_journey/<int:journey_id>', views.drive_edit_journey, name="edit_journey"),
     path('edit_journey/<int:journey_id>/map', views.map_view_edit_journey, name="map_edit_journey"),
