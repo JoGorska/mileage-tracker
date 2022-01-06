@@ -118,40 +118,6 @@ def drive_edit_journey(request, journey_id):
         }
     return render(request, 'visits/drive.html', context)
 
-
-# def map_view(request):
-#     """
-#     Basic view for displaying a map
-#     created by following (link below)
-#     https://www.youtube.com/watch?v=wCn8WND-JpU&t=8s
-#     and adjusted to the need of the project
-#     """
-
-#     form = JourneyForm()
-#     lat_a = request.GET.get("lat_a")
-#     long_a = request.GET.get("long_a")
-#     lat_b = request.GET.get("lat_b")
-#     long_b = request.GET.get("long_b")
-#     directions = Directions(
-#         lat_a=lat_a,
-#         long_a=long_a,
-#         lat_b=lat_b,
-#         long_b=long_b
-#         )
-
-#     context = {
-#         "form": form,
-
-#         "google_api_key": settings.GOOGLE_API_KEY,
-#         "lat_a": lat_a,
-#         "long_a": long_a,
-#         "lat_b": lat_b,
-#         "long_b": long_b,
-#         "origin": f'{lat_a}, {long_a}',
-#         "destination": f'{lat_b}, {long_b}',
-#         "directions": directions,
-#     }
-
 def calculate_distance(request, slug):
     journey_form = JourneyForm()
     date_picker_form = DatePickerForm
