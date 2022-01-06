@@ -1,0 +1,65 @@
+
+
+{% extends "base.html" %}
+{% load static %}
+{% load bootstrap_tags %}
+
+
+{% block content %}
+<div class="container my-3"><h1 class="display-5 fw-bold lh-1 "><span class="border-warning pb-3 border-bottom">Drive</span></h1></div>
+
+
+
+    {% if user.is_authenticated %}
+
+
+        <div class="container pt-3 mt-4 mb-5"><h2>pick the date</h2></div>
+
+        {% else %}
+         <!-- if no slug in context -->
+         <div class="container mt-5">
+         <div class="row mb-5">
+            <div class="col-6">
+               <form class="" action="{% url 'visits:date_picker_drive' %}" method="POST">
+               {% csrf_token %}
+                  
+                     <div class="input-group">
+
+                           <!-- input field to post date and be transfered to url containing date -->
+                           {% for field in date_picker_form %}
+
+                           <input type="date" 
+                                 class="form-control"
+                                 id="{{field.id_for_label}}"  
+                                 aria-label="Date of the journey" 
+                                 aria-describedby="submit-button"
+                                 name="{{field.html_name}}"
+                                 value="{{date_of_journey|date:'Y-m-d' }}">
+                           <!-- submit button for date picker -->
+                           <button class="btn btn-warning" type="submit" id="submit-button">Go</button>
+                        
+                           {% endfor %}
+
+                     </div>
+               </form>
+            </div>
+
+            <div class="col-6">
+                  
+
+            </div>
+            </div>
+      </div>
+   </div>
+
+         {% endif %}
+    {% else %}
+
+    <div class="container pt-3 mt-4 mb-5"><h2>You need to log in to use Drive</h2></div>
+
+
+    {% endif %}
+
+
+{% endblock %}
+

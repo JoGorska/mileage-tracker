@@ -14,169 +14,131 @@
 
 {% if user.is_authenticated %}
 
-<div class="container my-5 py-5">
-   <div class="row mb-5">
-         <div class="col-6">
-            <form class="" action="{% url 'visits:date_picker_drive' %}" method="POST">
-            {% csrf_token %}
-               
-                  <div class="input-group">
 
-                        <!-- input field to post date and be transfered to url containing date -->
-                        {% for field in date_picker_form %}
-
-                        <input type="date" 
-                              class="form-control"
-                              id="{{field.id_for_label}}"  
-                              aria-label="Date of the journey" 
-                              aria-describedby="submit-button"
-                              name="{{field.html_name}}"
-                              value="{{date_of_journey|date:'Y-m-d' }}">
-                        <!-- submit button for date picker -->
-                        <button class="btn btn-warning" type="submit" id="submit-button">Go</button>
-                      
-                        {% endfor %}
-
-                  </div>
-            </form>
-         </div>
-
-         <div class="col-6">
-               <div class="input-group">
-               <!-- distance input field, this will be filled in automaticaly -->
-               <input type="text" 
-                  class="form-control" 
-                  id="id-distance" 
-                  disabled
-                  placeholder="Distance (click calculate distance to see the value)" 
-                  aria-label="Distance (field will be filled in automaticaly)" 
-                  name="distance"
-                  value="{{directions.distance}}">
-
-            </div>
-         </div>
-   </div>
+<!-- if slug was passed in context -->
 
 
+   <div class="container my-5 py-5">
+      <div class="row mb-5">
+            <div class="col-6">
+               <form class="" action="{% url 'visits:date_picker_drive' %}" method="POST">
+               {% csrf_token %}
+                  
+                     <div class="input-group">
 
+                           <!-- input field to post date and be transfered to url containing date -->
+                           {% for field in date_picker_form %}
 
-   <div class="row">
+                           <input type="date" 
+                                 class="form-control"
+                                 id="{{field.id_for_label}}"  
+                                 aria-label="Date of the journey" 
+                                 aria-describedby="submit-button"
+                                 name="{{field.html_name}}"
+                                 value="{{date_of_journey|date:'Y-m-d' }}">
+                           <!-- submit button for date picker -->
+                           <button class="btn btn-warning" type="submit" id="submit-button">Go</button>
+                        
+                           {% endfor %}
 
-      <div class="col-12 col-lg-6">
-         <!--
-         if user is redirected as basic drive - both address fields should be empty 
-         if user is redirected as next journey, the address should pre fill with address_destination from the prevous journey
-         else if user is redirected as edit journey, the address should pre fill with journey.address_start
-         -->
-         <div class="mb-3">
-            <label for="id-google-address-a" class="form-label">Start Address</label>
-            <input type="text" class="form-control" id="id-google-address-a" aria-describedby="google-address-a-help" name="google_address_a"
-            {% if request.resolver_match.url_name == 'next_journey' %}
-            value="{{directions.destination}}"
-            {% else %}
-            value="{{directions.origin}}"
-            {% endif %}
-            >
-
-            <div id="google-address-a-help" class="form-text">Type first line of the address, than choose from drop down list</div>
-         </div>
-
-      </div>
-
-      <div class="col-12 col-lg-6">
-
-         <div class="mb-3">
-            <label for="id-google-address-b" class="form-label">Destination Address</label>
-            <input type="text" class="form-control" id="id-google-address-b" aria-describedby="google-address-b-help" name="google_address_b" value="{{journey.address_destination}}">
-            <div id="google-address-b-help" class="form-text">Type first line of the address, than choose from drop down list</div>
-         </div>
-
-      </div>
-   </div>     
-
-
-<h1 id="map">Map</h1>
-
-<div class="container">
-
-  <table>
-    <thead>
-      <tr>
-        <th>
-
-              <a href="https://www.google.com/maps/dir/?api=1&destination={{lat_b|safe}}%2C{{long_b|safe}}">
-                Go to Maps
-              </a>
-              </th>
-              <th>
-              <a href="https://www.google.com/maps/dir/?api=1&destination={{lat_b|safe}}%2C{{long_b|safe}}">
-                Click (here) to be transfered to Google Maps
-              </a>
-            </th>
-        </tr>
-
-            <!-- only the date input field is displayed to the user -->
-            {% if journey_id %}
-           
-        <th>
-          Click "Save" button, you will be transferred to Drive"
-      </tr>
-      {% endif %}
-
-    </thead>
-    <tbody>
-      <tr>
-        <td>Start</td>
-        <td>{{directions.origin}}</td>      
-      </tr>
-      <tr>
-        <td>Destination</td>
-        <td>{{directions.destination}}</td>      
-      </tr>
-      <tr>
-        <td>Duration</td>
-        <td>{{directions.duration}}</td>      
-      </tr>
-      <tr>
-        <td>Distance</td>
-        <td>{{directions.distance}}</td>      
-      </tr>
-
-
-    </tbody>
-  </table>
-
-
-</div>
-      {% if date_of_journey %}
-            <!-- this form will only apear if the date_of_journey variable was passed in the context -->
-            <!-- slug isn't date of journey slug is date.slug, check if it works??? -->
-            <div>
-               <form action="{% url 'visits:calc-distance' date_of_journey %}" method="POST">
-                  {% csrf_token %}
-
-
-               <input type="date" id="id-date-for-distance-form" name="date_of_journey" value="{{date_of_journey|date:'Y-m-d' }}">
-               <input type="text" id="journey_id" name="journey_id" value={{journey.id}}>
-               <input type="text" class="geo" id="id-lat-a" name="lat_a" value="">
-               <input type="text" class="geo" id="id-long-a" name="long_a" value="">
-               <input type="text" class="geo" id="id-lat-b" name="lat_b" value="">
-               <input type="text" class="geo" id="id-long-b" name="long_b" value="">
-               <button type="submit">submit</button>
+                     </div>
                </form>
             </div>
+
+            <div class="col-6">
+                  <div class="input-group">
+                  <!-- distance input field, this will be filled in automaticaly -->
+                  <input type="text" 
+                     class="form-control" 
+                     id="id-distance" 
+                     disabled
+                     placeholder="Distance (click calculate distance to see the value)" 
+                     aria-label="Distance (field will be filled in automaticaly)" 
+                     name="distance"
+                     value="{{directions.distance}}">
+
+               </div>
+            </div>
+      </div>
+
+
+
+
+      <div class="row">
+
+         <div class="col-12 col-lg-6">
+            <!--
+            if user is redirected as basic drive - both address fields should be empty 
+            if user is redirected as next journey, the address should pre fill with address_destination from the prevous journey
+            else if user is redirected as edit journey, the address should pre fill with journey.address_start
+            -->
+            <div class="mb-3">
+               <label for="id-google-address-a" class="form-label">Start Address</label>
+               <input type="text" class="form-control" id="id-google-address-a" aria-describedby="google-address-a-help" name="google_address_a"
+               {% if request.resolver_match.url_name == 'next_journey' %}
+               value="{{directions.destination}}"
+               {% else %}
+               value="{{directions.origin}}"
+               {% endif %}
+               >
+
+               <div id="google-address-a-help" class="form-text">Type first line of the address, than choose from drop down list</div>
+            </div>
+
+         </div>
+
+         <div class="col-12 col-lg-6">
+
+            <div class="mb-3">
+               <label for="id-google-address-b" class="form-label">Destination Address</label>
+               <input type="text" class="form-control" id="id-google-address-b" aria-describedby="google-address-b-help" name="google_address_b" value="{{journey.address_destination}}">
+               <div id="google-address-b-help" class="form-text">Type first line of the address, than choose from drop down list</div>
+            </div>
+
+         </div>
+      </div>     
+
+      <a href="https://www.google.com/maps/dir/?api=1&destination={{lat_b|safe}}%2C{{long_b|safe}}">
+         Go to Maps
+      </a>
+
+      <img src="https://img.icons8.com/color/48/000000/google-maps.png"/>
+
+      <a href="https://icons8.com/icon/32215/google-maps-old">Google Maps Old icon by Icons8</a>
+   </div>
+         {% if date_of_journey %}
+               <!-- this form will only apear if the date_of_journey variable was passed in the context -->
+               <!-- slug isn't date of journey slug is date.slug, check if it works??? -->
+               <div>
+                  <form action="{% url 'visits:calc-distance' date_of_journey %}" method="POST">
+                     {% csrf_token %}
+
+
+                  <input type="date" id="id-date-for-distance-form" name="date_of_journey" value="{{date_of_journey|date:'Y-m-d' }}">
+                  <input type="text" id="journey_id" name="journey_id" value={{journey.id}}>
+                  <input type="text" class="geo" id="id-lat-a" name="lat_a" value="">
+                  <input type="text" class="geo" id="id-long-a" name="long_a" value="">
+                  <input type="text" class="geo" id="id-lat-b" name="lat_b" value="">
+                  <input type="text" class="geo" id="id-long-b" name="long_b" value="">
+                  <button type="submit">submit</button>
+                  </form>
+               </div>
+         {% endif %}
+
+         
+
+      {% else %}
+      <!-- if user is not authenticated -->
+      <div class="container pt-3 mt-4 mb-5"><h2>You need to log in to use Drive</h2></div>
+
       {% endif %}
 
-   {% else %}
 
-   <div class="container pt-3 mt-4 mb-5"><h2>You need to log in to use Drive</h2></div>
-
-   {% endif %}
 
 
 
    {% include 'traffic/traffic_msg_list.html' %}
-
+<a href="https://icons8.com/icon/32215/google-maps-old">Google Maps Old icon by Icons8</a>
 {% endblock %}
 
 
