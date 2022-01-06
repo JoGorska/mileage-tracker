@@ -7,7 +7,7 @@ app_name = "visits"
 urlpatterns = [
     # I might be able to skip this view if I add datepicker for drive to nav bar???
     path('drive', views.drive, name="drive"),
-    path('drive/date_picker/', views.DatePickerDrive.as_view(), name='date_picker_drive'),
+    path('drive/date_picker/', views.DatePostDrive.as_view(), name='date_picker_drive'),
     path('drive/<slug:slug>/ready/', views.drive_date_ready, name='drive_date_ready'),
 
     path('calc-distance', views.calculate_distance, name="calc-distance"),

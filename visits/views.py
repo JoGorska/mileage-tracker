@@ -374,10 +374,11 @@ class DatePickerView(View):
 
             return redirect('visits:date_view', slug )
 
-class DatePickerDrive(View):
+class DatePostDrive(View):
     '''
-    Date picker that allows the user to choose which day 
-    to add journeys to
+    view that posts the data from the date picker form
+    and transfers the user to vie drive_date_ready
+    with pre-filled date and url reflecting the date
     '''
 
     def post(self, request, *args, **kwargs):
