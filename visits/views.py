@@ -27,16 +27,51 @@ def drive(request):
     is_paginated = True
     paginate_by = 6
 
-    
+    model = DatePicker
     form_class = DatePickerForm
+    driver_id = request.user.id
 
     context = {
-        'date_picker_form': DatePickerForm()
+        'date_picker_form': DatePickerForm(),
+        'driver_id': driver_id,
         'trafficmessage_list': trafficmessage_list,
         'paginate_by': paginate_by,
         'is_paginated': is_paginated,
         'google_api_key': settings.GOOGLE_API_KEY
+
         }
+    return render(request, 'visits/drive.html', context)
+
+def drive_date_ready(request, slug):
+    """
+    drive view after the date is chosen
+    """
+    model = TrafficMessage
+    trafficmessage_list = TrafficMessage.objects.filter(status=1).order_by('-created_on')
+    template_name = 'drive.html'
+    is_paginated = True
+    paginate_by = 6
+
+    model = DatePicker
+    form_class = DatePickerForm
+
+    # name 'driver_id' is not defined ???
+
+    driver_id = request.user.id
+    
+    date_picker_item = get_object_or_404(DatePicker, slug=slug)
+    date_of_journey = date_picker_item.date_picked
+    context = {
+        'date_picker_form': DatePickerForm(),
+        'date_of_journey': date_of_journey,
+        'driver_id': driver_id,
+        'trafficmessage_list': trafficmessage_list,
+        'paginate_by': paginate_by,
+        'is_paginated': is_paginated,
+        'google_api_key': settings.GOOGLE_API_KEY
+
+    }
+
     return render(request, 'visits/drive.html', context)
 
 
@@ -69,11 +104,9 @@ def drive_edit_journey(request, journey_id):
     trafficmessage_list = TrafficMessage.objects.filter(status=1).order_by('-created_on')
     is_paginated = True
     paginate_by = 6
-    print(f'JOURNEY ID HERE {journey_id}')
 
     model = Journey
     journey = get_object_or_404(Journey, id=journey_id)
-    print(f'JOURNEY START {journey.address_start}')
 
     template_name = 'drive.html'
     context = {
@@ -357,14 +390,14 @@ class DatePickerDrive(View):
             date_picked_instance.save()
             slug = date_picked_instance.slug
 
-            return redirect('visits:date_view', slug )
+            return redirect('visits:drive_date_ready', slug )
         # it would be nice to add error handling...???
         # right now else assumes that the date in date picker was a date
         # that was already in the database
         else:
             slug = request.POST.get('date_picked')
 
-            return redirect('visits:date_picker_drive', slug )
+            return redirect('visits:drive_date_ready', slug )
 
 class DateView(View):
     '''

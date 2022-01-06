@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load bootstrap_tags %}
 
 {% block extend_nav %} 
 
@@ -14,34 +15,45 @@
 {% if user.is_authenticated %}
 
 <div class="container my-5 py-5">
+   <div class="row mb-5">
+         <div class="col-8">
+            <form class="" action="{% url 'visits:date_picker_drive' %}" method="POST">
+            {% csrf_token %}
+               <div class="row">
+                  <div class="col-8">
+                     <div>
 
-   <form class="mt-5 mb-5" action="" method="POST">
-      {% csrf_token %}
-          <div class="row mb-5">
+                        {% for field in date_picker_form %}
+                        <label for="id-{{field.id_for_label}}" class="form-label">Date of the journey</label>
+                        <input type="date" class="form-control" id="id-{{field.id_for_label}}" aria-describedby="{{field.id_for_label}}-help" name="{{field.html_name}}">
+            
+                        <div id="{{field.id_for_label}}-help" class="form-text">Pick the date</div>
+                        {% endfor %}
 
-              <div class="col-12 col-lg-6">
-                  {{ date_picker_form|as_bootstrap }}
+                     </div>
+                  </div>
+                  <div class="col-4">
+                     <input class="btn btn-warning mt-4" type="submit" value="Go">
+                  </div>
+               </div>
 
-                  <input class="btn btn-warning mt-5" type="submit" value="Go"></div>
 
-              <div class="col-12 col-lg-6"></div>
-              <div class="mb-3">
-               <label for="id-google-address-a" class="form-label">Start Address</label>
-               <input type="text" class="form-control" id="id-google-address-a" aria-describedby="google-address-a-help" name="google_address_a"
+
+
+      
+            </form>
+         </div>
+         <div class="col-4">
+
+               <label for="id-distance" class="form-label">Distance</label>
+               <input type="text" class="form-control" id="id-distance" aria-describedby="distance-help" name="distance">
    
-               {% if journey.address_start %} 
-               value="{{journey.address_start}}"
-               {% else %}
-               value="{{address_destination}}"
-               {% endif %}
-               >
-   
-               <div id="google-address-a-help" class="form-text">Type first line of the address, than choose from drop down list</div>
-            </div>
-          </div>
+               <div id="distance-help" class="form-text">Distance value will be automatically added from Google Maps</div>
+         </div>
+   </div>
 
 
-      </form>
+
 
    <div class="row">
 
@@ -77,25 +89,25 @@
          </div>
 
       </div>
-      
+   </div>  
+   <div class="row">
+      <div class="col-12 col-lg-6">
+         <button id="btn">Test-me</button>
+      </div>
+      <div class="col-12 col-lg-6">
+         <div id="map-route"></div>
+
+      </div>
       <div class="row">
-         <div class="col-12 col-lg-6">
-            <button id="btn">Test-me</button>
-         </div>
-         <div class="col-12 col-lg-6">
-            <div id="map-route"></div>
+         <p>journey url here</p>
+         <div id="journey-url">
 
-         </div>
-         <div class="row">
-            <p>journey url here</p>
-            <div id="journey-url">
-
-            </div>
          </div>
       </div>
-
    </div>
-</div>
+
+   
+
 
 <h1 id="map">Map</h1>
 
