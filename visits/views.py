@@ -63,19 +63,22 @@ class AddJourney(CreateView):
 
     def post(self, request, slug, *args, **kwargs):
 
-        lat_a = request.POST.get("lat_a")
-        long_a = request.POST.get("long_a")
-        lat_b = request.POST.get("lat_b")
-        long_b = request.POST.get("long_b")
-
         form = JourneyForm(data=request.POST)
         print(f'JOURNEY FORM {form}')
+
         if form.is_valid():
             '''
             I will fetch directions from google after I know the form is valid
             this means that I have my longditude and latitude in place.
             check is journey model requires lat and long???
             '''
+            ## this is temporary, I need to get lat and long from form instance!
+            # because it was validated!
+            lat_a = request.POST.get("lat_a")
+            long_a = request.POST.get("long_a")
+            lat_b = request.POST.get("lat_b")
+            long_b = request.POST.get("long_b")
+
             directions = Directions(
                 lat_a=lat_a,
                 long_a=long_a,
@@ -83,20 +86,20 @@ class AddJourney(CreateView):
                 long_b=long_b
                 )
 
+            date_of_journey = get_object_or_404(DatePicker, slug=slug)
+            # date_of_journey = request.datepicker.date_picked
             driver_id = request.user.id
 
-            # date_of_journey = request.POST.get("date_of_journey")
-            # date_of_journey = request.datepicker.date_picked
-
-            address_start = address_start
+            address_start = directions.origin
             postcode_start = extract_postcode(address_start)
+            # latitude_start = form.instance.lat...
             latitude_start = request.POST.get("latitude_start")
             longitude_start = request.POST.get("longitude_start")
-            address_destination = address_destination
+            address_destination = directions.destination
             postcode_destination = extract_postcode(address_destination)
             latitude_destination = request.POST.get("latitude_destination")
             longitude_destination = request.POST.get("longitude_destination")
-            distance = distance
+            distance = directions.distance
 
             Journey.objects.create(
                 date_of_journey=date_of_journey,
