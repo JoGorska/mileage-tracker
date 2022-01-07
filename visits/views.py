@@ -46,44 +46,47 @@ class Drive(CreateView):
         }
 
         return render(request, 'visits/drive.html', context)
+ 
 
+class AddJourney(CreateView):
+    '''
+    when form is being posted the latitude and longditude is collected from the form
+    and passed to Directions functions which fetches data from google maps/ directions api
+    I need to create instance of the form, than validate it
+    if the form valid I can fetch directions
+    than I can save the data in the database
+    '''
+    template_name = 'drive.html'
+    form_class = JourneyForm()
+
+    form = JourneyForm(data=request.POST)
 
     def post(self, request, slug, *args, **kwargs):
-        '''
-        when form is being posted the latitude and longditude is collected from the form
-        and passed to Directions functions which fetches data from google maps/ directions api
-        I need to create instance of the form, than validate it
-        if the form valid I can fetch directions
-        than I can save the data in the database
-        '''
+
         lat_a = request.POST.get("lat_a")
         long_a = request.POST.get("long_a")
         lat_b = request.POST.get("lat_b")
         long_b = request.POST.get("long_b")
-        directions = Directions(
-            lat_a=lat_a,
-            long_a=long_a,
-            lat_b=lat_b,
-            long_b=long_b
-            )
-
-
-class AddJourney(CreateView):
-    '''
-    need to change the name to ADDJoruney without breaking the view???
-    '''
-    template_name = 'map.html'
-    form_class = JourneyForm()
-
-
-    def post(self, request, address_start, address_destination, distance, *args, **kwargs):
 
         form = JourneyForm(data=request.POST)
+        print(f'JOURNEY FORM {form}')
         if form.is_valid():
+            '''
+            I will fetch directions from google after I know the form is valid
+            this means that I have my longditude and latitude in place.
+            check is journey model requires lat and long???
+            '''
+            directions = Directions(
+                lat_a=lat_a,
+                long_a=long_a,
+                lat_b=lat_b,
+                long_b=long_b
+                )
 
             driver_id = request.user.id
 
-            date_of_journey = request.POST.get("date_of_journey")
+            # date_of_journey = request.POST.get("date_of_journey")
+            # date_of_journey = request.datepicker.date_picked
 
             address_start = address_start
             postcode_start = extract_postcode(address_start)
@@ -111,19 +114,34 @@ class AddJourney(CreateView):
 
         else:
             form = JourneyForm()
+        # this is temporary so I know it works???
+        return redirect('visits:date_picker')
+        # next_journey is not ready
+        # return redirect('visits:next_journey', address_destination)
 
-        return redirect('visits:next_journey', address_destination)
+def drive_next_journey(request, slug, journey_id):
+    """
+    this function will display the drive.html template
+    with additional data passed from Drive view (slug and journey_id)
+    """
+    # not sure if I need this?
+    template_name = 'drive.html'
+    # I need DatePicker model to display this chosen date and pass to Journey
+    # display Datepicked in the small header
+    # fill in the field for journey form from
+    # Journey model:
+    # I need to get object_or_404 for the journey_id that was passed from Drive
+    # this will fill in the accordeon on the header
+    # and add coordinates to the map icon
 
-def drive_next_journey(request, address_destination):
-    """
-    view that is used for the driver to continue the journey
-    without inputing the start address again
-    """
+    # I need to filter Journey model to display all journeys for this day
+    
+    # this is to display the list of traffic alerts down below
     model = TrafficMessage
     trafficmessage_list = TrafficMessage.objects.filter(status=1).order_by('-created_on')
     is_paginated = True
     paginate_by = 6
-    template_name = 'drive.html'
+
     context = {
         "trafficmessage_list": trafficmessage_list,
         "paginate_by": paginate_by,
