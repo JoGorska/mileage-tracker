@@ -37,10 +37,9 @@ def Directions(*args, **kwargs):
         origin = route["start_address"]
         destination = route["end_address"]
 
-        # change km to miles and round up to 2 decimal places
+        # change km to miles and round up to 1 decimal place
         distance = route["distance"]["value"]*0.000621371
         distance = round(distance, 1)
-        print(f' ROUND UP {distance}')
         # duration is displayed as a string, not number
         duration = route["duration"]["text"]
 
@@ -61,5 +60,6 @@ def extract_postcode(full_address):
     matches = re.findall(r'([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})', full_address)
     list_of_matches = matches[0]
     postcode = list_of_matches[1]
+
     return postcode
 

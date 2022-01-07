@@ -60,13 +60,21 @@ class AddJourney(CreateView):
     '''
     template_name = 'drive.html'
     form_class = JourneyForm()
+    
 
 
 
     def post(self, request, slug, *args, **kwargs):
 
         form = JourneyForm(data=request.POST)
-        print(f'JOURNEY FORM {form}')
+        # form = JourneyForm()
+        # form.address_start = request.POST.get("address_start")
+        # form.address_destination = request.POST.get("address_destination")
+        # form.latitude_start = request.POST.get("latitude_start")
+        # form.longitude_start = request.POST.get("longitude_start")
+        # form.latitude_destination = request.POST.get("latitude_destination")
+        # form.longitude_destination = request.POST.get("longitude_destination")
+
 
         if form.is_valid():
             '''
@@ -74,18 +82,19 @@ class AddJourney(CreateView):
             this means that I have my longditude and latitude in place.
             check is journey model requires lat and long???
             '''
+            print('form is valid')
             ## this is temporary, I need to get lat and long from form instance!
             # because it was validated!
-            lat_a = request.POST.get("lat_a")
-            long_a = request.POST.get("long_a")
-            lat_b = request.POST.get("lat_b")
-            long_b = request.POST.get("long_b")
-
+            latitude_start = request.POST.get("latitude_start")
+            longitude_start = request.POST.get("longitude_start")
+            latitude_destination = request.POST.get("latitude_destination")
+            longitude_destination = request.POST.get("longitude_destination")
+            print(f'LATITUDE {latitude_start}')
             directions = Directions(
-                lat_a=lat_a,
-                long_a=long_a,
-                lat_b=lat_b,
-                long_b=long_b
+                lat_a=latitude_start,
+                long_a=longitude_start,
+                lat_b=latitude_destination,
+                long_b=longitude_destination
                 )
 
             date_picker_item = get_object_or_404(DatePicker, slug=slug)
@@ -93,17 +102,17 @@ class AddJourney(CreateView):
             date_of_journey = date_picker_item.date_picked
             # date_of_journey = request.datepicker.date_picked
             driver_id = request.user.id
-
-            address_start = directions.origin
+            # I shuld be taking data from the instance of form!!!???
+            address_start = directions["origin"]
             postcode_start = extract_postcode(address_start)
             # latitude_start = form.instance.lat...
-            latitude_start = request.POST.get("latitude_start")
-            longitude_start = request.POST.get("longitude_start")
-            address_destination = directions.destination
+            # latitude_start = request.POST.get("latitude_start")
+            # longitude_start = request.POST.get("longitude_start")
+            address_destination = directions["destination"]
             postcode_destination = extract_postcode(address_destination)
-            latitude_destination = request.POST.get("latitude_destination")
-            longitude_destination = request.POST.get("longitude_destination")
-            distance = directions.distance
+            # latitude_destination = request.POST.get("latitude_destination")
+            # longitude_destination = request.POST.get("longitude_destination")
+            distance = directions["distance"]
 
             Journey.objects.create(
                 date_of_journey=date_of_journey,
