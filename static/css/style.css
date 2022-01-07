@@ -15,3 +15,17 @@
     text-align: center;
 
 }
+
+
+/* For medium screen sizes from 950 px wide and down */
+@media screen and (min-width: 426px) {
+    #nav-bar-mobile {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    #nav-bar-big-screen {
+        display: none;
+    }
+}
