@@ -329,6 +329,10 @@ This article [about](https://atomizedobjects.com/blog/javascript/how-to-get-post
 
 This error apears in nav bar if I split the `if .. or .. or `to seperate lines. In consequence the `if` statement is very long, but it seemed better to leave it long, than repeat `elif` again and again in seperate lines.
 
+### New traffic messages not displaying on the list
+
+Tested if the new messages are being added to database - they are. I logged in to amin and I could see those new messages in admin panel.
+
 ## Deployment
 
  The site was deployed to Heroku pages. 
