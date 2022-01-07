@@ -216,7 +216,7 @@ class UpdateJourney(CreateView):
 
         journey.save()
 
-        return redirect('visits:date_view', slug)
+        return redirect('visits:day_report', slug)
 
 
 class DatePickerView(View):
@@ -246,14 +246,14 @@ class DatePickerView(View):
             date_picked_instance.save()
             slug = date_picked_instance.slug
 
-            return redirect('visits:date_view', slug)
+            return redirect('visits:day_report', slug)
         # it would be nice to add error handling...???
         # right now else assumes that the date in date picker was a date
         # that was already in the database
         else:
             slug = request.POST.get('date_picked')
 
-            return redirect('visits:date_view', slug)
+            return redirect('visits:day_report', slug)
 
 class DatePickerDrive(View):
     '''
@@ -292,7 +292,7 @@ class DatePickerDrive(View):
 
             return redirect('visits:drive_date_ready', slug)
 
-class DateView(View):
+class DayReport(View):
     '''
     Displays the list of journeys that the user has made
     on the day and date picker form in case if user

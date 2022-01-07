@@ -15,7 +15,7 @@ urlpatterns = [
     path('post_visit_data/<str:address_start>/<str:address_destination>/<str:distance>/', views.AddJourney.as_view(), name="post_visit"),
 
     path('date', views.DatePickerView.as_view(), name='date_picker'),
-    path('date/<slug:slug>/', views.DateView.as_view(), name='date_view'),
+    path('date/<slug:slug>/', views.DayReport.as_view(), name='day_report'),
 
     
     # need to fill in the start address => postcode and date from datepicker model from slug

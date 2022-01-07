@@ -76,7 +76,7 @@
               <a href="{% url 'visits:date_picker' %}" 
               class="nav-link {% if request.resolver_match.url_name == 'date_picker'%}
               text-secondary
-              {% elif request.resolver_match.url_name == 'date_view' %}
+              {% elif request.resolver_match.url_name == 'day_report' %}
               text-secondary 
 
               {% elif request.resolver_match.url_name == 'next_journey' %}
@@ -229,7 +229,7 @@
             <a href="{% url 'visits:date_picker' %}" 
             class="nav-link {% if request.resolver_match.url_name == 'date_picker'%}
             text-secondary
-            {% elif request.resolver_match.url_name == 'date_view' %}
+            {% elif request.resolver_match.url_name == 'day_report' %}
             text-secondary 
             {% elif request.resolver_match.url_name == 'next_journey' %}
             text-secondary 
