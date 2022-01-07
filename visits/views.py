@@ -86,7 +86,9 @@ class AddJourney(CreateView):
                 long_b=long_b
                 )
 
-            date_of_journey = get_object_or_404(DatePicker, slug=slug)
+            date_picker_item = get_object_or_404(DatePicker, slug=slug)
+            # this gives me date object
+            date_of_journey = date_picker_item.date_picked
             # date_of_journey = request.datepicker.date_picked
             driver_id = request.user.id
 

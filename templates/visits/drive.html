@@ -19,6 +19,8 @@
 {% endif %}
 
    <div class="container my-5 py-5">
+      <form action="{% url 'visits:add_journey' slug %}" method="POST">
+         {% csrf_token %}
    
       <div class="row">
 
@@ -30,7 +32,7 @@
             -->
             <div class="mb-3">
                <label for="id-google-address-a" class="form-label">Start Address</label>
-               <input type="text" class="form-control" id="id-google-address-a" aria-describedby="google-address-a-help" name="google_address_a"
+               <input type="text" class="form-control" id="id-google-address-a" aria-describedby="google-address-a-help" name="address_start"
                {% if request.resolver_match.url_name == 'next_journey' %}
                value="{{directions.destination}}"
                {% else %}
@@ -47,46 +49,31 @@
 
             <div class="mb-3">
                <label for="id-google-address-b" class="form-label">Destination Address</label>
-               <input type="text" class="form-control" id="id-google-address-b" aria-describedby="google-address-b-help" name="google_address_b" value="{{journey.address_destination}}">
+               <input type="text" class="form-control" id="id-google-address-b" aria-describedby="google-address-b-help" name="address_destination" value="{{journey.address_destination}}">
                <div id="google-address-b-help" class="form-text">Type first line of the address, than choose from drop down list</div>
             </div>
 
          </div>
       </div>     
 
-
-
-      <input type="text" 
-      class="form-control" 
-      id="id-distance" 
-      disabled
-      placeholder="Distance (click calculate distance to see the value)" 
-      aria-label="Distance (field will be filled in automaticaly)" 
-      name="distance"
-      value="{{directions.distance}}">
-
-
-   </div>
-         {% if date_of_journey %}
                <!-- this form will only apear if the date_of_journey variable was passed in the context -->
                <!-- slug isn't date of journey slug is date.slug, check if it works??? -->
                <div>
-                  <form action="" method="POST">
-                     {% csrf_token %}
 
 
-                  <input type="date" id="id-date-for-distance-form" name="date_of_journey" value="{{date_of_journey|date:'Y-m-d' }}">
-                  <input type="text" id="journey_id" name="journey_id" value={{journey.id}}>
-                  <input type="text" class="geo" id="id-lat-a" name="lat_a" value="">
-                  <input type="text" class="geo" id="id-long-a" name="long_a" value="">
-                  <input type="text" class="geo" id="id-lat-b" name="lat_b" value="">
-                  <input type="text" class="geo" id="id-long-b" name="long_b" value="">
+
+                  
+                  <!-- <input type="text" id="journey_id" name="journey_id" value={{journey.id}}> -->
+                  <input type="text" class="geo" id="id-lat-a" name="latitude_start" value="">
+                  <input type="text" class="geo" id="id-long-a" name="longitude_start" value="">
+                  <input type="text" class="geo" id="id-lat-b" name="latitude_destination" value="">
+                  <input type="text" class="geo" id="id-long-b" name="longitude_destination" value="">
                   <button type="submit">submit</button>
-                  </form>
+  
                </div>
-         {% endif %}
 
-         
+
+      </form> 
 
       {% else %}
       <!-- if user is not authenticated -->

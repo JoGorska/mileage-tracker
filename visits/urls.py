@@ -8,10 +8,10 @@ urlpatterns = [
     
     path('drive', views.DatePickerDrive.as_view(), name="date_picker_drive"),
     path('drive/<slug:slug>/ready/', views.Drive.as_view(), name='drive_date_ready'),
-    
+
     # post visit data is for the form to post data in database and return user to drive/slug/next_journey.
     # need to fill in the start address => postcode and date from datepicker model from slug
-    path('post_visit_data/<str:address_start>/<str:address_destination>/<str:distance>/', views.AddJourney.as_view(), name="post_visit"),
+    path('drive/<slug:slug>/add_journey', views.AddJourney.as_view(), name="add_journey"),
 
     path('date', views.DatePickerView.as_view(), name='date_picker'),
     path('date/<slug:slug>/', views.DayReport.as_view(), name='day_report'),
