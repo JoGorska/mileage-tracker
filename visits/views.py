@@ -37,11 +37,13 @@ class Drive(CreateView):
         context = {
             'date_picker_form': DatePickerForm(),
             'date_of_journey': date_of_journey,
+            'slug': slug,
             'driver_id': driver_id,
             'trafficmessage_list': trafficmessage_list,
             'paginate_by': paginate_by,
             'is_paginated': is_paginated,
             'google_api_key': settings.GOOGLE_API_KEY
+
 
         }
 
@@ -59,7 +61,7 @@ class AddJourney(CreateView):
     template_name = 'drive.html'
     form_class = JourneyForm()
 
-    form = JourneyForm(data=request.POST)
+
 
     def post(self, request, slug, *args, **kwargs):
 
