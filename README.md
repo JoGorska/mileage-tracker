@@ -331,7 +331,9 @@ This error apears in nav bar if I split the `if .. or .. or `to seperate lines. 
 
 ### New traffic messages not displaying on the list
 
-Tested if the new messages are being added to database - they are. I logged in to amin and I could see those new messages in admin panel.
+Tested if the new messages are being added to database - they are. I logged in to amin and I could see those new messages in admin panel. I found that the new messages have been created as "draft" rater than "published". The filter to display messages checks only for "published". 
+
+I have change the view that posts the new messages to the database that it sets the published property automaticaly for every new message. This functionality might be expanded and allow user to save draft messages in the future, but due to high paste of changes of traffic I doubt there will be a need for this. 
 
 ## Deployment
 
@@ -405,9 +407,8 @@ https://www.iconfinder.com/search?q=tank&price=free
  icon for thumbs up from fonawsome
  https://github.com/FortAwesome/Font-Awesome/tree/master/svgs/regular
 
-
- crispy forms
- commenting part 1 in Authorisation, Commenting and Likes 
+icons 
+<a href="https://icons8.com/icon/32215/google-maps-old">Google Maps Old icon by Icons8</a>
 
 
 google maps API + javascript map API

@@ -40,8 +40,10 @@ def Directions(*args, **kwargs):
         origin = route["start_address"]
         destination = route["end_address"]
 
-        # distance in km converted to miles need to round up to 2 decimal places???:
+        # change km to miles and round up to 2 decimal places
         distance = route["distance"]["value"]*0.000621371
+        distance = round(distance, 1)
+        print(f' ROUND UP {distance}')
         # duration is displayed as a string, not number
         duration = route["duration"]["text"]
 

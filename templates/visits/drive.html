@@ -2,68 +2,24 @@
 {% load static %}
 {% load bootstrap_tags %}
 
-{% block extend_nav %} 
-
-<!-- extended nav bar can go here -->
-
-{% endblock %}
 
 {% block content %}
+
 
 <div class="container my-3"><h1 class="display-5 fw-bold lh-1 "><span class="border-warning pb-3 border-bottom">Drive</span></h1></div>
 
 {% if user.is_authenticated %}
 
+<!-- this will show current journey -->
 
-<!-- if slug was passed in context -->
+{% if current_journey %}
 
+{% include 'partials/visits_curr_journey.html' %}
+
+{% endif %}
 
    <div class="container my-5 py-5">
-      <div class="row mb-5">
-            <div class="col-6">
-               <form class="" action="{% url 'visits:date_picker_drive' %}" method="POST">
-               {% csrf_token %}
-                  
-                     <div class="input-group">
-
-                           <!-- input field to post date and be transfered to url containing date -->
-                           {% for field in date_picker_form %}
-
-                           <input type="date" 
-                                 class="form-control"
-                                 id="{{field.id_for_label}}"  
-                                 aria-label="Date of the journey" 
-                                 aria-describedby="submit-button"
-                                 name="{{field.html_name}}"
-                                 value="{{date_of_journey|date:'Y-m-d' }}">
-                           <!-- submit button for date picker -->
-                           <button class="btn btn-warning" type="submit" id="submit-button">Go</button>
-                        
-                           {% endfor %}
-
-                     </div>
-               </form>
-            </div>
-
-            <div class="col-6">
-                  <div class="input-group">
-                  <!-- distance input field, this will be filled in automaticaly -->
-                  <input type="text" 
-                     class="form-control" 
-                     id="id-distance" 
-                     disabled
-                     placeholder="Distance (click calculate distance to see the value)" 
-                     aria-label="Distance (field will be filled in automaticaly)" 
-                     name="distance"
-                     value="{{directions.distance}}">
-
-               </div>
-            </div>
-      </div>
-
-
-
-
+   
       <div class="row">
 
          <div class="col-12 col-lg-6">
@@ -98,13 +54,11 @@
          </div>
       </div>     
 
-      <a href="https://www.google.com/maps/dir/?api=1&destination={{lat_b|safe}}%2C{{long_b|safe}}">
-         Go to Maps
-      </a>
 
-      <img src="https://img.icons8.com/color/48/000000/google-maps.png"/>
 
-      <a href="https://icons8.com/icon/32215/google-maps-old">Google Maps Old icon by Icons8</a>
+
+
+
    </div>
          {% if date_of_journey %}
                <!-- this form will only apear if the date_of_journey variable was passed in the context -->
@@ -135,11 +89,10 @@
 
 
 
-
-
+      {% include 'partials/visits_journeys_list.html' %}
       {% include 'partials/traffic_msg_list.html' %}
 
-<a href="https://icons8.com/icon/32215/google-maps-old">Google Maps Old icon by Icons8</a>
+      
 {% endblock %}
 
 
@@ -153,6 +106,9 @@
 
   </script>
 
+
   <script src="{% static 'js/google_places.js' %}"></script>
+
+
 
   {% endblock %}
