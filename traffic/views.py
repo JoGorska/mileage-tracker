@@ -34,6 +34,7 @@ class AddNewTrafficMsg(CreateView):
         traffic_msg_form = TrafficMessageForm(data=request.POST)
         if traffic_msg_form.is_valid():
             traffic_msg_form.instance.author_id = request.user.id
+            traffic_msg_form.instance.status = 1
 
             traffic_message = traffic_msg_form.save(commit=False)
             traffic_message.save()
