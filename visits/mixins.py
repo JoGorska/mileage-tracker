@@ -5,7 +5,37 @@ import re
 from datetime import datetime
 
 
+def get_lat_long(request):
+    '''
+    takes the latitude and longditude inputed by javascript and posts it to google maps api
+    gets the variable directions in a form of a dictionary
+    '''
+    lat_a = request.POST.get("lat_a")
+    long_a = request.POST.get("long_a")
+    lat_b = request.POST.get("lat_b")
+    long_b = request.POST.get("long_b")
+    # this takes the above as parameters and makes API query in mixins
+    directions = Directions(
+        lat_a=lat_a,
+        long_a=long_a,
+        lat_b=lat_b,
+        long_b=long_b
+        )
+    # change dictionary to python object ???
 
+    print(f' DIRECTIONS DISTANCE Inside get_lat_long function {directions["distance"]}')
+    context = {
+        "google_api_key": settings.GOOGLE_API_KEY,
+        "lat_a": lat_a,
+        "long_a": long_a,
+        "lat_b": lat_b,
+        "long_b": long_b,
+        "origin": f'{lat_a}, {long_a}',
+        "destination": f'{lat_b}, {long_b}',
+        "directions": directions,
+    }
+
+    return context
 
 
 def Directions(*args, **kwargs):
