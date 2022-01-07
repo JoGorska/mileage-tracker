@@ -325,6 +325,10 @@ Right now user has to click into the field and press enter. This will not work r
 
 This article [about](https://atomizedobjects.com/blog/javascript/how-to-get-postcodes-from-google-places-and-google-maps/) has helped me understand what sort of data I am getting from google places API. Google documentation can be found [here](https://developers.google.com/maps/documentation/places/web-service/supported_types#table3) that describes exactly what types I can get. 
 
+### Error Invalid block tag on line 113: 'endif', expected 'endblock'. 
+
+This error apears in nav bar if I split the `if .. or .. or `to seperate lines. In consequence the `if` statement is very long, but it seemed better to leave it long, than repeat `elif` again and again in seperate lines.
+
 ## Deployment
 
  The site was deployed to Heroku pages. 
