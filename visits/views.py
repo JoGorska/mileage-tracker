@@ -16,126 +16,56 @@ from .mixins import Directions, extract_postcode
 from traffic.models import TrafficMessage
 
 
-def drive_date_ready(request, slug):
-    """
-    drive view after the date is chosen
-    """
-    model = TrafficMessage
-    trafficmessage_list = TrafficMessage.objects.filter(status=1).order_by('-created_on')
-    template_name = 'drive.html'
-    is_paginated = True
-    paginate_by = 6
+class Drive(CreateView):
+    def get(self, request, slug, *args, **kwargs):
+        '''
+        gets the view for Drive url after date is submitted
+        '''
+        model = TrafficMessage
+        trafficmessage_list = TrafficMessage.objects.filter(status=1).order_by('-created_on')
+        template_name = 'drive.html'
+        is_paginated = True
+        paginate_by = 6
 
-    model = DatePicker
-    form_class = DatePickerForm
+        model = DatePicker
+        form_class = DatePickerForm
 
-    driver_id = request.user.id
-    
-    date_picker_item = get_object_or_404(DatePicker, slug=slug)
-    date_of_journey = date_picker_item.date_picked
-    context = {
-        'date_picker_form': DatePickerForm(),
-        'date_of_journey': date_of_journey,
-        'driver_id': driver_id,
-        'trafficmessage_list': trafficmessage_list,
-        'paginate_by': paginate_by,
-        'is_paginated': is_paginated,
-        'google_api_key': settings.GOOGLE_API_KEY
-
-    }
-
-    return render(request, 'visits/drive.html', context)
-
-
-def drive_next_journey(request, address_destination):
-    """
-    view that is used for the driver to continue the journey
-    without inputing the start address again
-    """
-    model = TrafficMessage
-    trafficmessage_list = TrafficMessage.objects.filter(status=1).order_by('-created_on')
-    is_paginated = True
-    paginate_by = 6
-    template_name = 'drive.html'
-    context = {
-        "trafficmessage_list": trafficmessage_list,
-        "paginate_by": paginate_by,
-        "is_paginated": is_paginated,
-        "address_destination": address_destination,
-        "google_api_key": settings.GOOGLE_API_KEY
-        }
-    return render(request, 'visits/drive.html', context)
-
-
-def drive_edit_journey(request, journey_id):
-    """
-    takes journey_id and pre fills the fields
-    with address_start and address_destination
-    """
-    model = TrafficMessage
-    trafficmessage_list = TrafficMessage.objects.filter(status=1).order_by('-created_on')
-    is_paginated = True
-    paginate_by = 6
-
-    model = Journey
-    journey = get_object_or_404(Journey, id=journey_id)
-
-    template_name = 'drive.html'
-    context = {
-        "trafficmessage_list": trafficmessage_list,
-        "paginate_by": paginate_by,
-        "is_paginated": is_paginated,
-        "journey": journey,
-        "google_api_key": settings.GOOGLE_API_KEY
-        }
-    return render(request, 'visits/drive.html', context)
-
-def calculate_distance(request, slug):
-    '''
-    takes the latitude and longditude inputed by javascript and posts it to google maps api
-    gets the variable directions in a form of a dictionary
-    '''
-    journey_form = JourneyForm()
-    date_picker_form = DatePickerForm
-    if request.method == 'POST':
-
-        date_picker_item = get_object_or_404(DatePicker, slug=slug)
-
-        date_of_journey = date_picker_item.date_picked
-        date_to_string = date_of_journey.strftime("%d %B %Y")
-
-        model = Journey
         driver_id = request.user.id
+        
+        date_picker_item = get_object_or_404(DatePicker, slug=slug)
+        date_of_journey = date_picker_item.date_picked
+        context = {
+            'date_picker_form': DatePickerForm(),
+            'date_of_journey': date_of_journey,
+            'driver_id': driver_id,
+            'trafficmessage_list': trafficmessage_list,
+            'paginate_by': paginate_by,
+            'is_paginated': is_paginated,
+            'google_api_key': settings.GOOGLE_API_KEY
+
+        }
+
+        return render(request, 'visits/drive.html', context)
+
+
+    def post(self, request, slug, *args, **kwargs):
+        '''
+        when form is being posted the latitude and longditude is collected from the form
+        and passed to Directions functions which fetches data from google maps/ directions api
+        I need to create instance of the form, than validate it
+        if the form valid I can fetch directions
+        than I can save the data in the database
+        '''
         lat_a = request.POST.get("lat_a")
         long_a = request.POST.get("long_a")
         lat_b = request.POST.get("lat_b")
         long_b = request.POST.get("long_b")
-        # this takes the above as parameters and makes API query in mixins
         directions = Directions(
             lat_a=lat_a,
             long_a=long_a,
             lat_b=lat_b,
             long_b=long_b
             )
-        # change json to python object
-        # directions = json.loads(directions)
-        print(f' DIRECTIONS DISTANCE {directions["distance"]}')
-        context = {
-           "date_to_string": date_to_string,
-            "slug": slug,
-            "jourey_form": journey_form,
-            "date_picker_form": date_picker_form,
-            "google_api_key": settings.GOOGLE_API_KEY,
-            "lat_a": lat_a,
-            "long_a": long_a,
-            "lat_b": lat_b,
-            "long_b": long_b,
-            "origin": f'{lat_a}, {long_a}',
-            "destination": f'{lat_b}, {long_b}',
-            "directions": directions,
-        }
-
-        return render(request, 'visits/drive.html', context)
 
 
 class AddJourney(CreateView):
@@ -183,6 +113,54 @@ class AddJourney(CreateView):
             form = JourneyForm()
 
         return redirect('visits:next_journey', address_destination)
+
+def drive_next_journey(request, address_destination):
+    """
+    view that is used for the driver to continue the journey
+    without inputing the start address again
+    """
+    model = TrafficMessage
+    trafficmessage_list = TrafficMessage.objects.filter(status=1).order_by('-created_on')
+    is_paginated = True
+    paginate_by = 6
+    template_name = 'drive.html'
+    context = {
+        "trafficmessage_list": trafficmessage_list,
+        "paginate_by": paginate_by,
+        "is_paginated": is_paginated,
+        "address_destination": address_destination,
+        "google_api_key": settings.GOOGLE_API_KEY
+        }
+    return render(request, 'visits/drive.html', context)
+
+
+def drive_edit_journey(request, journey_id):
+    """
+    takes journey_id and pre fills the fields
+    with address_start and address_destination
+    """
+    model = TrafficMessage
+    trafficmessage_list = TrafficMessage.objects.filter(status=1).order_by('-created_on')
+    is_paginated = True
+    paginate_by = 6
+
+    model = Journey
+    journey = get_object_or_404(Journey, id=journey_id)
+
+    template_name = 'drive.html'
+    context = {
+        "trafficmessage_list": trafficmessage_list,
+        "paginate_by": paginate_by,
+        "is_paginated": is_paginated,
+        "journey": journey,
+        "google_api_key": settings.GOOGLE_API_KEY
+        }
+    return render(request, 'visits/drive.html', context)
+
+
+
+
+
 
 class UpdateJourney(CreateView):
     '''

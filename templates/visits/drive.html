@@ -56,7 +56,14 @@
 
 
 
-
+      <input type="text" 
+      class="form-control" 
+      id="id-distance" 
+      disabled
+      placeholder="Distance (click calculate distance to see the value)" 
+      aria-label="Distance (field will be filled in automaticaly)" 
+      name="distance"
+      value="{{directions.distance}}">
 
 
    </div>
@@ -64,7 +71,7 @@
                <!-- this form will only apear if the date_of_journey variable was passed in the context -->
                <!-- slug isn't date of journey slug is date.slug, check if it works??? -->
                <div>
-                  <form action="{% url 'visits:calc-distance' date_of_journey %}" method="POST">
+                  <form action="" method="POST">
                      {% csrf_token %}
 
 
