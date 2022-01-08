@@ -24,7 +24,7 @@ class Journey(models.Model):
     longitude_destination = models.DecimalField(max_digits=19, decimal_places=10, null=False, blank=False)
 
     driver = models.ForeignKey(User, on_delete=models.CASCADE, related_name="visits", null=False, blank=True)
-    distance = models.DecimalField(verbose_name="Distance Travelled", max_digits=19, decimal_places=10, null=False, blank=True)
+    distance = models.DecimalField(verbose_name="Distance Travelled", max_digits=19, decimal_places=1, null=False, blank=True)
     # postcode is the end of the string of address before UK ???
     postcode_start = models.CharField(verbose_name="Start Postcode", max_length=100, null=False, blank=True)
     postcode_destination = models.CharField(verbose_name="Destination Postcode", max_length=100, null=False, blank=True)

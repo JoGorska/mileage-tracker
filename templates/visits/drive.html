@@ -10,6 +10,14 @@
 
 {% if user.is_authenticated %}
 
+
+   {% if messages %}
+       {% for message in messages %}
+           alert('{{message}}')
+       {% endfor %}
+   {% endif %}
+
+
 <!-- this will show current journey -->
 
 {% if current_journey %}

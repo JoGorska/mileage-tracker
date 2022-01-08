@@ -15,6 +15,8 @@ from .forms import JourneyForm, DatePickerForm
 from .mixins import Directions, extract_postcode
 from traffic.models import TrafficMessage
 
+from django.contrib import messages 
+
 
 class Drive(CreateView):
     def get(self, request, slug, *args, **kwargs):
@@ -60,9 +62,6 @@ class AddJourney(CreateView):
     '''
     template_name = 'drive.html'
     form_class = JourneyForm()
-    
-
-
 
     def post(self, request, slug, *args, **kwargs):
         '''
@@ -71,7 +70,7 @@ class AddJourney(CreateView):
         than saves a new instance of Journey object to database
         '''
 
-        form = JourneyForm(data=request.POST)
+        form = JourneyForm(request.POST or None, request.FILES or None)
 
         if form.is_valid():
             '''
@@ -79,7 +78,6 @@ class AddJourney(CreateView):
             this means that I have my longditude and latitude in place.
             check is journey model requires lat and long???
             '''
-
 
             latitude_start = request.POST.get("latitude_start")
             longitude_start = request.POST.get("longitude_start")
@@ -111,8 +109,6 @@ class AddJourney(CreateView):
 
             postcode_destination = extract_postcode(address_destination)
             distance = directions["distance"]
-            distance_string = str(distance)
-
 
             Journey.objects.create(
                 date_of_journey=date_of_journey,
@@ -139,7 +135,8 @@ class AddJourney(CreateView):
             }
             # return redirect('visits:date_picker')
             return render(request, 'visits/visits_by_date.html', context)
-
+        else:
+            messages.error(request, "Error")
         # this will be rendered if the form fails validation. do I need data from the submited form?
         # forcing the user to type everything in again might be crule, but it is only 2 fields!!!
         context = {
