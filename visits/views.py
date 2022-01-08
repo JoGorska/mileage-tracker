@@ -80,12 +80,6 @@ class AddJourney(CreateView):
             check is journey model requires lat and long???
             '''
 
-            ### custom validation
-            #     I  can test if the start adress field matches the directions.origin ??? !!!
-
-            # please click into drop down field below. If drop down box doesn't apear, you might need to re load the page
-            # some browsers extension might prevent the drop down from apearing for example ... dark???
-            # you might need to disable this extension if you wish to continue using Tank Mileage Tracker
 
             latitude_start = request.POST.get("latitude_start")
             longitude_start = request.POST.get("longitude_start")
@@ -97,6 +91,10 @@ class AddJourney(CreateView):
                 lat_b=latitude_destination,
                 long_b=longitude_destination
                 )
+
+            address_start = directions["origin"]
+            address_destination = directions["destination"]
+
             # this gives me date object
             date_picker_item = get_object_or_404(DatePicker, slug=slug)
             date_of_journey = date_picker_item.date_picked
@@ -108,12 +106,13 @@ class AddJourney(CreateView):
             # but definitely is needed in next_journey view 
             journeys = Journey.objects.filter(date_of_journey=date_of_journey).filter(driver=driver_id).order_by('created_on')
 
-            address_start = directions["origin"]
             # I could be extracting postcode in models???
             postcode_start = extract_postcode(address_start)
-            address_destination = directions["destination"]
+
             postcode_destination = extract_postcode(address_destination)
             distance = directions["distance"]
+            distance_string = str(distance)
+
 
             Journey.objects.create(
                 date_of_journey=date_of_journey,

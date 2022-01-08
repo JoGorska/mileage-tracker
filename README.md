@@ -171,8 +171,48 @@ No errors were found when passing through the official [W3C validator](https://j
 Javascript files were tested with the jshint and no errors were been found. 
 
 + Python
+## Form validation
 
+Drive
 
+### custom validation attempt
+
+            # IF USER fiddles with the input form, but chooses not to click into the
+            # google drop down box, or the drop down box doesn't apear when he edits the 
+            # input field, than the geocoordinates would lead to a different address than
+            # stated in the input field
+
+            # I need to add javascript / jquery to show green and red message under
+            # the input field
+            # I  can test if the start adress field matches the directions.origin ??? !!!
+
+            # please click into drop down field below. If drop down box doesn't apear, you might need to re load the page
+            # some browsers extension might prevent the drop down from apearing for example ... dark???
+            # you might need to disable this extension if you wish to continue using Tank Mileage Tracker
+```
+            address_start_form_data = request.POST.get("address_start")
+            address_destination_form_data = request.POST.get("address_destination")
+            address_start = directions["origin"]
+            address_destination = directions["destination"]
+            print(f'form data {address_start_form_data}')
+            print(f'from google direcions {address_start}')
+            if (
+                address_start_form_data == address_start) and (
+                address_destination_form_data == address_destination):
+                
+                print(f'ALL OK ADDRESS ARE IDENTICAL')
+            else:
+                print(f'these fields are different')
+```
+
+Unfortunately the print returned the differences that come from two different queries from google
+```
+form data Doncaster, UK
+from google direcions 14 Prince's St, Doncaster DN1 2HJ, UK
+```
+- when querying google places - I might get just the town or full address
+- when querying google directions - I am always getting full set of data including postcode 
+-
 ## Project Bugs and Solutions:
 
 ### Problem with displaying form fields using |as_bootstrap
