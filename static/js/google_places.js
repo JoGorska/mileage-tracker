@@ -1,6 +1,8 @@
-// functions created based on developers. google documentation
-// and following tutorial
+// functions created based on developers.google documentation
+// https://developers.google.com/maps/documentation/places/web-service/supported_types
+// and following tutorial Bobby did coding
 // https://www.youtube.com/watch?v=wCn8WND-JpU&t=8s
+// and refactored to the needs of the project
 
 $.getScript( "https://maps.googleapis.com/maps/api/js?key=" + google_api_key + "&libraries=places") 
 .done(function( script, textStatus ) {
@@ -99,31 +101,3 @@ function onPlaceChanged (addy){
         }); 
     }
 }
-
-
-/**
- * function to validate form for empty fields
- * 
- */
-
-//  function validateForm() {
-//     var valid = true;
-//     $('.geo').each(function () {
-//         if ($(this).val() === '') {
-//             valid = false;
-//             return false;
-//         }
-//     });
-//     return valid
-// }
-
-// function get_long_lat(){
-
-//     if ( validateForm() == true){
-       
-//         lat_a = $('#id-lat-a').val();
-//         long_a = $('#id-long-a').val();
-//         lat_b = $('#id-lat-b').val();
-//         long_b = $('#id-long-b').val();
-//     };
-// };
