@@ -80,6 +80,13 @@ class AddJourney(CreateView):
             check is journey model requires lat and long???
             '''
 
+            ### custom validation
+            #     I  can test if the start adress field matches the directions.origin ??? !!!
+
+            # please click into drop down field below. If drop down box doesn't apear, you might need to re load the page
+            # some browsers extension might prevent the drop down from apearing for example ... dark???
+            # you might need to disable this extension if you wish to continue using Tank Mileage Tracker
+
             latitude_start = request.POST.get("latitude_start")
             longitude_start = request.POST.get("longitude_start")
             latitude_destination = request.POST.get("latitude_destination")
@@ -134,10 +141,15 @@ class AddJourney(CreateView):
             # return redirect('visits:date_picker')
             return render(request, 'visits/visits_by_date.html', context)
 
-        else:
+        # this will be rendered if the form fails validation. do I need data from the submited form?
+        # forcing the user to type everything in again might be crule, but it is only 2 fields!!!
+        context = {
+            'form': JourneyForm(),
+            'slug': slug,
+            'google_api_key': settings.GOOGLE_API_KEY
+        }
 
-
-            return render(request, 'visits/drive.html', context)
+        return render(request, 'visits/drive.html', context )
 
         # this is temporary so I know it works???
 
@@ -148,6 +160,8 @@ def drive_next_journey(request, slug, journey_id):
     """
     this function will display the drive.html template
     with additional data passed from Drive view (slug and journey_id)
+    I can pass lat and long so the user is not requried to click into the field again
+
     """
     # not sure if I need this?
     template_name = 'drive.html'

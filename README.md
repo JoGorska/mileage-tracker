@@ -80,7 +80,20 @@ Workflow 2
 Workflow 3 
   - if driver has checked their daily report and realises he forgot to add one destination in the middle of the route. 
 
+## Workflow decisions
 
+I dropped the map view as it has not been bringing any value for a driver / mobile phone user. The driver needs an interactive map in a google maps app, not a display javascript area inside a website. 
+
+I have simplified the Drive View.
+
+1. user clicks on drive on nav bar
+2. user uses date picker to choose date of the journey
+3. user types start and end address
+4. user clicks button GO
+5. user gets transfered to Drive Next view
+  -  with the accordeon of the current journey with a button to google maps app
+  - with form to input next journey - pre filled on journey_start side
+  - with a list of all journeys for this date.
 
 ### User Stories
 
