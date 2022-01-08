@@ -85,12 +85,33 @@
     addClass("my-invisible", targetNodeHelp);
     removeClass("invalid-feedback", targetNodeHelp);
   }
-  
+var inputAddressStart = document.getElementById("id-google-address-a");
+var inputAddressDestination =  document.getElementById("id-google-address-b");
+var helpDivStart = document.getElementById("google-address-a-help");
+var helpDivDestination = document.getElementById("google-address-b-help");
+var inputLatitudeStart = document.getElementById("id-lat-a");
+var inputLongitudeStart = document.getElementById("id-long-a");
+var inputLatitudeDestination = document.getElementById("id-lat-b");
+var inputLongitudeDestination = document.getElementById("id-long-b");
 
-function validateGeolocationFound() {
+function validateGeolocationFoundStart() {
     // need to check if all long and lat has been loaded
     // but display feedback in help node for address
     // because I don't want to show coordinates to the user, too much
     // information
-    
+    if (inputAddressStart === "") {
+        helpDivStart.innerHTML = "This field is required";
+        displayErrorValidation(inputAddressStart, helpDivStart);
+        return(false);
+    } else if ((inputLatitudeStart === "") && (inputAddressStart != "")) {
+        helpDivStart.innerHTML = "Please click into the drop down field to choose the correct address";
+        displayErrorValidation(inputAddressStart, helpDivStart);
+    } else if ((inputLongitudeStart === "") && (inputAddressStart != "")) {
+        helpDivStart.innerHTML = "Please click into the drop down field to choose the correct address";
+        displayErrorValidation(inputAddressStart, helpDivStart);
+    } else if ((inputLongitudeStart != "") && (inputAddressStart != "")) {
+        helpDivStart.innerHTML = "We have found geocoordinates";
+        displayPassedValidation(inputAddressStart, helpDivStart);
+    }
+
 }
