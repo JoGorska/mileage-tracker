@@ -36,11 +36,16 @@ class Drive(CreateView):
         
         date_picker_item = get_object_or_404(DatePicker, slug=slug)
         date_of_journey = date_picker_item.date_picked
+
+        model = Journey
+        journeys = Journey.objects.filter(date_of_journey=date_of_journey).filter(driver=driver_id).order_by('created_on')
+
         context = {
             'date_picker_form': DatePickerForm(),
             'date_of_journey': date_of_journey,
             'slug': slug,
             'driver_id': driver_id,
+            'journeys': journeys,
             'trafficmessage_list': trafficmessage_list,
             'paginate_by': paginate_by,
             'is_paginated': is_paginated,

@@ -90,32 +90,20 @@
 
          </div>
       </div>     
-
-               <!-- this form will only apear if the date_of_journey variable was passed in the context -->
-               <!-- slug isn't date of journey slug is date.slug, check if it works??? -->
-               <div>
+            <div>
 
 
 
-                  
-                  <!-- <input type="text" id="journey_id" name="journey_id" value={{journey.id}}> -->
-                  <input type="text" class="geo" id="id-lat-a" name="latitude_start" value="">
-                  <input type="text" class="geo" id="id-long-a" name="longitude_start" value="">
-                  <input type="text" class="geo" id="id-lat-b" name="latitude_destination" value="">
-                  <input type="text" class="geo" id="id-long-b" name="longitude_destination" value="">
-                  <button type="submit">submit</button>
-  
-               </div>
+               
+               <!-- <input type="text" id="journey_id" name="journey_id" value={{journey.id}}> -->
+               <input type="hidden" class="geo" id="id-lat-a" name="latitude_start" value="">
+               <input type="hidden" class="geo" id="id-long-a" name="longitude_start" value="">
+               <input type="hidden" class="geo" id="id-lat-b" name="latitude_destination" value="">
+               <input type="hidden" class="geo" id="id-long-b" name="longitude_destination" value="">
+               <button type="submit" class="btn btn-warning btn-lg">submit</button>
 
-               {% if form_errors %}
+            </div>
 
-                   {% for error in form_errors %} 
-                      <div class="alert alert-danger">
-                           <strong>{{ error|escape }}</strong>
-                      </div>
-                   {% endfor %}
-
-            {% endif %}
       </form> 
 
       {% else %}
