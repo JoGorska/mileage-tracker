@@ -154,11 +154,8 @@ class AddJourney(CreateView):
                              ' from showing.')
             elif ("address_start" in list_of_fields_with_errors) or (
                   "address_destination" in list_of_fields_with_errors):
-                print(f'sssssssssssssss')
-
-            # form_error_list = form.errors.keys()
-
-            # field_causing_error = form_errors
+                messages.error(
+                    request, 'Both fields are required')
 
             context = {
                 'form': JourneyForm(),

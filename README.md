@@ -205,6 +205,7 @@ Drive
                 print(f'these fields are different')
 ```
 
+
 Unfortunately the print returned the differences that come from two different queries from google
 ```
 form data Doncaster, UK
@@ -213,6 +214,25 @@ from google direcions 14 Prince's St, Doncaster DN1 2HJ, UK
 - when querying google places - I might get just the town or full address
 - when querying google directions - I am always getting full set of data including postcode 
 -
+
+### javascript validation for Drive
+
+I have added Javascript function detecting input on the start address and destination address fields. The function adds and removes classes showing the user in red and green if the field is filled in correctly. 
+
+I have also allowed html validation - by adding "required" attribute to both elements.
+
+the "ok" status for both fields is changed by the function handling api query. Once the query is completed and data is submited to the fields this function adds and removes classes so it shows user in green that geocoodinates have been found. 
+
+### Django validation for AddJourney
+
+If user decides to ignore the above messages from JavaScript, the form gets submitted with some missing data, but django form validation function prevents the item to be submitted to database with missing data. 
+
+The user gets displayed a message describing the error.
+
+The most common error will be submitting form with geocoordinates missing. I decided that I would preffer user not to see geocoordinates as it would be too much information for a little phone application. Geocoordinates would need to be inside not editable input elements anyway. 
+
+I am adding detailed message describing what to do if the drop down input field from google places api doesn't show up. I am also clearing the form data - hopefuly when user types both addresses again, he understands how to do this correctly. 
+
 ## Project Bugs and Solutions:
 
 ### Problem with displaying form fields using |as_bootstrap
