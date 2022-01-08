@@ -23,22 +23,22 @@
 
         <div class="container">
 
-        <form class="mt-5 mb-5" action="" method="POST">
-        {% csrf_token %}
-            <div class="row mb-5">
-                <div class="col"></div>
-                <div class="col">
-                    {{ date_picker_form|as_bootstrap }}
+            <form class="mt-5 mb-5" action="" method="POST">
+            {% csrf_token %}
+                <div class="row mb-5">
+                    <div class="col"></div>
+                    <div class="col">
+                        {{ date_picker_form|as_bootstrap }}
 
-                    <input class="btn btn-warning mt-5" type="submit" value="Go"></div>
+                        <input class="btn btn-warning mt-5" type="submit" value="Go"></div>
 
-                <div class="col"></div>
-            </div>
+                    <div class="col"></div>
+                </div>
 
 
-        </form>
+            </form>
 
-    </div>
+        </div>
 
     {% else %}
 

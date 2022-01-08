@@ -15,8 +15,7 @@ urlpatterns = [
 
     path('date', views.DatePickerView.as_view(), name='date_picker'),
     path('date/<slug:slug>/', views.DayReport.as_view(), name='day_report'),
-
-    
+       
     # need to fill in the start address => postcode and date from datepicker model from slug
     # url needs to change drive/<slug:slug>/next_journey/<str:addres_destination>/
     path('next_journey/<str:address_destination>/', views.drive_next_journey, name="next_journey"),

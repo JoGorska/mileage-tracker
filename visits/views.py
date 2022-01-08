@@ -382,8 +382,6 @@ class DayReport(View):
 
         journeys = Journey.objects.filter(date_of_journey=date_picked).filter(driver=driver_id).order_by('created_on')
 
-        
-
         return render(
             request,
             'visits/visits_by_date.html',
@@ -394,5 +392,22 @@ class DayReport(View):
                 'driver_id': driver_id
             },
         )
+    def post(self, request, *args, **kwargs):
+        
+        date_picker_form = DatePickerForm(data=request.POST)
 
+        if date_picker_form.is_valid():
+
+            date_picked_instance = date_picker_form.save(commit=False)
+            date_picked_instance.save()
+            slug = date_picked_instance.slug
+
+            return redirect('visits:day_report', slug)
+        # it would be nice to add error handling...???
+        # right now else assumes that the date in date picker was a date
+        # that was already in the database
+        else:
+            slug = request.POST.get('date_picked')
+
+            return redirect('visits:day_report', slug)
 
