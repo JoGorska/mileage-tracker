@@ -65,16 +65,13 @@ class AddJourney(CreateView):
 
 
     def post(self, request, slug, *args, **kwargs):
+        '''
+        fills in instance of JourneyForm with data posted by the form,
+        if form is valid fetches directions data from google maps
+        than saves a new instance of Journey object to database
+        '''
 
         form = JourneyForm(data=request.POST)
-        # form = JourneyForm()
-        # form.address_start = request.POST.get("address_start")
-        # form.address_destination = request.POST.get("address_destination")
-        # form.latitude_start = request.POST.get("latitude_start")
-        # form.longitude_start = request.POST.get("longitude_start")
-        # form.latitude_destination = request.POST.get("latitude_destination")
-        # form.longitude_destination = request.POST.get("longitude_destination")
-
 
         if form.is_valid():
             '''
@@ -82,36 +79,27 @@ class AddJourney(CreateView):
             this means that I have my longditude and latitude in place.
             check is journey model requires lat and long???
             '''
-            print('form is valid')
-            ## this is temporary, I need to get lat and long from form instance!
-            # because it was validated!
+
             latitude_start = request.POST.get("latitude_start")
             longitude_start = request.POST.get("longitude_start")
             latitude_destination = request.POST.get("latitude_destination")
             longitude_destination = request.POST.get("longitude_destination")
-            print(f'LATITUDE {latitude_start}')
             directions = Directions(
                 lat_a=latitude_start,
                 long_a=longitude_start,
                 lat_b=latitude_destination,
                 long_b=longitude_destination
                 )
-
-            date_picker_item = get_object_or_404(DatePicker, slug=slug)
             # this gives me date object
+            date_picker_item = get_object_or_404(DatePicker, slug=slug)
             date_of_journey = date_picker_item.date_picked
-            # date_of_journey = request.datepicker.date_picked
+            # I am getting driver_id from request
             driver_id = request.user.id
-            # I shuld be taking data from the instance of form!!!???
             address_start = directions["origin"]
+            # I could be extracting postcode in models???
             postcode_start = extract_postcode(address_start)
-            # latitude_start = form.instance.lat...
-            # latitude_start = request.POST.get("latitude_start")
-            # longitude_start = request.POST.get("longitude_start")
             address_destination = directions["destination"]
             postcode_destination = extract_postcode(address_destination)
-            # latitude_destination = request.POST.get("latitude_destination")
-            # longitude_destination = request.POST.get("longitude_destination")
             distance = directions["distance"]
 
             Journey.objects.create(
