@@ -101,6 +101,12 @@ const inputLongitudeStart = document.getElementById("id-long-a");
 const inputLatitudeDestination = document.getElementById("id-lat-b");
 const inputLongitudeDestination = document.getElementById("id-long-b");
 
+/**
+ * validates start
+ * function to validate if the user has input all data needed for the data model:
+ * address, latitude, longitude, detects if all or one of the fields is empty
+ * @returns true or false
+ */
 function validateGeolocationFoundStart() {
 
     if (inputAddressStart.value === "") {
@@ -116,7 +122,32 @@ function validateGeolocationFoundStart() {
         displayErrorValidation(inputAddressStart, helpDivStart);
         return(false);
     } else {
+        return(true);
+    }
 
+}
+
+/**
+ * validates destination
+ * function to validate if the user has input all data needed for the data model:
+ * address, latitude, longitude, detects if all or one of the fields is empty
+ * @returns true or false
+ */
+function validateGeolocationFoundDestination() {
+
+    if (inputAddressDestination.value === "") {
+        helpDivDestination.innerHTML = "This field is required";
+        displayErrorValidation(inputAddressDestination, helpDivDestination);
+        return(false);
+    } else if ((inputLatitudeDestination.value === "") && (inputAddressDestination.value != "")) {
+        helpDivDestination.innerHTML = "Please click into the drop down field to choose the correct address";
+        displayErrorValidation(inputAddressDestination, helpDivDestination);
+        return(false);
+    } else if ((inputLongitudeDestination.value === "") && (inputAddressDestination.value != "")) {
+        helpDivDestination.innerHTML = "Please click into the drop down field to choose the correct address";
+        displayErrorValidation(inputAddressDestination, helpDivDestination);
+        return(false);
+    } else {
         return(true);
     }
 
@@ -157,14 +188,12 @@ journeyForm.addEventListener ('input', debounce(function (e) {
             validateGeolocationFoundStart();
             break;
 
-        case 'id-lat-a':
-            validateGeolocationFoundStart();
+        case 'id-google-address-b':
+            validateGeolocationFoundDestination();
             break;
 
     }
 }));
-
-
 
 
 
@@ -214,6 +243,8 @@ function initAutocomplete() {
   
   autocomplete_b.addListener('place_changed', function(){
     onPlaceChanged('b')
+    helpDivDestination.innerHTML = "We have found geocoordinates";
+    displayPassedValidation(inputAddressDestination, helpDivDestination);
   });
 
 }
