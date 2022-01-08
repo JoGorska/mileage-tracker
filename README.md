@@ -233,6 +233,14 @@ The most common error will be submitting form with geocoordinates missing. I dec
 
 I am adding detailed message describing what to do if the drop down input field from google places api doesn't show up. I am also clearing the form data - hopefuly when user types both addresses again, he understands how to do this correctly. 
 
+### Do I want to thoroughly validate date
+
+I like the users to have the ability to add the dates in the past. The driver might have forgotted to add mileage daily and he will be forced to back date all entries.
+
+Another question is if I should validate if the user inputs date in the future. I would like to think that this option might be usefull. I am required to submit my mileage on the last day of the month. I would write the report the previous day and submit it to employer once I finish driving. 
+
+There might be other employers who require some kind of driving plan or predicted mileage from their employers. Employer might have to plan their journey ahead and report planned journey. 
+
 ## Project Bugs and Solutions:
 
 ### Problem with displaying form fields using |as_bootstrap
