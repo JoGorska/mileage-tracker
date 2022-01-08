@@ -93,8 +93,14 @@ class AddJourney(CreateView):
             # this gives me date object
             date_picker_item = get_object_or_404(DatePicker, slug=slug)
             date_of_journey = date_picker_item.date_picked
+            date_to_string = date_of_journey.strftime("%d %B %Y")
             # I am getting driver_id from request
             driver_id = request.user.id
+            # this list is needed to display list of journeys in the day. 
+            # It might not be needed in Add Journey view ???
+            # but definitely is needed in next_journey view 
+            journeys = Journey.objects.filter(date_of_journey=date_of_journey).filter(driver=driver_id).order_by('created_on')
+
             address_start = directions["origin"]
             # I could be extracting postcode in models???
             postcode_start = extract_postcode(address_start)
@@ -116,10 +122,25 @@ class AddJourney(CreateView):
                 distance=distance
             )
 
+            context = {
+
+                'date_picker_form': DatePickerForm(),
+                'journeys': journeys,
+                'date_to_string': date_to_string,
+                'driver_id': driver_id,
+                'slug': slug
+          
+            }
+            # return redirect('visits:date_picker')
+            return render(request, 'visits/visits_by_date.html', context)
+
         else:
-            form = JourneyForm()
+
+
+            return render(request, 'visits/drive.html', context)
+
         # this is temporary so I know it works???
-        return redirect('visits:date_picker')
+
         # next_journey is not ready
         # return redirect('visits:next_journey', address_destination)
 
