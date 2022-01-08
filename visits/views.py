@@ -136,16 +136,47 @@ class AddJourney(CreateView):
             # return redirect('visits:date_picker')
             return render(request, 'visits/visits_by_date.html', context)
         else:
-            messages.error(request, "Error")
+            form_errors = form.errors
+            list_of_fields_with_errors = form.errors.as_data()
+
+            if ("latitude_start" in list_of_fields_with_errors) or (
+                "longitude_start" in list_of_fields_with_errors) or (
+                "latitude_destination" in list_of_fields_with_errors) or (
+                "longitude_destination" in list_of_fields_with_errors):
+
+                messages.error(
+                    request, 'We couldn\'t collect geocoordinates for the'
+                             ' address. Please make sure you click into'
+                             ' the drop down list after typing the address.'
+                             ' If the drop down field doesnt apear,'
+                             'reload the browser. Please be aware that some'
+                             ' browsers\' extensions will stop the drop down'
+                             ' from showing.')
+            elif ("address_start" in list_of_fields_with_errors) or (
+                  "address_destination" in list_of_fields_with_errors):
+                print(f'sssssssssssssss')
+
+            # form_error_list = form.errors.keys()
+
+            # field_causing_error = form_errors
+
+            context = {
+                'form': JourneyForm(),
+                'slug': slug,
+                'google_api_key': settings.GOOGLE_API_KEY,
+                # 'form_errors': form_errors
+
+            }
+            return render(request, 'visits/drive.html', context )
+
+
+            # form_errors = form.errors
+
+            # messages.error(request, "Error")
         # this will be rendered if the form fails validation. do I need data from the submited form?
         # forcing the user to type everything in again might be crule, but it is only 2 fields!!!
-        context = {
-            'form': JourneyForm(),
-            'slug': slug,
-            'google_api_key': settings.GOOGLE_API_KEY
-        }
+        
 
-        return render(request, 'visits/drive.html', context )
 
         # this is temporary so I know it works???
 
