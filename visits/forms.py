@@ -20,11 +20,14 @@ class JourneyForm(forms.ModelForm):
     class Meta:
         model = Journey
         fields = (
-            'date_of_journey',
+            'address_start',
+            'latitude_start',
+            'longitude_start',
+            'address_destination',
+            'latitude_destination',
+            'longitude_destination',
+
         )
-        widgets = {
-            'date_of_journey': DateInput(),
-        }
 
 
 class DatePickerForm(forms.ModelForm):

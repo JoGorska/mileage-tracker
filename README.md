@@ -80,7 +80,20 @@ Workflow 2
 Workflow 3 
   - if driver has checked their daily report and realises he forgot to add one destination in the middle of the route. 
 
+## Workflow decisions
 
+I dropped the map view as it has not been bringing any value for a driver / mobile phone user. The driver needs an interactive map in a google maps app, not a display javascript area inside a website. 
+
+I have simplified the Drive View.
+
+1. user clicks on drive on nav bar
+2. user uses date picker to choose date of the journey
+3. user types start and end address
+4. user clicks button GO
+5. user gets transfered to Drive Next view
+  -  with the accordeon of the current journey with a button to google maps app
+  - with form to input next journey - pre filled on journey_start side
+  - with a list of all journeys for this date.
 
 ### User Stories
 
@@ -158,7 +171,75 @@ No errors were found when passing through the official [W3C validator](https://j
 Javascript files were tested with the jshint and no errors were been found. 
 
 + Python
+## Form validation
 
+Drive
+
+### custom validation attempt
+
+            # IF USER fiddles with the input form, but chooses not to click into the
+            # google drop down box, or the drop down box doesn't apear when he edits the 
+            # input field, than the geocoordinates would lead to a different address than
+            # stated in the input field
+
+            # I need to add javascript / jquery to show green and red message under
+            # the input field
+            # I  can test if the start adress field matches the directions.origin ??? !!!
+
+            # please click into drop down field below. If drop down box doesn't apear, you might need to re load the page
+            # some browsers extension might prevent the drop down from apearing for example ... dark???
+            # you might need to disable this extension if you wish to continue using Tank Mileage Tracker
+```
+            address_start_form_data = request.POST.get("address_start")
+            address_destination_form_data = request.POST.get("address_destination")
+            address_start = directions["origin"]
+            address_destination = directions["destination"]
+            print(f'form data {address_start_form_data}')
+            print(f'from google direcions {address_start}')
+            if (
+                address_start_form_data == address_start) and (
+                address_destination_form_data == address_destination):
+                
+                print(f'ALL OK ADDRESS ARE IDENTICAL')
+            else:
+                print(f'these fields are different')
+```
+
+
+Unfortunately the print returned the differences that come from two different queries from google
+```
+form data Doncaster, UK
+from google direcions 14 Prince's St, Doncaster DN1 2HJ, UK
+```
+- when querying google places - I might get just the town or full address
+- when querying google directions - I am always getting full set of data including postcode 
+-
+
+### javascript validation for Drive
+
+I have added Javascript function detecting input on the start address and destination address fields. The function adds and removes classes showing the user in red and green if the field is filled in correctly. 
+
+I have also allowed html validation - by adding "required" attribute to both elements.
+
+the "ok" status for both fields is changed by the function handling api query. Once the query is completed and data is submited to the fields this function adds and removes classes so it shows user in green that geocoodinates have been found. 
+
+### Django validation for AddJourney
+
+If user decides to ignore the above messages from JavaScript, the form gets submitted with some missing data, but django form validation function prevents the item to be submitted to database with missing data. 
+
+The user gets displayed a message describing the error.
+
+The most common error will be submitting form with geocoordinates missing. I decided that I would preffer user not to see geocoordinates as it would be too much information for a little phone application. Geocoordinates would need to be inside not editable input elements anyway. 
+
+I am adding detailed message describing what to do if the drop down input field from google places api doesn't show up. I am also clearing the form data - hopefuly when user types both addresses again, he understands how to do this correctly. 
+
+### Do I want to thoroughly validate date
+
+I like the users to have the ability to add the dates in the past. The driver might have forgotted to add mileage daily and he will be forced to back date all entries.
+
+Another question is if I should validate if the user inputs date in the future. I would like to think that this option might be usefull. I am required to submit my mileage on the last day of the month. I would write the report the previous day and submit it to employer once I finish driving. 
+
+There might be other employers who require some kind of driving plan or predicted mileage from their employers. Employer might have to plan their journey ahead and report planned journey. 
 
 ## Project Bugs and Solutions:
 
@@ -312,6 +393,29 @@ I've noticed when testing responsivness on chrome dev tools that hero image on i
 - the view that was supposed to submit the `cleared` to the database was returning various different errors. I found missing `filter` method in the view
 - number of Thanks wasn't increasing after the button to thank was clicked. I found that closing tag for form was missing.
 
+
+### User unable to reaserch places using UK postcode
+
+Drivers in UK are using postcodes (combination of letters and numbers) to get to next location. In uk postcode area is relatively small and google maps takes you ony a few doors down from the right address. It is much quicker to input postccode than type number, road and town.
+
+Initial function that I found at Bobby did Coding has been using full address. After reading extensive documentation I have found out that I only need to replace the word "address" with "postal code". 
+
+The function started getting the longtitude and latitude of the given postcode, but I've lost autocomplete. I added the "postal code" as a second argument together with address and now user has ability to input full address and use drop down box or postal code. 
+
+Right now user has to click into the field and press enter. This will not work right on the mobile. 
+
+This article [about](https://atomizedobjects.com/blog/javascript/how-to-get-postcodes-from-google-places-and-google-maps/) has helped me understand what sort of data I am getting from google places API. Google documentation can be found [here](https://developers.google.com/maps/documentation/places/web-service/supported_types#table3) that describes exactly what types I can get. 
+
+### Error Invalid block tag on line 113: 'endif', expected 'endblock'. 
+
+This error apears in nav bar if I split the `if .. or .. or `to seperate lines. In consequence the `if` statement is very long, but it seemed better to leave it long, than repeat `elif` again and again in seperate lines.
+
+### New traffic messages not displaying on the list
+
+Tested if the new messages are being added to database - they are. I logged in to amin and I could see those new messages in admin panel. I found that the new messages have been created as "draft" rater than "published". The filter to display messages checks only for "published". 
+
+I have change the view that posts the new messages to the database that it sets the published property automaticaly for every new message. This functionality might be expanded and allow user to save draft messages in the future, but due to high paste of changes of traffic I doubt there will be a need for this. 
+
 ## Deployment
 
  The site was deployed to Heroku pages. 
@@ -384,9 +488,8 @@ https://www.iconfinder.com/search?q=tank&price=free
  icon for thumbs up from fonawsome
  https://github.com/FortAwesome/Font-Awesome/tree/master/svgs/regular
 
-
- crispy forms
- commenting part 1 in Authorisation, Commenting and Likes 
+icons 
+<a href="https://icons8.com/icon/32215/google-maps-old">Google Maps Old icon by Icons8</a>
 
 
 google maps API + javascript map API

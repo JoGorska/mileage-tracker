@@ -6,14 +6,20 @@
 
 
 {% block content %}
-<div class="container my-3"><h1 class="display-5 fw-bold lh-1 "><span class="border-warning pb-3 border-bottom">Pick the date</span></h1></div>
 
+{% if request.resolver_match.url_name == 'date_picker_drive' %}
+<div class="container my-3"><h1 class="display-5 fw-bold lh-1 "><span class="border-warning pb-3 border-bottom">Drive</span></h1></div>
 
+{% elif request.resolver_match.url_name == 'date_picker' %}
+
+<div class="container my-3"><h1 class="display-5 fw-bold lh-1 "><span class="border-warning pb-3 border-bottom">Day Report</span></h1></div>
+
+{% endif %}
 
     {% if user.is_authenticated %}
 
 
-        <div class="container pt-3 mt-4 mb-5"><h2>you wish to view</h2></div>
+        <div class="container pt-3 mt-4 mb-5"><h2>pick the date</h2></div>
 
         <div class="container">
 
@@ -33,12 +39,14 @@
         </form>
 
     </div>
+
     {% else %}
 
     <div class="container pt-3 mt-4 mb-5"><h2>You need to log in to view day report</h2></div>
 
 
     {% endif %}
+
 
 
 {% endblock %}

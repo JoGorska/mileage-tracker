@@ -14,7 +14,7 @@
         <h1 class="display-5 fw-bold lh-1 mb-3 border-warning pb-3 border-bottom">Welcome Back {{user.first_name}}</h1>
         <p class="lead">You can check and record the distance that you have travelled. We are developing reports to enable you easy end of month and end of year summary.</p>
         <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-          <a href="{% url 'visits:drive' %}">
+          <a href="{% url 'visits:date_picker_drive' %}">
             <button type="button" class="btn btn-warning btn-lg px-4 me-md-2">Drive</button>
           </a>
           <a href="{% url 'visits:date_picker' %}">
@@ -49,8 +49,8 @@
     </div>
   </div>
 
-{% endif %}
- 
-{% include 'traffic/traffic_msg_list.html' %}
+{% endif %}     
+
+{% include 'partials/traffic_msg_list.html' %}
 
 {% endblock %}

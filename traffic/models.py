@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-# from cloudinary.models import CloudinaryField ??? might not need it
+
 
 STATUS_CHOICES = ((0, "Draft"), (1, "Published"))
 
@@ -119,9 +119,7 @@ COUNTY_CHOICES = [
 
 class TrafficMessage(models.Model):
     area = models.CharField(max_length=200, unique=False)
-    # ??? need to set default = user's county, but can be changed
-    # ??? do I have to set default in here, can I only set in forms?
-    county = models.CharField(max_length=200, choices=COUNTY_CHOICES, default='Northamptonshire')
+    county = models.CharField(max_length=200, choices=COUNTY_CHOICES, default='northamptonshire')
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="traffic_messages")
     created_on = models.DateTimeField(auto_now=True)
     updated_on = models.DateTimeField(auto_now=True)
@@ -141,6 +139,5 @@ class TrafficMessage(models.Model):
     def number_of_thanks(self):
         return self.thanks.count()
 
-    # this is a repetition can it be made simler???
     def number_of_cleared(self):
         return self.cleared.count()

@@ -1,73 +1,123 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load bootstrap_tags %}
 
-{% block extend_nav %} 
-
-<!-- extended nav bar can go here -->
-
-{% endblock %}
 
 {% block content %}
 
+
 <div class="container my-3"><h1 class="display-5 fw-bold lh-1 "><span class="border-warning pb-3 border-bottom">Drive</span></h1></div>
+<div class="container pt-3 mt-4 mb-5"><h2>{{date_to_string}}</h2></div>
+
 
 {% if user.is_authenticated %}
 
-<div class="container my-5 py-5">
 
-   <div class="row">
+   {% if messages %}
+       {% for message in messages %}
 
-      <div class="col-12 col-lg-6">
-         <!--
-         if user is redirected as basic drive - both address fields should be empty 
-         if user is redirected as next journey, the address should pre fill with address_destination from the prevous journey
-         else if user is redirected as edit journey, the address should pre fill with journey.address_start
-         -->
-         <div class="mb-3">
-            <label for="id-google-address-a" class="form-label">Start Address</label>
-            <input type="text" class="form-control" id="id-google-address-a" aria-describedby="google-address-a-help" name="google_address_a"
-
-            {% if journey.address_start %} 
-            value="{{journey.address_start}}"
-            {% else %}
-            value="{{address_destination}}"
-            {% endif %}
-            >
-
-            <div id="google-address-a-help" class="form-text">Type first line of the address, than choose from drop down list</div>
-         </div>
-
+       <div class="container mt-5">
+       <div class="alert alert-dismissible alert-danger">
+         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+         <h4 class="alert-heading">There has been a problem</h4>
+         <p class="mb-0">
+            {{message}}
+            <!-- <a href="#" class="alert-link">vel scelerisque nisl consectetur et</a> -->
+         </p>
+       </div>
       </div>
-
-      <div class="col-12 col-lg-6">
-
-         <div class="mb-3">
-            <label for="id-google-address-b" class="form-label">Destination Address</label>
-            <input type="text" class="form-control" id="id-google-address-b" aria-describedby="google-address-b-help" name="google_address_b" value="{{journey.address_destination}}">
-            <div id="google-address-b-help" class="form-text">Type first line of the address, than choose from drop down list</div>
-         </div>
-
-      </div>
-
-   </div>
-</div>
-<div>
-   <input type="hidden" id="journey_id" name="journey_id" value={{journey.id}}>
-   <input type="hidden" class="geo" id="id-lat-a" value="">
-   <input type="hidden" class="geo" id="id-long-a" value="">
-   <input type="hidden" class="geo" id="id-lat-b" value="">
-   <input type="hidden" class="geo" id="id-long-b" value="">
-</div>
-   {% else %}
-
-   <div class="container pt-3 mt-4 mb-5"><h2>You need to log in to use Drive</h2></div>
-
+          
+       {% endfor %}
    {% endif %}
 
+<!-- this will show current journey -->
+
+{% if current_journey %}
+
+{% include 'partials/visits_curr_journey.html' %}
+
+{% endif %}
+
+   <div class="container my-5 py-5">
+      <form action="{% url 'visits:add_journey' slug %}" method="POST">
+         {% csrf_token %}
+   
+      <div class="row">
+
+         <div class="col-12 col-lg-6">
+            <!--
+            if user is redirected as basic drive - both address fields should be empty 
+            if user is redirected as next journey, the address should pre fill with address_destination from the prevous journey
+            else if user is redirected as edit journey, the address should pre fill with journey.address_start
+            -->
+            <div class="mb-3">
+               <label for="id-google-address-a" class="form-label">Start Address</label>
+               <input 
+                  type="text" 
+                  class="form-control" 
+                  id="id-google-address-a" 
+                  aria-describedby="google-address-a-help" 
+                  name="address_start" 
+                  required
+                  {% if request.resolver_match.url_name == 'next_journey' %}
+                  value="{{directions.destination}}"
+                  {% else %}
+                  value="{{directions.origin}}"
+                  {% endif %}
+               >
+
+               <div id="google-address-a-help" class="form-text">Type first line of the address, than choose from drop down list</div>
+            </div>
+
+         </div>
+
+         <div class="col-12 col-lg-6">
+
+            <div class="mb-3">
+               <label for="id-google-address-b" class="form-label">Destination Address</label>
+               <input 
+               type="text" 
+               class="form-control" 
+               id="id-google-address-b" 
+               aria-describedby="google-address-b-help" 
+               name="address_destination" 
+               required
+               {% if request.resolver_match.url_name == 'edit_journey' %}
+               value="{{directions.destination}}"
+               {% else %}
+               value=""
+               {% endif %}>
+               <div id="google-address-b-help" class="form-text">Type first line of the address, than choose from drop down list</div>
+            </div>
+
+         </div>
+      </div>     
+            <div>
 
 
-   {% include 'traffic/traffic_msg_list.html' %}
 
+               
+               <!-- <input type="text" id="journey_id" name="journey_id" value={{journey.id}}> -->
+               <input type="hidden" class="geo" id="id-lat-a" name="latitude_start" value="">
+               <input type="hidden" class="geo" id="id-long-a" name="longitude_start" value="">
+               <input type="hidden" class="geo" id="id-lat-b" name="latitude_destination" value="">
+               <input type="hidden" class="geo" id="id-long-b" name="longitude_destination" value="">
+               <button type="submit" class="btn btn-warning btn-lg">submit</button>
+
+            </div>
+
+      </form> 
+
+      {% else %}
+      <!-- if user is not authenticated -->
+      <div class="container pt-3 mt-4 mb-5"><h2>You need to log in to use Drive</h2></div>
+
+      {% endif %}
+
+      {% include 'partials/visits_journeys_list.html' %}
+      {% include 'partials/traffic_msg_list.html' %}
+
+      
 {% endblock %}
 
 
@@ -81,6 +131,9 @@
 
   </script>
 
+
   <script src="{% static 'js/google_places.js' %}"></script>
+
+  <!-- <script src="{% static 'js/form_validation.js' %}"></script> -->
 
   {% endblock %}
