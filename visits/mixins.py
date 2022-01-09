@@ -65,14 +65,16 @@ def extract_postcode(googe_places_full_addr, google_directions_full_addr):
     matches_places = re.findall(regex, googe_places_full_addr)
     matches_directions = re.findall(regex, google_directions_full_addr)
 
-    if len(matches_places) == 0 and len(matches_directions) == 0:
+    if len(matches_directions) == 0 and len(matches_places) == 0:
         postcode = googe_places_full_addr
 
-    elif len(matches_directions) == 0:
-        list_of_matches_places = matches_places[0]
-        postcode = list_of_matches_places[1]
-    else:
+    elif len(matches_places) == 0:
         list_of_matches_directions = matches_directions[0]
         postcode = list_of_matches_directions[1]
+
+    else:
+        list_of_matches_places = matches_places[0]
+        postcode = list_of_matches_places[1]
+
 
     return postcode
