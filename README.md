@@ -178,6 +178,47 @@ Drive page is divided into 4 sections
 
 ### Automated tests
 
+### Manual tests
+
+1. First set of manual testing on Version 1
+
+  * Initial version did not have submit button, but the form has been submitted automaticaly, this was assessed negatively, as the user likes to have control over when he goes to the next page. 
+
+  I have added the button to submit the addresses
+
+  * Initial version requred user to submit data on the address input form, than submit data on the map page. Users complained that the process is very complicated and, when user was observed interacting with the page, it became obvious that he is lost as to what to do on the Map page. 
+
+  I have dropped the Map page and I have the one button fetching data from google directions and submitting to the database in one go. I also thought that javascript google map is not of any value to mobile phone user, as he can't use it to drive. User needs a button to click and be transfered to google maps and use it as Sat Nav. 
+
+  User was unaware that he had the option to click into the link and be transfered to google maps. The link was white letters on dark background and didn't stand out. 
+
+  I have added a google maps icon with geocoordinates for user to click so he can intuitivly use this option. 
+
+  * Initial testing have revealed that google places drop down sometimes doesn't apear. It might have been caused by [Dark Raider](https://chrome.google.com/webstore/detail/dark-reader/eimadpbcbfnmbkopoojfekhnkhdbieeh/related?hl=en) chrome extension, although further tests have excluded this. 
+
+  I have added javascript validation on input that guides the user through helpfull messages 
+  - Please click into the drop down field to choose the correct address
+  - This field is required
+  - We have found geocoordinates
+  Positive message is in green, negative are in red.
+
+  Should the user still decide to submit the form with the red errors he gets a long message from django form validation that is customised, depending on error type. 
+
+  * Users also noticed that new traffic alerts aren't showing on the traffic alerts list. 
+
+  I have found the error in the code, new messages were submitted as "draft" not "published" therefore they were not shown on the list. I have made all new traffic alerts created with the status "published"
+
+  * Users pointed out that the "month" button in nav bar isn't working
+
+  This functionality wasn't ready for the first realease
+
+  * Users appraised the dark theme of the website and the general design. 
+
+  * Users didn't like the fact that nav bar wasn't folding into a button for mobile phone. The fact that the icons were troppind down in un organized way was particulary distracting. 
+
+  Since this app is directed for mobile phone users mainly I have build special dedicated nav bar for mobile only. I have used media query to show and hyde the nav bars appropriately.
+
+## HTML validation
 + HTML
 
   Passing the HTML from all templates and base into the W3C Markup Validator no errors or warnings have been found [W3C validator](https://validator.w3.org/).
