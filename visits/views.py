@@ -135,7 +135,6 @@ class AddJourney(CreateView):
 
             context = {
                 'current_journey': current_journey,
-
                 'date_picker_form': DatePickerForm(),
                 'journeys': journeys,
                 'trafficmessage_list': trafficmessage_list,
@@ -150,8 +149,9 @@ class AddJourney(CreateView):
         # this part handles when the form fails form validation
         else:
             form_errors = form.errors
-            print(f'FORM ERRROS INSIDE ELSE {form_errors}')
-            list_of_fields_with_errors = form.errors.as_data()
+            form_as_data = form.errors.as_data()
+            list_of_fields_with_errors = form_as_data.keys()
+            
             # seperate message for errors caused by missing geocoordinates
             if ("latitude_start" in list_of_fields_with_errors) or (
                 "longitude_start" in list_of_fields_with_errors) or (
@@ -167,11 +167,16 @@ class AddJourney(CreateView):
                              ' browsers\' extensions will stop the drop down'
                              ' from showing.')
             # this should be handled by html required, but this one is just in caase
-            elif ("address_start" in list_of_fields_with_errors) or (
-                  "address_destination" in list_of_fields_with_errors):
-                messages.error(
-                    request, 'Both fields are required')
-
+            else:
+                # this captures any other errors that might apear, it displays a message
+                # containing <ul> of all errors and fields associated with them.
+                messages.error(request, form_errors)
+            date_picker_item = get_object_or_404(DatePicker, slug=slug)
+            date_of_journey = date_picker_item.date_picked
+            date_to_string = date_of_journey.strftime("%d %B %Y")
+            driver_id = request.user.id
+            journeys = Journey.objects.filter(date_of_journey=date_of_journey).filter(driver=driver_id).order_by('created_on')
+            
             context = {
                 'journeys': journeys,
                 'trafficmessage_list': trafficmessage_list,
@@ -182,7 +187,7 @@ class AddJourney(CreateView):
                 # 'form_errors': form_errors
 
             }
-            return render(request, 'visits/drive.html', context )
+            return render(request, 'visits/drive.html', context)
 
 
         # next_journey is not ready

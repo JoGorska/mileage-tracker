@@ -493,6 +493,10 @@ Tested if the new messages are being added to database - they are. I logged in t
 
 I have change the view that posts the new messages to the database that it sets the published property automaticaly for every new message. This functionality might be expanded and allow user to save draft messages in the future, but due to high paste of changes of traffic I doubt there will be a need for this. 
 
+### List of errors
+
+  The for loop `{% for message in messages %}` was generating a few red fields with identical messages. I tried to manipulate with the form_errors object, but the `{% forloop.first %}` seemed quickest solution. 
+
 ## Deployment
 
  The site was deployed to Heroku pages. 

@@ -21,8 +21,10 @@
          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
          <h4 class="alert-heading">There has been a problem</h4>
          <p class="mb-0">
-            {{message}}
-            <!-- <a href="#" class="alert-link">vel scelerisque nisl consectetur et</a> -->
+            {%  if forloop.first  %}
+               <!-- shows only first message from messages list -->
+               {{ message }}
+            {% endif %}
          </p>
        </div>
       </div>
