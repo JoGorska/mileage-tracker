@@ -50,15 +50,29 @@ def Directions(*args, **kwargs):
         }
 
 
-def extract_postcode(full_address):
+def extract_postcode(googe_places_full_addr, google_directions_full_addr):
     '''
-    takes a string containing full adress and postcodes and returns postcode only
+    takes a string containing full adress and postcodes and returns postcode 
+    only checks if postscode can be found in one of the possible matches,
+    if no postcode found it returns google_places full address
     Regex from:
     https://stackoverflow.com/questions/164979/regex-for-matching-uk-postcodes
     '''
-    matches = re.findall(r'([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})', full_address)
-    list_of_matches = matches[0]
-    postcode = list_of_matches[1]
+    regex = (r'([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-'
+             r'hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-'
+             r'Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})')
+
+    matches_places = re.findall(regex, googe_places_full_addr)
+    matches_directions = re.findall(regex, google_directions_full_addr)
+
+    if len(matches_places) == 0 and len(matches_directions) == 0:
+        postcode = googe_places_full_addr
+
+    elif len(matches_directions) == 0:
+        list_of_matches_places = matches_places[0]
+        postcode = list_of_matches_places[1]
+    else:
+        list_of_matches_directions = matches_directions[0]
+        postcode = list_of_matches_directions[1]
 
     return postcode
-
