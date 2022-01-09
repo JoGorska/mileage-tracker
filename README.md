@@ -218,6 +218,20 @@ Drive page is divided into 4 sections
 
   Since this app is directed for mobile phone users mainly I have build special dedicated nav bar for mobile only. I have used media query to show and hyde the nav bars appropriately.
 
+2. Set of tests Version 2 (new-drive branch)
+
+* user spotted error in the link in the button that is supposed to take him to the destination address on google maps.
+
+I've noticed that this link has variables that were in previous release, updated variables to up to dates, geocoordinates are now loading correctly.
+
+* user was observed interacting with the app. As soon as he clicked onto the start adress input field, the keyboard showed up and the user started typing the postcode. The user didn't realised that under the keyboard there was a drop down box to click into. 
+
+The user was using particulary small phone - screen witdht 320px
+
+I added autofocus to the start address input element. Hopefuly this will scroll the element automaticaly to the top of the page. 
+
+* footer was covering lots of content of the drive page, fotter was made non sticky as it doesn't contain any vital information that driver would need in every day use. 
+
 ## HTML validation
 + HTML
 

@@ -59,12 +59,12 @@
                   aria-describedby="google-address-a-help" 
                   name="address_start" 
                   required
+                  autofocus
                   {% if request.resolver_match.url_name == 'add_journey' %}
                   value="{{current_journey.address_destination}}"
                   {% else %}
                   value="{{directions.origin}}"
-                  {% endif %}
-               >
+                  {% endif %}>
 
                <div id="google-address-a-help" class="form-text">Type first line of the address, than choose from drop down list</div>
             </div>
@@ -126,7 +126,7 @@
                <input type="hidden" class="geo" id="id-long-b" name="longitude_destination" 
                value="">
 
-               {% endif %}>
+               {% endif %}
 
                <button type="submit" class="btn btn-warning btn-lg">submit</button>
 
