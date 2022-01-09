@@ -99,12 +99,11 @@ class AddJourney(CreateView):
                 long_b=longitude_destination
                 )
 
-            address_start = directions["origin"]
-            address_start_google_places = request.POST.get("address_start")
-            address_destination = directions["destination"]
-            address_destination_google_places = request.POST.get("address_destination")
-            print(f'ADDRESS START PLACES {address_start_google_places}')
-            print(f'ADDRESS START DIRECTIONS {address_start}')
+            address_start_google_directions = directions["origin"]
+            address_start = request.POST.get("address_start")
+            address_destination_google_directions = directions["destination"]
+            address_destination = request.POST.get("address_destination")
+
             # this gives me date object
             date_picker_item = get_object_or_404(DatePicker, slug=slug)
             date_of_journey = date_picker_item.date_picked
@@ -113,10 +112,9 @@ class AddJourney(CreateView):
             driver_id = request.user.id
             # this list is needed to display list of journeys in the day. 
             journeys = Journey.objects.filter(date_of_journey=date_of_journey).filter(driver=driver_id).order_by('created_on')
-            # I could be extracting postcode in models???
-            postcode_start = extract_postcode(address_start_google_places, address_start)
 
-            postcode_destination = extract_postcode(address_destination_google_places, address_destination)
+            postcode_start = extract_postcode(address_start, address_start_google_directions)
+            postcode_destination = extract_postcode(address_destination, address_destination_google_directions)
             distance = directions["distance"]
 
             current_journey = Journey.objects.create(
@@ -184,48 +182,8 @@ class AddJourney(CreateView):
                 'form': JourneyForm(),
                 'slug': slug,
                 'google_api_key': settings.GOOGLE_API_KEY
-                # 'form_errors': form_errors
-
             }
             return render(request, 'visits/drive.html', context)
-
-
-        # next_journey is not ready
-        # return redirect('visits:next_journey', address_destination)
-
-def drive_next_journey(request, slug, journey_id):
-    """
-    this function will display the drive.html template
-    with additional data passed from Drive view (slug and journey_id)
-    I can pass lat and long so the user is not requried to click into the field again
-
-    """
-    # not sure if I need this?
-    template_name = 'drive.html'
-    # I need DatePicker model to display this chosen date and pass to Journey
-    # display Datepicked in the small header
-    # fill in the field for journey form from
-    # Journey model:
-    # I need to get object_or_404 for the journey_id that was passed from Drive
-    # this will fill in the accordeon on the header
-    # and add coordinates to the map icon
-
-    # I need to filter Journey model to display all journeys for this day
-    
-    # this is to display the list of traffic alerts down below
-    model = TrafficMessage
-    trafficmessage_list = TrafficMessage.objects.filter(status=1).order_by('-created_on')
-    is_paginated = True
-    paginate_by = 6
-
-    context = {
-        "trafficmessage_list": trafficmessage_list,
-        "paginate_by": paginate_by,
-        "is_paginated": is_paginated,
-        "address_destination": address_destination,
-        "google_api_key": settings.GOOGLE_API_KEY
-        }
-    return render(request, 'visits/drive.html', context)
 
 
 def drive_edit_journey(request, journey_id):
