@@ -144,10 +144,10 @@ class AddJourney(CreateView):
                 'google_api_key': settings.GOOGLE_API_KEY
           
             }
-            # return redirect('visits:date_picker')
             return render(request, 'visits/drive.html', context)
-        # this part handles when the form fails form validation
+
         else:
+            # this block handles when the form fails form validation
             form_errors = form.errors
             form_as_data = form.errors.as_data()
             list_of_fields_with_errors = form_as_data.keys()
@@ -166,11 +166,11 @@ class AddJourney(CreateView):
                              'reload the browser. Please be aware that some'
                              ' browsers\' extensions will stop the drop down'
                              ' from showing.')
-            # this should be handled by html required, but this one is just in caase
+
             else:
-                # this captures any other errors that might apear, it displays a message
-                # containing <ul> of all errors and fields associated with them.
+                # this captures any other errors that might apear
                 messages.error(request, form_errors)
+
             date_picker_item = get_object_or_404(DatePicker, slug=slug)
             date_of_journey = date_picker_item.date_picked
             date_to_string = date_of_journey.strftime("%d %B %Y")
