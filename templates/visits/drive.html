@@ -38,7 +38,7 @@
 
 {% endif %}
 
-   <div class="container my-5 py-5">
+   <div class="container my-3 py-3">
       <form action="{% url 'visits:add_journey' slug %}" method="POST">
          {% csrf_token %}
    
@@ -60,7 +60,7 @@
                   name="address_start" 
                   required
                   {% if request.resolver_match.url_name == 'add_journey' %}
-                  value="{{directions.destination}}"
+                  value="{{current_journey.address_destination}}"
                   {% else %}
                   value="{{directions.origin}}"
                   {% endif %}
@@ -94,14 +94,40 @@
       </div>     
             <div>
 
+               {% if request.resolver_match.url_name == 'add_journey' %}
 
+               <input type="hidden" class="geo" id="id-lat-a" name="latitude_start" 
+               value="{{current_journey.latitude_destination}}">
+               <input type="hidden" class="geo" id="id-long-a" name="longitude_start" 
+               value="{{current_journey.longitude_destination}}">
+               <input type="hidden" class="geo" id="id-lat-b" name="latitude_destination"
+               value="">
+               <input type="hidden" class="geo" id="id-long-b" name="longitude_destination" 
+               value="">
 
-               
-               <!-- <input type="text" id="journey_id" name="journey_id" value={{journey.id}}> -->
-               <input type="hidden" class="geo" id="id-lat-a" name="latitude_start" value="">
-               <input type="hidden" class="geo" id="id-long-a" name="longitude_start" value="">
-               <input type="hidden" class="geo" id="id-lat-b" name="latitude_destination" value="">
-               <input type="hidden" class="geo" id="id-long-b" name="longitude_destination" value="">
+               {% elif request.resolver_match.url_name == 'edit_journey' %}
+
+               <input type="hidden" class="geo" id="id-lat-a" name="latitude_start" 
+               value="{{edited_journey.latitude_start}}">
+               <input type="hidden" class="geo" id="id-long-a" name="longitude_start" 
+               value="{{edited_journey.longitude_start}}">
+               <input type="hidden" class="geo" id="id-lat-b" name="latitude_destination"
+               value="{{edited_journey.latitude_destination}}">
+               <input type="hidden" class="geo" id="id-long-b" name="longitude_destination" 
+               value="{{edited_journey.longitude_destination}}">
+
+               {% else %}
+               <input type="hidden" class="geo" id="id-lat-a" name="latitude_start" 
+               value="">
+               <input type="hidden" class="geo" id="id-long-a" name="longitude_start" 
+               value="">
+               <input type="hidden" class="geo" id="id-lat-b" name="latitude_destination"
+               value="">
+               <input type="hidden" class="geo" id="id-long-b" name="longitude_destination" 
+               value="">
+
+               {% endif %}>
+
                <button type="submit" class="btn btn-warning btn-lg">submit</button>
 
             </div>

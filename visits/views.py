@@ -78,6 +78,8 @@ class AddJourney(CreateView):
         '''
 
         form = JourneyForm(request.POST or None, request.FILES or None)
+        model = TrafficMessage
+        trafficmessage_list = TrafficMessage.objects.filter(status=1).order_by('-created_on')
 
         if form.is_valid():
             '''
@@ -130,13 +132,13 @@ class AddJourney(CreateView):
                     longitude_destination=longitude_destination,
                     distance=distance
                 )
-            print(f'CURRENT JOURNEY {current_journey}')
 
             context = {
                 'current_journey': current_journey,
 
                 'date_picker_form': DatePickerForm(),
                 'journeys': journeys,
+                'trafficmessage_list': trafficmessage_list,
                 'date_to_string': date_to_string,
                 'driver_id': driver_id,
                 'slug': slug,
@@ -171,6 +173,9 @@ class AddJourney(CreateView):
                     request, 'Both fields are required')
 
             context = {
+                'journeys': journeys,
+                'trafficmessage_list': trafficmessage_list,
+                'date_to_string': date_to_string,
                 'form': JourneyForm(),
                 'slug': slug,
                 'google_api_key': settings.GOOGLE_API_KEY
