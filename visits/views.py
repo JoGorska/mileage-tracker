@@ -133,6 +133,7 @@ class AddJourney(CreateView):
             print(f'CURRENT JOURNEY {current_journey}')
 
             context = {
+                'current_journey': current_journey,
 
                 'date_picker_form': DatePickerForm(),
                 'journeys': journeys,
@@ -239,9 +240,6 @@ def drive_edit_journey(request, journey_id):
         "google_api_key": settings.GOOGLE_API_KEY
         }
     return render(request, 'visits/drive.html', context)
-
-
-
 
 
 

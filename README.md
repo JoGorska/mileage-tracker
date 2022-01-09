@@ -124,6 +124,28 @@ Wireframes created with Balsamiq. The project was developed from initial wirefra
 Traffic alert design - I've chosen a simple card design from bootstrap. I have also chosen to stack up the cards for larger screens to see two beside each other.
 Since this is an app for driver I have taken the mobile first aproach. This app needs to be comfortable to use by someone that is using mobile phone only. This led to a decision to display only maximum of 4 messages per page. This way the mobile phone user will not have to scroll down too much, but there is an option to go to the next page.
 
+
+### Drive Page
+
+Drive page is divided into 4 sections
+1. Current journey
+2. form to input start and destination address
+3. List of journeys for the current date
+4. List of traffic messages
+
+1. Current Journey
+  This field displays only if user has come to drive after submitting another journey. The user gets data from the current journey to fill in a accordeon style table with start and destination postcodes and distance. 
+
+  This accordeon button is styled with orange to distinguish it visually from the list of journeys of the day. The button also features an old google maps icon that was taken from [here](https://icons8.com/icon/32215/google-maps-old) The icon is linked up with the destination address of the current journey. 
+
+  The logic of this is that once the user types in start and destination address - the data gets saved in the database and he can now go to maps and drive. This works nicely on the mobile as user gets transferred to google maps with this address already inputed. This uses the geocoordinates to set the google maps up with destination. 
+
+  The icon is featured with little description available for large and medium screens. This was due to the fact that on larger screens the accordeon button is so long and large that this icon gets lost at the end of it with a big gap in between the description of the journey and the icon. 
+
+  For mobile phones this description was not needed as the responsive grid pushes the icon right next to the table which makes it quite intuitive. 
+
+  Once the user opens the accordeon button he can see the full address start and destination as well as buttons to edit or delete the journey. 
+
 ### Contact Page
 
 

@@ -9,11 +9,20 @@
 
             <!-- accordeaon header -->
           <h2 class="accordion-header" id="heading-{{current_journey.id}}">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#journey-id-{{current_journey.id}}" aria-expanded="true" aria-controls="collapseOne">
-                {{current_journey.postcode_start}} - {{current_journey.postcode_destination}}, distance: {{current_journey.distance}} miles
-                <a href="https://www.google.com/maps/dir/?api=1&destination={{lat_b|safe}}%2C{{long_b|safe}}">
-                  <img src="https://img.icons8.com/color/48/000000/google-maps.png"/>
-                </a>
+            <button class="row accordion-button collapsed text-warning border border-warning" type="button" data-bs-toggle="collapse" data-bs-target="#journey-id-{{current_journey.id}}" aria-expanded="true" aria-controls="collapseOne">
+              <div class="col">
+              <div class="row">
+                  <div class="col-8 pt-2">
+                    {{current_journey.postcode_start}} - {{current_journey.postcode_destination}}, distance: {{current_journey.distance}} miles.
+                  </div>
+                  <div class="col-4 text-end">
+                    <a href="https://www.google.com/maps/dir/?api=1&destination={{lat_b|safe}}%2C{{long_b|safe}}" target=”_blank” aria-label="go to page google maps with destination address (open in new window)" class="text-warning text-decoration-none">
+                      <span class="not-for-mobile">Go to Map</span> <img src="https://img.icons8.com/color/48/000000/google-maps.png" class="img-fluid"/>
+                    </a>
+                  </div>
+                </div>
+              </div>  
+ 
             </button>
           </h2>
 
