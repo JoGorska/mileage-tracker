@@ -18,10 +18,10 @@ class Journey(models.Model):
     address_start = models.CharField(verbose_name="Start (full address)", max_length=100, null=False, blank=False)
     address_destination = models.CharField(verbose_name="Destination (full address)", max_length=100, null=False, blank=False)
 
-    latitude_start = models.DecimalField(max_digits=19, decimal_places=10, null=False, blank=False)
-    longitude_start= models.DecimalField(max_digits=19, decimal_places=10, null=False, blank=False)
-    latitude_destination = models.DecimalField(max_digits=19, decimal_places=10, null=False, blank=False)
-    longitude_destination = models.DecimalField(max_digits=19, decimal_places=10, null=False, blank=False)
+    latitude_start = models.DecimalField(max_digits=40, decimal_places=20, null=False, blank=False)
+    longitude_start= models.DecimalField(max_digits=40, decimal_places=20, null=False, blank=False)
+    latitude_destination = models.DecimalField(max_digits=40, decimal_places=20, null=False, blank=False)
+    longitude_destination = models.DecimalField(max_digits=40, decimal_places=20, null=False, blank=False)
 
     driver = models.ForeignKey(User, on_delete=models.CASCADE, related_name="visits", null=False, blank=True)
     distance = models.DecimalField(verbose_name="Distance Travelled", max_digits=19, decimal_places=1, null=False, blank=True)

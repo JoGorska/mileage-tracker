@@ -147,6 +147,7 @@ class AddJourney(CreateView):
         # this part handles when the form fails form validation
         else:
             form_errors = form.errors
+            print(f'FORM ERRROS INSIDE ELSE {form_errors}')
             list_of_fields_with_errors = form.errors.as_data()
             # seperate message for errors caused by missing geocoordinates
             if ("latitude_start" in list_of_fields_with_errors) or (
