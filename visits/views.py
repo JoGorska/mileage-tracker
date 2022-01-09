@@ -98,8 +98,11 @@ class AddJourney(CreateView):
                 )
 
             address_start = directions["origin"]
+            address_start_google_places = request.POST.get("address_start")
             address_destination = directions["destination"]
-
+            address_destination_google_places = request.POST.get("address_destination")
+            print(f'ADDRESS START PLACES {address_start_google_places}')
+            print(f'ADDRESS START DIRECTIONS {address_start}')
             # this gives me date object
             date_picker_item = get_object_or_404(DatePicker, slug=slug)
             date_of_journey = date_picker_item.date_picked
@@ -107,14 +110,11 @@ class AddJourney(CreateView):
             # I am getting driver_id from request
             driver_id = request.user.id
             # this list is needed to display list of journeys in the day. 
-            # It might not be needed in Add Journey view ???
-            # but definitely is needed in next_journey view 
             journeys = Journey.objects.filter(date_of_journey=date_of_journey).filter(driver=driver_id).order_by('created_on')
-
             # I could be extracting postcode in models???
-            postcode_start = extract_postcode(address_start)
+            postcode_start = extract_postcode(address_start_google_places, address_start)
 
-            postcode_destination = extract_postcode(address_destination)
+            postcode_destination = extract_postcode(address_destination_google_places, address_destination)
             distance = directions["distance"]
 
             Journey.objects.create(
@@ -137,15 +137,17 @@ class AddJourney(CreateView):
                 'journeys': journeys,
                 'date_to_string': date_to_string,
                 'driver_id': driver_id,
-                'slug': slug
+                'slug': slug,
+                'google_api_key': settings.GOOGLE_API_KEY
           
             }
             # return redirect('visits:date_picker')
-            return render(request, 'visits/visits_by_date.html', context)
+            return render(request, 'visits/drive.html', context)
+        # this part handles when the form fails form validation
         else:
             form_errors = form.errors
             list_of_fields_with_errors = form.errors.as_data()
-
+            # seperate message for errors caused by missing geocoordinates
             if ("latitude_start" in list_of_fields_with_errors) or (
                 "longitude_start" in list_of_fields_with_errors) or (
                 "latitude_destination" in list_of_fields_with_errors) or (
@@ -159,6 +161,7 @@ class AddJourney(CreateView):
                              'reload the browser. Please be aware that some'
                              ' browsers\' extensions will stop the drop down'
                              ' from showing.')
+            # this should be handled by html required, but this one is just in caase
             elif ("address_start" in list_of_fields_with_errors) or (
                   "address_destination" in list_of_fields_with_errors):
                 messages.error(
@@ -173,16 +176,6 @@ class AddJourney(CreateView):
             }
             return render(request, 'visits/drive.html', context )
 
-
-            # form_errors = form.errors
-
-            # messages.error(request, "Error")
-        # this will be rendered if the form fails validation. do I need data from the submited form?
-        # forcing the user to type everything in again might be crule, but it is only 2 fields!!!
-        
-
-
-        # this is temporary so I know it works???
 
         # next_journey is not ready
         # return redirect('visits:next_journey', address_destination)

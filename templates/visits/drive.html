@@ -59,7 +59,7 @@
                   aria-describedby="google-address-a-help" 
                   name="address_start" 
                   required
-                  {% if request.resolver_match.url_name == 'next_journey' %}
+                  {% if request.resolver_match.url_name == 'add_journey' %}
                   value="{{directions.destination}}"
                   {% else %}
                   value="{{directions.origin}}"
@@ -116,8 +116,7 @@
 
       {% include 'partials/visits_journeys_list.html' %}
       {% include 'partials/traffic_msg_list.html' %}
-
-      
+  
 {% endblock %}
 
 
