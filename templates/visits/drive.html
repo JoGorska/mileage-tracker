@@ -54,19 +54,22 @@
             -->
             <div class="mb-3">
                <label for="id-google-address-a" class="form-label">Start Address</label>
-               <input 
-                  type="text" 
-                  class="form-control" 
-                  id="id-google-address-a" 
-                  aria-describedby="google-address-a-help" 
-                  name="address_start" 
-                  required
-                  autofocus
-                  {% if request.resolver_match.url_name == 'add_journey' %}
-                  value="{{current_journey.address_destination}}"
-                  {% else %}
-                  value="{{directions.origin}}"
-                  {% endif %}>
+               
+               {% if request.resolver_match.url_name == 'add_journey' %}
+               <input type="text" class="form-control" id="id-google-address-a" 
+               aria-describedby="google-address-a-help" name="address_start" 
+               required autofocus value="{{current_journey.address_destination}}">
+
+               {% elif request.resolver_match.url_name == 'edit_journey' %}
+               <input type="text" class="form-control" id="id-google-address-a" 
+               aria-describedby="google-address-a-help" name="address_start" 
+               required autofocus value="{{edited_journey.address_start}}">
+               
+               {% else %}
+               <input type="text" class="form-control" id="id-google-address-a" 
+               aria-describedby="google-address-a-help" name="address_start" 
+               required autofocus value="">
+               {% endif %}
 
                <div id="google-address-a-help" class="form-text">Type first line of the address, than choose from drop down list</div>
             </div>
@@ -77,18 +80,18 @@
 
             <div class="mb-3">
                <label for="id-google-address-b" class="form-label">Destination Address</label>
-               <input 
-               type="text" 
-               class="form-control" 
-               id="id-google-address-b" 
-               aria-describedby="google-address-b-help" 
-               name="address_destination" 
-               required
+                  
                {% if request.resolver_match.url_name == 'edit_journey' %}
-               value="{{directions.destination}}"
+               <input type="text" class="form-control" id="id-google-address-b"
+               aria-describedby="google-address-b-help" name="address_destination" 
+               required value="{{edited_journey.address_destination}}">
+
                {% else %}
-               value=""
-               {% endif %}>
+               <input type="text" class="form-control" id="id-google-address-b"
+               aria-describedby="google-address-b-help" name="address_destination" 
+               required value="">
+               {% endif %}
+
                <div id="google-address-b-help" class="form-text">Type first line of the address, than choose from drop down list</div>
             </div>
 

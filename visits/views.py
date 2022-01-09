@@ -30,19 +30,17 @@ class Drive(CreateView):
         paginate_by = 6
 
         model = DatePicker
-        form_class = DatePickerForm
-
         driver_id = request.user.id
         
         date_picker_item = get_object_or_404(DatePicker, slug=slug)
         date_of_journey = date_picker_item.date_picked
         date_to_string = date_of_journey.strftime("%d %B %Y")
 
+        form_class = JourneyForm
         model = Journey
         journeys = Journey.objects.filter(date_of_journey=date_of_journey).filter(driver=driver_id).order_by('created_on')
 
         context = {
-            'date_picker_form': DatePickerForm(),
             'date_of_journey': date_of_journey,
             'date_to_string': date_to_string,
             'slug': slug,
@@ -186,64 +184,74 @@ class AddJourney(CreateView):
             return render(request, 'visits/drive.html', context)
 
 
-def drive_edit_journey(request, journey_id):
-    """
-    takes journey_id and pre fills the fields
-    with address_start and address_destination
-    """
-    model = TrafficMessage
-    trafficmessage_list = TrafficMessage.objects.filter(status=1).order_by('-created_on')
-    is_paginated = True
-    paginate_by = 6
+class EditJourney(CreateView):
+    '''
+    gets the drive.html pre filled and posts the journey form
+    '''
+    def get(self, request, slug, journey_id, *args, **kwargs):
+        '''
+        displays drive.html template filled with data from journey.id
+        '''
+        model = DatePicker
+        driver_id = request.user.id
+        
+        date_picker_item = get_object_or_404(DatePicker, slug=slug)
+        date_of_journey = date_picker_item.date_picked
+        date_to_string = date_of_journey.strftime("%d %B %Y")
 
-    model = Journey
-    journey = get_object_or_404(Journey, id=journey_id)
+        model = Journey
+        journeys = Journey.objects.filter(date_of_journey=date_of_journey).filter(driver=driver_id).order_by('created_on')
+        edited_journey = get_object_or_404(Journey, id=journey_id)
 
-    template_name = 'drive.html'
-    context = {
-        "trafficmessage_list": trafficmessage_list,
-        "paginate_by": paginate_by,
-        "is_paginated": is_paginated,
-        "journey": journey,
-        "google_api_key": settings.GOOGLE_API_KEY
+        model = TrafficMessage
+        trafficmessage_list = TrafficMessage.objects.filter(status=1).order_by('-created_on')
+        template_name = 'drive.html'
+        is_paginated = True
+        paginate_by = 6
+
+        print(f'THIS IS AN EDITED JOURNEY ITEM {edited_journey}')
+        context = {
+            'edited_journey': edited_journey,
+            'date_of_journey': date_of_journey,
+            'date_to_string': date_to_string,
+            'slug': slug,
+            'driver_id': driver_id,
+            'journeys': journeys,
+            'trafficmessage_list': trafficmessage_list,
+            'paginate_by': paginate_by,
+            'is_paginated': is_paginated,
+            'google_api_key': settings.GOOGLE_API_KEY
+
+
         }
-    return render(request, 'visits/drive.html', context)
+        return render(request, 'visits/drive.html', context)
 
 
+    # def post(self, request, journey_id, address_start, address_destination, distance, *args, **kwargs):
 
-class UpdateJourney(CreateView):
-    '''
-    need to change the name to ADDJoruney without breaking the view???
-    '''
-    template_name = 'map.html'
-    form_class = JourneyForm()
+    #     form = JourneyForm(data=request.POST)
+    #     model = Journey()
 
+    #     journey = get_object_or_404(Journey, id=journey_id)
 
-    def post(self, request, journey_id, address_start, address_destination, distance, *args, **kwargs):
+    #     # some form validation would be nice???
 
-        form = JourneyForm(data=request.POST)
-        model = Journey()
+    #     journey.address_start = address_start
+    #     journey.postcode_start = extract_postcode(address_start)
+    #     journey.latitude_start = request.POST.get("latitude_start")
+    #     journey.longitude_start = request.POST.get("longitude_start")
+    #     journey.address_destination = address_destination
+    #     journey.postcode_destination = extract_postcode(address_destination)
+    #     journey.latitude_destination = request.POST.get("latitude_destination")
+    #     journey.longitude_destination = request.POST.get("longitude_destination")
+    #     journey.distance = distance
 
-        journey = get_object_or_404(Journey, id=journey_id)
+    #     date_of_journey = journey.date_of_journey
+    #     slug = str(date_of_journey)
 
-        # some form validation would be nice???
+    #     journey.save()
 
-        journey.address_start = address_start
-        journey.postcode_start = extract_postcode(address_start)
-        journey.latitude_start = request.POST.get("latitude_start")
-        journey.longitude_start = request.POST.get("longitude_start")
-        journey.address_destination = address_destination
-        journey.postcode_destination = extract_postcode(address_destination)
-        journey.latitude_destination = request.POST.get("latitude_destination")
-        journey.longitude_destination = request.POST.get("longitude_destination")
-        journey.distance = distance
-
-        date_of_journey = journey.date_of_journey
-        slug = str(date_of_journey)
-
-        journey.save()
-
-        return redirect('visits:day_report', slug)
+    #     return redirect('visits:day_report', slug)
 
 
 class DatePickerView(View):
