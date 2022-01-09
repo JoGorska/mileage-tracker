@@ -117,19 +117,20 @@ class AddJourney(CreateView):
             postcode_destination = extract_postcode(address_destination_google_places, address_destination)
             distance = directions["distance"]
 
-            Journey.objects.create(
-                date_of_journey=date_of_journey,
-                driver_id=driver_id,
-                address_start=address_start,
-                postcode_start=postcode_start,
-                latitude_start=latitude_start,
-                longitude_start=longitude_start,
-                address_destination=address_destination,
-                postcode_destination=postcode_destination,
-                latitude_destination=latitude_destination,
-                longitude_destination=longitude_destination,
-                distance=distance
-            )
+            current_journey = Journey.objects.create(
+                    date_of_journey=date_of_journey,
+                    driver_id=driver_id,
+                    address_start=address_start,
+                    postcode_start=postcode_start,
+                    latitude_start=latitude_start,
+                    longitude_start=longitude_start,
+                    address_destination=address_destination,
+                    postcode_destination=postcode_destination,
+                    latitude_destination=latitude_destination,
+                    longitude_destination=longitude_destination,
+                    distance=distance
+                )
+            print(f'CURRENT JOURNEY {current_journey}')
 
             context = {
 
@@ -170,7 +171,7 @@ class AddJourney(CreateView):
             context = {
                 'form': JourneyForm(),
                 'slug': slug,
-                'google_api_key': settings.GOOGLE_API_KEY,
+                'google_api_key': settings.GOOGLE_API_KEY
                 # 'form_errors': form_errors
 
             }
