@@ -16,7 +16,10 @@
                     {{current_journey.postcode_start}} - {{current_journey.postcode_destination}}, distance: {{current_journey.distance}} miles.
                   </div>
                   <div class="col-4 text-end">
-                    <a href="https://www.google.com/maps/dir/?api=1&destination={{lat_b|safe}}%2C{{long_b|safe}}" target=”_blank” aria-label="go to page google maps with destination address (open in new window)" class="text-warning text-decoration-none">
+                    <a href="https://www.google.com/maps/dir/?api=1&destination={{current_journey.latitude_destination}}%2C{{current_journey.longitude_destination}}"
+                       target=”_blank” 
+                       aria-label="go to page google maps with destination address (open in new window)" 
+                       class="text-warning text-decoration-none">
                       <span class="not-for-mobile">Go to Map</span> <img src="https://img.icons8.com/color/48/000000/google-maps.png" class="img-fluid"/>
                     </a>
                   </div>
