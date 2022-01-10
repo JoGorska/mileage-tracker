@@ -133,7 +133,7 @@ Drive page is divided into 4 sections
 3. List of journeys for the current date
 4. List of traffic messages
 
-1. Current Journey
+1. **Current Journey**
   This field displays only if user has come to drive after submitting another journey. The user gets data from the current journey to fill in a accordeon style table with start and destination postcodes and distance. 
 
   This accordeon button is styled with orange to distinguish it visually from the list of journeys of the day. The button also features an old google maps icon that was taken from [here](https://icons8.com/icon/32215/google-maps-old) The icon is linked up with the destination address of the current journey. 
@@ -146,7 +146,23 @@ Drive page is divided into 4 sections
 
   Once the user opens the accordeon button he can see the full address start and destination as well as buttons to edit or delete the journey. 
 
+2. **Form to input start and destination address**
+javascript validation on input with helper text apearing in red or green
+
+django form validation 
+
+django validation - error messages
+            else:
+                # this captures any other errors that might apear, it displays a message
+                # containing <ul> of all errors and fields associated with them.
+                # this should be handled by html atribute "required",
+                # but this one is just in case
+                messages.error(request, form_errors)
+
 ### Contact Page
+
+### Form validation
+
 
 
 
@@ -217,6 +233,20 @@ Drive page is divided into 4 sections
   * Users didn't like the fact that nav bar wasn't folding into a button for mobile phone. The fact that the icons were troppind down in un organized way was particulary distracting. 
 
   Since this app is directed for mobile phone users mainly I have build special dedicated nav bar for mobile only. I have used media query to show and hyde the nav bars appropriately.
+
+2. Set of tests Version 2 (new-drive branch)
+
+* user spotted error in the link in the button that is supposed to take him to the destination address on google maps.
+
+I've noticed that this link has variables that were in previous release, updated variables to up to dates, geocoordinates are now loading correctly.
+
+* user was observed interacting with the app. As soon as he clicked onto the start adress input field, the keyboard showed up and the user started typing the postcode. The user didn't realised that under the keyboard there was a drop down box to click into. 
+
+The user was using particulary small phone - screen witdht 320px
+
+I added autofocus to the start address input element. Hopefuly this will scroll the element automaticaly to the top of the page. 
+
+* footer was covering lots of content of the drive page, fotter was made non sticky as it doesn't contain any vital information that driver would need in every day use. 
 
 ## HTML validation
 + HTML
@@ -478,6 +508,27 @@ This error apears in nav bar if I split the `if .. or .. or `to seperate lines. 
 Tested if the new messages are being added to database - they are. I logged in to amin and I could see those new messages in admin panel. I found that the new messages have been created as "draft" rater than "published". The filter to display messages checks only for "published". 
 
 I have change the view that posts the new messages to the database that it sets the published property automaticaly for every new message. This functionality might be expanded and allow user to save draft messages in the future, but due to high paste of changes of traffic I doubt there will be a need for this. 
+
+### List of errors once add journey form was submitted
+
+  The for loop `{% for message in messages %}` was generating a few red fields with identical messages. I tried to manipulate with the form_errors object, but the `{% forloop.first %}` seemed quickest solution. 
+
+### Error message that coordinates were not found
+
+I have added Victoria station in London to address destination and once I tried to submitt it I have got error that no latitute or longitude was found. I have added a print statement to get the full list of errors. The error was that the latitude was longer than 10 decimal places, while model was letting maximum of 10. 
+
+I have tried to reaserch how many maximum decimal places can be in geocoodinates returned by google places api, but I was not able to find definite answer. 
+
+I have changed the model. I have increased the number of decimal places to 20. I have tested Victoria station in London and the error was cleared. 
+
+
+### Postcode saved in journey object different than google places
+
+I have tested postcode "CM23 3DH" and chosen this postcode from drop down list. When I saved the journey, the journey's postcode was showing "CM23 3DP". It is probably somewhere near by, but it is not the postcode I've chosen from drop down box. 
+
+I have changed extract_postcode function in mixins to priorotise extracting postcode from google places full address, only if this one doesn't return postcode, check google directions full address. Once they both fail, the postcode is returned as google places full address. During testing I often chose randomly a town or a venue and in some cases the google places on drop down field did not have postcode at all. 
+
+In normal circumstances driver would record journeys from one postcode to another, not choose the name of the town from the list. 
 
 ## Deployment
 

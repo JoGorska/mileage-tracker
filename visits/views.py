@@ -30,19 +30,17 @@ class Drive(CreateView):
         paginate_by = 6
 
         model = DatePicker
-        form_class = DatePickerForm
-
         driver_id = request.user.id
         
         date_picker_item = get_object_or_404(DatePicker, slug=slug)
         date_of_journey = date_picker_item.date_picked
         date_to_string = date_of_journey.strftime("%d %B %Y")
 
+        form_class = JourneyForm
         model = Journey
         journeys = Journey.objects.filter(date_of_journey=date_of_journey).filter(driver=driver_id).order_by('created_on')
 
         context = {
-            'date_picker_form': DatePickerForm(),
             'date_of_journey': date_of_journey,
             'date_to_string': date_to_string,
             'slug': slug,
@@ -99,12 +97,11 @@ class AddJourney(CreateView):
                 long_b=longitude_destination
                 )
 
-            address_start = directions["origin"]
-            address_start_google_places = request.POST.get("address_start")
-            address_destination = directions["destination"]
-            address_destination_google_places = request.POST.get("address_destination")
-            print(f'ADDRESS START PLACES {address_start_google_places}')
-            print(f'ADDRESS START DIRECTIONS {address_start}')
+            address_start_google_directions = directions["origin"]
+            address_start = request.POST.get("address_start")
+            address_destination_google_directions = directions["destination"]
+            address_destination = request.POST.get("address_destination")
+
             # this gives me date object
             date_picker_item = get_object_or_404(DatePicker, slug=slug)
             date_of_journey = date_picker_item.date_picked
@@ -113,10 +110,9 @@ class AddJourney(CreateView):
             driver_id = request.user.id
             # this list is needed to display list of journeys in the day. 
             journeys = Journey.objects.filter(date_of_journey=date_of_journey).filter(driver=driver_id).order_by('created_on')
-            # I could be extracting postcode in models???
-            postcode_start = extract_postcode(address_start_google_places, address_start)
 
-            postcode_destination = extract_postcode(address_destination_google_places, address_destination)
+            postcode_start = extract_postcode(address_start, address_start_google_directions)
+            postcode_destination = extract_postcode(address_destination, address_destination_google_directions)
             distance = directions["distance"]
 
             current_journey = Journey.objects.create(
@@ -135,7 +131,6 @@ class AddJourney(CreateView):
 
             context = {
                 'current_journey': current_journey,
-
                 'date_picker_form': DatePickerForm(),
                 'journeys': journeys,
                 'trafficmessage_list': trafficmessage_list,
@@ -145,13 +140,14 @@ class AddJourney(CreateView):
                 'google_api_key': settings.GOOGLE_API_KEY
           
             }
-            # return redirect('visits:date_picker')
             return render(request, 'visits/drive.html', context)
-        # this part handles when the form fails form validation
+
         else:
+            # this block handles when the form fails form validation
             form_errors = form.errors
-            print(f'FORM ERRROS INSIDE ELSE {form_errors}')
-            list_of_fields_with_errors = form.errors.as_data()
+            form_as_data = form.errors.as_data()
+            list_of_fields_with_errors = form_as_data.keys()
+            
             # seperate message for errors caused by missing geocoordinates
             if ("latitude_start" in list_of_fields_with_errors) or (
                 "longitude_start" in list_of_fields_with_errors) or (
@@ -166,12 +162,17 @@ class AddJourney(CreateView):
                              'reload the browser. Please be aware that some'
                              ' browsers\' extensions will stop the drop down'
                              ' from showing.')
-            # this should be handled by html required, but this one is just in caase
-            elif ("address_start" in list_of_fields_with_errors) or (
-                  "address_destination" in list_of_fields_with_errors):
-                messages.error(
-                    request, 'Both fields are required')
 
+            else:
+                # this captures any other errors that might apear
+                messages.error(request, form_errors)
+
+            date_picker_item = get_object_or_404(DatePicker, slug=slug)
+            date_of_journey = date_picker_item.date_picked
+            date_to_string = date_of_journey.strftime("%d %B %Y")
+            driver_id = request.user.id
+            journeys = Journey.objects.filter(date_of_journey=date_of_journey).filter(driver=driver_id).order_by('created_on')
+            
             context = {
                 'journeys': journeys,
                 'trafficmessage_list': trafficmessage_list,
@@ -179,108 +180,193 @@ class AddJourney(CreateView):
                 'form': JourneyForm(),
                 'slug': slug,
                 'google_api_key': settings.GOOGLE_API_KEY
-                # 'form_errors': form_errors
-
             }
-            return render(request, 'visits/drive.html', context )
+            return render(request, 'visits/drive.html', context)
 
 
-        # next_journey is not ready
-        # return redirect('visits:next_journey', address_destination)
-
-def drive_next_journey(request, slug, journey_id):
-    """
-    this function will display the drive.html template
-    with additional data passed from Drive view (slug and journey_id)
-    I can pass lat and long so the user is not requried to click into the field again
-
-    """
-    # not sure if I need this?
-    template_name = 'drive.html'
-    # I need DatePicker model to display this chosen date and pass to Journey
-    # display Datepicked in the small header
-    # fill in the field for journey form from
-    # Journey model:
-    # I need to get object_or_404 for the journey_id that was passed from Drive
-    # this will fill in the accordeon on the header
-    # and add coordinates to the map icon
-
-    # I need to filter Journey model to display all journeys for this day
-    
-    # this is to display the list of traffic alerts down below
-    model = TrafficMessage
-    trafficmessage_list = TrafficMessage.objects.filter(status=1).order_by('-created_on')
-    is_paginated = True
-    paginate_by = 6
-
-    context = {
-        "trafficmessage_list": trafficmessage_list,
-        "paginate_by": paginate_by,
-        "is_paginated": is_paginated,
-        "address_destination": address_destination,
-        "google_api_key": settings.GOOGLE_API_KEY
-        }
-    return render(request, 'visits/drive.html', context)
-
-
-def drive_edit_journey(request, journey_id):
-    """
-    takes journey_id and pre fills the fields
-    with address_start and address_destination
-    """
-    model = TrafficMessage
-    trafficmessage_list = TrafficMessage.objects.filter(status=1).order_by('-created_on')
-    is_paginated = True
-    paginate_by = 6
-
-    model = Journey
-    journey = get_object_or_404(Journey, id=journey_id)
-
-    template_name = 'drive.html'
-    context = {
-        "trafficmessage_list": trafficmessage_list,
-        "paginate_by": paginate_by,
-        "is_paginated": is_paginated,
-        "journey": journey,
-        "google_api_key": settings.GOOGLE_API_KEY
-        }
-    return render(request, 'visits/drive.html', context)
-
-
-
-class UpdateJourney(CreateView):
+class EditJourney(CreateView):
     '''
-    need to change the name to ADDJoruney without breaking the view???
+    gets the drive.html pre filled and posts the journey form
     '''
-    template_name = 'map.html'
-    form_class = JourneyForm()
+    def get(self, request, slug, journey_id, *args, **kwargs):
+        '''
+        displays drive.html template filled with data from journey.id
+        '''
+        model = DatePicker
+        driver_id = request.user.id
+        
+        date_picker_item = get_object_or_404(DatePicker, slug=slug)
+        date_of_journey = date_picker_item.date_picked
+        date_to_string = date_of_journey.strftime("%d %B %Y")
+
+        model = Journey
+        journeys = Journey.objects.filter(date_of_journey=date_of_journey).filter(driver=driver_id).order_by('created_on')
+        edited_journey = get_object_or_404(Journey, id=journey_id)
+
+        model = TrafficMessage
+        trafficmessage_list = TrafficMessage.objects.filter(status=1).order_by('-created_on')
+        template_name = 'drive.html'
+        is_paginated = True
+        paginate_by = 6
+
+        print(f'THIS IS AN EDITED JOURNEY ITEM {edited_journey}')
+        context = {
+            'edited_journey': edited_journey,
+            'date_of_journey': date_of_journey,
+            'date_to_string': date_to_string,
+            'slug': slug,
+            'driver_id': driver_id,
+            'journeys': journeys,
+            'trafficmessage_list': trafficmessage_list,
+            'paginate_by': paginate_by,
+            'is_paginated': is_paginated,
+            'google_api_key': settings.GOOGLE_API_KEY
 
 
-    def post(self, request, journey_id, address_start, address_destination, distance, *args, **kwargs):
+        }
+        return render(request, 'visits/drive.html', context)
 
-        form = JourneyForm(data=request.POST)
-        model = Journey()
 
-        journey = get_object_or_404(Journey, id=journey_id)
+    # def post(self, request, slug, journey_id, *args, **kwargs):
 
-        # some form validation would be nice???
+    #     form = JourneyForm(data=request.POST)
+    #     model = Journey()
 
-        journey.address_start = address_start
-        journey.postcode_start = extract_postcode(address_start)
-        journey.latitude_start = request.POST.get("latitude_start")
-        journey.longitude_start = request.POST.get("longitude_start")
-        journey.address_destination = address_destination
-        journey.postcode_destination = extract_postcode(address_destination)
-        journey.latitude_destination = request.POST.get("latitude_destination")
-        journey.longitude_destination = request.POST.get("longitude_destination")
-        journey.distance = distance
+    #     current_journey = get_object_or_404(Journey, id=journey_id)
 
-        date_of_journey = journey.date_of_journey
-        slug = str(date_of_journey)
+    #     # some form validation would be nice???
 
-        journey.save()
+    #     journey.address_start = address_start
+    #     journey.postcode_start = extract_postcode(address_start)
+    #     journey.latitude_start = request.POST.get("latitude_start")
+    #     journey.longitude_start = request.POST.get("longitude_start")
+    #     journey.address_destination = address_destination
+    #     journey.postcode_destination = extract_postcode(address_destination)
+    #     journey.latitude_destination = request.POST.get("latitude_destination")
+    #     journey.longitude_destination = request.POST.get("longitude_destination")
+    #     journey.distance = distance
 
-        return redirect('visits:day_report', slug)
+    #     date_of_journey = journey.date_of_journey
+    #     slug = str(date_of_journey)
+
+    #     journey.save()
+
+    #     return redirect('visits:drive', context)
+
+    def post(self, request, slug, journey_id, *args, **kwargs):
+        '''
+        fills in instance of JourneyForm with data posted by the form,
+        if form is valid fetches directions data from google maps
+        than saves a new instance of Journey object to database
+        '''
+
+        form = JourneyForm(request.POST or None, request.FILES or None)
+        model = TrafficMessage
+        trafficmessage_list = TrafficMessage.objects.filter(status=1).order_by('-created_on')
+
+        if form.is_valid():
+            '''
+            I will fetch directions from google after I know the form is valid
+            this means that I have my longditude and latitude in place.
+            check is journey model requires lat and long???
+            '''
+
+            latitude_start = request.POST.get("latitude_start")
+            longitude_start = request.POST.get("longitude_start")
+            latitude_destination = request.POST.get("latitude_destination")
+            longitude_destination = request.POST.get("longitude_destination")
+            directions = Directions(
+                lat_a=latitude_start,
+                long_a=longitude_start,
+                lat_b=latitude_destination,
+                long_b=longitude_destination
+                )
+
+            address_start_google_directions = directions["origin"]
+            address_start = request.POST.get("address_start")
+            address_destination_google_directions = directions["destination"]
+            address_destination = request.POST.get("address_destination")
+
+            # this gives me date object
+            date_picker_item = get_object_or_404(DatePicker, slug=slug)
+            date_of_journey = date_picker_item.date_picked
+            date_to_string = date_of_journey.strftime("%d %B %Y")
+            # I am getting driver_id from request
+            driver_id = request.user.id
+            # this list is needed to display list of journeys in the day. 
+            journeys = Journey.objects.filter(date_of_journey=date_of_journey).filter(driver=driver_id).order_by('created_on')
+
+            postcode_start = extract_postcode(address_start, address_start_google_directions)
+            postcode_destination = extract_postcode(address_destination, address_destination_google_directions)
+            distance = directions["distance"]
+            current_journey = get_object_or_404(Journey, id=journey_id)
+
+            current_journey = Journey.objects.save(
+                    address_start=address_start,
+                    postcode_start=postcode_start,
+                    latitude_start=latitude_start,
+                    longitude_start=longitude_start,
+                    address_destination=address_destination,
+                    postcode_destination=postcode_destination,
+                    latitude_destination=latitude_destination,
+                    longitude_destination=longitude_destination,
+                    distance=distance
+                )
+
+            context = {
+                'current_journey': current_journey,
+                'date_picker_form': DatePickerForm(),
+                'journeys': journeys,
+                'trafficmessage_list': trafficmessage_list,
+                'date_to_string': date_to_string,
+                'driver_id': driver_id,
+                'slug': slug,
+                'jorney_id': journey_id,
+                'google_api_key': settings.GOOGLE_API_KEY
+          
+            }
+            return redirect('visits:drive', context)
+
+        else:
+            # this block handles when the form fails form validation
+            form_errors = form.errors
+            form_as_data = form.errors.as_data()
+            list_of_fields_with_errors = form_as_data.keys()
+            
+            # seperate message for errors caused by missing geocoordinates
+            if ("latitude_start" in list_of_fields_with_errors) or (
+                "longitude_start" in list_of_fields_with_errors) or (
+                "latitude_destination" in list_of_fields_with_errors) or (
+                "longitude_destination" in list_of_fields_with_errors):
+
+                messages.error(
+                    request, 'We couldn\'t collect geocoordinates for the'
+                             ' address. Please make sure you click into'
+                             ' the drop down list after typing the address.'
+                             ' If the drop down field doesnt apear,'
+                             'reload the browser. Please be aware that some'
+                             ' browsers\' extensions will stop the drop down'
+                             ' from showing.')
+
+            else:
+                # this captures any other errors that might apear
+                messages.error(request, form_errors)
+
+            date_picker_item = get_object_or_404(DatePicker, slug=slug)
+            date_of_journey = date_picker_item.date_picked
+            date_to_string = date_of_journey.strftime("%d %B %Y")
+            driver_id = request.user.id
+            journeys = Journey.objects.filter(date_of_journey=date_of_journey).filter(driver=driver_id).order_by('created_on')
+            
+            context = {
+                'journeys': journeys,
+                'trafficmessage_list': trafficmessage_list,
+                'date_to_string': date_to_string,
+                'form': JourneyForm(),
+                'slug': slug,
+                'google_api_key': settings.GOOGLE_API_KEY
+            }
+            return render(request, 'visits/drive.html', context)
 
 
 class DatePickerView(View):
@@ -384,6 +470,7 @@ class DayReport(View):
             request,
             'visits/visits_by_date.html',
             {
+                'slug': slug,
                 'date_picker_form': DatePickerForm(),
                 'journeys': journeys,
                 'date_to_string': date_to_string,

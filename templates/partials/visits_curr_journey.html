@@ -43,7 +43,7 @@
                     </div>
                     <div class="row mt-3">
                         <div class="col text-end">
-                            <a href="{% url 'visits:edit_journey' journey_id=current_journey.id %}" class="btn btn-outline-warning btn-sm">Edit</a>
+                            <a href="{% url 'visits:edit_journey' slug=slug journey_id=current_journey.id %}" class="btn btn-outline-warning btn-sm">Edit</a>
                         </div>
                         <div class="col text-start">
                             <!-- Modal Trigger -->

@@ -21,8 +21,10 @@
          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
          <h4 class="alert-heading">There has been a problem</h4>
          <p class="mb-0">
-            {{message}}
-            <!-- <a href="#" class="alert-link">vel scelerisque nisl consectetur et</a> -->
+            {%  if forloop.first  %}
+               <!-- shows only first message from messages list -->
+               {{ message }}
+            {% endif %}
          </p>
        </div>
       </div>
@@ -52,19 +54,22 @@
             -->
             <div class="mb-3">
                <label for="id-google-address-a" class="form-label">Start Address</label>
-               <input 
-                  type="text" 
-                  class="form-control" 
-                  id="id-google-address-a" 
-                  aria-describedby="google-address-a-help" 
-                  name="address_start" 
-                  required
-                  {% if request.resolver_match.url_name == 'add_journey' %}
-                  value="{{current_journey.address_destination}}"
-                  {% else %}
-                  value="{{directions.origin}}"
-                  {% endif %}
-               >
+               
+               {% if request.resolver_match.url_name == 'add_journey' %}
+               <input type="text" class="form-control" id="id-google-address-a" 
+               aria-describedby="google-address-a-help" name="address_start" 
+               required autofocus value="{{current_journey.address_destination}}">
+
+               {% elif request.resolver_match.url_name == 'edit_journey' %}
+               <input type="text" class="form-control" id="id-google-address-a" 
+               aria-describedby="google-address-a-help" name="address_start" 
+               required autofocus value="{{edited_journey.address_start}}">
+               
+               {% else %}
+               <input type="text" class="form-control" id="id-google-address-a" 
+               aria-describedby="google-address-a-help" name="address_start" 
+               required autofocus value="">
+               {% endif %}
 
                <div id="google-address-a-help" class="form-text">Type first line of the address, than choose from drop down list</div>
             </div>
@@ -75,18 +80,18 @@
 
             <div class="mb-3">
                <label for="id-google-address-b" class="form-label">Destination Address</label>
-               <input 
-               type="text" 
-               class="form-control" 
-               id="id-google-address-b" 
-               aria-describedby="google-address-b-help" 
-               name="address_destination" 
-               required
+                  
                {% if request.resolver_match.url_name == 'edit_journey' %}
-               value="{{directions.destination}}"
+               <input type="text" class="form-control" id="id-google-address-b"
+               aria-describedby="google-address-b-help" name="address_destination" 
+               required value="{{edited_journey.address_destination}}">
+
                {% else %}
-               value=""
-               {% endif %}>
+               <input type="text" class="form-control" id="id-google-address-b"
+               aria-describedby="google-address-b-help" name="address_destination" 
+               required value="">
+               {% endif %}
+
                <div id="google-address-b-help" class="form-text">Type first line of the address, than choose from drop down list</div>
             </div>
 
@@ -126,7 +131,7 @@
                <input type="hidden" class="geo" id="id-long-b" name="longitude_destination" 
                value="">
 
-               {% endif %}>
+               {% endif %}
 
                <button type="submit" class="btn btn-warning btn-lg">submit</button>
 
