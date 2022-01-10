@@ -63,7 +63,6 @@ INSTALLED_APPS = [
     'cloudinary',
 
     'users',
-    'mileage',
     'traffic',
     'visits',
 ]
