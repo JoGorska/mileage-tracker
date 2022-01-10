@@ -15,6 +15,5 @@ urlpatterns = [
     path('date/<slug:slug>/', views.DayReport.as_view(), name='day_report'),
        
     path('edit_journey/<slug:slug>/<int:journey_id>', views.EditJourney.as_view(), name="edit_journey"),
-    # path('edit_journey/<slug:slug>/<int:journey_id>', views.EditJourney.as_view(), name="post_changes_journey"),
     path('delete_journey/<slug:slug>/<int:journey_id>', views.delete_journey, name="post_delete_journey"),
     ]
