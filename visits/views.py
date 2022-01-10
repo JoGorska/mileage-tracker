@@ -227,12 +227,12 @@ class EditJourney(CreateView):
         return render(request, 'visits/drive.html', context)
 
 
-    # def post(self, request, journey_id, address_start, address_destination, distance, *args, **kwargs):
+    # def post(self, request, slug, journey_id, *args, **kwargs):
 
     #     form = JourneyForm(data=request.POST)
     #     model = Journey()
 
-    #     journey = get_object_or_404(Journey, id=journey_id)
+    #     current_journey = get_object_or_404(Journey, id=journey_id)
 
     #     # some form validation would be nice???
 
@@ -251,7 +251,7 @@ class EditJourney(CreateView):
 
     #     journey.save()
 
-    #     return redirect('visits:day_report', slug)
+    #     return redirect('visits:drive', context)
 
 
 class DatePickerView(View):
@@ -355,6 +355,7 @@ class DayReport(View):
             request,
             'visits/visits_by_date.html',
             {
+                'slug': slug,
                 'date_picker_form': DatePickerForm(),
                 'journeys': journeys,
                 'date_to_string': date_to_string,
