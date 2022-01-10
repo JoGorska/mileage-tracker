@@ -342,6 +342,12 @@ class EditJourney(CreateView):
             return render(request, 'visits/drive.html', context)
 
 
+def delete_journey(request, slug, journey_id):
+        journey = get_object_or_404(Journey, id=journey_id)
+        journey.delete()
+        return redirect('visits:day_report', slug)
+
+
 class DatePickerView(View):
     '''
     Date picker that allows the user to choose which day to display
