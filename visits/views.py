@@ -226,33 +226,6 @@ class EditJourney(CreateView):
         }
         return render(request, 'visits/drive.html', context)
 
-
-    # def post(self, request, slug, journey_id, *args, **kwargs):
-
-    #     form = JourneyForm(data=request.POST)
-    #     model = Journey()
-
-    #     current_journey = get_object_or_404(Journey, id=journey_id)
-
-    #     # some form validation would be nice???
-
-    #     journey.address_start = address_start
-    #     journey.postcode_start = extract_postcode(address_start)
-    #     journey.latitude_start = request.POST.get("latitude_start")
-    #     journey.longitude_start = request.POST.get("longitude_start")
-    #     journey.address_destination = address_destination
-    #     journey.postcode_destination = extract_postcode(address_destination)
-    #     journey.latitude_destination = request.POST.get("latitude_destination")
-    #     journey.longitude_destination = request.POST.get("longitude_destination")
-    #     journey.distance = distance
-
-    #     date_of_journey = journey.date_of_journey
-    #     slug = str(date_of_journey)
-
-    #     journey.save()
-
-    #     return redirect('visits:drive', context)
-
     def post(self, request, slug, journey_id, *args, **kwargs):
         '''
         fills in instance of JourneyForm with data posted by the form,
