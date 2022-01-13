@@ -272,9 +272,8 @@ class EditJourney(CreateView):
             postcode_start = extract_postcode(address_start, address_start_google_directions)
             postcode_destination = extract_postcode(address_destination, address_destination_google_directions)
             distance = directions["distance"]
-            # edited_journey = get_object_or_404(Journey, id=journey_id)
-            edited_journey = Journey.objects.get(id=journey_id)
-            print(f'EDITED JOURNEY FROM JOURNEY MODEL {edited_journey}')
+            edited_journey = get_object_or_404(Journey, id=journey_id)
+            # edited_journey = Journey.objects.get(id=journey_id)
 
             edited_journey.address_start = address_start
             edited_journey.postcode_start = postcode_start
@@ -285,7 +284,6 @@ class EditJourney(CreateView):
             edited_journey.latitude_destination = latitude_destination
             edited_journey.longitude_destination = longitude_destination
             edited_journey.distance = distance
-            print(f'UPDATED JOURNEY {edited_journey}')
 
             edited_journey.save(update_fields=[           
                                                 'address_start',
@@ -298,43 +296,8 @@ class EditJourney(CreateView):
                                                 'longitude_destination',
                                                 'distance'
                                                 ])
-            print(f'WHAT THE HELL DID YOU SAVE??? {edited_journey}')
-
-
-          
-            # edited_journey = Journey.objects.save(
-            #         id=journey_id,
-            #         address_start=address_start,
-            #         postcode_start=postcode_start,
-            #         latitude_start=latitude_start,
-            #         longitude_start=longitude_start,
-            #         address_destination=address_destination,
-            #         postcode_destination=postcode_destination,
-            #         latitude_destination=latitude_destination,
-            #         longitude_destination=longitude_destination,
-            #         distance=distance
-            #     )
-            current_journey = edited_journey
-
-            context = {
-                'slug': slug,
-                'journey_id': journey_id
-            }
-
-            # context = {
-            #     'current_journey': current_journey,
-            #     'date_picker_form': DatePickerForm(),
-            #     'journeys': journeys,
-            #     'trafficmessage_list': trafficmessage_list,
-            #     'date_to_string': date_to_string,
-            #     'driver_id': driver_id,
-            #     'slug': slug,
-            #     'jorney_id': journey_id,
-            #     'google_api_key': settings.GOOGLE_API_KEY
-          
-            # }
-            # return redirect('visits:edit_journey', context)
-            return render(request, 'visits/drive.html', context)
+            
+            return redirect('visits:day_report', slug)
 
         else:
             # this block handles when the form fails form validation
@@ -346,7 +309,7 @@ class EditJourney(CreateView):
             if ("latitude_start" in list_of_fields_with_errors) or (
                 "longitude_start" in list_of_fields_with_errors) or (
                 "latitude_destination" in list_of_fields_with_errors) or (
-                "longitude_destination" in list_of_fields_with_errors):
+                 "longitude_destination" in list_of_fields_with_errors):
 
                 messages.error(
                     request, 'We couldn\'t collect geocoordinates for the'

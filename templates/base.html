@@ -37,7 +37,14 @@
 
         </head>
 
-        <body>
+
+        {% if request.resolver_match.url_name == 'date_picker_drive' or request.resolver_match.url_name == 'date_picker'%}
+        <body class="h-100 position-relative">
+        {% else %}
+
+        <body class="position-relative">
+
+        {% endif %}
 
           <!-- navbar is placed in partials folder -->
           {% include 'partials/svg-symbols.html' %}
@@ -55,9 +62,10 @@
 
         <!--Footer-->
 
-        <footer class="mt-auto py-3 bg-warning">
-            <div class="container">
-              <span class="text-muted">Place sticky footer content here.</span>
+        <!-- <footer class="mt-auto py-3 bg-warning"> -->
+            <footer class="container-fluid position-absolute bottom-0 end-0 bg-warning">
+                <div class="container">
+              <span class="text-muted ">Place sticky footer content here.</span>
             </div>
         </footer>
         <!--Bootstrap JavaScript-->
