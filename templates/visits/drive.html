@@ -41,8 +41,15 @@
 {% endif %}
 
    <div class="container my-3 py-3">
+      {% if request.resolver_match.url_name == 'edit_journey' %}
+
+      <form action="{% url 'visits:edit_journey' slug journey_id %}" method="POST">
+         {% csrf_token %}
+
+      {% else %}
       <form action="{% url 'visits:add_journey' slug %}" method="POST">
          {% csrf_token %}
+      {% endif %}
    
       <div class="row">
 
