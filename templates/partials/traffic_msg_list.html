@@ -27,10 +27,7 @@
                     <p class="d-inline fw-bold fs-5 text">{{trafficmessage.number_of_thanks}}</p>
                    
                     </div>
-                    <div class="d-inline" data-bs-toggle="tooltip" data-bs-placement="top" title="Road Clear!">
-                    <svg class="bi pt-1" width="24" height="24"><use xlink:href="#arrows"/></svg>
-                    <p class="d-inline fw-bold fs-5 text">{{trafficmessage.number_of_cleared}}</p>
-                  </div>
+
                   </div>
                 </div>
               </div>
@@ -93,11 +90,6 @@
           {% csrf_token %}
 
               <button class="btn btn-warning" type="submit" name="traffic_message_id" value="{{trafficmessage.id}}" class="btn btn-success">Tank you!</button>
-        </form>
-        <form action="{% url 'msg_cleared' id=trafficmessage.id %}" class="d-inline" method="POST">
-          {% csrf_token %}
-
-              <button class="btn btn-success" type="submit" name="traffic_message_id" value="{{trafficmessage.id}}" class="btn btn-success">Road Clear!</button>
         </form>
         {% endif %}
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Go Back</button>

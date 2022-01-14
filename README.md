@@ -252,7 +252,8 @@ I added autofocus to the start address input element. Hopefuly this will scroll 
 * edit_journey - was adding new journey, instead of editing it - I fixed this error
 * footer is no longer covering content, but it floats half way through the page - like in date pickers, still floats on login ??? 
 * user complained that his email is visible when he posts traffic alert - changed this to display first name only.
-* drive - add journey - when user clicks on the map - the accordeon automaticaly opens and there is too much information for a small mobile to display. Also once the accordeon on orange box current journey opens, the form to add next journey goes down below and user has to scroll. 
+* drive template, current journey accodreon - when user clicks on the map - the accordeon automaticaly opens and there is too much information for a small mobile to display. Also once the accordeon on orange box current journey opens, the form to add next journey goes down below and user has to scroll. - changed to div.
+* user raised concern that two arrows up and down are not clear - only after you hover over them it becomes clear - that they reffer to road clear. User pointed out that any driver would see on google maps how is the current traffic situation and google maps will provide most up to date information if the road has cleared or not. Therefor the little icon and voting "road_clear" is irrelevant and confusing for some users. - I removed road clear icon from the traffic_msg_list template and the "road clear" button from the modal as well as view responsible for adding road clear. It seemed to acheve much cleaner look of the card containing the traffic alert.
 
 ## HTML validation
 + HTML
