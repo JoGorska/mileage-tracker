@@ -66,7 +66,7 @@ class AddJourney(CreateView):
     than I can save the data in the database
     '''
     template_name = 'drive.html'
-    form_class = JourneyForm()
+    # form_class = JourneyForm()
 
     def post(self, request, slug, *args, **kwargs):
         '''
