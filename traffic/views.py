@@ -5,11 +5,12 @@ from .models import TrafficMessage
 from .forms import TrafficMessageForm
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
+from django.contrib.auth.models import User
 
 
 class TrafficMessagesList(generic.ListView):
     model = TrafficMessage
-    queryset = TrafficMessage.objects.filter(status=1).order_by('-created_on')
+    queryset = TrafficMessage.objects.filter(status=1).order_by('-created_on')   
     template_name = 'index.html'
     paginate_by = 6
 

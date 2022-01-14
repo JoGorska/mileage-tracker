@@ -250,8 +250,8 @@ I added autofocus to the start address input element. Hopefuly this will scroll 
 
 3. Sets of tests Version 3
 * edit_journey - was adding new journey, instead of editing it - I fixed this error
-* footer is no longer covering content, but it floats half way through the page - like in date pickers
-* user complained that his email is visible when he posts traffic alert
+* footer is no longer covering content, but it floats half way through the page - like in date pickers, still floats on login ??? 
+* user complained that his email is visible when he posts traffic alert - changed this to display first name only.
 * drive - add journey - when user clicks on the map - the accordeon automaticaly opens and there is too much information for a small mobile to display. Also once the accordeon on orange box current journey opens, the form to add next journey goes down below and user has to scroll. 
 
 ## HTML validation
