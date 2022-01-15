@@ -78,3 +78,14 @@ def extract_postcode(googe_places_full_addr, google_directions_full_addr):
 
 
     return postcode
+
+def sum_all_miles(date_of_report):
+    list_of_items = Journey.objects.filter(date_of_journey=date_of_report)
+    list_of_distances = []
+    for item in list_of_items:
+        list_of_distances.append(item.distance)
+        print(list_of_distances)
+        return list_of_distances
+    summ_all = sum(list_of_distances)
+    return summ_all
+
