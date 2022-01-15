@@ -12,7 +12,7 @@ from django.conf import settings
 
 from .models import Journey, DatePicker
 from .forms import JourneyForm, DatePickerForm
-from .mixins import Directions, extract_postcode
+from .mixins import Directions, extract_postcode, sum_all_miles
 from traffic.models import TrafficMessage
 
 from django.contrib import messages 
@@ -26,8 +26,6 @@ class Drive(CreateView):
         model = TrafficMessage
         trafficmessage_list = TrafficMessage.objects.filter(status=1).order_by('-created_on')
         template_name = 'drive.html'
-        is_paginated = True
-        paginate_by = 6
 
         model = DatePicker
         driver_id = request.user.id
@@ -39,7 +37,7 @@ class Drive(CreateView):
         form_class = JourneyForm
         model = Journey
         journeys = Journey.objects.filter(date_of_journey=date_of_journey).filter(driver=driver_id).order_by('created_on')
-
+        sum_miles_day = sum_all_miles(date_of_journey, Journey, driver_id)
         context = {
             'date_of_journey': date_of_journey,
             'date_to_string': date_to_string,
@@ -47,8 +45,7 @@ class Drive(CreateView):
             'driver_id': driver_id,
             'journeys': journeys,
             'trafficmessage_list': trafficmessage_list,
-            'paginate_by': paginate_by,
-            'is_paginated': is_paginated,
+            'sum_miles_day': sum_miles_day,
             'google_api_key': settings.GOOGLE_API_KEY
 
 
@@ -66,7 +63,7 @@ class AddJourney(CreateView):
     than I can save the data in the database
     '''
     template_name = 'drive.html'
-    # form_class = JourneyForm()
+
 
     def post(self, request, slug, *args, **kwargs):
         '''
@@ -101,7 +98,6 @@ class AddJourney(CreateView):
             address_start = request.POST.get("address_start")
             address_destination_google_directions = directions["destination"]
             address_destination = request.POST.get("address_destination")
-
             # this gives me date object
             date_picker_item = get_object_or_404(DatePicker, slug=slug)
             date_of_journey = date_picker_item.date_picked
@@ -114,6 +110,7 @@ class AddJourney(CreateView):
             postcode_start = extract_postcode(address_start, address_start_google_directions)
             postcode_destination = extract_postcode(address_destination, address_destination_google_directions)
             distance = directions["distance"]
+            sum_miles_day = sum_all_miles(date_of_journey, Journey, driver_id)
 
             current_journey = Journey.objects.create(
                     date_of_journey=date_of_journey,
@@ -130,6 +127,7 @@ class AddJourney(CreateView):
                 )
 
             context = {
+                'sum_miles_day': sum_miles_day,
                 'current_journey': current_journey,
                 'date_picker_form': DatePickerForm(),
                 'journeys': journeys,
@@ -206,8 +204,7 @@ class EditJourney(CreateView):
         model = TrafficMessage
         trafficmessage_list = TrafficMessage.objects.filter(status=1).order_by('-created_on')
         template_name = 'drive.html'
-        is_paginated = True
-        paginate_by = 6
+        sum_miles_day = sum_all_miles(date_of_journey, Journey, driver_id)
 
         context = {
             'edited_journey': edited_journey,
@@ -218,8 +215,7 @@ class EditJourney(CreateView):
             'driver_id': driver_id,
             'journeys': journeys,
             'trafficmessage_list': trafficmessage_list,
-            'paginate_by': paginate_by,
-            'is_paginated': is_paginated,
+            'sum_miles_day': sum_miles_day,
             'google_api_key': settings.GOOGLE_API_KEY
 
 
@@ -443,7 +439,7 @@ class DayReport(View):
         driver_id = request.user.id
 
         journeys = Journey.objects.filter(date_of_journey=date_picked).filter(driver=driver_id).order_by('created_on')
-
+        sum_miles_day = sum_all_miles(date_picked, Journey, driver_id)
         return render(
             request,
             'visits/visits_by_date.html',
@@ -452,7 +448,8 @@ class DayReport(View):
                 'date_picker_form': DatePickerForm(),
                 'journeys': journeys,
                 'date_to_string': date_to_string,
-                'driver_id': driver_id
+                'driver_id': driver_id,
+                'sum_miles_day': sum_miles_day,
             },
         )
     def post(self, request, *args, **kwargs):
