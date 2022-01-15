@@ -20,10 +20,7 @@
           <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
             <li>
               <!-- 
-              "if" statement changes the text color for nav item depending on url name
-
-              logic operator "or" for multiple url names???
-              -->
+              "if" statement changes the text color for nav item depending on url name-->
 
               <a href="{% url 'home' %}" 
               class="nav-link {% if request.resolver_match.url_name == 'home' %} text-secondary {% else %} text-white {% endif %}">
@@ -33,8 +30,16 @@
             </li>
             <li>
               <a href="{% url 'visits:date_picker_drive' %}" class="nav-link 
-              {% if request.resolver_match.url_name == 'date_picker_drive' or request.resolver_match.url_name == 'drive_date_ready' or  request.resolver_match.url_name == 'calc-distance'%}
-          
+              {% if request.resolver_match.url_name == 'date_picker_drive'%} 
+              text-secondary
+
+              {% elif request.resolver_match.url_name == 'drive_date_ready'%}
+              text-secondary
+
+              {% elif request.resolver_match.url_name == 'add_journey'%}
+              text-secondary
+
+              {% elif request.resolver_match.url_name == 'edit_journey'%}
               text-secondary
            
               {% else %} text-white {% endif %}"> 
@@ -47,13 +52,8 @@
               <a href="{% url 'visits:date_picker' %}" 
               class="nav-link {% if request.resolver_match.url_name == 'date_picker'%}
               text-secondary
+
               {% elif request.resolver_match.url_name == 'day_report' %}
-              text-secondary 
-
-              {% elif request.resolver_match.url_name == 'next_journey' %}
-              text-secondary 
-
-              {% elif request.resolver_match.url_name == 'edit_journey' %}
               text-secondary 
                
                {% else %} text-white {% endif %}">

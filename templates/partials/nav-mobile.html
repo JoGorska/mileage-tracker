@@ -52,9 +52,17 @@
             <a href="{% url 'visits:date_picker_drive' %}"
             class="nav-link 
 
-            {% if request.resolver_match.url_name == 'date_picker_drive' or request.resolver_match.url_name == 'drive_date_ready' or  request.resolver_match.url_name == 'calc-distance'%}
-          
-              text-secondary
+            {% if request.resolver_match.url_name == 'date_picker_drive'%}
+            text-secondary
+
+            {% elif request.resolver_match.url_name == 'drive_date_ready'%}
+            text-secondary
+
+            {% elif request.resolver_match.url_name == 'add_journey'%}
+            text-secondary
+
+            {% elif request.resolver_match.url_name == 'edit_journey'%}
+            text-secondary
            
            {% else %} text-white {% endif %}">
 
@@ -69,10 +77,19 @@
               
             </div>
               <!-- nav link active and the aria label (current) -->
+            {% if request.resolver_match.url_name == 'date_picker_drive'%}
+            <span class="visually-hidden">(current)</span>
 
-              {% if request.resolver_match.url_name == 'date_picker_drive' or request.resolver_match.url_name == 'drive_date_ready' or request.resolver_match.url_name == 'calc-distance' %}
-              <span class="visually-hidden">(current)</span>
-              {% endif %}
+            {% elif request.resolver_match.url_name == 'drive_date_ready'%}
+            <span class="visually-hidden">(current)</span>
+
+            {% elif request.resolver_match.url_name == 'add_journey'%}
+            <span class="visually-hidden">(current)</span>
+
+            {% elif request.resolver_match.url_name == 'edit_journey'%}
+
+            <span class="visually-hidden">(current)</span>
+            {% endif %}
 
             </a>
           </li>
@@ -81,7 +98,10 @@
           <li class="nav-item">
             <a href="{% url 'visits:date_picker' %}" 
             class="nav-link 
-            {% if request.resolver_match.url_name == 'date_picker' or request.resolver_match.url_name == 'day_report' or  request.resolver_match.url_name == 'next_journey' or request.resolver_match.url_name == 'edit_journey'%}
+            {% if request.resolver_match.url_name == 'date_picker'%}
+            text-secondary
+
+            {% elif request.resolver_match.url_name == 'day_report'%}
             text-secondary
              
              {% else %} text-white {% endif %}">
@@ -98,9 +118,12 @@
             </div>
 
               <!-- nav link active and the aria label (current) -->
-
-              {% if request.resolver_match.url_name == 'date_picker' or request.resolver_match.url_name == 'day_report' or  request.resolver_match.url_name == 'next_journey' or request.resolver_match.url_name == 'edit_journey'%}
-                  <span class="visually-hidden">(current)</span>
+              {% if request.resolver_match.url_name == 'date_picker'%}
+                 <span class="visually-hidden">(current)</span>
+  
+              {% elif request.resolver_match.url_name == 'day_report'%}
+                 <span class="visually-hidden">(current)</span>
+                 
               {% endif %}
 
             </a>

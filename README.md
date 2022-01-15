@@ -545,6 +545,10 @@ After testing lots of solutions within EditJourney's post method I have realised
 
 To fix this issue I have decided that once the user has submitted the changes to the journey, he will need to see the overview of all journeys for the day, therefore I am redirecting him to day report with the date passed as a slug. It is likely that if one visit needs to be edited in the middle of the run, other visits might need updating as well. This way the user will have overview of how the updated list of journeys look for this day. 
 
+### traffic_msg_list paginates only in home view
+
+I have tried various settings to enable the pagination, but nothing seemed to have worked. After using the app at a small mobile phone I have decided that it would be a benefit for the user if there is only 3 messages displayed at the time. This seemed a better solution than 6 paginated messages. I also added links to home page to see more messages if user wishes to. 
+
 ## Deployment
 
  The site was deployed to Heroku pages. 
