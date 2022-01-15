@@ -103,6 +103,9 @@ I have simplified the Drive View.
 
 1.  the information to be clear and informative;
 2.  the website be easy to navigate;
+[[#107](https://github.com/JoGorska/mileage-tracker/issues/107)]
+[#1](https://github.com/JoGorska/mileage-tracker/issues/1)As a driver I can add postcodes to a list for the current day so that see where I have been on the day
+[]
 
 
 ### Wireframes 
@@ -256,7 +259,7 @@ I added autofocus to the start address input element. Hopefuly this will scroll 
 
 On the journeys list down below - the current journey is marked with orange fonts - this way user will see that his journey has been added to the list and he can edit or delet it there
 
-* user raised concern that two arrows up and down are not clear - only after you hover over them it becomes clear - that they reffer to road clear. User pointed out that any driver would see on google maps how is the current traffic situation and google maps will provide most up to date information if the road has cleared or not. Therefor the little icon and voting "road_clear" is irrelevant and confusing for some users. - I removed road clear icon from the traffic_msg_list template and the "road clear" button from the modal as well as view responsible for adding road clear. It seemed to acheve much cleaner look of the card containing the traffic alert.
+* user raised concern that two arrows up and down are not clear - only after you hover over them it becomes clear - that they reffer to road clear. User pointed out that any driver would see on google maps how is the current traffic situation and google maps will provide most up to date information if the road has cleared or not. Therefor the little icon and voting "road_clear" is irrelevant and confusing for some users. - I removed road clear icon from the traffic_msg_list template and the "road clear" button from the modal as well as view responsible for adding road clear. It seemed to acheve much cleaner look of the card containing the traffic alert. 
 
 ## HTML validation
 + HTML
