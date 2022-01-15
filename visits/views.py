@@ -26,8 +26,6 @@ class Drive(CreateView):
         model = TrafficMessage
         trafficmessage_list = TrafficMessage.objects.filter(status=1).order_by('-created_on')
         template_name = 'drive.html'
-        is_paginated = True
-        paginate_by = 6
 
         model = DatePicker
         driver_id = request.user.id
@@ -47,8 +45,6 @@ class Drive(CreateView):
             'driver_id': driver_id,
             'journeys': journeys,
             'trafficmessage_list': trafficmessage_list,
-            'paginate_by': paginate_by,
-            'is_paginated': is_paginated,
             'sum_miles_day': sum_miles_day,
             'google_api_key': settings.GOOGLE_API_KEY
 
@@ -209,8 +205,6 @@ class EditJourney(CreateView):
         model = TrafficMessage
         trafficmessage_list = TrafficMessage.objects.filter(status=1).order_by('-created_on')
         template_name = 'drive.html'
-        is_paginated = True
-        paginate_by = 6
         sum_miles_day = sum_all_miles(date_of_journey, Journey, driver_id)
 
         context = {
@@ -222,8 +216,6 @@ class EditJourney(CreateView):
             'driver_id': driver_id,
             'journeys': journeys,
             'trafficmessage_list': trafficmessage_list,
-            'paginate_by': paginate_by,
-            'is_paginated': is_paginated,
             'sum_miles_day': sum_miles_day,
             'google_api_key': settings.GOOGLE_API_KEY
 
