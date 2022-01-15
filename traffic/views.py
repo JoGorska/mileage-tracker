@@ -5,11 +5,12 @@ from .models import TrafficMessage
 from .forms import TrafficMessageForm
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
+from django.contrib.auth.models import User
 
 
 class TrafficMessagesList(generic.ListView):
     model = TrafficMessage
-    queryset = TrafficMessage.objects.filter(status=1).order_by('-created_on')
+    queryset = TrafficMessage.objects.filter(status=1).order_by('-created_on')   
     template_name = 'index.html'
     paginate_by = 6
 
@@ -55,12 +56,3 @@ class MsgThanks(View):
 
         return HttpResponseRedirect('/')
 
-class MsgCleared(View):
-    def post(self, request, id):
-        traffic_message = get_object_or_404(TrafficMessage, id=id)
-        if traffic_message.cleared.filter(id=request.user.id).exists():
-            traffic_message.cleared.remove(request.user)
-        else:
-            traffic_message.cleared.add(request.user)
-
-        return HttpResponseRedirect('/')

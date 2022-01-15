@@ -1,6 +1,6 @@
 {% block context %}
 
-<div class="container my-3 py-3">
+<div class="container pt-3">
     <div class="row row-cols-1 row-cols-sm-1 row-cols-md-3 row-cols-lg-3">
 
       <!-- forloop to display all messages in the database -->
@@ -27,10 +27,7 @@
                     <p class="d-inline fw-bold fs-5 text">{{trafficmessage.number_of_thanks}}</p>
                    
                     </div>
-                    <div class="d-inline" data-bs-toggle="tooltip" data-bs-placement="top" title="Road Clear!">
-                    <svg class="bi pt-1" width="24" height="24"><use xlink:href="#arrows"/></svg>
-                    <p class="d-inline fw-bold fs-5 text">{{trafficmessage.number_of_cleared}}</p>
-                  </div>
+
                   </div>
                 </div>
               </div>
@@ -60,7 +57,7 @@
 
       <!-- pagination from django-->
       {% if is_paginated %}
-        <nav class="pb-5" aria-label="Page navigation">
+        <nav class="" aria-label="Page navigation">
           <ul class="pagination justify-content-center">
               {% if page_obj.has_previous %}
               <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; PREV </a></li>
@@ -85,7 +82,7 @@
       </div>
       <div class="modal-body">
           <h4>{{trafficmessage.content}}</h4>
-          <p class="red-text">From: {{trafficmessage.author}} on {{trafficmessage.created_on}}</p>
+          <p class="red-text">From: {{trafficmessage.author.first_name}} on {{trafficmessage.created_on}}</p>
       </div>
       <div class="modal-footer">
         {% if user.is_authenticated %}
@@ -93,11 +90,6 @@
           {% csrf_token %}
 
               <button class="btn btn-warning" type="submit" name="traffic_message_id" value="{{trafficmessage.id}}" class="btn btn-success">Tank you!</button>
-        </form>
-        <form action="{% url 'msg_cleared' id=trafficmessage.id %}" class="d-inline" method="POST">
-          {% csrf_token %}
-
-              <button class="btn btn-success" type="submit" name="traffic_message_id" value="{{trafficmessage.id}}" class="btn btn-success">Road Clear!</button>
         </form>
         {% endif %}
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Go Back</button>

@@ -98,7 +98,7 @@ I have simplified the Drive View.
 ### User Stories
 
 + As a user, I would like to be able to …
-
+[#107](https://github.com/JoGorska/mileage-tracker/issues/107)
 
 
 1.  the information to be clear and informative;
@@ -247,6 +247,13 @@ The user was using particulary small phone - screen witdht 320px
 I added autofocus to the start address input element. Hopefuly this will scroll the element automaticaly to the top of the page. 
 
 * footer was covering lots of content of the drive page, fotter was made non sticky as it doesn't contain any vital information that driver would need in every day use. 
+
+3. Sets of tests Version 3
+* edit_journey - was adding new journey, instead of editing it - I fixed this error
+* footer is no longer covering content, but it floats half way through the page - like in date pickers, still floats on login ??? 
+* user complained that his email is visible when he posts traffic alert - changed this to display first name only.
+* drive template, current journey accodreon - when user clicks on the map - the accordeon automaticaly opens and there is too much information for a small mobile to display. Also once the accordeon on orange box current journey opens, the form to add next journey goes down below and user has to scroll. - changed to div.
+* user raised concern that two arrows up and down are not clear - only after you hover over them it becomes clear - that they reffer to road clear. User pointed out that any driver would see on google maps how is the current traffic situation and google maps will provide most up to date information if the road has cleared or not. Therefor the little icon and voting "road_clear" is irrelevant and confusing for some users. - I removed road clear icon from the traffic_msg_list template and the "road clear" button from the modal as well as view responsible for adding road clear. It seemed to acheve much cleaner look of the card containing the traffic alert.
 
 ## HTML validation
 + HTML
@@ -529,6 +536,14 @@ I have tested postcode "CM23 3DH" and chosen this postcode from drop down list. 
 I have changed extract_postcode function in mixins to priorotise extracting postcode from google places full address, only if this one doesn't return postcode, check google directions full address. Once they both fail, the postcode is returned as google places full address. During testing I often chose randomly a town or a venue and in some cases the google places on drop down field did not have postcode at all. 
 
 In normal circumstances driver would record journeys from one postcode to another, not choose the name of the town from the list. 
+
+### Clicking Submit on the Edit_journey url has been adding new journey, not editing the current journey
+
+After testing lots of solutions within EditJourney's post method I have realised that the form is set to AddJourney class every time the page renders. I have added an if statement for the `<form>` element. When url contains edit_journey it will post data to edit_journey url, otherwise it will post data to add_journey url.
+
+### Edit Journey post method return render / return redirect are getting various errors
+
+To fix this issue I have decided that once the user has submitted the changes to the journey, he will need to see the overview of all journeys for the day, therefore I am redirecting him to day report with the date passed as a slug. It is likely that if one visit needs to be edited in the middle of the run, other visits might need updating as well. This way the user will have overview of how the updated list of journeys look for this day. 
 
 ## Deployment
 
