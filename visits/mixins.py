@@ -76,16 +76,20 @@ def extract_postcode(googe_places_full_addr, google_directions_full_addr):
         list_of_matches_places = matches_places[0]
         postcode = list_of_matches_places[1]
 
-
     return postcode
 
-def sum_all_miles(date_of_report):
-    list_of_items = Journey.objects.filter(date_of_journey=date_of_report)
-    list_of_distances = []
-    for item in list_of_items:
-        list_of_distances.append(item.distance)
-        print(list_of_distances)
-        return list_of_distances
-    summ_all = sum(list_of_distances)
-    return summ_all
 
+def sum_all_miles(date, model, driver):
+    '''
+    takes the date of the report, filters objects in the database that match
+    the date and finds the distance value and adds to the list. Than summarises
+    the content of the list.
+    '''
+    list_of_items = model.objects.filter(
+        date_of_journey=date).filter(driver=driver)
+    sum_of_distances = 0
+
+    for item in list_of_items:
+        sum_of_distances = sum_of_distances + item.distance
+
+    return sum_of_distances
