@@ -37,14 +37,10 @@
 
         </head>
 
+        <body class="d-flex flex-column h-100">
 
-        {% if request.resolver_match.url_name == 'date_picker_drive' or request.resolver_match.url_name == 'date_picker'%}
-        <body class="h-100 position-relative">
-        {% else %}
 
-        <body class="position-relative">
 
-        {% endif %}
 
           <!-- navbar is placed in partials folder -->
           {% include 'partials/svg-symbols.html' %}
@@ -52,7 +48,7 @@
           {% include 'partials/nav-mobile.html' %}        
 
 
-        <main class="mb-5">
+        <main class="flex-shrink-0">
 
             {% block content %}
             <!-- Content Goes here -->
@@ -62,12 +58,11 @@
 
         <!--Footer-->
 
-        <!-- <footer class="mt-auto py-3 bg-warning"> -->
-            <footer class="container-fluid position-absolute bottom-0 end-0 bg-warning">
-                <div class="container">
-              <span class="text-muted ">Place sticky footer content here.</span>
+        <footer class="footer mt-auto py-3 bg-warning">
+            <div class="container">
+              <span class="text-muted">Place sticky footer content here.</span>
             </div>
-        </footer>
+          </footer>
         <!--Bootstrap JavaScript-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
