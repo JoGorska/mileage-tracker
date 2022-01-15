@@ -63,7 +63,7 @@ class AddJourney(CreateView):
     than I can save the data in the database
     '''
     template_name = 'drive.html'
-    # form_class = JourneyForm()
+
 
     def post(self, request, slug, *args, **kwargs):
         '''
@@ -98,7 +98,6 @@ class AddJourney(CreateView):
             address_start = request.POST.get("address_start")
             address_destination_google_directions = directions["destination"]
             address_destination = request.POST.get("address_destination")
-
             # this gives me date object
             date_picker_item = get_object_or_404(DatePicker, slug=slug)
             date_of_journey = date_picker_item.date_picked

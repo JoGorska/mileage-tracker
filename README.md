@@ -252,7 +252,10 @@ I added autofocus to the start address input element. Hopefuly this will scroll 
 * edit_journey - was adding new journey, instead of editing it - I fixed this error
 * footer is no longer covering content, but it floats half way through the page - like in date pickers, still floats on login ??? 
 * user complained that his email is visible when he posts traffic alert - changed this to display first name only.
-* drive template, current journey accodreon - when user clicks on the map - the accordeon automaticaly opens and there is too much information for a small mobile to display. Also once the accordeon on orange box current journey opens, the form to add next journey goes down below and user has to scroll. - changed to div.
+* drive template, current journey accodreon - when user clicks on the map - the accordeon automaticaly opens and there is too much information for a small mobile to display. Also once the accordeon on orange box current journey opens, the form to add next journey goes down below and user has to scroll. - changed to div. 
+
+On the journeys list down below - the current journey is marked with orange fonts - this way user will see that his journey has been added to the list and he can edit or delet it there
+
 * user raised concern that two arrows up and down are not clear - only after you hover over them it becomes clear - that they reffer to road clear. User pointed out that any driver would see on google maps how is the current traffic situation and google maps will provide most up to date information if the road has cleared or not. Therefor the little icon and voting "road_clear" is irrelevant and confusing for some users. - I removed road clear icon from the traffic_msg_list template and the "road clear" button from the modal as well as view responsible for adding road clear. It seemed to acheve much cleaner look of the card containing the traffic alert.
 
 ## HTML validation
@@ -548,6 +551,10 @@ To fix this issue I have decided that once the user has submitted the changes to
 ### traffic_msg_list paginates only in home view
 
 I have tried various settings to enable the pagination, but nothing seemed to have worked. After using the app at a small mobile phone I have decided that it would be a benefit for the user if there is only 3 messages displayed at the time. This seemed a better solution than 6 paginated messages. I also added links to home page to see more messages if user wishes to. 
+
+### nav bars - setting the current page icon to have darker fonts than other icons
+
+I have used If / or statement to change the color of the icon on nav bar  for the current page. Unfortunately when the if / or statement became very long for more complex pages containing many url under the same icon. I tried to cut if / or statement to seperate lines but I got errors that django expected elif or endif. I decided to add multiple elif statements in nav bar, so the code isn't very long. This ment repeating a few lines, but in the same time I was able to see all code in one glance and edit it without scrolling sideways. 
 
 ## Deployment
 
