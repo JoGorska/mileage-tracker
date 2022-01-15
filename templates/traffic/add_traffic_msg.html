@@ -3,7 +3,7 @@
 {% load bootstrap_tags %}
 {% block content %}
 
-<div class="container my-3"><h1 class="display-5 fw-bold lh-1 "><span class="border-warning pb-3 border-bottom">Traffic Alert</span></h1></div>
+<div class="container my-2"><h1 class="display-5 fw-bold lh-1 "><span class="border-warning pb-3 border-bottom">Traffic Alert</span></h1></div>
 
 
 {% if user.is_authenticated %}
@@ -13,7 +13,7 @@
 <div class="container">
 
         
-    <form class="py-5" action="" method="POST">
+    <form action="" method="POST">
     {% csrf_token %}
         <div class="container">    
             
