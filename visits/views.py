@@ -110,7 +110,7 @@ class AddJourney(CreateView):
             postcode_start = extract_postcode(address_start, address_start_google_directions)
             postcode_destination = extract_postcode(address_destination, address_destination_google_directions)
             distance = directions["distance"]
-            sum_miles_day = sum_all_miles(date_of_journey, Journey, driver_id)
+
 
             current_journey = Journey.objects.create(
                     date_of_journey=date_of_journey,
@@ -125,7 +125,7 @@ class AddJourney(CreateView):
                     longitude_destination=longitude_destination,
                     distance=distance
                 )
-
+            sum_miles_day = sum_all_miles(date_of_journey, Journey, driver_id)
             context = {
                 'sum_miles_day': sum_miles_day,
                 'current_journey': current_journey,
