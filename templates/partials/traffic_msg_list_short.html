@@ -12,27 +12,78 @@
 
               <!-- card header -->
 
+
+
+
+                {% if user.is_authenticated %}
+                <!-- card header  for authorised users -->
+                <form action="{% url 'msg_thanks' id=trafficmessage.id %}" class="d-inline" method="POST">
+                  {% csrf_token %}
+                    <div class="card-header">
+                      
+                      <div class="row">
+                          <div class="col pt-2">
+                            {{trafficmessage.category}}
+                          </div>
+
+                          <!-- icon for Thanks -->
+
+
+                          <div class="col text-end">
+                              <button class="btn btn-link btn-sm text-decoration-none
+                                        {% if user in trafficmessage.thanks.all %} text-warning {% endif %}"
+                                        role="link" type="submit" name="traffic_message_id" value="{{trafficmessage.id}}">
+
+                                  <div class="d-inline" data-bs-toggle="tooltip" data-bs-placement="top" title="Thank you!">
+                                    
+                                    <svg class="mb-2" width="32" height="32" fill="currentColor" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;" version="1.1" viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:serif="http://www.serif.com/" xmlns:xlink="http://www.w3.org/1999/xlink"><g transform="matrix(1,0,0,1,-508,-162.338)"><g id="tank" transform="matrix(1,0,0,1,174.83,162.338)"><rect height="16" width="16" style="fill:none;" x="333.17" y="0"/><g transform="matrix(1,0,0,1,141.17,-256)">
+                                      <path d="M233.236,278L246,278C247.105,278 248,278.895 248,280C248,281.105 247.105,282 246,282C242.408,282 235.236,282 235.236,282L237.236,286L238,286C242.418,286 246,289.582 246,294C246,294 246,294 246,294C246,298.418 242.418,302 238,302C229.584,302 216.416,302 208,302C203.582,302 200,298.418 200,294C200,294 200,294 200,294C200,289.582 203.582,286 208,286C208.195,286 208.306,286 208.306,286C208.306,286 209.477,278.97 210.027,275.671C210.188,274.707 211.022,274 212,274C216.09,274 226.429,274 230,274C230.758,274 231.45,274.428 231.789,275.106C232.381,276.289 233.236,278 233.236,278ZM208,290C205.791,290 204,291.791 204,294C204,294 204,294 204,294C204,296.209 205.791,298 208,298C215.3,298 230.7,298 238,298C240.209,298 242,296.209 242,294C242,294 242,294 242,294C242,291.791 240.209,290 238,290C230.7,290 215.3,290 208,290ZM232.764,286L228.764,278L213.694,278L212.361,286L232.764,286Z"/>
+                                    </g></g></g></svg>
+
+                                    <p class="d-inline fw-bold fs-5 text">{{trafficmessage.number_of_thanks}}</p>
+
+                                  </div>
+
+                              </button>
+                              
+                          </div>
+                      </div>
+                    </div>
+                </form>
+
+
+        {% else %}
+              
+
+              <!-- card header for unauthorised users -->
+
               <div class="card-header">
-                
+                              
                 <div class="row">
-                  <div class="col">
+                  <div class="col pt-2">
                     {{trafficmessage.category}}
                   </div>
 
                   <!-- icon for Thanks -->
 
-                  <div class="col text-end">
+                  <div class="col text-end 
+                  {% if user in trafficmessage.thanks.all %}
+                  text-warning
+                  {% endif %}
+                  ">
                     <div class="d-inline" data-bs-toggle="tooltip" data-bs-placement="top" title="Thank you!">
                       <svg class="mb-1" width="42" height="42" fill="currentColor" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;" version="1.1" viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:serif="http://www.serif.com/" xmlns:xlink="http://www.w3.org/1999/xlink"><g transform="matrix(1,0,0,1,-508,-162.338)"><g id="tank" transform="matrix(1,0,0,1,174.83,162.338)"><rect height="16" width="16" style="fill:none;" x="333.17" y="0"/><g transform="matrix(1,0,0,1,141.17,-256)">
                         <path d="M233.236,278L246,278C247.105,278 248,278.895 248,280C248,281.105 247.105,282 246,282C242.408,282 235.236,282 235.236,282L237.236,286L238,286C242.418,286 246,289.582 246,294C246,294 246,294 246,294C246,298.418 242.418,302 238,302C229.584,302 216.416,302 208,302C203.582,302 200,298.418 200,294C200,294 200,294 200,294C200,289.582 203.582,286 208,286C208.195,286 208.306,286 208.306,286C208.306,286 209.477,278.97 210.027,275.671C210.188,274.707 211.022,274 212,274C216.09,274 226.429,274 230,274C230.758,274 231.45,274.428 231.789,275.106C232.381,276.289 233.236,278 233.236,278ZM208,290C205.791,290 204,291.791 204,294C204,294 204,294 204,294C204,296.209 205.791,298 208,298C215.3,298 230.7,298 238,298C240.209,298 242,296.209 242,294C242,294 242,294 242,294C242,291.791 240.209,290 238,290C230.7,290 215.3,290 208,290ZM232.764,286L228.764,278L213.694,278L212.361,286L232.764,286Z"/>
                       </g></g></g></svg>
                     <p class="d-inline fw-bold fs-5 text">{{trafficmessage.number_of_thanks}}</p>
-                   
+                  
                     </div>
 
                   </div>
                 </div>
               </div>
+
+        {% endif %}
 
               <!-- card body -->
 

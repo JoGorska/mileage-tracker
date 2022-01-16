@@ -27,7 +27,7 @@
           <li class="nav-item">
             <a href="{% url 'home' %}" 
               class="nav-link {% if request.resolver_match.url_name == 'home' %}
-              text-secondary {% else %} text-white {% endif %}">
+              text-warning {% else %} text-white {% endif %}">
             <div class="row">
               <div class="col-3"></div>
               <div class="col-3">
@@ -53,16 +53,16 @@
             class="nav-link 
 
             {% if request.resolver_match.url_name == 'date_picker_drive'%}
-            text-secondary
+            text-warning
 
             {% elif request.resolver_match.url_name == 'drive_date_ready'%}
-            text-secondary
+            text-warning
 
             {% elif request.resolver_match.url_name == 'add_journey'%}
-            text-secondary
+            text-warning
 
             {% elif request.resolver_match.url_name == 'edit_journey'%}
-            text-secondary
+            text-warning
            
            {% else %} text-white {% endif %}">
 
@@ -99,10 +99,10 @@
             <a href="{% url 'visits:date_picker' %}" 
             class="nav-link 
             {% if request.resolver_match.url_name == 'date_picker'%}
-            text-secondary
+            text-warning
 
             {% elif request.resolver_match.url_name == 'day_report'%}
-            text-secondary
+            text-warning
              
              {% else %} text-white {% endif %}">
 
@@ -154,7 +154,7 @@
           <!-- traffic alert -->
           <li class="nav-item dropdown">
             <a href="{% url 'add_traffic_msg' %}" 
-                class="nav-link {% if request.resolver_match.url_name == 'add_traffic_msg' %} text-secondary {% else %} text-white{% endif %}">
+                class="nav-link {% if request.resolver_match.url_name == 'add_traffic_msg' %} text-warning {% else %} text-white{% endif %}">
                   
                 <div class="row">
                     <div class="col-3"></div>
@@ -179,7 +179,7 @@
               
             {% if request.resolver_match.url_name == 'login' or request.resolver_match.url_name == 'register' or request.resolver_match.url_name == 'register-success' %}
                
-              text-secondary
+              text-warning
               
               {% else %} text-white{% endif %}
               

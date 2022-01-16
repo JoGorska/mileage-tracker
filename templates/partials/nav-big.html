@@ -23,7 +23,7 @@
               "if" statement changes the text color for nav item depending on url name-->
 
               <a href="{% url 'home' %}" 
-              class="nav-link {% if request.resolver_match.url_name == 'home' %} text-secondary {% else %} text-white {% endif %}">
+              class="nav-link {% if request.resolver_match.url_name == 'home' %} text-warning {% else %} text-white {% endif %}">
                 <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#home"/></svg>
                 Home
               </a>
@@ -31,16 +31,16 @@
             <li>
               <a href="{% url 'visits:date_picker_drive' %}" class="nav-link 
               {% if request.resolver_match.url_name == 'date_picker_drive'%} 
-              text-secondary
+              text-warning
 
               {% elif request.resolver_match.url_name == 'drive_date_ready'%}
-              text-secondary
+              text-warning
 
               {% elif request.resolver_match.url_name == 'add_journey'%}
-              text-secondary
+              text-warning
 
               {% elif request.resolver_match.url_name == 'edit_journey'%}
-              text-secondary
+              text-warning
            
               {% else %} text-white {% endif %}"> 
               <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#speedometer2"/></svg>
@@ -51,10 +51,10 @@
             <li>
               <a href="{% url 'visits:date_picker' %}" 
               class="nav-link {% if request.resolver_match.url_name == 'date_picker'%}
-              text-secondary
+              text-warning
 
               {% elif request.resolver_match.url_name == 'day_report' %}
-              text-secondary 
+              text-warning 
                
                {% else %} text-white {% endif %}">
                 <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#grid"/></svg>
@@ -74,7 +74,7 @@
             <li>
 
                 <a href="{% url 'add_traffic_msg' %}" 
-                class="nav-link {% if request.resolver_match.url_name == 'add_traffic_msg' %} text-secondary {% else %} text-white{% endif %}">
+                class="nav-link {% if request.resolver_match.url_name == 'add_traffic_msg' %} text-warning {% else %} text-white{% endif %}">
                 
                     <svg width="24" height="24" fill="currentColor" class="bi d-block mx-auto mb-1" viewBox="0 0 16 16"><use xlink:href="#message"/></svg>
                   Traffic Alert
@@ -87,13 +87,13 @@
               <a href="#" class="nav-link
               
               {% if request.resolver_match.url_name == 'login' %}
-              text-secondary
+              text-warning
 
               {% elif request.resolver_match.url_name == 'register' %}
-              text-secondary
+              text-warning
 
               {% elif request.resolver_match.url_name == 'register-success' %}
-              text-secondary
+              text-warning
               
               {% else %} text-white{% endif %}
               
