@@ -44,11 +44,11 @@ Click [here](???) to live site.
 
 The app aims to record daily mileage for each journey.
 
-Workflow 1.
+Workflow version 1.
 App can be used every day for each journey and the driver can save each route as they go. 
   - log in
   - go to "drive"
-  - put in start and destination
+  - put in start and destination of the journey
   - be transfered to map preview page
   - add to database
   - click to go to maps (google maps on mobile or google maps website on desktop)
@@ -57,43 +57,27 @@ App can be used every day for each journey and the driver can save each route as
   - go back to "drive"
   - put in start and destinaton
 
-This workflow requres too many steps - need to improve on this
-This workflow requires the driver to juggle beetween google maps and Tank website and the work app that tells him the next address. 
+This workflow requires the driver to juggle beetween google maps and Tank website and the work app that tells him the next address. This workflow required too many steps, after speaking with my mentor Felippe Souza Alarcon I decided to rebuild the drive view completly. 
 
-This workflow makes sure that driver:
-  - adds each journey to database (because he puts the address in Tank website instead of google maps) 
-  - currently the driver needs to open work app - look up destination address and type postcode to google map.
-  - with Tank website he needs to type the address and it allows him quickly to add the journey to database and get transfered to maps
+I dropped the map view as it has not been bringing any value for a driver / mobile phone user. The driver needs an interactive map in a google maps app, not a display javascript area inside a website. 
+
+Workflow version 2.
+App can be used for every day recording or recording past or future journeys:
+- log in
+- go to "drive"
+- put in start and destination of the jouurney
+- press "Drive!"
+- you can see the journey you just saved in orange fonts and a link to google maps, if you need to use your phone as sat nav
+- the form is set up with the start of journey so you only need to put in the next journey's address
+- press "Drive!" again for the next journey
 
 Because the Tank website forces the user to regular use every day during the whole shift - it can be a good platform for:
-  - trafficc messages
+  - trafficc alerts
   - in work messages
   - tracking employer's progres in mileage reporting
   - advertising (if app is to be used commercialy)
 
-Database:
-  - each journey is saved as seperate position with start and destination saved with the distance.
-
-Workflow 2
-  - if drived didn't put in mileage for a particular day - needs to put in mileage in bulk
-
-Workflow 3 
-  - if driver has checked their daily report and realises he forgot to add one destination in the middle of the route. 
-
-## Workflow decisions
-
-I dropped the map view as it has not been bringing any value for a driver / mobile phone user. The driver needs an interactive map in a google maps app, not a display javascript area inside a website. 
-
-I have simplified the Drive View.
-
-1. user clicks on drive on nav bar
-2. user uses date picker to choose date of the journey
-3. user types start and end address
-4. user clicks button GO
-5. user gets transfered to Drive Next view
-  -  with the accordeon of the current journey with a button to google maps app
-  - with form to input next journey - pre filled on journey_start side
-  - with a list of all journeys for this date.
+ 
 
 ### User Stories
 
