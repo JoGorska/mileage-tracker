@@ -278,7 +278,6 @@ function onPlaceChanged (addy){
     var address_start = document.getElementById('id-google-address-a').value
     var address_destination = document.getElementById('id-google-address-b').value
     var address_list = [address_start, address_destination]
-    console.log(address_list)
 
     for (address in address_list) {
         var address = document.getElementById(el_id).value
