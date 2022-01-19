@@ -594,6 +594,12 @@ I have tried various settings to enable the pagination, but nothing seemed to ha
 
 I have used If / or statement to change the color of the icon on nav bar  for the current page. Unfortunately when the if / or statement became very long for more complex pages containing many url under the same icon. I tried to cut if / or statement to seperate lines but I got errors that django expected elif or endif. I decided to add multiple elif statements in nav bar, so the code isn't very long. This ment repeating a few lines, but in the same time I was able to see all code in one glance and edit it without scrolling sideways. 
 
+### multible if else statement in drive.html
+
+The drive.html template contained multiple if else statements that was making various versions of the page depending on the url on which user currently was. The complexity of the changes made by if else statements was quite significant. The html code became unclear and confusing.
+
+I have decided to duplicate the form three times and include 3 versions of the whole form, rather than split each part of the form to if else statements. This makes much cleaner structure and comment make it easy to see what is happening where. It is also much easier to spot any html errors if they occur.
+
 ## Deployment
 
  The site was deployed to Heroku pages. 
