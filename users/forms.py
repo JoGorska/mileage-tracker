@@ -51,10 +51,6 @@ class UserProfileForm(forms.ModelForm):
 
     '''
     address = forms.CharField(max_length=100)
-    town = forms.CharField(max_length=100)
-    county = forms.CharField(max_length=100)
-    post_code = forms.CharField(max_length=8)
-    country = forms.CharField(max_length=40)
     longitude = forms.CharField(max_length=50)
     latitude = forms.CharField(max_length=50)
 
@@ -64,13 +60,7 @@ class UserProfileForm(forms.ModelForm):
             'employer_organization',
             'employer_email',
             'employee_ref_number',
-
-            # full address
             'address',
-            'town',
-            'county',
-            'post_code',
-            'country',
             'longitude',
             'latitude'
         )

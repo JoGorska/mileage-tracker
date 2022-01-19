@@ -44,7 +44,7 @@ function onPlaceChanged (addy){
     let long_id;
 
     if ( addy === "a"){
-        auto = autocomplete_a;
+        auto = autocomplete;
         el_id = "id_address";
         lat_id = "id_latitude";
         long_id = "id_longitude";
