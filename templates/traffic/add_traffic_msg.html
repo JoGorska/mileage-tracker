@@ -2,49 +2,38 @@
 {% load static %}
 {% load bootstrap_tags %}
 {% block content %}
-
-<div class="container my-2"><h1 class="display-5 fw-bold lh-1 "><span class="border-warning pb-3 border-bottom">Traffic Alert</span></h1></div>
-
-
+<div class="container my-2">
+  <h1 class="display-5 fw-bold lh-1 ">
+    <span class="border-warning pb-3 border-bottom">Traffic Alert</span>
+  </h1>
+</div>
 {% if user.is_authenticated %}
-
-<div class="container pt-3 mt-4 mb-5"><h2>Alert other drivers about current situation on the roads</h2></div>
-
-<div class="container">
-
-        
-    <form action="" method="POST">
-    {% csrf_token %}
-        <div class="container">    
-            
-            {{ traffic_msg_form|as_bootstrap}}
-
-
-            <input class="btn btn-warning my-3 py-3" type="submit" value="register"/>
-            
-
-        <input type="hidden" name="next" value="{{ next }}" />
-        <input type="hidden" name="author_id" value="{{ user.id }}">
- 
-    </form>
-    
-</div>
-
-{% else %}
+<!-- if user is authenticated, the form is available to fill in -->
 <div class="container pt-3 mt-4 mb-5">
-    <h2>You must log in to add a new traffic alert.</h2>
-    <p class="pt-3 my-3"></p>
-        Click <a href="{% url 'login' %}?next/">here</a> to log in or 
-        <a href="{% url 'register' %}">here</a>
-
-        to register
-    </p>
-
+  <h2>Alert other drivers about current situation on the roads</h2>
 </div>
+<div class="container">
+  <form action="" method="POST">
+  {% csrf_token %}
+ 
+      {{ traffic_msg_form|as_bootstrap}}
+      <input class="btn btn-warning my-3 py-3" type="submit" value="register"/>
+      <input type="hidden" name="next" value="{{ next }}" />
+      <input type="hidden" name="author_id" value="{{ user.id }}">
+  </form> 
+</div>
+  {% else %}
+<!-- user is not authenticated, links to log in or register -->
+<div class="container pt-3 mt-4 mb-5">
+  <h2>You must log in to add a new traffic alert.</h2>
+  <p class="pt-3 my-3">
+    Click
 
-    {% endif %}
-
-
-
-
+    <a href="{% url 'login' %}?next/">here</a>
+    to log in or 
+    <a href="{% url 'register' %}">here</a>
+    to register
+  </p>
+</div>
+{% endif %}
 {%endblock%}
