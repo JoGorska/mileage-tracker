@@ -159,6 +159,22 @@ Initialy the function was allowing to search by what is called in UK - "fist lin
 
 As the result of the above discovery I have changed the function initAutocomplete from "types: [address]" to 'regions: ['postal_code']'
 
+For reporting to the employee I had to make sure that the data I am collecting has postcode stored seperately. There is a way of obtaining postcode from the google places api result
+
+```
+    var place = autocomplete_a.getPlace();
+    var postcode = place.address_components[0].long_name
+    console.log(postcode)
+```
+Address_components object consists of a few objects that can be pulled out of it - like street name, name of the town and postcode as well. Unfortunately this method has proven not to be very efficient. It only worked if the user typed in the postcode in autocomplete box. If user typed the street number or name of the town, the postcode component did not apear at all. The results that I was getting were as below:
+```
+CM23 3DH
+58
+NN16 0AP
+Edgware Road
+```
+As a result of this problem I decided on a different solution - to search the results of google places and google directions full address field for a postcode using a regex. Even this method has proven to return some errors. I have found that Victoria Station in London is not returning postcode whether in google places or google directions. In this case the user will get full address in their report instead of the postcode. Those situations are rare and most drivers in the UK use postcodes constantly and residential addresses, rather than train stations. 
+
 ### 2. Google Directions API
 A python function takes the geocoordinates from the form and gets the distance between two points on the map. Google Directions returns me a full address of start and destination in a slight different form than google Places. If I search google places for a town I get for examle "Northampton", while google directions would be a full address with street and postcode for a geocoordinates. This means that for the daily report I have a way of obtaining postcodes - either from googe places or google directions version of the full address. 
 

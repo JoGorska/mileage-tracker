@@ -60,7 +60,7 @@
               <div class="card-header">
                               
                 <div class="row">
-                  <div class="col pt-2">
+                  <div class="col pt-2 text-warning">
                     {{trafficmessage.category}}
                   </div>
 
@@ -90,9 +90,9 @@
               <div class="card-body">
 
                 <!-- Modal Trigger -->
-                <a href="" class="text-decoration-none" data-bs-toggle="modal" data-bs-target="#id-modal-{{trafficmessage.id}}" data-bs-toggle="modal" data-bs-show="true" type="button">
-                  <h5 class="card-title">{{trafficmessage.area}} in {{trafficmessage.county}} (more)</h5>
-                </a>
+                <button  class="btn btn-link btn-sm text-decoration-none" data-bs-toggle="modal" data-bs-target="#id-modal-{{trafficmessage.id}}" data-bs-toggle="modal" data-bs-show="true" type="button">
+                  <p class="card-text fs-5 text">{{trafficmessage.area}} in {{trafficmessage.county}} (more)</p>
+                </button>
               </div>
 
 
