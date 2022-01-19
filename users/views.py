@@ -9,41 +9,63 @@ from django.contrib.auth import authenticate, login
 
 from .forms import (
     UserForm,
-    # UserProfileForm,
-    # AuthForm,
+    UserProfileForm,
     )
 
 
 class RegisterUserView(CreateView):
+    '''
+    class view to register user as a build in User model from django
+    '''
     template_name = 'users/register.html'
     form_class = UserForm
-    success_url = reverse_lazy('register-success')
+    success_url = reverse_lazy('users:user_profile')
 
     def form_valid(self, form):
         form.save()
         new_user = authenticate(username=form.cleaned_data['username'],
                                 password=form.cleaned_data['password1'],
                                 )
-        print(f'NEW USER {new_user}')
         login(self.request, new_user)
         return HttpResponseRedirect(self.success_url)
 
-# this might fix issue with index.html not seeing that user is authenticated
 
-# from django.contrib.auth import authenticate, login as auth_login
-# function based view for custom user model
+class UserProfile(CreateView):
+    '''
+    view to register UserProfile once the user has registered
+    '''
+    template_name = 'users/user_profile.html'
+    form_class = UserProfileForm
+    success_url = 'home'
 
-# def add_user(request):
-# if request.method == 'POST':
-#     form = UserLoginForm(request.POST or None)
-#     if form.is_valid():
-#         username = User.objects.get(email=form.cleaned_data['email'])
-#         password = form.cleaned_data['password']
-#         user = authenticate(username=username, password=password)
-#         if user:
-#             if user.is_active:
-#                 auth_login(request, user)
-#                 return HttpResponseRedirect(request.GET.get('next',
-#                                             settings.LOGIN_REDIRECT_URL))
-#         else:
-#             error = 'Invalid username or password.'
+    def get(self, request, *args, **kwargs):
+
+        return render(
+            request,
+            'users/user_profile.html',
+            {
+                'user_profile_form': UserProfileForm()
+            },
+        )
+
+    def post(self, request, *args, **kwargs):
+
+        user_profile_form = UserProfileForm(data=request.POST)
+        # print(f'REQUEST {request.get.user.id}')
+        if user_profile_form.is_valid():
+
+            user_id = request.user.id
+            print(f'BLOODY USER NEEDS TO BE ALREADY LOGGED IN{user_id}')
+            model = User
+            user_object = get_object_or_404(User, id=user_id)
+            user_profile_form.instance.profile_of_user = user_object
+            # user_profile_form.instance.profile_of_user = request.POST.get("user_id")
+            user_profile_form.instance.has_profile = True
+
+            user_profile = user_profile_form.save(commit=False)
+            user_profile.save()
+        
+        else:
+            user_profile_form = UserProfileForm()
+
+        return HttpResponseRedirect('/')
