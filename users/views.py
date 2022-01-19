@@ -6,6 +6,7 @@ from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
+from django.conf import settings
 
 
 from .forms import (
@@ -45,7 +46,8 @@ class UserProfile(CreateView):
             request,
             'users/user_profile.html',
             {
-                'user_profile_form': UserProfileForm()
+                'user_profile_form': UserProfileForm(),
+                'google_api_key': settings.GOOGLE_API_KEY
             },
         )
 
