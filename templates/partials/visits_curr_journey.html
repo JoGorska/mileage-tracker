@@ -1,21 +1,23 @@
-
 {% block content %}
+<!-- current journey div that highlights to the user what visit he has just added 
+and allows user to be transferred to google maps -->
 <div class="container text-warning border border-warning">
-
-    <div class="row">
-        <div class="col-8 pt-2">
-          {{current_journey.postcode_start}} - {{current_journey.postcode_destination}}, distance: {{current_journey.distance}} miles.
-        </div>
-        <div class="col-4 text-end">
-            <a href="https://www.google.com/maps/dir/?api=1&destination={{current_journey.latitude_destination}}%2C{{current_journey.longitude_destination}}"
-                target=”_blank” 
-                aria-label="go to page google maps with destination address (open in new window)" 
-                class="text-warning text-decoration-none">
-              <span class="not-for-mobile">Go to Map</span> <img src="https://img.icons8.com/color/48/000000/google-maps.png" class="img-fluid"/>
-            </a>
-        </div>
+  <div class="row">
+    <div class="col-8 pt-2">
+      {{current_journey.postcode_start}} - {{current_journey.postcode_destination}}, distance: {{current_journey.distance}} miles.
     </div>
-   
+    <div class="col-4 text-end">
+      <a href="https://www.google.com/maps/dir/?api=1&destination={{current_journey.latitude_destination}}%2C{{current_journey.longitude_destination}}"
+         target=”_blank” 
+         aria-label="go to page google maps with destination address (open in new window)" 
+         class="text-warning text-decoration-none">
+        <span class="not-for-mobile">Go to Map
+        </span> 
+        <img src="https://img.icons8.com/color/48/000000/google-maps.png" class="img-fluid"/>
+      </a>
+    </div>
+  </div>
 </div>
+
 
 {% endblock %}
