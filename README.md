@@ -215,6 +215,29 @@ For mobile phone users it is very important they don't have to type the destinat
 
 ## Code Validation
 
+### HTML beautify
+
+I started tidying up HTML code by searching for a beautifyier for HTML code. I tired [JS Beautifier](https://marketplace.visualstudio.com/items?itemName=HookyQR.beautify) and [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) in VS code - both have edited django templating tags in the way they were no longer working. They were also splitting the attributes of html elements to seperate lines. This was visualy helpfull with some tags with wide variety of attributes, but for most tags it was confusing. In the end I used [online HTML code Beautifier](https://htmlbeautify.com/). It has visualy fixed issues with incorrect indentation inherited from copying from various sources. 
+
+### HTML valiation
+
+
+### JavaScript validation with jshint
+Javascript code validation was complited on [jshint](https://jshint.com/)
+Initialy it was returning errors in relation of ES6 syntax, which was resolved by adding this line to the beggining of the file
+```
+/*jshint esversion: 6*/
+```
+Unfortunately it has been also returning errors connected with the use of JQuery, which I have not managed to resolve.
+
+
+I have left two warnings in the code, which do not seem to have affected the working of the code
+```
+252	Functions declared within loops referencing an outer scoped variable may lead to confusing semantics. (google, $, lat_id, long_id)
+248	The body of a for in should be wrapped in an if statement to filter unwanted properties from the prototype.
+```
+
+
 ### Automated tests
 
 ### Manual tests
