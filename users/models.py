@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 class UserProfile(models.Model):
     '''
     Our UserProfile model extends the built-in Django User Model
@@ -10,6 +11,7 @@ class UserProfile(models.Model):
     and adjusted to the needs of the project
     '''
     # retalional field in relation to the user
+
     profile_of_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_profile")
     
     # details needed for reporting to the employer
