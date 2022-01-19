@@ -91,6 +91,10 @@
                 <!-- drop down for user that is logged in -->
                 <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
                   <li>
+                    <a class="dropdown-item" href="{% url 'users:edit_profile' user_id=request.user.id %}">User profile
+                    </a>
+                  </li>
+                  <li>
                     <a class="dropdown-item" href="{% url 'logout' %}">Sign out
                     </a>
                   </li>

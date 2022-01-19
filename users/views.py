@@ -54,15 +54,12 @@ class UserProfile(CreateView):
     def post(self, request, *args, **kwargs):
 
         user_profile_form = UserProfileForm(data=request.POST)
-        # print(f'REQUEST {request.get.user.id}')
         if user_profile_form.is_valid():
 
             user_id = request.user.id
-            print(f'BLOODY USER NEEDS TO BE ALREADY LOGGED IN{user_id}')
             model = User
             user_object = get_object_or_404(User, id=user_id)
             user_profile_form.instance.profile_of_user = user_object
-            # user_profile_form.instance.profile_of_user = request.POST.get("user_id")
             user_profile_form.instance.has_profile = True
 
             user_profile = user_profile_form.save(commit=False)
@@ -72,3 +69,64 @@ class UserProfile(CreateView):
             user_profile_form = UserProfileForm()
 
         return HttpResponseRedirect('/')
+
+
+class EditProfile(CreateView):
+    '''
+    view to register UserProfile once the user has registered
+    '''
+    template_name = 'users/user_profile.html'
+    form_class = UserProfileForm
+    success_url = 'home'
+
+    def get(self, request, user_id, *args, **kwargs):
+        user_instance = get_object_or_404(User, id=user_id)
+        print(user_instance.user_profile)
+
+        return render(
+            request,
+            'users/user_profile.html',
+            {
+                'user_profile_form': UserProfileForm(),
+                'google_api_key': settings.GOOGLE_API_KEY
+            },
+        )
+
+    def post(self, request, user_id, *args, **kwargs):
+
+        user_profile_form = UserProfileForm(data=request.POST)
+        if user_profile_form.is_valid():
+
+            user_id = request.user.id
+            model = User
+            user_object = get_object_or_404(User, id=user_id)
+            user_profile_form.instance.profile_of_user = user_object
+            user_profile_form.instance.has_profile = True
+
+            user_profile = user_profile_form.save(commit=False)
+            user_profile.save()
+        
+        else:
+            user_profile_form = UserProfileForm()
+
+        return HttpResponseRedirect('/')
+
+# def edit_profile(request, user_id):
+#     form = UserProfileForm()
+#     user_instance = get_object_or_404(User, id=user_id)
+#     if user_instance.user_profile:
+#         print(f'USER HAS A PROFILIE ALREADY{user_instance.user_profile}')
+#     else:
+#         print(f'I dont have a profile yet')
+#     # instance = get_object_or_404(UserProfile, profile_of_user=user_id)
+#     if request.method == 'POST':
+#         # form = UserProfileForm(request.POST, instance=instance)
+#         form = UserProfileForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return HttpResponseRedirect('/')    
+#     else:
+#         # form = UserProfileForm(instance=instance)
+#         form = UserProfileForm()
+
+#     return render(request, 'users/user_profile.html', {'form': form})
