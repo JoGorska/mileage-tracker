@@ -1,25 +1,24 @@
 {% extends "base.html" %}
-
 {% load bootstrap_tags %}
-
 {% block content %}
-
-<div class="container my-3"><h1 class="display-5 fw-bold lh-1 "><span class="border-warning pb-3 border-bottom">Register</span></h1></div>
-
-<div class="container pt-3 mt-4 mb-5"><h2>Enter your details to register.</h2></div>
-
-<div class="container">
-    <form action="" method="POST">
-    {% csrf_token %}
-        <div class="container">
-            {{ form|as_bootstrap}}
-
-        <input type="submit" value="register" class="btn btn-warning mt-3">
-        </div>
-
-    <input type="hidden" name="next" value="{{ next }}" />
-
-    </form>
+<div class="container my-3">
+  <h1 class="display-5 fw-bold lh-1 ">
+    <span class="border-warning pb-3 border-bottom">Register
+    </span>
+  </h1>
 </div>
-
+<div class="container pt-3 mt-4 mb-5">
+  <h2>Enter your details to register.
+  </h2>
+</div>
+<div class="container">
+  <form action="" method="POST">
+    {% csrf_token %}
+    <div class="container">
+      {{ form|as_bootstrap}}
+      <input type="submit" value="register" class="btn btn-warning mt-3">
+    </div>
+    <input type="hidden" name="next" value="{{ next }}" />
+  </form>
+</div>
 {% endblock content %}
