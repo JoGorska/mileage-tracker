@@ -215,6 +215,29 @@ For mobile phone users it is very important they don't have to type the destinat
 
 ## Code Validation
 
+### HTML beautify
+
+I started tidying up HTML code by searching for a beautifyier for HTML code. I tired [JS Beautifier](https://marketplace.visualstudio.com/items?itemName=HookyQR.beautify) and [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) in VS code - both have edited django templating tags in the way they were no longer working. They were also splitting the attributes of html elements to seperate lines. This was visualy helpfull with some tags with wide variety of attributes, but for most tags it was confusing. In the end I used [online HTML code Beautifier](https://htmlbeautify.com/). It has visualy fixed issues with incorrect indentation inherited from copying from various sources. 
+
+### HTML valiation
+
+
+### JavaScript validation with jshint
+Javascript code validation was complited on [jshint](https://jshint.com/)
+Initialy it was returning errors in relation of ES6 syntax, which was resolved by adding this line to the beggining of the file
+```
+/*jshint esversion: 6*/
+```
+Unfortunately it has been also returning errors connected with the use of JQuery, which I have not managed to resolve.
+
+
+I have left two warnings in the code, which do not seem to have affected the working of the code
+```
+252	Functions declared within loops referencing an outer scoped variable may lead to confusing semantics. (google, $, lat_id, long_id)
+248	The body of a for in should be wrapped in an if statement to filter unwanted properties from the prototype.
+```
+
+
 ### Automated tests
 
 ### Manual tests
@@ -570,6 +593,12 @@ I have tried various settings to enable the pagination, but nothing seemed to ha
 ### nav bars - setting the current page icon to have darker fonts than other icons
 
 I have used If / or statement to change the color of the icon on nav bar  for the current page. Unfortunately when the if / or statement became very long for more complex pages containing many url under the same icon. I tried to cut if / or statement to seperate lines but I got errors that django expected elif or endif. I decided to add multiple elif statements in nav bar, so the code isn't very long. This ment repeating a few lines, but in the same time I was able to see all code in one glance and edit it without scrolling sideways. 
+
+### multible if else statement in drive.html
+
+The drive.html template contained multiple if else statements that was making various versions of the page depending on the url on which user currently was. The complexity of the changes made by if else statements was quite significant. The html code became unclear and confusing.
+
+I have decided to duplicate the form three times and include 3 versions of the whole form, rather than split each part of the form to if else statements. This makes much cleaner structure and comment make it easy to see what is happening where. It is also much easier to spot any html errors if they occur.
 
 ## Deployment
 

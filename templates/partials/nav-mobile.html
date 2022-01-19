@@ -1,234 +1,211 @@
-<!-- nav bar and icons from bootstrap -->
 
 {% block content %}
-
-  <!-- navbar for mobile phones only -->
-
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary" id="nav-bar-mobile">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary" id="nav-bar-mobile">
+  <div class="container-fluid">
     <div class="container-fluid">
-
-      <div class="container-fluid">
-
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+      <!-- nav bar hamburger button -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon">
+        </span>
+      </button>
+      <!-- logo and brand -->
       <a class="navbar-brand" href="{% url 'home' %}">
-        <svg class="pb-2" width="20%" height="20%" fill="currentColor" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;" version="1.1" viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:serif="http://www.serif.com/" xmlns:xlink="http://www.w3.org/1999/xlink"><g transform="matrix(1,0,0,1,-508,-162.338)"><g id="tank" transform="matrix(1,0,0,1,174.83,162.338)"><rect height="16" width="16" style="fill:none;" x="333.17" y="0"/><g transform="matrix(1,0,0,1,141.17,-256)"><path d="M233.236,278L246,278C247.105,278 248,278.895 248,280C248,281.105 247.105,282 246,282C242.408,282 235.236,282 235.236,282L237.236,286L238,286C242.418,286 246,289.582 246,294C246,294 246,294 246,294C246,298.418 242.418,302 238,302C229.584,302 216.416,302 208,302C203.582,302 200,298.418 200,294C200,294 200,294 200,294C200,289.582 203.582,286 208,286C208.195,286 208.306,286 208.306,286C208.306,286 209.477,278.97 210.027,275.671C210.188,274.707 211.022,274 212,274C216.09,274 226.429,274 230,274C230.758,274 231.45,274.428 231.789,275.106C232.381,276.289 233.236,278 233.236,278ZM208,290C205.791,290 204,291.791 204,294C204,294 204,294 204,294C204,296.209 205.791,298 208,298C215.3,298 230.7,298 238,298C240.209,298 242,296.209 242,294C242,294 242,294 242,294C242,291.791 240.209,290 238,290C230.7,290 215.3,290 208,290ZM232.764,286L228.764,278L213.694,278L212.361,286L232.764,286Z"/></g></g></g></svg>
+        <svg class="pb-2" width="20%" height="20%" fill="currentColor" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;" version="1.1" viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:serif="http://www.serif.com/" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <g transform="matrix(1,0,0,1,-508,-162.338)">
+            <g id="tank" transform="matrix(1,0,0,1,174.83,162.338)">
+              <rect height="16" width="16" style="fill:none;" x="333.17" y="0"/>
+              <g transform="matrix(1,0,0,1,141.17,-256)">
+                <path d="M233.236,278L246,278C247.105,278 248,278.895 248,280C248,281.105 247.105,282 246,282C242.408,282 235.236,282 235.236,282L237.236,286L238,286C242.418,286 246,289.582 246,294C246,294 246,294 246,294C246,298.418 242.418,302 238,302C229.584,302 216.416,302 208,302C203.582,302 200,298.418 200,294C200,294 200,294 200,294C200,289.582 203.582,286 208,286C208.195,286 208.306,286 208.306,286C208.306,286 209.477,278.97 210.027,275.671C210.188,274.707 211.022,274 212,274C216.09,274 226.429,274 230,274C230.758,274 231.45,274.428 231.789,275.106C232.381,276.289 233.236,278 233.236,278ZM208,290C205.791,290 204,291.791 204,294C204,294 204,294 204,294C204,296.209 205.791,298 208,298C215.3,298 230.7,298 238,298C240.209,298 242,296.209 242,294C242,294 242,294 242,294C242,291.791 240.209,290 238,290C230.7,290 215.3,290 208,290ZM232.764,286L228.764,278L213.694,278L212.361,286L232.764,286Z"/>
+              </g>
+            </g>
+          </g>
+        </svg>
         Tank
-
       </a>
-      
-
     </div>
-      <div class="collapse navbar-collapse" id="navbarColor01">
-        <ul class="navbar-nav me-auto">
-
-          <!-- home -->
-          <li class="nav-item">
-            <a href="{% url 'home' %}" 
-              class="nav-link {% if request.resolver_match.url_name == 'home' %}
-              text-warning {% else %} text-white {% endif %}">
+    <div class="collapse navbar-collapse" id="navbarColor01">
+      <!-- nav bar unordered list start -->
+      <ul class="navbar-nav me-auto">
+        <!-- home -->
+        <li class="nav-item">
+          <a href="{% url 'home' %}" 
+             class="nav-link {% if request.resolver_match.url_name == 'home' %}
+                    text-warning {% else %} text-white {% endif %}">
             <div class="row">
-              <div class="col-3"></div>
               <div class="col-3">
-                <svg class="bi" width="24" height="24"><use xlink:href="#home"/></svg>
+              </div>
+              <div class="col-3">
+                <svg class="bi" width="24" height="24">
+                  <use xlink:href="#home"/>
+                </svg>
               </div>
               <div class="col-6">
-                <p class="pt-1">Home</p>
+                <p class="pt-1">Home
+                </p>
               </div>
-              
             </div>
-            
-              <!-- nav link active and the aria label (current) -->
-
-              {% if request.resolver_match.url_name == 'home' %}
-              <span class="visually-hidden">(current)</span>
-              {% endif %}
-            </a>
-          </li>
-
-          <!-- drive -->
-          <li class="nav-item">
-            <a href="{% url 'visits:date_picker_drive' %}"
-            class="nav-link 
-
-            {% if request.resolver_match.url_name == 'date_picker_drive'%}
-            text-warning
-
-            {% elif request.resolver_match.url_name == 'drive_date_ready'%}
-            text-warning
-
-            {% elif request.resolver_match.url_name == 'add_journey'%}
-            text-warning
-
-            {% elif request.resolver_match.url_name == 'edit_journey'%}
-            text-warning
-           
-           {% else %} text-white {% endif %}">
-
-              <div class="row">
-                <div class="col-3"></div>
-                <div class="col-3">
-              <svg class="bi" width="24" height="24"><use xlink:href="#speedometer2"/></svg>
-            </div>
-            <div class="col-6">
-              <p class="pt-1">Drive</p>
-              </div>
-              
-            </div>
-              <!-- nav link active and the aria label (current) -->
-            {% if request.resolver_match.url_name == 'date_picker_drive'%}
-            <span class="visually-hidden">(current)</span>
-
-            {% elif request.resolver_match.url_name == 'drive_date_ready'%}
-            <span class="visually-hidden">(current)</span>
-
-            {% elif request.resolver_match.url_name == 'add_journey'%}
-            <span class="visually-hidden">(current)</span>
-
-            {% elif request.resolver_match.url_name == 'edit_journey'%}
-
-            <span class="visually-hidden">(current)</span>
+            <!-- nav link active and the aria label (current) -->
+            {% if request.resolver_match.url_name == 'home' %}
+            <span class="visually-hidden">(current)
+            </span>
             {% endif %}
-
-            </a>
-          </li>
-
-          <!-- day -->
-          <li class="nav-item">
-            <a href="{% url 'visits:date_picker' %}" 
-            class="nav-link 
+          </a>
+        </li>
+        <!-- drive -->
+        <li class="nav-item">
+          <a href="{% url 'visits:date_picker_drive' %}"
+             class="nav-link 
+                    {% if request.resolver_match.url_name == 'date_picker_drive'%}
+                    text-warning
+                    {% elif request.resolver_match.url_name == 'drive_date_ready'%}
+                    text-warning
+                    {% elif request.resolver_match.url_name == 'add_journey'%}
+                    text-warning
+                    {% elif request.resolver_match.url_name == 'edit_journey'%}
+                    text-warning
+                    {% else %} text-white {% endif %}">
+            <div class="row">
+              <div class="col-3">
+              </div>
+              <div class="col-3">
+                <svg class="bi" width="24" height="24">
+                  <use xlink:href="#speedometer2"/>
+                </svg>
+              </div>
+              <div class="col-6">
+                <p class="pt-1">Drive
+                </p>
+              </div>
+            </div>
+            <!-- nav link active and the aria label (current) -->
+            {% if request.resolver_match.url_name == 'date_picker_drive'%}
+            <span class="visually-hidden">(current)
+            </span>
+            {% elif request.resolver_match.url_name == 'drive_date_ready'%}
+            <span class="visually-hidden">(current)
+            </span>
+            {% elif request.resolver_match.url_name == 'add_journey'%}
+            <span class="visually-hidden">(current)
+            </span>
+            {% elif request.resolver_match.url_name == 'edit_journey'%}
+            <span class="visually-hidden">(current)
+            </span>
+            {% endif %}
+          </a>
+        </li>
+        <!-- day -->
+        <li class="nav-item">
+          <a href="{% url 'visits:date_picker' %}" 
+             class="nav-link 
+                    {% if request.resolver_match.url_name == 'date_picker'%}
+                    text-warning
+                    {% elif request.resolver_match.url_name == 'day_report'%}
+                    text-warning
+                    {% else %} text-white {% endif %}">
+            <div class="row">
+              <div class="col-3">
+              </div>
+              <div class="col-3">
+                <svg class="bi" width="24" height="24">
+                  <use xlink:href="#grid"/>
+                </svg>
+              </div>
+              <div class="col-6">
+                <p class="pt-1">Day
+                </p>
+              </div>
+            </div>
+            <!-- nav link active and the aria label (current) -->
             {% if request.resolver_match.url_name == 'date_picker'%}
-            text-warning
-
+            <span class="visually-hidden">(current)
+            </span>
             {% elif request.resolver_match.url_name == 'day_report'%}
-            text-warning
-             
-             {% else %} text-white {% endif %}">
-
-              <div class="row">
-                  <div class="col-3"></div>
-                  <div class="col-3">
-                      <svg class="bi" width="24" height="24"><use xlink:href="#grid"/></svg>
-                  </div>
-                  <div class="col-6">
-                      <p class="pt-1">Day</p>
-                  </div>
-              
-            </div>
-
-              <!-- nav link active and the aria label (current) -->
-              {% if request.resolver_match.url_name == 'date_picker'%}
-                 <span class="visually-hidden">(current)</span>
-  
-              {% elif request.resolver_match.url_name == 'day_report'%}
-                 <span class="visually-hidden">(current)</span>
-                 
-              {% endif %}
-
-            </a>
-
-          </li>
-          <!-- month -->
-          <li class="nav-item">
-              <a href="#" class="nav-link text-white">
-
-              <div class="row">
-                <div class="col-3"></div>
-                <div class="col-3">
-                    <svg class="bi" width="24" height="24"><use xlink:href="#table"/></svg>
-                </div>
-                <div class="col-6">
-                    <p class="pt-1">Month</p>
-                </div>
-            
-            </div>
-
-
-                <!-- if i will have the month on I need to add if statement here ???
-             <span class="visually-hidden">(current)</span> -->
-
-              </a>
-          </li>
-
-          <!-- traffic alert -->
-          <li class="nav-item dropdown">
-            <a href="{% url 'add_traffic_msg' %}" 
-                class="nav-link {% if request.resolver_match.url_name == 'add_traffic_msg' %} text-warning {% else %} text-white{% endif %}">
-                  
-                <div class="row">
-                    <div class="col-3"></div>
-                    <div class="col-3">
-                      <svg width="24" height="24" fill="currentColor" class="bi" viewBox="0 0 16 16"><use xlink:href="#message"/></svg>
-                    </div>
-                    <div class="col-6">
-                        <p class="pt-1">Traffic Alert</p>
-                    </div>
-              </div>
-
-                 <!-- nav link active and the aria label (current) -->               
-                  {% if request.resolver_match.url_name == 'add_traffic_msg' %}
-                      <span class="visually-hidden">(current)</span>
-                  {% endif %}               
-                </a>
-          </li>
-
-          <!-- user login -->
-          <li class="nav-item dropdown">
-            <a href="#" class="nav-link pb-1
-              
-            {% if request.resolver_match.url_name == 'login' or request.resolver_match.url_name == 'register' or request.resolver_match.url_name == 'register-success' %}
-               
-              text-warning
-              
-              {% else %} text-white{% endif %}
-              
-              dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-              <!-- nav link active and the aria label (current) --> 
-
-              {% if request.resolver_match.url_name == 'login' or request.resolver_match.url_name == 'register' or request.resolver_match.url_name == 'register-success' %}
-                  <span class="visually-hidden">(current)</span>
-              {% endif %} 
-
-                <div class="row">
-                  <div class="col-3"></div>
-                  <div class="col-3">
-                    <svg class="bi" width="24" height="24"><use xlink:href="#people-circle"/></svg>
-                  </div>
-
-                {% if user.is_authenticated %}
-
-                <div class="col-6">
-                  <p class="pt-1">{{user.first_name}}</p>
-                </div>
-              </div>
-
-              </a>
-              <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-                <li><a class="dropdown-item" href="#">Update</a></li>
-                <li><a class="dropdown-item" href="{% url 'logout' %}">Sign out</a></li>
-              </ul>
-              <!-- user that is NOT logged in -->
-              {% else %}
-              <div class="col-4">
-                <p class="pt-1">Log in</p>
-              </div>
-            </div>
-
-            </a>
-            <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-              <li><a class="dropdown-item" href="{% url 'register' %}">Register</a></li>
-              <li><a class="dropdown-item" href="{% url 'login' %}">Log in</a></li>
-            </ul>
-              
+            <span class="visually-hidden">(current)
+            </span>
             {% endif %}
+          </a>
+        </li>
+        <!-- traffic alert -->
+        <li class="nav-item dropdown">
+          <a href="{% url 'add_traffic_msg' %}" 
+             class="nav-link {% if request.resolver_match.url_name == 'add_traffic_msg' %} text-warning {% else %} text-white{% endif %}">
+            <div class="row">
+              <div class="col-3">
+              </div>
+              <div class="col-3">
+                <svg width="24" height="24" fill="currentColor" class="bi" viewBox="0 0 16 16">
+                  <use xlink:href="#message"/>
+                </svg>
+              </div>
+              <div class="col-6">
+                <p class="pt-1">Traffic Alert
+                </p>
+              </div>
+            </div>
+            <!-- nav link active and the aria label (current) -->               
+            {% if request.resolver_match.url_name == 'add_traffic_msg' %}
+            <span class="visually-hidden">(current)
+            </span>
+            {% endif %}               
+          </a>
+        </li>
+        <!-- user login -->
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link pb-1
+                             {% if request.resolver_match.url_name == 'login' or request.resolver_match.url_name == 'register' or request.resolver_match.url_name == 'register-success' %}
+                             text-warning
+                             {% else %} text-white{% endif %}
+                             dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+            <!-- nav link active and the aria label (current) --> 
+            {% if request.resolver_match.url_name == 'login' or request.resolver_match.url_name == 'register' or request.resolver_match.url_name == 'register-success' %}
+            <span class="visually-hidden">(current)
+            </span>
+            {% endif %} 
+            <div class="row">
+              <div class="col-3">
+              </div>
+              <div class="col-3">
+                <svg class="bi" width="24" height="24">
+                  <use xlink:href="#people-circle"/>
+                </svg>
+              </div>
+              {% if user.is_authenticated %}
+              <div class="col-6">
+                <p class="pt-1">{{user.first_name}}
+                </p>
+              </div>
+            </div>
+          </a>
+          <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+            <li>
+              <a class="dropdown-item" href="{% url 'logout' %}">Sign out
+              </a>
+            </li>
+          </ul>
+        </li>
+          {% else %}
+          <!-- user that is NOT logged in -->
+              <div class="col-4">
+                <p class="pt-1">Log in
+                </p>
+              </div>
+            </div>
+          </a>
+          <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+            <li>
+              <a class="dropdown-item" href="{% url 'register' %}">Register
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="{% url 'login' %}">Log in
+              </a>
+            </li>
+          </ul>
+        </li>
+    {% endif %}
 
-          </li>
-
-        </ul>
-      
-      </div>
+      </ul>
     </div>
-  </nav>
-
-  {% endblock %}
+  </div>
+</nav>
+{% endblock %}

@@ -1,177 +1,187 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load bootstrap_tags %}
-
-
 {% block content %}
-
-
-<div class="container my-3"><h1 class="display-5 fw-bold lh-1 "><span class="border-warning pb-3 border-bottom">Drive</span></h1></div>
-<div class="container pt-3 mt-4 mb-5"><h2>{{date_to_string}} total {{sum_miles_day}} miles</h2></div>
-
-
+<div class="container my-3">
+  <h1 class="display-5 fw-bold lh-1 ">
+    <span class="border-warning pb-3 border-bottom">Drive
+    </span>
+  </h1>
+</div>
+<div class="container pt-3 mt-4 mb-5">
+  <h2>{{date_to_string}} total {{sum_miles_day}} miles
+  </h2>
+</div>
 {% if user.is_authenticated %}
-
-
-   {% if messages %}
-       {% for message in messages %}
-
-       <div class="container mt-5">
-       <div class="alert alert-dismissible alert-danger">
-         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-         <h4 class="alert-heading">There has been a problem</h4>
-         <p class="mb-0">
-            {%  if forloop.first  %}
-               <!-- shows only first message from messages list -->
-               {{ message }}
-            {% endif %}
-         </p>
-       </div>
-      </div>
-          
-       {% endfor %}
-   {% endif %}
-
-<!-- this will show current journey -->
-
-{% if current_journey %}
-
-{% include 'partials/visits_curr_journey.html' %}
-
+{% if messages %}
+{% for message in messages %}
+<div class="container mt-5">
+  <div class="alert alert-dismissible alert-danger">
+    <button type="button" class="btn-close" data-bs-dismiss="alert">
+    </button>
+    <h4 class="alert-heading">There has been a problem
+    </h4>
+    <p class="mb-0">
+      {%  if forloop.first  %}
+      <!-- shows only first message from messages list -->
+      {{ message }}
+      {% endif %}
+    </p>
+  </div>
+</div>
+{% endfor %}
 {% endif %}
-
-   <div class="container my-3 py-3">
-      {% if request.resolver_match.url_name == 'edit_journey' %}
-
-      <form action="{% url 'visits:edit_journey' slug journey_id %}" method="POST">
-         {% csrf_token %}
-
-      {% else %}
-      <form action="{% url 'visits:add_journey' slug %}" method="POST">
-         {% csrf_token %}
-      {% endif %}
-   
-      <div class="row">
-
-         <div class="col-12 col-lg-6">
-            <!--
-            if user is redirected as basic drive - both address fields should be empty 
-            if user is redirected as next journey, the address should pre fill with address_destination from the prevous journey
-            else if user is redirected as edit journey, the address should pre fill with journey.address_start
-            -->
-            <div class="mb-3">
-               <label for="id-google-address-a" class="form-label">Start Address</label>
-               
-               {% if request.resolver_match.url_name == 'add_journey' %}
-               <input type="text" class="form-control" id="id-google-address-a" 
-               aria-describedby="google-address-a-help" name="address_start" 
-               required autofocus value="{{current_journey.address_destination}}">
-
-               {% elif request.resolver_match.url_name == 'edit_journey' %}
-               <input type="text" class="form-control" id="id-google-address-a" 
-               aria-describedby="google-address-a-help" name="address_start" 
-               required autofocus value="{{edited_journey.address_start}}">
-               
-               {% else %}
-               <input type="text" class="form-control" id="id-google-address-a" 
-               aria-describedby="google-address-a-help" name="address_start" 
-               required autofocus value="">
-               {% endif %}
-
-               <div id="google-address-a-help" class="form-text">Type first line of the address, than choose from drop down list</div>
-            </div>
-
-         </div>
-
-         <div class="col-12 col-lg-6">
-
-            <div class="mb-3">
-               <label for="id-google-address-b" class="form-label">Destination Address</label>
-                  
-               {% if request.resolver_match.url_name == 'edit_journey' %}
-               <input type="text" class="form-control" id="id-google-address-b"
-               aria-describedby="google-address-b-help" name="address_destination" 
-               required value="{{edited_journey.address_destination}}">
-
-               {% else %}
-               <input type="text" class="form-control" id="id-google-address-b"
-               aria-describedby="google-address-b-help" name="address_destination" 
-               required value="">
-               {% endif %}
-
-               <div id="google-address-b-help" class="form-text">Type first line of the address, than choose from drop down list</div>
-            </div>
-
-         </div>
-      </div>     
-            <div>
-
-               {% if request.resolver_match.url_name == 'add_journey' %}
-
-               <input type="hidden" class="geo" id="id-lat-a" name="latitude_start" 
-               value="{{current_journey.latitude_destination}}">
-               <input type="hidden" class="geo" id="id-long-a" name="longitude_start" 
-               value="{{current_journey.longitude_destination}}">
-               <input type="hidden" class="geo" id="id-lat-b" name="latitude_destination"
-               value="">
-               <input type="hidden" class="geo" id="id-long-b" name="longitude_destination" 
-               value="">
-
-               {% elif request.resolver_match.url_name == 'edit_journey' %}
-
-               <input type="hidden" class="geo" id="id-lat-a" name="latitude_start" 
-               value="{{edited_journey.latitude_start}}">
-               <input type="hidden" class="geo" id="id-long-a" name="longitude_start" 
-               value="{{edited_journey.longitude_start}}">
-               <input type="hidden" class="geo" id="id-lat-b" name="latitude_destination"
-               value="{{edited_journey.latitude_destination}}">
-               <input type="hidden" class="geo" id="id-long-b" name="longitude_destination" 
-               value="{{edited_journey.longitude_destination}}">
-
-               {% else %}
-               <input type="hidden" class="geo" id="id-lat-a" name="latitude_start" 
-               value="">
-               <input type="hidden" class="geo" id="id-long-a" name="longitude_start" 
-               value="">
-               <input type="hidden" class="geo" id="id-lat-b" name="latitude_destination"
-               value="">
-               <input type="hidden" class="geo" id="id-long-b" name="longitude_destination" 
-               value="">
-
-               {% endif %}
-
-               <button type="submit" class="btn btn-warning btn-lg">Drive!</button>
-
-            </div>
-
-      </form> 
-
-      {% else %}
-      <!-- if user is not authenticated -->
-      <div class="container pt-3 mt-4 mb-5"><h2>You need to log in to use Drive</h2></div>
-
-      {% endif %}
-      <div class="container pt-3 mt-4 mb-5"><h2>Your journeys for today</h2></div>
-
-      {% include 'partials/visits_journeys_list.html' %}
-      {% include 'partials/traffic_msg_list_short.html' %}
-  
-{% endblock %}
-
-
-
-{% block extend_footer %}
-
-
-<script type="text/javascript">
-
+<!-- this will show current journey -->
+{% if current_journey %}
+<!-- includes current journey div if current_journey variable has been passed -->
+{% include 'partials/visits_curr_journey.html' %}
+{% endif %}
+<div class="container my-3 py-3">
+  <!-- three versions of the form depending on url as per if statement below     -->
+  {% if request.resolver_match.url_name == 'add_journey' %}
+  <form action="{% url 'visits:add_journey' slug %}" method="POST">
+    {% csrf_token %}
+    <!-- form gets pre filled with start address and geocoorinates -->
+    <div class="row">
+      <div class="col-12 col-lg-6">
+        <div class="mb-3">
+          <label for="id-google-address-a" class="form-label">Start Address
+          </label>
+          <input type="text" class="form-control" id="id-google-address-a" 
+                 aria-describedby="google-address-a-help" name="address_start" 
+                 required autofocus value="{{current_journey.address_destination}}">
+          <div id="google-address-a-help" class="form-text">Type first line of the address, than choose from drop down list
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-lg-6">
+        <div class="mb-3">
+          <label for="id-google-address-b" class="form-label">Destination Address
+          </label>
+          <input type="text" class="form-control" id="id-google-address-b"
+                 aria-describedby="google-address-b-help" name="address_destination" 
+                 required value="">
+          <div id="google-address-b-help" class="form-text">Type first line of the address, than choose from drop down list
+          </div>
+        </div>
+      </div>
+    </div>     
+    <div>
+      <input type="hidden" class="geo" id="id-lat-a" name="latitude_start" 
+             value="{{current_journey.latitude_destination}}">
+      <input type="hidden" class="geo" id="id-long-a" name="longitude_start" 
+             value="{{current_journey.longitude_destination}}">
+      <input type="hidden" class="geo" id="id-lat-b" name="latitude_destination"
+             value="">
+      <input type="hidden" class="geo" id="id-long-b" name="longitude_destination" 
+             value="">
+      <button type="submit" class="btn btn-warning btn-lg">Drive!
+      </button>
+    </div>
+  </form> 
+  {% elif request.resolver_match.url_name == 'edit_journey' %}
+  <form action="{% url 'visits:edit_journey' slug journey_id %}" method="POST">
+    {% csrf_token %}
+    <!-- form gets pre filled with start and destination geocoordinates -->
+    <div class="row">
+      <div class="col-12 col-lg-6">
+        <div class="mb-3">
+          <label for="id-google-address-a" class="form-label">Start Address
+          </label>
+          <input type="text" class="form-control" id="id-google-address-a" 
+                 aria-describedby="google-address-a-help" name="address_start" 
+                 required autofocus value="{{edited_journey.address_start}}">
+          <div id="google-address-a-help" class="form-text">Type first line of the address, than choose from drop down list
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-lg-6">
+        <div class="mb-3">
+          <label for="id-google-address-b" class="form-label">Destination Address
+          </label>
+          <input type="text" class="form-control" id="id-google-address-b"
+                 aria-describedby="google-address-b-help" name="address_destination" 
+                 required value="{{edited_journey.address_destination}}">
+          <div id="google-address-b-help" class="form-text">Type first line of the address, than choose from drop down list
+          </div>
+        </div>
+      </div>
+    </div>     
+    <div>
+      <input type="hidden" class="geo" id="id-lat-a" name="latitude_start" 
+             value="{{edited_journey.latitude_start}}">
+      <input type="hidden" class="geo" id="id-long-a" name="longitude_start" 
+             value="{{edited_journey.longitude_start}}">
+      <input type="hidden" class="geo" id="id-lat-b" name="latitude_destination"
+             value="{{edited_journey.latitude_destination}}">
+      <input type="hidden" class="geo" id="id-long-b" name="longitude_destination" 
+             value="{{edited_journey.longitude_destination}}">
+      <button type="submit" class="btn btn-warning btn-lg">Drive!
+      </button>
+    </div>
+  </form> 
+  {% else %}
+  <form action="{% url 'visits:add_journey' slug %}" method="POST">
+    {% csrf_token %}
+    <!-- form is empty -->
+    <div class="row">
+      <div class="col-12 col-lg-6">
+        <div class="mb-3">
+          <label for="id-google-address-a" class="form-label">Start Address
+          </label>
+          <input type="text" class="form-control" id="id-google-address-a" 
+                 aria-describedby="google-address-a-help" name="address_start" 
+                 required autofocus value="">
+          <div id="google-address-a-help" class="form-text">Type first line of the address, than choose from drop down list
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-lg-6">
+        <div class="mb-3">
+          <label for="id-google-address-b" class="form-label">Destination Address
+          </label>
+          <input type="text" class="form-control" id="id-google-address-b"
+                 aria-describedby="google-address-b-help" name="address_destination" 
+                 required value="">
+          <div id="google-address-b-help" class="form-text">Type first line of the address, than choose from drop down list
+          </div>
+        </div>
+      </div>
+    </div>     
+    <div>
+      <input type="hidden" class="geo" id="id-lat-a" name="latitude_start" 
+             value="">
+      <input type="hidden" class="geo" id="id-long-a" name="longitude_start" 
+             value="">
+      <input type="hidden" class="geo" id="id-lat-b" name="latitude_destination"
+             value="">
+      <input type="hidden" class="geo" id="id-long-b" name="longitude_destination" 
+             value="">
+      <button type="submit" class="btn btn-warning btn-lg">Drive!
+      </button>
+    </div>
+  </form> 
+  {% endif %}
+  {% else %}
+  <!-- if user is not authenticated -->
+  <div class="container pt-3 mt-4 mb-5">
+    <h2>You need to log in to use Drive
+    </h2>
+  </div>
+  {% endif %}
+  <div class="container pt-3 mt-4 mb-5">
+    <h2>Your journeys for today
+    </h2>
+  </div>
+  <!-- includes list of the journeys for the current date -->
+  {% include 'partials/visits_journeys_list.html' %}
+  <!-- includes short list of trafic alerts -->
+  {% include 'partials/traffic_msg_list_short.html' %}
+  {% endblock %}
+  {% block extend_footer %}
+  <script type="text/javascript">
     var google_api_key = "{{google_api_key|safe}}";
-
   </script>
-
-
-  <script src="{% static 'js/google_places.js' %}"></script>
-
-  <!-- <script src="{% static 'js/form_validation.js' %}"></script> -->
-
+  <script src="{% static 'js/google_places.js' %}">
+  </script>
   {% endblock %}

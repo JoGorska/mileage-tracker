@@ -1,52 +1,51 @@
-
-
 {% extends "base.html" %}
 {% load static %}
 {% load bootstrap_tags %}
-
-
 {% block content %}
-
+<!-- the same template is used for date picker in drive and in day report -->
 {% if request.resolver_match.url_name == 'date_picker_drive' %}
-<div class="container my-3"><h1 class="display-5 fw-bold lh-1 "><span class="border-warning pb-3 border-bottom">Drive</span></h1></div>
-
+<!-- header for date picker in drive -->
+<div class="container my-3">
+  <h1 class="display-5 fw-bold lh-1 ">
+    <span class="border-warning pb-3 border-bottom">Drive
+    </span>
+  </h1>
+</div>
 {% elif request.resolver_match.url_name == 'date_picker' %}
-
-<div class="container my-3"><h1 class="display-5 fw-bold lh-1 "><span class="border-warning pb-3 border-bottom">Day Report</span></h1></div>
-
+<!-- header for date picker in day eport -->
+<div class="container my-3">
+  <h1 class="display-5 fw-bold lh-1 ">
+    <span class="border-warning pb-3 border-bottom">Day Report
+    </span>
+  </h1>
+</div>
 {% endif %}
-
-    {% if user.is_authenticated %}
-
-
-        <div class="container pt-3 mt-4 mb-5"><h2>pick the date</h2></div>
-
-        <div class="container">
-
-            <form class="mt-5 mb-5" action="" method="POST">
-            {% csrf_token %}
-                <div class="row mb-5">
-                    <div class="col"></div>
-                    <div class="col">
-                        {{ date_picker_form|as_bootstrap }}
-
-                        <input class="btn btn-warning mt-5" type="submit" value="Go"></div>
-
-                    <div class="col"></div>
-                </div>
-
-
-            </form>
-
-        </div>
-
-    {% else %}
-
-    <div class="container pt-3 mt-4 mb-5"><h2>You need to log in to view day report</h2></div>
-
-
-    {% endif %}
-
-
+{% if user.is_authenticated %}
+<div class="container pt-3 mt-4 mb-5">
+  <h2>pick the date
+  </h2>
+</div>
+<div class="container">
+    <!-- form to choose the date -->
+  <form class="mt-5 mb-5" action="" method="POST">
+    {% csrf_token %}
+    <div class="row mb-5">
+      <div class="col">
+      </div>
+      <div class="col">
+        {{ date_picker_form|as_bootstrap }}
+        <input class="btn btn-warning mt-5" type="submit" value="Go">
+      </div>
+      <div class="col">
+      </div>
+    </div>
+  </form>
+</div>
+{% else %}
+<!-- if user is not authenticated -->
+<div class="container pt-3 mt-4 mb-5">
+  <h2>You need to log in to access this page.
+  </h2>
+</div>
+{% endif %}
 {% endblock %}
-

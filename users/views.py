@@ -4,6 +4,8 @@ from django.views.generic.edit import CreateView
 # from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
+from django.contrib.auth import authenticate, login
+
 
 from .forms import (
     UserForm,
@@ -19,6 +21,11 @@ class RegisterUserView(CreateView):
 
     def form_valid(self, form):
         form.save()
+        new_user = authenticate(username=form.cleaned_data['username'],
+                                password=form.cleaned_data['password1'],
+                                )
+        print(f'NEW USER {new_user}')
+        login(self.request, new_user)
         return HttpResponseRedirect(self.success_url)
 
 # this might fix issue with index.html not seeing that user is authenticated
