@@ -152,15 +152,29 @@
         <!-- user login -->
         <li class="nav-item dropdown">
           <a href="#" class="nav-link pb-1
-                             {% if request.resolver_match.url_name == 'login' or request.resolver_match.url_name == 'register' or request.resolver_match.url_name == 'register-success' %}
-                             text-warning
-                             {% else %} text-white{% endif %}
+
+                            {% if request.resolver_match.url_name == 'login' %}
+                            text-warning
+                            {% elif request.resolver_match.url_name == 'register' %}
+                            text-warning
+                            {% elif request.resolver_match.url_name == 'user_profile' %}
+                            text-warning
+                            {% elif request.resolver_match.url_name == 'edit_profile' %}
+                            text-warning
+                            {% else %} text-white{% endif %}
+
                              dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
             <!-- nav link active and the aria label (current) --> 
-            {% if request.resolver_match.url_name == 'login' or request.resolver_match.url_name == 'register' or request.resolver_match.url_name == 'register-success' %}
-            <span class="visually-hidden">(current)
-            </span>
-            {% endif %} 
+            {% if request.resolver_match.url_name == 'login' %}
+            <span class="visually-hidden">(current)</span>
+            {% elif request.resolver_match.url_name == 'register' %}
+            <span class="visually-hidden">(current)</span>
+            {% elif request.resolver_match.url_name == 'user_profile' %}
+            <span class="visually-hidden">(current)</span>
+            {% elif request.resolver_match.url_name == 'edit_profile' %}
+            <span class="visually-hidden">(current)</span>
+            {% endif %}
+
             <div class="row">
               <div class="col-3">
               </div>
