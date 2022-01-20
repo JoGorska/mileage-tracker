@@ -13,18 +13,19 @@ class UserProfile(models.Model):
     # retalional field in relation to the user
 
     profile_of_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_profile")
-    
-    # details needed for reporting to the employer
-   
+    # full address of the person
+    address = models.CharField(verbose_name="Your Address", max_length=100, null=True, blank=True)
+    longitude = models.CharField(verbose_name="Longitude", max_length=50, null=True, blank=True)
+    latitude = models.CharField(verbose_name="Latitude", max_length=50, null=True, blank=True)
+    # details that will be needed for reporting to the employer
+
     employer_organization = models.CharField(verbose_name="Employer Organization", max_length=200, null=True, blank=True)
     employer_email = models.EmailField(max_length=254, unique=False, null=True, blank=True)
     employee_ref_number = models.CharField(verbose_name="Employee Refference Number", max_length=50, null=False, blank=True)
     
-    # full address of the person
-
-    address = models.CharField(verbose_name="Address", max_length=100, null=True, blank=True)
-    longitude = models.CharField(verbose_name="Longitude", max_length=50, null=True, blank=True)
-    latitude = models.CharField(verbose_name="Latitude", max_length=50, null=True, blank=True)
+    employer_address = models.CharField(verbose_name="Employer's Main Office", max_length=100, null=True, blank=True)
+    employer_longitude = models.CharField(verbose_name="Employer's Longitude", max_length=50, null=True, blank=True)
+    employer_latitude = models.CharField(verbose_name="Employer's Latitude", max_length=50, null=True, blank=True)
 
     # other admin data
 
