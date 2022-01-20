@@ -269,7 +269,6 @@ class EditJourney(CreateView):
             postcode_destination = extract_postcode(address_destination, address_destination_google_directions)
             distance = directions["distance"]
             edited_journey = get_object_or_404(Journey, id=journey_id)
-            # edited_journey = Journey.objects.get(id=journey_id)
 
             edited_journey.address_start = address_start
             edited_journey.postcode_start = postcode_start

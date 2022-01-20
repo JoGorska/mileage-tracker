@@ -45,47 +45,31 @@ class UserForm(UserCreationForm):
         )
 
 
-class AuthForm(AuthenticationForm):
-    '''
-    Form that uses built-in AuthenticationForm to handel user auth
-    '''
-    username = forms.EmailField(
-        max_length=254, required=True, widget=forms.TextInput(
-            attrs={'placeholder': '*Email..'}
-            )
-        )
-    password = forms.CharField(
-        widget=forms.PasswordInput(
-            attrs={'placeholder': '*Password..', 'class': 'password'}
-            )
-        )
-
-    class Meta:
-        model = User
-        fields = ('username', 'password', )
-
-
 class UserProfileForm(forms.ModelForm):
     '''
     Basic model-form for our user profile that extends Django user model.
 
     '''
-    address = forms.CharField(max_length=100, required=True, widget=forms.HiddenInput())
-    town = forms.CharField(max_length=100, required=True, widget=forms.HiddenInput())
-    county = forms.CharField(max_length=100, required=True, widget=forms.HiddenInput())
-    post_code = forms.CharField(max_length=8, required=True, widget=forms.HiddenInput())
-    country = forms.CharField(max_length=40, required=True, widget=forms.HiddenInput())
-    longitude = forms.CharField(max_length=50, required=True, widget=forms.HiddenInput())
-    latitude = forms.CharField(max_length=50, required=True, widget=forms.HiddenInput())
+    your_address = forms.CharField(max_length=100)
+    longitude = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'readonly': 'readonly', 'placeholder': 'This will fill in automaticaly'}))
+    latitude = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'readonly': 'readonly', 'placeholder': 'This will fill in automaticaly'}))
+
+    employer_address = forms.CharField(max_length=100)
+    employer_longitude = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'readonly': 'readonly', 'placeholder': 'This will fill in automaticaly'}))
+    employer_latitude = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'readonly': 'readonly', 'placeholder': 'This will fill in automaticaly'}))
 
     class Meta:
         model = UserProfile
         fields = (
-            'address',
-            'town',
-            'county',
-            'post_code',
-            'country',
+            'your_address',
             'longitude',
-            'latitude'
+            'latitude',
+            'employee_ref_number',
+
+            'employer_organization',
+            'employer_email',
+            'employer_address',
+            'employer_longitude',
+            'employer_latitude'
+
         )
