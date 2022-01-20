@@ -14,7 +14,7 @@ class UserProfile(models.Model):
 
     profile_of_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_profile")
     # full address of the person
-    address = models.CharField(verbose_name="Your Address", max_length=100, null=True, blank=True)
+    your_address = models.CharField(verbose_name="Your Address", max_length=100, null=True, blank=True)
     longitude = models.CharField(verbose_name="Longitude", max_length=50, null=True, blank=True)
     latitude = models.CharField(verbose_name="Latitude", max_length=50, null=True, blank=True)
     # details that will be needed for reporting to the employer

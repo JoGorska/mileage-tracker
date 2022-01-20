@@ -61,7 +61,7 @@ class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = (
-            'address',
+            'your_address',
             'longitude',
             'latitude',
             'employee_ref_number',
