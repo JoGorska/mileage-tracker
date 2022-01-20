@@ -221,6 +221,9 @@ I started tidying up HTML code by searching for a beautifyier for HTML code. I t
 
 ### HTML valiation
 
+#### Index.html - landing page
+Landing page - HTML validator No errors 
+
 
 ### JavaScript validation with jshint
 Javascript code validation was complited on [jshint](https://jshint.com/)

@@ -10,7 +10,7 @@
                        {% if journey.id == current_journey.id %} text-warning
                        {% endif %}"
                 type="button" data-bs-toggle="collapse" data-bs-target="#journey-id-{{journey.id}}"
-                aria-expanded="true" aria-controls="collapseOne">
+                aria-expanded="true" aria-controls="journey-id-{{journey.id}}">
           {{journey.postcode_start}} - {{journey.postcode_destination}}, distance: {{journey.distance}} miles
         </button>
       </h2>
@@ -67,9 +67,8 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancell
         </button>
-        <a href="/visits/delete_journey/{{slug}}/{{journey.id}}">
-          <button type="button" class="btn btn-danger">Delete
-          </button>
+        <a href="/visits/delete_journey/{{slug}}/{{journey.id}}" class="btn btn-danger">
+          Delete
         </a>
       </div>
     </div>
