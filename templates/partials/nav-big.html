@@ -77,7 +77,9 @@
                                  text-warning
                                  {% elif request.resolver_match.url_name == 'register' %}
                                  text-warning
-                                 {% elif request.resolver_match.url_name == 'register-success' %}
+                                 {% elif request.resolver_match.url_name == 'user_profile' %}
+                                 text-warning
+                                 {% elif request.resolver_match.url_name == 'edit_profile' %}
                                  text-warning
                                  {% else %} text-white{% endif %}
                                  dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -106,11 +108,11 @@
                   <!-- drop down for user that is NOT logged in -->
                 <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
                   <li>
-                    <a class="dropdown-item" href="{% url 'register' %}">Register
+                    <a class="dropdown-item" href="{% url 'users:register' %}">Register
                     </a>
                   </li>
                   <li>
-                    <a class="dropdown-item" href="{% url 'login' %}">Log in
+                    <a class="dropdown-item" href="{% url 'users:login' %}">Log in
                     </a>
                   </li>
                 </ul>

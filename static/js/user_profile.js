@@ -74,9 +74,9 @@ function onPlaceChanged (addy){
     }
 
     var geocoder = new google.maps.Geocoder();
-    var address_start = document.getElementById("id_your_address").value;
-    var address_destination = document.getElementById("id_employer_address").value;
-    var address_list = [address_start, address_destination];
+    var address_user = document.getElementById("id_your_address").value;
+    var address_employer = document.getElementById("id_employer_address").value;
+    var address_list = [address_user, address_employer];
 
     for (var address in address_list) {
         address = document.getElementById(el_id).value;
