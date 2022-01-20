@@ -54,13 +54,22 @@ class UserProfileForm(forms.ModelForm):
     longitude = forms.CharField(max_length=50)
     latitude = forms.CharField(max_length=50)
 
+    employer_address = forms.CharField(max_length=100)
+    employer_longitude = forms.CharField(max_length=50)
+    employer_latitude = forms.CharField(max_length=50)
+
     class Meta:
         model = UserProfile
         fields = (
-            'employer_organization',
-            'employer_email',
-            'employee_ref_number',
             'address',
             'longitude',
-            'latitude'
+            'latitude',
+            'employee_ref_number',
+
+            'employer_organization',
+            'employer_email',
+            'employer_address',
+            'employer_longitude',
+            'employer_latitude'
+
         )
