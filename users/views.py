@@ -7,8 +7,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.conf import settings
-
-
+from .models import UserProfile
 from .forms import (
     UserForm,
     UserProfileForm,
@@ -32,7 +31,7 @@ class RegisterUserView(CreateView):
         return HttpResponseRedirect(self.success_url)
 
 
-class UserProfile(CreateView):
+class UserProfileView(CreateView):
     '''
     view to register UserProfile once the user has registered
     '''
@@ -73,60 +72,68 @@ class UserProfile(CreateView):
 
 class EditProfile(CreateView):
     '''
-    view to register UserProfile once the user has registered
+    view to edit or add UserProfile once the user has registered as a User
     '''
-    template_name = 'users/user_profile.html'
-    form_class = UserProfileForm
-    success_url = 'home'
-
     def get(self, request, user_id, *args, **kwargs):
-        user_instance = get_object_or_404(User, id=user_id)
-        print(user_instance.user_profile)
 
-        return render(
-            request,
-            'users/user_profile.html',
-            {
-                'user_profile_form': UserProfileForm(),
-                'google_api_key': settings.GOOGLE_API_KEY
-            },
-        )
+        model = UserProfile
+        profile_instance_list = UserProfile.objects.filter(profile_of_user=user_id)
+        print(f'LIST OF INSTANCES {profile_instance_list}')
+        if len(profile_instance_list) == 0:
+            return render(
+                request,
+                'users/user_profile.html',
+                {
+                    'user_profile_form': UserProfileForm(),
+                    'google_api_key': settings.GOOGLE_API_KEY
+                },
+            )
+        else:
+            profile_instance = profile_instance_list[0]
+
+            return render(
+                request,
+                'users/user_profile.html',
+                {
+                    'user_profile_form': UserProfileForm(instance=profile_instance),
+                    'google_api_key': settings.GOOGLE_API_KEY
+                },
+            )
 
     def post(self, request, user_id, *args, **kwargs):
-
+        model = UserProfile
+        profile_instance_list = UserProfile.objects.filter(profile_of_user=user_id)
         user_profile_form = UserProfileForm(data=request.POST)
         if user_profile_form.is_valid():
+            if len(profile_instance_list) == 0:
+                user_id = request.user.id
+                model = User
+                user_object = get_object_or_404(User, id=user_id)
+                user_profile_form.instance.profile_of_user = user_object
+                user_profile_form.instance.has_profile = True
+                user_profile = user_profile_form.save(commit=False)
+                user_profile.save()
 
-            user_id = request.user.id
-            model = User
-            user_object = get_object_or_404(User, id=user_id)
-            user_profile_form.instance.profile_of_user = user_object
-            user_profile_form.instance.has_profile = True
+            else:
+                edited_profile = profile_instance_list[0]
 
-            user_profile = user_profile_form.save(commit=False)
-            user_profile.save()
+                edited_profile.employer_organization = request.POST.get('employer_organization')
+                edited_profile.employer_email = request.POST.get('employer_email')
+                edited_profile.employee_ref_number = request.POST.get('employee_ref_number')
+                edited_profile.address = request.POST.get('address')
+                edited_profile.longitude = request.POST.get('longitude')
+                edited_profile.latitude = request.POST.get('latitude')
+                edited_profile.save(update_fields=[
+       
+                                                'employer_organization',
+                                                'employer_email',
+                                                'employee_ref_number',
+                                                'address',
+                                                'longitude',
+                                                'latitude'
+                                                ])
         
         else:
             user_profile_form = UserProfileForm()
 
         return HttpResponseRedirect('/')
-
-# def edit_profile(request, user_id):
-#     form = UserProfileForm()
-#     user_instance = get_object_or_404(User, id=user_id)
-#     if user_instance.user_profile:
-#         print(f'USER HAS A PROFILIE ALREADY{user_instance.user_profile}')
-#     else:
-#         print(f'I dont have a profile yet')
-#     # instance = get_object_or_404(UserProfile, profile_of_user=user_id)
-#     if request.method == 'POST':
-#         # form = UserProfileForm(request.POST, instance=instance)
-#         form = UserProfileForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return HttpResponseRedirect('/')    
-#     else:
-#         # form = UserProfileForm(instance=instance)
-#         form = UserProfileForm()
-
-#     return render(request, 'users/user_profile.html', {'form': form})
