@@ -1,85 +1,61 @@
 {% load static %}
-
 <!doctype html>
-    <html lang="en" class="h-100">
-        <head>
-            <meta charset="utf-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1">
-            <meta name="description" content="Manage and report your daily mileage">
-            <meta name="keywords" content="mileage, driving, distance">
-            <meta name="author" content="JoGorska">
-
-            <!--Bootstrap 5 css-->
-
-            <link rel="stylesheet" href="{% static 'css/bootstrap-css/bootstrap-grid.min.css' %}" type="text/css">
-            <link rel="stylesheet" href="{% static 'css/bootstrap-css/bootstrap-reboot.min.css' %}" type="text/css">
-            <link rel="stylesheet" href="{% static 'css/bootstrap-css/bootstrap-utilities.min.css' %}" type="text/css">
-            <link rel="stylesheet" href="{% static 'css/bootstrap-css/nav.css' %}" type="text/css">
-            <link rel="canonical" href="">
-            
-            <!--link to Bootswatch file to replace Bootstrap's css-->
-            <link rel="stylesheet" href="{% static 'css/bootswatch-css/bootstrap.min.css' %}">
-            <!--google fonts-->
-
-            <!-- icons -->
-            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
-            
-
-            <!--my stylesheet link-->
-            <link href="{% static 'css/style.css'%}" rel="stylesheet">
-
-            <!-- This allows us to extend the head scripts in HTML docs that have special requirements-->
-            {% block extend_head %}
-
-            {% endblock %}
-
-            <title>Tank</title> 
-
-        </head>
-
-        <body class="d-flex flex-column h-100">
-
-
-
-
-          <!-- navbar is placed in partials folder -->
-          {% include 'partials/svg-symbols.html' %}
-          {% include 'partials/nav-big.html' %} 
-          {% include 'partials/nav-mobile.html' %}        
-
-
-        <main class="flex-shrink-0">
-
-            {% block content %}
-            <!-- Content Goes here -->
-            {% endblock content %}
-
-        </main>
-
-        <!--Footer-->
-
-        <footer class="footer mt-auto py-3 bg-warning">
-            <div class="container text-center">
-              <span class="text-black">Copyright JoGorska 2022
-                <a class="fw-bold text-dark my-heading-font" href="https://github.com/JoGorska">GitHub</a>
-                and 
-                <a class="fw-bold text-dark my-heading-font" href="https://uk.linkedin.com">Linkedin</a>
-              </span>
-            </div>
-          </footer>
-        <!--Bootstrap JavaScript-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
-        <!-- jQuery -->
-        <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script> -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-        <!-- This allows us to extend the foot scripts in HTML docs that have special requirements-->
-        {% block extend_footer %}
-
-        {% endblock %}
-        
-        <!--my javascript link-->
-        <!-- <script src="#"></script> -->    
-        </body>
-    </html>
+<html lang="en" class="h-100">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Manage and report your daily mileage">
+    <meta name="keywords" content="mileage, driving, distance">
+    <meta name="author" content="JoGorska">
+    <!--Bootstrap 5 css-->
+    <link rel="stylesheet" href="{% static 'css/bootstrap-css/bootstrap-grid.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-css/bootstrap-reboot.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-css/bootstrap-utilities.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-css/nav.css' %}" type="text/css">
+    <link rel="canonical" href="">
+    <!--link to Bootswatch file to replace Bootstrap's css-->
+    <link rel="stylesheet" href="{% static 'css/bootswatch-css/bootstrap.min.css' %}">
+    <!--google fonts-->
+    <!-- icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <!--my stylesheet link-->
+    <link href="{% static 'css/style.css'%}" rel="stylesheet">
+    <!-- This allows us to extend the head scripts in HTML docs that have special requirements-->
+    {% block extend_head %}
+    {% endblock %}
+    <title>Tank
+    </title> 
+  </head>
+  <body class="d-flex flex-column h-100">
+    <!-- navbar from partials folder -->
+    {% include 'partials/svg-symbols.html' %}
+    {% include 'partials/nav-big.html' %} 
+    {% include 'partials/nav-mobile.html' %}        
+    <main class="flex-shrink-0">
+      {% block content %}
+      <!-- Content Goes here -->
+      {% endblock content %}
+    </main>
+    <!--Footer-->
+    <footer class="footer mt-auto py-3 bg-warning">
+      <div class="container text-center">
+        <span class="text-black">Copyright JoGorska 2022
+          <a class="fw-bold text-dark my-heading-font" href="https://github.com/JoGorska">GitHub
+          </a>
+          and 
+          <a class="fw-bold text-dark my-heading-font" href="https://uk.linkedin.com">Linkedin
+          </a>
+        </span>
+      </div>
+    </footer>
+    <!--Bootstrap JavaScript-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js">
+    </script>
+    <!-- This allows us to extend the footer and add different scripts for each page -->
+    {% block extend_footer %}
+    {% endblock %}
+  </body>
+</html>

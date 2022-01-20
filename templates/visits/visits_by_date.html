@@ -2,40 +2,33 @@
 {% load static %}
 {% load bootstrap_tags %}
 {% block content %}
-
-<div class="container my-3"><h1 class="display-5 fw-bold lh-1 "><span class="border-warning pb-3 border-bottom">Day report</span></h1></div>
-
-
-    {% if user.is_authenticated %} 
-
-    <form action="" method="POST" class="container my-3 py-3">
-      {% csrf_token %}
-      <fieldset>
-            <legend class="mb-5 pb-3">{{date_to_string}} total {{sum_miles_day}} miles</legend>
-              
-                  <div class="row mb-5">
-                      <div class="col"></div>
-                      <div class="col">
-                          {{ date_picker_form|as_bootstrap }}
-            
-                          <input class="btn btn-warning mt-5" type="submit" value="Go"></div>
-            
-                      <div class="col"></div>
-                  </div>
-
-            </div>
-        
-        </fieldset>
-    </form>
-
-    {% include 'partials/visits_journeys_list.html' %}
-
-    {% else %}
-
-    <div class="container pt-3 mt-4 mb-5"><h2>You need to log in to see your journeys</h2></div>
-
-    {% endif %}
-
-
-
+<div class="container my-3">
+  <h1 class="display-5 fw-bold lh-1 ">
+    <span class="border-warning pb-3 border-bottom">Day report
+    </span>
+  </h1>
+</div>
+{% if user.is_authenticated %} 
+<form action="" method="POST" class="container my-3 py-3">
+  {% csrf_token %}
+  <fieldset>
+    <legend class="mb-5 pb-3">{{date_to_string}} total {{sum_miles_day}} miles
+    </legend>
+    <div class="row mb-5">
+      <div class="col"></div>
+      <div class="col">
+        {{ date_picker_form|as_bootstrap }}
+        <input class="btn btn-warning mt-5" type="submit" value="Go">
+      </div>
+      <div class="col"></div>
+    </div>
+  </fieldset>
+</form>
+{% include 'partials/visits_journeys_list.html' %}
+{% else %}
+<div class="container pt-3 mt-4 mb-5">
+  <h2>You need to log in to see your journeys
+  </h2>
+</div>
+{% endif %}
 {% endblock %}
