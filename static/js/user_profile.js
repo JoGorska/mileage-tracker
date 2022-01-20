@@ -1,3 +1,4 @@
+
 // functions created based on developers.google documentation
 // https://developers.google.com/maps/documentation/places/web-service/supported_types
 // and following tutorial Bobby did coding
@@ -20,31 +21,27 @@ let autocomplete_employer;
  */
 function initAutocomplete() {
 
-  autocomplete_a = new google.maps.places.Autocomplete(
+    autocomplete_user = new google.maps.places.Autocomplete(
    document.getElementById("id_your_address"),
    {
        regions: ["postal_code"],
        componentRestrictions: {"country": ["uk"]}
    });
 
-  autocomplete_a.addListener("place_changed", function(){
+   autocomplete_user.addListener("place_changed", function(){
     onPlaceChanged("user");
-    helpDivStart.innerHTML = "We have found geocoordinates";
-    displayPassedValidation(inputAddressStart, helpDivStart);
   });
 
 
-  autocomplete_b = new google.maps.places.Autocomplete(
+  autocomplete_employer = new google.maps.places.Autocomplete(
    document.getElementById("id_employer_address"),
    {
         regions: ["postal_code"],
        componentRestrictions: {"country": ["uk"]}
    });
   
-  autocomplete_b.addListener("place_changed", function(){
+   autocomplete_employer.addListener("place_changed", function(){
     onPlaceChanged("employer");
-    helpDivDestination.innerHTML = "We have found geocoordinates";
-    displayPassedValidation(inputAddressDestination, helpDivDestination);
   });
 
 }
