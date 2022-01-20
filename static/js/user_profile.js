@@ -9,8 +9,9 @@ $.getScript( "https://maps.googleapis.com/maps/api/js?key=" + google_api_key + "
     google.maps.event.addDomListener(window, "load", initAutocomplete());
 });
 
-let autocomplete;
 
+let autocomplete_user;
+let autocomplete_employer;
 /**
  * function that initializes autocomplete from google maps places API
  * user can search by postcode or full address
@@ -19,15 +20,31 @@ let autocomplete;
  */
 function initAutocomplete() {
 
-  autocomplete = new google.maps.places.Autocomplete(
-   document.getElementById("id_address"),
+  autocomplete_a = new google.maps.places.Autocomplete(
+   document.getElementById("id_your_address"),
    {
        regions: ["postal_code"],
        componentRestrictions: {"country": ["uk"]}
    });
 
-  autocomplete.addListener("place_changed", function(){
-    onPlaceChanged("a");
+  autocomplete_a.addListener("place_changed", function(){
+    onPlaceChanged("user");
+    helpDivStart.innerHTML = "We have found geocoordinates";
+    displayPassedValidation(inputAddressStart, helpDivStart);
+  });
+
+
+  autocomplete_b = new google.maps.places.Autocomplete(
+   document.getElementById("id_employer_address"),
+   {
+        regions: ["postal_code"],
+       componentRestrictions: {"country": ["uk"]}
+   });
+  
+  autocomplete_b.addListener("place_changed", function(){
+    onPlaceChanged("employer");
+    helpDivDestination.innerHTML = "We have found geocoordinates";
+    displayPassedValidation(inputAddressDestination, helpDivDestination);
   });
 
 }
@@ -43,16 +60,26 @@ function onPlaceChanged (addy){
     let lat_id;
     let long_id;
 
-    if ( addy === "a"){
-        auto = autocomplete;
-        el_id = "id_address";
+    if ( addy === "user"){
+        auto = autocomplete_user;
+        el_id = "id_your_address";
         lat_id = "id_latitude";
         long_id = "id_longitude";
     }
-
+    else{
+        auto = autocomplete_employer;
+        el_id = "id_employer_address";
+        lat_id = "id_employer_latitude";
+        long_id = "id_employer_longitude";
+    }
 
     var geocoder = new google.maps.Geocoder();
-    var address = document.getElementById("id_address").value;
+    var address_start = document.getElementById("id_your_address").value;
+    var address_destination = document.getElementById("id_employer_address").value;
+    var address_list = [address_start, address_destination];
+
+    for (var address in address_list) {
+        address = document.getElementById(el_id).value;
         
 
         geocoder.geocode( { "address": address}, function(results, status) {
@@ -68,9 +95,10 @@ function onPlaceChanged (addy){
             } else {
 
                 alert("Directions request failed due to " + status);
-                window.location.assign("/user_profile/");
+                window.location.assign("/users/");
             
             } 
         
         }); 
     }
+}

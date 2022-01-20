@@ -50,13 +50,13 @@ class UserProfileForm(forms.ModelForm):
     Basic model-form for our user profile that extends Django user model.
 
     '''
-    address = forms.CharField(max_length=100)
-    longitude = forms.CharField(max_length=50)
-    latitude = forms.CharField(max_length=50)
+    your_address = forms.CharField(max_length=100)
+    longitude = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'readonly': 'readonly', 'placeholder': 'This will fill in automaticaly'}))
+    latitude = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'readonly': 'readonly', 'placeholder': 'This will fill in automaticaly'}))
 
     employer_address = forms.CharField(max_length=100)
-    employer_longitude = forms.CharField(max_length=50)
-    employer_latitude = forms.CharField(max_length=50)
+    employer_longitude = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'readonly': 'readonly', 'placeholder': 'This will fill in automaticaly'}))
+    employer_latitude = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'readonly': 'readonly', 'placeholder': 'This will fill in automaticaly'}))
 
     class Meta:
         model = UserProfile
