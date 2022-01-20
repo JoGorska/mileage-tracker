@@ -600,6 +600,11 @@ The drive.html template contained multiple if else statements that was making va
 
 I have decided to duplicate the form three times and include 3 versions of the whole form, rather than split each part of the form to if else statements. This makes much cleaner structure and comment make it easy to see what is happening where. It is also much easier to spot any html errors if they occur.
 
+### W3W validator returned <button> must not be descendant of <a>
+solution found on [stack overflow](https://stackoverflow.com/questions/6393827/can-i-nest-a-button-element-inside-an-a-using-html5)
+
+
+
 ## Deployment
 
  The site was deployed to Heroku pages. 
