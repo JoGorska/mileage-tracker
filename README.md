@@ -2,8 +2,6 @@
 
 [Tank Mileage Tracker](#tank-mileage-tracker)
 
-
-
 [UX](#ux)
 + [User Stories](#user-stories)
 + [Wireframes](#wireframes)
@@ -221,6 +219,21 @@ I started tidying up HTML code by searching for a beautifyier for HTML code. I t
 
 ### HTML valiation
 
+I have right clicked on the rendered page and copied the code of each page into [HTML validator](https://validator.w3.org/nu/#textarea)
+
+
+| Page  |  result
+| ------ | ------ |
+|  [Index](static/img/readme/HTML-validator/HTML-validator-01-index.pdf) |  No errors |
+|  [Date pickeer](static/img/readme/HTML-validator/HTML-validator-02-date-picker.pdf)|No errors|
+|  [Drive](static/img/readme/HTML-validator/HTML-validator-03-drive.pdf) |No errors|
+|  [Day Report](static/img/readme/HTML-validator/HTML-validator-04-day-report.pdf) |No errors|
+|  [New Traffic Alert](static/img/readme/HTML-validator/HTML-validator-05-new-traffic-alert.pdf) |No errors|
+|  [Login](static/img/readme/HTML-validator/HTML-validator-06-users-login.pdf) |No errors|
+|  [Register](static/img/readme/HTML-validator/HTML-validator-06-users-register.pdf) |No errors|
+|  [User Profile](static/img/readme/HTML-validator/HTML-validator-07-users-profile.pdf) |No errors|
+
+
 
 ### JavaScript validation with jshint
 Javascript code validation was complited on [jshint](https://jshint.com/)
@@ -228,7 +241,14 @@ Initialy it was returning errors in relation of ES6 syntax, which was resolved b
 ```
 /*jshint esversion: 6*/
 ```
-Unfortunately it has been also returning errors connected with the use of JQuery, which I have not managed to resolve.
+
+| Page  |  result
+| ------ | ------ |
+|  [Google Places](static/img/readme/JSHint-google-places.pdf) |  two warnings |
+|  [User Profile](static/img/readme/JSHint-user-profile.pdf) |  two warnings |
+
+
+Unfortunately it has been also returning errors connected with the use of JQuery, which I have not managed to resolve. It claims I have 3 undefined variables '$', 'google-api-key', 'google'.
 
 
 I have left two warnings in the code, which do not seem to have affected the working of the code
@@ -599,6 +619,24 @@ I have used If / or statement to change the color of the icon on nav bar  for th
 The drive.html template contained multiple if else statements that was making various versions of the page depending on the url on which user currently was. The complexity of the changes made by if else statements was quite significant. The html code became unclear and confusing.
 
 I have decided to duplicate the form three times and include 3 versions of the whole form, rather than split each part of the form to if else statements. This makes much cleaner structure and comment make it easy to see what is happening where. It is also much easier to spot any html errors if they occur.
+
+### W3W validator returned <button> must not be descendant of <a>
+solution found on [stack overflow](https://stackoverflow.com/questions/6393827/can-i-nest-a-button-element-inside-an-a-using-html5)
+
+### W3W validator returning errors on drive and user profile pages:
+
+I struggled with one error and a several warnings in this view. The screenshots of the issues can be found [here](static/img/readme/HTML-validator/HTML-validator-06-drive.png) and the text with marked problematic areas can be found [here](static/img/readme/HTML-validator/HTML-validator-07-drive.png).
+
+* The error shows up for `<meta charset="utf-8">` from the head.  w3w validator is complaining that it was found after first 1024 bytes. It seeems that w3w is expecting this to be the first tag in the head. Unfortunately javascript places seems to inject styling at the beggining of the head and pushes meta charset down below it. I found interesting article [here](https://dev.to/maggiecodes_/why-is-lt-meta-charset-utf-8-gt-important-59hl#:~:text=Furthermore%2C%20most%20browsers%20use%20UTF,There%20you%20have%20it.) why this tag is important.
+
+I tried to reasearch about google autocomplete causing errors when validating HTML, but all results have been pointing to errors within google autocomplete, not HTML validation errors. 
+
+* It seems that jquery cdn script is injecting the script below the title inside the head. This script contains the below expressions, which showed up as warnings in html validator: 
+- charset attribute on the script being obselete 
+- type attribute is unnecessary for JavaScript resources.
+I tried various different cdn links for jquery, they all had same effect as this one. 
+
+Solution was found by another student Dom Quail He has suggested to right click on the page and get to source code and copy the html from there. I was copying the HTML code from inspect the page -> edit as HTML and paste it to validator. Once I copied HTML from the source code - the validator wasn't raising the above errors and it found other errors that were not raised previously. 
 
 ## Deployment
 

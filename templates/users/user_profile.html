@@ -11,7 +11,7 @@
   </h1>
 </div>
 <div class="container  mt-5">
-  <form action="" method="POST">
+  <form action="#" method="POST">
     {% csrf_token %}
     <div class="container"> 
       {{ user_profile_form|as_bootstrap}}
@@ -22,7 +22,7 @@
 {% endblock content %}
 
 {% block extend_footer %}
-<script type="text/javascript">
+<script>
   var google_api_key = "{{google_api_key|safe}}";
 </script>
 <script src="{% static 'js/user_profile.js' %}">

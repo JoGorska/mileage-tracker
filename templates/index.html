@@ -1,56 +1,52 @@
 {% extends "base.html" %}
 {% load static %}
-
 {% block content %}
-
 {% if user.is_authenticated %}
-
 <div class="container col-xxl-8 px-4 py-1">
-    <div class="row row-cols-1 row-cols-sm-1 row-cols-md-1 row-cols-lg-2 flex-lg-row-reverse align-items-center g-5 py-3">
-      <div class="col">
-        <img src="{% static 'img/01-hero-pexels-bigworldinalens-7912257.jpg' %}" class="d-block mx-lg-auto img-fluid" alt="Photo of a military tank" width="700" height="500" loading="lazy">
-        </div>
-      <div class="col">
-        <h1 class="display-5 fw-bold lh-1 mb-3 border-warning pb-3 border-bottom">Welcome Back {{user.first_name}}</h1>
-        <p class="lead">You can check and record the distance that you have travelled. We are developing reports to enable you easy end of month and end of year summary.</p>
-        <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-          <a href="{% url 'visits:date_picker_drive' %}">
-            <button type="button" class="btn btn-warning btn-lg px-4 me-md-2">Drive</button>
-          </a>
-          <a href="{% url 'visits:date_picker' %}">
-            <button type="button" class="btn btn-secondary btn-lg px-4">Day Report</button>
-          </a>
-
-        </div>
+  <div class="row row-cols-1 row-cols-sm-1 row-cols-md-1 row-cols-lg-2 flex-lg-row-reverse align-items-center g-5 py-3">
+    <div class="col">
+      <img src="{% static 'img/01-hero-pexels-bigworldinalens-7912257.jpg' %}" class="d-block mx-lg-auto img-fluid" alt="Photo of a military tank" width="700" height="500" loading="lazy">
+    </div>
+    <div class="col">
+      <h1 class="display-5 fw-bold lh-1 mb-3 border-warning pb-3 border-bottom">Welcome Back {{user.first_name}}
+      </h1>
+      <p class="lead">You can check and record the distance that you have travelled. We are developing reports to enable you easy end of month and end of year summary.
+      </p>
+      <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+        <a href="{% url 'visits:date_picker_drive' %}" class="btn btn-warning btn-lg px-4 me-md-2">
+          Drive
+        </a>
+        <a href="{% url 'visits:date_picker' %}" class="btn btn-secondary btn-lg px-4">
+          Day Report
+        </a>
       </div>
     </div>
   </div>
-
+</div>
 {% else %}
-
 <div class="container col-xxl-8 px-4 py-1">
-    <div class="row row-cols-1 row-cols-sm-1 row-cols-md-1 row-cols-lg-2 flex-lg-row-reverse align-items-center g-5 py-3">
-      <div class="col">
-        <img src="{% static 'img/01-hero-pexels-art-guzman-8079173.jpg' %}" class="d-block mx-lg-auto img-fluid" alt="Photo of a military tank" width="700" height="500" loading="lazy">
-      </div>
-      <div class="col">
-        <h1 class="display-5 fw-bold lh-1 mb-3">Welcome to</h1>
-        <h2 class="border-warning pb-3 border-bottom mb-3">Tank Mileage Tracker</h2>
-        <p class="lead">You can check and record the distance that you have travelled. We are developing reports to enable you easy end of month and end of year summary.</p>
-        <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-          <a href="{% url 'users:register' %}">
-            <button type="button" class="btn btn-warning btn-lg px-4 me-md-2">Register</button>
-          </a>
-          <a href="{% url 'users:login' %}">
-            <button type="button" class="btn btn-secondary btn-lg px-4">Login</button>
-          </a>
-        </div>
+  <div class="row row-cols-1 row-cols-sm-1 row-cols-md-1 row-cols-lg-2 flex-lg-row-reverse align-items-center g-5 py-3">
+    <div class="col">
+      <img src="{% static 'img/01-hero-pexels-art-guzman-8079173.jpg' %}" class="d-block mx-lg-auto img-fluid" alt="Photo of a military tank" width="700" height="500" loading="lazy">
+    </div>
+    <div class="col">
+      <h1 class="display-5 fw-bold lh-1 mb-3">Welcome to
+      </h1>
+      <h2 class="border-warning pb-3 border-bottom mb-3">Tank Mileage Tracker
+      </h2>
+      <p class="lead">You can check and record the distance that you have travelled. We are developing reports to enable you easy end of month and end of year summary.
+      </p>
+      <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+        <a href="{% url 'users:register' %}" class="btn btn-warning btn-lg px-4 me-md-2">
+          Register
+        </a>
+        <a href="{% url 'users:login' %}" class="btn btn-secondary btn-lg px-4">
+          Login
+        </a>
       </div>
     </div>
   </div>
-
+</div>
 {% endif %}     
-
 {% include 'partials/traffic_msg_list.html' %}
-
 {% endblock %}

@@ -13,7 +13,7 @@
   <h2>Alert other drivers about current situation on the roads</h2>
 </div>
 <div class="container">
-  <form action="" method="POST">
+  <form action="#" method="POST">
   {% csrf_token %}
  
       {{ traffic_msg_form|as_bootstrap}}
@@ -29,9 +29,9 @@
   <p class="pt-3 my-3">
     Click
 
-    <a href="{% url 'login' %}?next/">here</a>
+    <a href="{% url 'users:login' %}?next/">here</a>
     to log in or 
-    <a href="{% url 'register' %}">here</a>
+    <a href="{% url 'users:register' %}">here</a>
     to register
   </p>
 </div>
