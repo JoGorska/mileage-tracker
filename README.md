@@ -2,8 +2,6 @@
 
 [Tank Mileage Tracker](#tank-mileage-tracker)
 
-
-
 [UX](#ux)
 + [User Stories](#user-stories)
 + [Wireframes](#wireframes)
@@ -223,20 +221,19 @@ I started tidying up HTML code by searching for a beautifyier for HTML code. I t
 
 I have right clicked on the rendered page and copied the code of each page into [HTML validator](https://validator.w3.org/nu/#textarea)
 
+
+| Page  |  result
+| ------ | ------ |
+|  [Index](static/img/readme/HTML-validator/HTML-validator-01-index.pdf) |  No errors |
+|  [Date pickeer](static/img/readme/HTML-validator/HTML-validator-02-date-picker.pdf)|No errors|
+|  [Drive](static/img/readme/HTML-validator/HTML-validator-03-drive.pdf) |No errors|
+
+
+
 #### Index.html - landing page
  HTML validator No errors 
 #### Drive view cleared all!!!
 
-I have left one error and a several warnings in this view. The screenshots of the issues can be found [here](static/img/readme/HTML-validator-06-drive.png) and the text with marked problematic areas can be found [here](static/img/readme/HTML-validator-07-drive.png).
-
-* The error shows up for `<meta charset="utf-8">` from the head.  w3w validator is complaining that it was found after first 1024 bytes. It seeems that w3w is expecting this to be the first tag in the head. Unfortunately javascript places seems to inject styling at the beggining of the head and pushes meta charset down below it. I found interesting article [here](https://dev.to/maggiecodes_/why-is-lt-meta-charset-utf-8-gt-important-59hl#:~:text=Furthermore%2C%20most%20browsers%20use%20UTF,There%20you%20have%20it.) why this tag is important.
-
-I tried to reasearch about google autocomplete causing errors when validating HTML, but all results have been pointing to errors within google autocomplete, not HTML validation errors. 
-
-* It seems that jquery cdn script is injecting the script below the title inside the head. This script contains the below expressions, which showed up as warnings in html validator: 
-- charset attribute on the script being obselete 
-- type attribute is unnecessary for JavaScript resources.
-I tried various different cdn links for jquery, they all had same effect as this one. 
 
 #### Day report
 all errors cleared
@@ -638,7 +635,20 @@ I have decided to duplicate the form three times and include 3 versions of the w
 ### W3W validator returned <button> must not be descendant of <a>
 solution found on [stack overflow](https://stackoverflow.com/questions/6393827/can-i-nest-a-button-element-inside-an-a-using-html5)
 
+### W3W validator returning errors on drive and user profile pages:
 
+I struggled with one error and a several warnings in this view. The screenshots of the issues can be found [here](static/img/readme/HTML-validator/HTML-validator-06-drive.png) and the text with marked problematic areas can be found [here](static/img/readme/HTML-validator/HTML-validator-07-drive.png).
+
+* The error shows up for `<meta charset="utf-8">` from the head.  w3w validator is complaining that it was found after first 1024 bytes. It seeems that w3w is expecting this to be the first tag in the head. Unfortunately javascript places seems to inject styling at the beggining of the head and pushes meta charset down below it. I found interesting article [here](https://dev.to/maggiecodes_/why-is-lt-meta-charset-utf-8-gt-important-59hl#:~:text=Furthermore%2C%20most%20browsers%20use%20UTF,There%20you%20have%20it.) why this tag is important.
+
+I tried to reasearch about google autocomplete causing errors when validating HTML, but all results have been pointing to errors within google autocomplete, not HTML validation errors. 
+
+* It seems that jquery cdn script is injecting the script below the title inside the head. This script contains the below expressions, which showed up as warnings in html validator: 
+- charset attribute on the script being obselete 
+- type attribute is unnecessary for JavaScript resources.
+I tried various different cdn links for jquery, they all had same effect as this one. 
+
+Solution was found by another student Dom Quail He has suggested to right click on the page and get to source code and copy the html from there. I was copying the HTML code from inspect the page -> edit as HTML and paste it to validator. Once I copied HTML from the source code - the validator wasn't raising the above errors and it found other errors that were not raised previously. 
 
 ## Deployment
 
