@@ -9,7 +9,7 @@
   </h1>
 </div>
 {% if user.is_authenticated %} 
-<form action="" method="POST" class="container my-3 py-3">
+<form action="#" method="POST" class="container my-3 py-3">
   {% csrf_token %}
   <fieldset>
     <legend class="mb-5 pb-3">{{date_to_string}} total {{sum_miles_day}} miles

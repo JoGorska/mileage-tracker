@@ -27,7 +27,7 @@
 </div>
 <div class="container">
     <!-- form to choose the date -->
-  <form class="mt-5 mb-5" action="" method="POST">
+  <form class="mt-5 mb-5" action="#" method="POST">
     {% csrf_token %}
     <div class="row mb-5">
       <div class="col">
@@ -46,6 +46,14 @@
 <div class="container pt-3 mt-4 mb-5">
   <h2>You need to log in to access this page.
   </h2>
+  <p class="pt-3 my-3">
+    Click
+
+    <a href="{% url 'users:login' %}?next/">here</a>
+    to log in or 
+    <a href="{% url 'users:register' %}">here</a>
+    to register
+  </p>
 </div>
 {% endif %}
 {% endblock %}
