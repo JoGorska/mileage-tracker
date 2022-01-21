@@ -31,10 +31,12 @@
     {% include 'partials/svg-symbols.html' %}
     {% include 'partials/nav-big.html' %} 
     {% include 'partials/nav-mobile.html' %}        
-    <main class="flex-shrink-0">
+    <main>
+      <div  class="flex-shrink-0">
       {% block content %}
       <!-- Content Goes here -->
       {% endblock content %}
+      </div>
     </main>
     <!--Footer-->
     <footer class="footer mt-auto py-3 bg-warning">
@@ -53,7 +55,7 @@
     </script>
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    </script>
+
     <!-- This allows us to extend the footer and add different scripts for each page -->
     {% block extend_footer %}
     {% endblock %}

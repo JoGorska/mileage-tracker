@@ -58,7 +58,7 @@
         <!-- card body -->
         <div class="card-body">
           <!-- Modal Trigger -->
-          <div  class="" data-bs-toggle="modal" data-bs-target="#id-modal-{{trafficmessage.id}}" data-bs-toggle="modal" data-bs-show="true">
+          <div  class="" data-bs-toggle="modal" data-bs-target="#id-modal-{{trafficmessage.id}}" data-bs-show="true">
             <p class="card-text fs-5 text">{{trafficmessage.area}} in {{trafficmessage.county}} (more)
             </p>
           </div>
@@ -107,14 +107,14 @@
       <div class="modal-body">
         <h4>{{trafficmessage.content}}
         </h4>
-        <p class="red-text">From: {{trafficmessage.author.first_name}} on {{trafficmessage.created_on}}
+        <p>From: {{trafficmessage.author.first_name}} on {{trafficmessage.created_on}}
         </p>
       </div>
       <div class="modal-footer">
         {% if user.is_authenticated %}
         <form action="{% url 'msg_thanks' id=trafficmessage.id %}" class="d-inline" method="POST">
           {% csrf_token %}
-          <button class="btn btn-warning" type="submit" name="traffic_message_id" value="{{trafficmessage.id}}" class="btn btn-success">Tank you!
+          <button class="btn btn-warning" type="submit" name="traffic_message_id" value="{{trafficmessage.id}}">Tank you!
           </button>
         </form>
         {% endif %}
