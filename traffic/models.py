@@ -118,13 +118,19 @@ COUNTY_CHOICES = [
 
 
 class TrafficMessage(models.Model):
+    '''
+    Traffic message model to record traffic alerts posted by the drivers
+    '''
     area = models.CharField(max_length=200, unique=False)
-    county = models.CharField(max_length=200, choices=COUNTY_CHOICES, default='northamptonshire')
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="traffic_messages")
+    county = models.CharField(max_length=200, choices=COUNTY_CHOICES,
+                              default='northamptonshire')
+    author = models.ForeignKey(User, on_delete=models.CASCADE,
+                               related_name="traffic_messages")
     created_on = models.DateTimeField(auto_now=True)
     updated_on = models.DateTimeField(auto_now=True)
     content = models.TextField()
-    category = models.CharField(max_length=200, choices=CATEGORY_CHOICES, default='queueing traffic')
+    category = models.CharField(max_length=200, choices=CATEGORY_CHOICES,
+                                default='queueing traffic')
     status = models.IntegerField(choices=STATUS_CHOICES, default=0)
     thanks = models.ManyToManyField(User, related_name='thanks', blank=True)
     cleared = models.ManyToManyField(User, related_name='cleared', blank=True)
@@ -134,7 +140,8 @@ class TrafficMessage(models.Model):
         ordering = ['-created_on']
 
     def __str__(self):
-        return f"Reported {self.category} in the area {self.area} in {self.county}"
+        return (f"Reported {self.category} in the area {self.area}"
+                f"in {self.county}")
 
     def number_of_thanks(self):
         return self.thanks.count()
