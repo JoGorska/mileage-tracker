@@ -1,7 +1,5 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic.edit import CreateView
-# FormView
-# from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate, login
@@ -11,42 +9,45 @@ from .models import UserProfile
 from .forms import (
     UserForm,
     UserProfileForm,
-    )
+)
 
 
 class RegisterUserView(CreateView):
-    '''
+    """
     class view to register user as a build in User model from django
-    '''
-    template_name = 'users/register.html'
+    """
+
+    template_name = "users/register.html"
     form_class = UserForm
-    success_url = reverse_lazy('users:user_profile')
+    success_url = reverse_lazy("users:user_profile")
 
     def form_valid(self, form):
         form.save()
-        new_user = authenticate(username=form.cleaned_data['username'],
-                                password=form.cleaned_data['password1'],
-                                )
+        new_user = authenticate(
+            username=form.cleaned_data["username"],
+            password=form.cleaned_data["password1"],
+        )
         login(self.request, new_user)
         return HttpResponseRedirect(self.success_url)
 
 
 class UserProfileView(CreateView):
-    '''
+    """
     view to register UserProfile once the user has registered
-    '''
-    template_name = 'users/user_profile.html'
+    """
+
+    template_name = "users/user_profile.html"
     form_class = UserProfileForm
-    success_url = 'home'
+    success_url = "home"
 
     def get(self, request, *args, **kwargs):
 
         return render(
             request,
-            'users/user_profile.html',
+            "users/user_profile.html",
             {
-                'user_profile_form': UserProfileForm(),
-                'google_api_key': settings.GOOGLE_API_KEY
+                "user_profile_form": UserProfileForm(),
+                "google_api_key": settings.GOOGLE_API_KEY,
             },
         )
 
@@ -63,29 +64,30 @@ class UserProfileView(CreateView):
 
             user_profile = user_profile_form.save(commit=False)
             user_profile.save()
-        
+
         else:
             user_profile_form = UserProfileForm()
 
-        return HttpResponseRedirect('/')
+        return HttpResponseRedirect("/")
+
 
 
 class EditProfile(CreateView):
-    '''
+    """
     view to edit or add UserProfile once the user has registered as a User
-    '''
+    """
     def get(self, request, user_id, *args, **kwargs):
 
         model = UserProfile
         profile_instance_list = UserProfile.objects.filter(profile_of_user=user_id)
-        print(f'LIST OF INSTANCES {profile_instance_list}')
+        print(f"LIST OF INSTANCES {profile_instance_list}")
         if len(profile_instance_list) == 0:
             return render(
                 request,
-                'users/user_profile.html',
+                "users/user_profile.html",
                 {
-                    'user_profile_form': UserProfileForm(),
-                    'google_api_key': settings.GOOGLE_API_KEY
+                    "user_profile_form": UserProfileForm(),
+                    "google_api_key": settings.GOOGLE_API_KEY,
                 },
             )
         else:
@@ -93,10 +95,10 @@ class EditProfile(CreateView):
 
             return render(
                 request,
-                'users/user_profile.html',
+                "users/user_profile.html",
                 {
-                    'user_profile_form': UserProfileForm(instance=profile_instance),
-                    'google_api_key': settings.GOOGLE_API_KEY
+                    "user_profile_form": UserProfileForm(instance=profile_instance),
+                    "google_api_key": settings.GOOGLE_API_KEY,
                 },
             )
 
@@ -117,23 +119,28 @@ class EditProfile(CreateView):
             else:
                 edited_profile = profile_instance_list[0]
 
-                edited_profile.employer_organization = request.POST.get('employer_organization')
-                edited_profile.employer_email = request.POST.get('employer_email')
-                edited_profile.employee_ref_number = request.POST.get('employee_ref_number')
-                edited_profile.address = request.POST.get('address')
-                edited_profile.longitude = request.POST.get('longitude')
-                edited_profile.latitude = request.POST.get('latitude')
-                edited_profile.save(update_fields=[
-       
-                                                'employer_organization',
-                                                'employer_email',
-                                                'employee_ref_number',
-                                                'address',
-                                                'longitude',
-                                                'latitude'
-                                                ])
-        
+                edited_profile.employer_organization = request.POST.get(
+                    "employer_organization"
+                )
+                edited_profile.employer_email = request.POST.get("employer_email")
+                edited_profile.employee_ref_number = request.POST.get(
+                    "employee_ref_number"
+                )
+                edited_profile.address = request.POST.get("address")
+                edited_profile.longitude = request.POST.get("longitude")
+                edited_profile.latitude = request.POST.get("latitude")
+                edited_profile.save(
+                    update_fields=[
+                        "employer_organization",
+                        "employer_email",
+                        "employee_ref_number",
+                        "address",
+                        "longitude",
+                        "latitude",
+                    ]
+                )
+
         else:
             user_profile_form = UserProfileForm()
 
-        return HttpResponseRedirect('/')
+        return HttpResponseRedirect("/")
