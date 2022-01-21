@@ -227,32 +227,13 @@ I have right clicked on the rendered page and copied the code of each page into 
 |  [Index](static/img/readme/HTML-validator/HTML-validator-01-index.pdf) |  No errors |
 |  [Date pickeer](static/img/readme/HTML-validator/HTML-validator-02-date-picker.pdf)|No errors|
 |  [Drive](static/img/readme/HTML-validator/HTML-validator-03-drive.pdf) |No errors|
+|  [Day Report](static/img/readme/HTML-validator/HTML-validator-04-day-report.pdf) |No errors|
+|  [New Traffic Alert](static/img/readme/HTML-validator/HTML-validator-05-new-traffic-alert.pdf) |No errors|
+|  [Login](static/img/readme/HTML-validator/HTML-validator-06-users-login.pdf) |No errors|
+|  [Register](static/img/readme/HTML-validator/HTML-validator-06-users-register.pdf) |No errors|
+|  [User Profile](static/img/readme/HTML-validator/HTML-validator-07-users-profile.pdf) |No errors|
 
 
-
-#### Index.html - landing page
- HTML validator No errors 
-#### Drive view cleared all!!!
-
-
-#### Day report
-all errors cleared
-
-#### Register
-All errors cleared
-#### Login
-No errors found
-
-#### UserProfile
-
-* returns the same errors like drive - with `<meta charset="utf-8">` being too low down in the head 
-* it also returns lots of identical warnings 
-- The type attribute is unnecessary for JavaScript resources.
-- The charset attribute on the script element is obsolete.
-
-#### Add Traffic Alert view
-
-* All errors cleared
 
 ### JavaScript validation with jshint
 Javascript code validation was complited on [jshint](https://jshint.com/)
@@ -260,7 +241,14 @@ Initialy it was returning errors in relation of ES6 syntax, which was resolved b
 ```
 /*jshint esversion: 6*/
 ```
-Unfortunately it has been also returning errors connected with the use of JQuery, which I have not managed to resolve.
+
+| Page  |  result
+| ------ | ------ |
+|  [Google Places](static/img/readme/JSHint-google-places.pdf) |  two warnings |
+|  [User Profile](static/img/readme/JSHint-user-profile.pdf) |  two warnings |
+
+
+Unfortunately it has been also returning errors connected with the use of JQuery, which I have not managed to resolve. It claims I have 3 undefined variables '$', 'google-api-key', 'google'.
 
 
 I have left two warnings in the code, which do not seem to have affected the working of the code
