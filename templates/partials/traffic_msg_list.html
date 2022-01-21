@@ -9,7 +9,7 @@
         <!-- card header -->
         {% if user.is_authenticated %}
         <!-- card header  for authorised users -->
-        <form action="{% url 'msg_thanks' id=trafficmessage.id %}" class="d-inline" method="POST">
+        <form action="{% url 'msg_thanks' msg_id=trafficmessage.id %}" class="d-inline" method="POST">
           {% csrf_token %}
           <div class="card-header">
             <div class="row">
@@ -112,7 +112,7 @@
       </div>
       <div class="modal-footer">
         {% if user.is_authenticated %}
-        <form action="{% url 'msg_thanks' id=trafficmessage.id %}" class="d-inline" method="POST">
+        <form action="{% url 'msg_thanks' msg_id=trafficmessage.id %}" class="d-inline" method="POST">
           {% csrf_token %}
           <button class="btn btn-warning" type="submit" name="traffic_message_id" value="{{trafficmessage.id}}">Tank you!
           </button>
