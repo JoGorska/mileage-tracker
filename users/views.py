@@ -57,7 +57,7 @@ class UserProfileView(CreateView):
         if user_profile_form.is_valid():
 
             user_id = request.user.id
-            model = User
+
             user_object = get_object_or_404(User, id=user_id)
             user_profile_form.instance.profile_of_user = user_object
             user_profile_form.instance.has_profile = True
@@ -71,16 +71,13 @@ class UserProfileView(CreateView):
         return HttpResponseRedirect("/")
 
 
-
 class EditProfile(CreateView):
     """
     view to edit or add UserProfile once the user has registered as a User
     """
     def get(self, request, user_id, *args, **kwargs):
-
-        model = UserProfile
-        profile_instance_list = UserProfile.objects.filter(profile_of_user=user_id)
-        print(f"LIST OF INSTANCES {profile_instance_list}")
+        profile_instance_list = UserProfile.objects.filter(
+                                    profile_of_user=user_id)
         if len(profile_instance_list) == 0:
             return render(
                 request,
@@ -97,19 +94,20 @@ class EditProfile(CreateView):
                 request,
                 "users/user_profile.html",
                 {
-                    "user_profile_form": UserProfileForm(instance=profile_instance),
+                    "user_profile_form": UserProfileForm(
+                                instance=profile_instance),
                     "google_api_key": settings.GOOGLE_API_KEY,
                 },
             )
 
     def post(self, request, user_id, *args, **kwargs):
-        model = UserProfile
-        profile_instance_list = UserProfile.objects.filter(profile_of_user=user_id)
+        profile_instance_list = UserProfile.objects.filter(
+                                    profile_of_user=user_id)
         user_profile_form = UserProfileForm(data=request.POST)
         if user_profile_form.is_valid():
             if len(profile_instance_list) == 0:
                 user_id = request.user.id
-                model = User
+
                 user_object = get_object_or_404(User, id=user_id)
                 user_profile_form.instance.profile_of_user = user_object
                 user_profile_form.instance.has_profile = True
@@ -122,7 +120,9 @@ class EditProfile(CreateView):
                 edited_profile.employer_organization = request.POST.get(
                     "employer_organization"
                 )
-                edited_profile.employer_email = request.POST.get("employer_email")
+                edited_profile.employer_email = request.POST.get(
+                    "employer_email"
+                )
                 edited_profile.employee_ref_number = request.POST.get(
                     "employee_ref_number"
                 )
