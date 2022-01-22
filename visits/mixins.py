@@ -1,8 +1,6 @@
-from django.conf import settings
-import requests
-import json
 import re
-from datetime import datetime
+import requests
+from django.conf import settings
 
 
 def Directions(*args, **kwargs):
@@ -20,12 +18,12 @@ def Directions(*args, **kwargs):
     destination = f'{lat_b},{long_b}'
 
     result = requests.get(
-                        'https://maps.googleapis.com/maps/api/directions/json?',
-                        params={
-                         'origin': origin,
-                         'destination': destination,
-                         "key": settings.GOOGLE_API_KEY
-                        })
+                    'https://maps.googleapis.com/maps/api/directions/json?',
+                    params={
+                        'origin': origin,
+                        'destination': destination,
+                        "key": settings.GOOGLE_API_KEY
+                    })
 
     directions = result.json()
 
@@ -52,7 +50,7 @@ def Directions(*args, **kwargs):
 
 def extract_postcode(googe_places_full_addr, google_directions_full_addr):
     '''
-    takes a string containing full adress and postcodes and returns postcode 
+    takes a string containing full adress and postcodes and returns postcode
     only checks if postscode can be found in one of the possible matches,
     if no postcode found it returns google_places full address
     Regex from:
