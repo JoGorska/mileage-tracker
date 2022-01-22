@@ -1,0 +1,38 @@
+{% block content %}
+
+{% for trafficmessage in trafficmessage_list %}
+<!-- Modal is generated for each traffic message and called on trigger button click -->
+<div data-bs-show="true" class="modal fade" id="id-modal-{{trafficmessage.id}}" tabindex="-1" aria-labelledby="modal-label-{{trafficmessage.id}}" >
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modal-label-{{trafficmessage.id}}">{{trafficmessage.area}} in {{trafficmessage.county}}
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+        </button>
+      </div>
+      <div class="modal-body">
+        <h4>{{trafficmessage.content}}
+        </h4>
+        <p>From: {{trafficmessage.author.first_name}} on {{trafficmessage.created_on}}
+        </p>
+      </div>
+      <div class="modal-footer">
+        {% if user.is_authenticated %}
+            {% if user not in trafficmessage.thanks.all %}
+            <form action="{% url 'msg_thanks' msg_id=trafficmessage.id %}" class="d-inline" method="POST">
+            {% csrf_token %}
+            <button class="btn btn-warning" type="submit" name="traffic_message_id" value="{{trafficmessage.id}}">Tank you!
+            </button>
+            </form>
+            {% endif %}
+        {% endif %}
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Go Back
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+{% endblock %}
