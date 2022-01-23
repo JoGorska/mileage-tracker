@@ -234,6 +234,9 @@ I have right clicked on the rendered page and copied the code of each page into 
 |  [User Profile](static/img/readme/HTML-validator/HTML-validator-07-users-profile.pdf) |No errors|
 
 
+### CSS ???
+
+No errors were found when passing through the official [W3C validator](https://jigsaw.w3.org/css-validator/). 
 
 ### JavaScript validation with jshint
 Javascript code validation was complited on [jshint](https://jshint.com/)
@@ -256,6 +259,30 @@ I have left two warnings in the code, which do not seem to have affected the wor
 252	Functions declared within loops referencing an outer scoped variable may lead to confusing semantics. (google, $, lat_id, long_id)
 248	The body of a for in should be wrapped in an if statement to filter unwanted properties from the prototype.
 ```
+
+### Python - beautify
+All pages were initialy put through [Python Formatter](https://codebeautify.org/python-formatter-beautifier) which automaticaly sorted most of the too long lines errors. Than the code was checked by pylint and problems were displayed in the console. Once the issues were cleared I have put all code though pep8 validator.
+
+
+| App name  |  file name | result |
+| ------ | ------ |------ |
+| mileage-tracker |  urls.py |  [all ok](static/img/readme/pep8-validator/01-mileage-tracker-urls.txt) |
+| traffic |  admin.py |  [all ok](static/img/readme/pep8-validator/02-traffic-admin.txt) |
+| traffic |  forms.py |  [all ok](static/img/readme/pep8-validator/02-traffic-forms.txt) |
+| traffic |  models.py |  [all ok](static/img/readme/pep8-validator/02-traffic-models.txt) |
+| traffic |  urls.py |  [all ok](static/img/readme/pep8-validator/02-traffic-urls.txt) |
+| traffic |  views.py |  [all ok](static/img/readme/pep8-validator/02-traffic-views.txt) |
+| users |  admin.py |  [all ok](static/img/readme/pep8-validator/03-users-admin.txt) |
+| users |  forms.py |  [all ok](static/img/readme/pep8-validator/03-users-forms.txt) |
+| users |  models.py |  [all ok](static/img/readme/pep8-validator/03-users-models.txt) |
+| users |  urls.py |  [all ok](static/img/readme/pep8-validator/03-users-urls.txt) |
+| users |  views.py |  [all ok](static/img/readme/pep8-validator/03-users-views.txt) |
+| visits |  admin.py |  [all ok](static/img/readme/pep8-validator/04-visits-admin.txt) |
+| visits |  forms.py |  [all ok](static/img/readme/pep8-validator/04-visits-forms.txt) |
+| visits |  mixins.py |  [all ok](static/img/readme/pep8-validator/04-visits-mixins.txt) |
+| visits |  models.py |  [all ok](static/img/readme/pep8-validator/04-visits-models.txt) |
+| visits |  urls.py |  [all ok](static/img/readme/pep8-validator/04-visits-urls.txt) |
+| visits |  views.py |  [all ok](static/img/readme/pep8-validator/04-visits-views.txt) |
 
 
 ### Automated tests
@@ -326,22 +353,7 @@ On the journeys list down below on the page - the current journey is marked with
 
 * user has expressed his worry - why one of the links on the nav bar have become inactive. This was the nav bar link becoming gray instead of white for the current page. It wasn't very intuitive for the user. I changed this feature so the nav link becomes orange for the current page - both for mobile and for desktop nav bar.
 
-## HTML validation
-+ HTML
 
-  Passing the HTML from all templates and base into the W3C Markup Validator no errors or warnings have been found [W3C validator](https://validator.w3.org/).
-
-
-+ CSS
-
-No errors were found when passing through the official [W3C validator](https://jigsaw.w3.org/css-validator/). 
-        
-
-+ JavaScript
-
-Javascript files were tested with the jshint and no errors were been found. 
-
-+ Python
 ## Form validation
 
 Drive view consists of 2 input fields for start and destination adress. For correct functioning of both functions that are fetching google API user needs to input data in a specific way. The form validation guides the user through the process. 
