@@ -44,22 +44,96 @@ Click [here](https://mileage-tracker-app.herokuapp.com/) to live site.
 ### Purpose
 
 Tank mileage tracker accurately tracks and logs business miles by car. User can record mileage on the go, he can also save historic record or calculate mileage for the future journeys. It can be used within UK, it enables users to search via postcode, first line of address or town. Records are being stored in database.
+
+The app conforms with mobile first approach - many of the design decisions were driven by the way the app looks and works for a user of a small mobile phone. 
  
 
 ### User Stories
 
-+ As a user, I would like to be able to …
-[#107](https://github.com/JoGorska/mileage-tracker/issues/107)
+GitHub issues were used to record the user stories. The user stories were categorised into different priorities, as below from highest to lowest:
+"Should Have"
+"Must Have" 
+"Could Have"
+
+[#1](https://github.com/JoGorska/mileage-tracker/issues/1) As a driver I can add postcodes to a list for the current day so that see where I have been on the day
+
+[#2](https://github.com/JoGorska/mileage-tracker/issues/2) As a driver I can have a button to copy postcode and transfer me to google maps so that I can follow google maps without typing postcode second time
+
+[#3](https://github.com/JoGorska/mileage-tracker/issues/3) As a driver I can save each daily route so that do my monthly reporting for my employer database day postcodes miles
+
+[#13](https://github.com/JoGorska/mileage-tracker/issues/13) As a driver I can edit my route that I drove a few days ago so that I can correct any errors
+
+[#14](https://github.com/JoGorska/mileage-tracker/issues/14) As a driver I can if I have completed route of each day of the month so that I could fill in the missing information before reporting
+
+[#15](https://github.com/JoGorska/mileage-tracker/issues/15) As a driver I can have the route I drove automatically calculated so that I know how many miles I drove this day
+
+[#16](https://github.com/JoGorska/mileage-tracker/issues/16) As a returning visitor I can have my own profile so that data I put in is kept private
+
+[#17](https://github.com/JoGorska/mileage-tracker/issues/17) As a frequent visitor  I can see the previous routes that I travelled so that I can have the record of my journeys
+
+[#18](https://github.com/JoGorska/mileage-tracker/issues/18) As a drivers I can leave messages on the portal about problems on the road so that other drivers can avoid the area
+
+[#19](https://github.com/JoGorska/mileage-tracker/issues/19) As a driver I can see if other drivers have posted any messages about traffic issues in the area so that I could avoid getting stuck
+
+[#20](https://github.com/JoGorska/mileage-tracker/issues/20) As a frequent visitor I can stay logged in so that I don't have to type in my login and password every time I visit the website
+
+[#22](https://github.com/JoGorska/mileage-tracker/issues/22) As a driver I can record lots of postcodes that I visited so that have whole of my journey saved
+
+[#23](https://github.com/JoGorska/mileage-tracker/issues/23) As a driver I can say thank you in response to the message about traffic warning so that I can show my gratitude to fellow drivers
+
+[#28](https://github.com/JoGorska/mileage-tracker/issues/28) As a driver I can thank the driver that posted the traffic alert so that the other driver feels appreciated
+
+[#24](https://github.com/JoGorska/mileage-tracker/issues/24) As a driver I can mark traffic warning message as out of date so that other fellow drivers know that the traffic issue was resolved and the area is safe
+
+[#29](https://github.com/JoGorska/mileage-tracker/issues/29) As a driver I can mark the traffic alert - road clear so that other drivers know that the alert doesn't apply any more
+
+This feature was added, than later removed, as it was creating confusion to the testers. Also it was pointed out that google maps will provide most up to date information if the road has cleared or not
+
+[#25](https://github.com/JoGorska/mileage-tracker/issues/25) As a visually impaired visitor I can the project to accommodate my needs so that I can use it with the help of my screen reader
+
+[#26](https://github.com/JoGorska/mileage-tracker/issues/26) As a driver I can access the app on my phone so that I can use it while on the go
+
+[#27](https://github.com/JoGorska/mileage-tracker/issues/27) As a first time user I can browse to find this app publicly available so that use it and share it
 
 
-1.  the information to be clear and informative;
-2.  the website be easy to navigate;
-[[#107](https://github.com/JoGorska/mileage-tracker/issues/107)]
-[#1](https://github.com/JoGorska/mileage-tracker/issues/1)As a driver I can add postcodes to a list for the current day so that see where I have been on the day
-[]
+[#47](https://github.com/JoGorska/mileage-tracker/issues/47) As a driver I can see traffic alerts all the time, when I use app so that I know if there is anything new going on need to add traffic messages view to Drive view
+
+[#64](https://github.com/JoGorska/mileage-tracker/issues/64) As a new user I can see some kind of description so that *understand the meaning of little tanks in the corner of the traffic alert
+
+
+[#71](https://github.com/JoGorska/mileage-tracker/issues/71) As a mobile phone user I can hide nav bar in hamburger button so that the nav bar doesn't hide the website
+
+[#72](https://github.com/JoGorska/mileage-tracker/issues/72) As a new user I can see more details about the makers of the site in the footer so that I can find out more about them
+
+
+
+[#74](https://github.com/JoGorska/mileage-tracker/issues/74) As a frequent user I can click on a button to get the maps so that *I control when I am transferred to map
+
+
+[#78](https://github.com/JoGorska/mileage-tracker/issues/78) As a developer I can see how the app was tested so that I know if the app is robust
+
+
+[#80](https://github.com/JoGorska/mileage-tracker/issues/80) As a developer I can see details how the code was validated so that I know if it is robust pep8 validator html validated css validated javascript validated
+
+[#82](https://github.com/JoGorska/mileage-tracker/issues/82) As a new user I can see explanation on page 404 so that get back to the right page
+
+[#86](https://github.com/JoGorska/mileage-tracker/issues/86) As a frequent user I can choose the date when adding the journey so that I only have to change it once when I update all my journeys for yesterday
+
+
+[#88](https://github.com/JoGorska/mileage-tracker/issues/88) As a frequent user I can see which messages I thanked for so that I don't have to click again to thank them
+
+
+[#106](https://github.com/JoGorska/mileage-tracker/issues/106) As a driver I can have my traffic messages signed with my first name so that my email is kept private
+
+[#107](https://github.com/JoGorska/mileage-tracker/issues/107) As a regular user I can see the summary of miles for the day so that I can put this number in my report, I can check it against the clock on my car
+
+[#108](https://github.com/JoGorska/mileage-tracker/issues/108) As a regular driver I can have only few newest messages when I type my postcodes so that limit endless scrolling
+
+
 
 
 ### Wireframes 
+However I have designed both desktop and mobile wireframes in the same time, but I have taken mobile first approach. This is an app for drivers and it has to look good and work well on a small mobile. 
 
 Wireframes created with [Balsamiq](https://balsamiq.com/wireframes/?gclid=Cj0KCQiAubmPBhCyARIsAJWNpiMYzrk_0rLzl3vgYKRLXwnX7rpqyQiUFdyt3xHGpRiHlZlozwO_pvcaAvUFEALw_wcB). The project was developed from initial wireframes and some modifications were made during the development process to assure better usability. 
 
@@ -84,7 +158,7 @@ Navbar collapses into a hamburger button for easy navigation on mobile devices.
 ### Home page 
 
 Traffic alert design - I've chosen a simple card design from bootstrap. I have also chosen to stack up the cards for larger screens to see two beside each other.
-Since this is an app for driver I have taken the mobile first aproach. This app needs to be comfortable to use by someone that is using mobile phone only. This led to a decision to display only maximum of 4 messages per page. This way the mobile phone user will not have to scroll down too much, but there is an option to go to the next page.
+Since this is an app for driver I have taken the mobile first aproach. This app needs to be comfortable to use by someone that is using mobile phone only. This led to a decision to display only maximum of 6 messages per page. This way the mobile phone user will not have to scroll down too much, but there is an option to go to the next page.
 
 
 ### Drive Page
