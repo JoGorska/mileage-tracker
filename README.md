@@ -28,6 +28,17 @@
 + [Styling map template](#styling-map-template)
 + [Hero image styling](#hero-image-styling)
 + [Road cleared in traffic alerts](#road-cleared-in-traffic-alerts)
++ [UK postcode search](#uk-postcode-search)
++ [Navbar Current Link](#navbar-current-link)
++ [New traffic alert](#new-traffic-alert)
++ [Journey form errors](#journey-form-errors)
++ [Geocoordinates](#geocoordinates)
++ [Postcode extraction](#postcode-extraction)
++ [Edit_journey](#edit_journey)
++ [Traffic_msg_list pagination](#Traffic_msg_list-pagination)
++ [Pre-populated Journey Form](#pre-populated-journey-form)
++ [Button descendant of anchor](#button-descendant-of-anchor)
++ [Source code](#source-code)
 + [Form Fields Styling](#form-fields-styling)
 
 
@@ -606,76 +617,92 @@ The traffic alerts had oryginaly two buttons that were resembling "like" functio
 - number of Thanks wasn't increasing after the button to thank was clicked. I found that closing tag for form was missing.
 - this feature was removed in the final release as the meaning of the icon wasn't obvious and it didn't seem to bring any value to the user. The user can easily check the up to date traffic on google maps. 
 
+### UK postcode search
 
-### User unable to reaserch places using UK postcode
+Drivers in UK are using postcodes (combination of letters and numbers) to get to next location. In UK postcode area is relatively small and google maps takes you ony a few doors down from the right address. It is much quicker to input postccode than type number, road and town.
 
-Drivers in UK are using postcodes (combination of letters and numbers) to get to next location. In uk postcode area is relatively small and google maps takes you ony a few doors down from the right address. It is much quicker to input postccode than type number, road and town.
+Initial function that I found at "Bobby did Coding" has been using full address. After reading extensive documentation I have found out that I only need to replace the word "address" with "postal code". 
 
-Initial function that I found at Bobby did Coding has been using full address. After reading extensive documentation I have found out that I only need to replace the word "address" with "postal code". 
+The function started getting the longtitude and latitude of the given postcode, but I've lost autocomplete functionality. I added the "postal code" as a second argument together with address and now user has ability to input full address and use drop down box or postal code. 
 
-The function started getting the longtitude and latitude of the given postcode, but I've lost autocomplete. I added the "postal code" as a second argument together with address and now user has ability to input full address and use drop down box or postal code. 
-
-Right now user has to click into the field and press enter. This will not work right on the mobile. 
+After this modification user had to click into the field and press enter. This would not work right on the mobile. 
 
 This article [about](https://atomizedobjects.com/blog/javascript/how-to-get-postcodes-from-google-places-and-google-maps/) has helped me understand what sort of data I am getting from google places API. Google documentation can be found [here](https://developers.google.com/maps/documentation/places/web-service/supported_types#table3) that describes exactly what types I can get. 
 
-### Error Invalid block tag on line 113: 'endif', expected 'endblock'. 
+I replaced the word "address" with "regions" and I had full functionality of autocomplete back and also user had ability to search by
+- postcode
+- first line of address
+- name of the town
 
-This error apears in nav bar if I split the `if .. or .. or `to seperate lines. In consequence the `if` statement is very long, but it seemed better to leave it long, than repeat `elif` again and again in seperate lines.
+### Navbar Current Link
 
-### New traffic messages not displaying on the list
+I wanted to ensure that user understands where in the structure of the page he currently is. I have added a feature that changes the color of navbar icon when the user is in the given url. I've done it with multiple `if else` statements. 
 
-Tested if the new messages are being added to database - they are. I logged in to amin and I could see those new messages in admin panel. I found that the new messages have been created as "draft" rater than "published". The filter to display messages checks only for "published". 
+In attempt to simplyfy the template I tried to use `if .. or .. or `. The line of code became very long and unconvenient to read or modify. I tried to split `if... or` to seperate lines. This resulted in an error:
+```
+Error Invalid block tag on line 113: 'endif', expected 'endblock'. 
+```
+I decided that I preffer to have a repeated `if else` statement, rather than an extremly long line of `if or` statement. I have come back to `if else` statement for most of the navbar elements. 
 
-I have change the view that posts the new messages to the database that it sets the published property automaticaly for every new message. This functionality might be expanded and allow user to save draft messages in the future, but due to high paste of changes of traffic I doubt there will be a need for this. 
+### New traffic alert
 
-### List of errors once add journey form was submitted
+One of the testers reported that a new traffic alert is not displaying on the list of messages. I tested if the new messages were being added to database - they were. I logged in to amin and I could see those new messages in the database. I found that the new messages have been created as "draft" rater than "published". The filter to display messages checks only for "published". 
 
-  The for loop `{% for message in messages %}` was generating a few red fields with identical messages. I tried to manipulate with the form_errors object, but the `{% forloop.first %}` seemed quickest solution. 
+I have changed the view function that posts the new messages to the database that it sets the published property automaticaly for every new message. The error with displaying new messages was fixed. The functionality of "draft" and "published" might be expanded in the future to allow user to save draft messages in the future, but due to high paste of changes of traffic I doubt there will be a need for this. 
 
-### Error message that coordinates were not found
+### Journey form errors
 
-I have added Victoria station in London to address destination and once I tried to submitt it I have got error that no latitute or longitude was found. I have added a print statement to get the full list of errors. The error was that the latitude was longer than 10 decimal places, while model was letting maximum of 10. 
+I have created quite robust form validation for the journey form. To have very clear communication to the user - as to what has happened - I have decided to use messages to display errors to the user. Unfortunately for some reason the for loop `{% for message in messages %}` was generating a few red fields with identical messages. I tried to manipulate with the form_errors object, but the `{% forloop.first %}` seemed quickest solution. 
+
+The final solution was that user was transfered to empty form with one message displayed in red square - informing the user of the errors list.
+
+### Geocoordinates
+
+As a part of manual testing I have added "Victoria Station" in London to address destination and once I tried to submit it I have got error that no latitute or longitude was found. I have added a print statement to get the full list of errors. The error was that the latitude was longer than 10 decimal places, while model was letting maximum of 10. 
 
 I have tried to reaserch how many maximum decimal places can be in geocoodinates returned by google places api, but I was not able to find definite answer. 
 
 I have changed the model. I have increased the number of decimal places to 20. I have tested Victoria station in London and the error was cleared. 
 
 
-### Postcode saved in journey object different than google places
+### Postcode extraction
+
+I have noticed that postcode saved in journey object was different than google places.
 
 I have tested postcode "CM23 3DH" and chosen this postcode from drop down list. When I saved the journey, the journey's postcode was showing "CM23 3DP". It is probably somewhere near by, but it is not the postcode I've chosen from drop down box. 
 
 I have changed extract_postcode function in mixins to priorotise extracting postcode from google places full address, only if this one doesn't return postcode, check google directions full address. Once they both fail, the postcode is returned as google places full address. During testing I often chose randomly a town or a venue and in some cases the google places on drop down field did not have postcode at all. 
 
-In normal circumstances driver would record journeys from one postcode to another, not choose the name of the town from the list. 
+It is likely that the app would be used by driver typing one postcode after another, not type name of the town as a destination, as it wouldn't be specific enough. When user types the postcode to search google places - the google places object always contains that particular postcode. This way postcode extraction function will extract exactly intended postcode. 
 
-### Clicking Submit on the Edit_journey url has been adding new journey, not editing the current journey
+### Edit_journey
+Clicking Submit on the Edit_journey url has been adding new journey, not editing the current journey
 
-After testing lots of solutions within EditJourney's post method I have realised that the form is set to AddJourney class every time the page renders. I have added an if statement for the `<form>` element. When url contains edit_journey it will post data to edit_journey url, otherwise it will post data to add_journey url.
+After testing lots of solutions within EditJourney Class post method I have realised that the form is set to AddJourney class every time the page renders. I have added an if statement for the `<form>` element. When url contains edit_journey it will post data to edit_journey url, otherwise it will post data to add_journey url.
 
-### Edit Journey post method return render / return redirect are getting various errors
+After fixing this issue I have realised that Edit Journey post method return render / return redirect are getting various errors. I couldn't display drive template due to those errors.
 
-To fix this issue I have decided that once the user has submitted the changes to the journey, he will need to see the overview of all journeys for the day, therefore I am redirecting him to day report with the date passed as a slug. It is likely that if one visit needs to be edited in the middle of the run, other visits might need updating as well. This way the user will have overview of how the updated list of journeys look for this day. 
+To fix this issue I have decided that once the user has submitted the changes to the journey, he will need to see the overview of all journeys for the day, therefore I am redirecting him to day report with the date passed as a slug. It is likely that if user edited one visit in the middle of his run, other visits might need updating as well. This way the user will have overview of how the updated list of journeys look for this day. 
 
-### traffic_msg_list paginates only in home view
+### Traffic_msg_list pagination
 
-I have tried various settings to enable the pagination, but nothing seemed to have worked. After using the app at a small mobile phone I have decided that it would be a benefit for the user if there is only 3 messages displayed at the time. This seemed a better solution than 6 paginated messages. I also added links to home page to see more messages if user wishes to. 
+The traffic_msg_list template was being paginated only on index.html page. I have tried various settings to enable the pagination, but nothing seemed to have worked. After using the app at a small mobile phone I have decided that it would be a benefit for the user if there is only 3 messages displayed at the time. This seemed a better solution than 6 paginated messages.
 
-### nav bars - setting the current page icon to have darker fonts than other icons
+To fix this error - index page remained paginated, while in drive, the user can only see first 3 messages. I also added links to home page to see more messages if user wishes to. 
 
-I have used If / or statement to change the color of the icon on nav bar  for the current page. Unfortunately when the if / or statement became very long for more complex pages containing many url under the same icon. I tried to cut if / or statement to seperate lines but I got errors that django expected elif or endif. I decided to add multiple elif statements in nav bar, so the code isn't very long. This ment repeating a few lines, but in the same time I was able to see all code in one glance and edit it without scrolling sideways. 
 
-### multible if else statement in drive.html
+### Pre-populated Journey Form
 
-The drive.html template contained multiple if else statements that was making various versions of the page depending on the url on which user currently was. The complexity of the changes made by if else statements was quite significant. The html code became unclear and confusing.
+The drive.html template that displays journey form contained multiple if else statements that was making various versions of the page depending on the url on which user currently was. The complexity of the changes made by if else statements was quite significant. The html code became unclear and confusing.
 
 I have decided to duplicate the form three times and include 3 versions of the whole form, rather than split each part of the form to if else statements. This makes much cleaner structure and comment make it easy to see what is happening where. It is also much easier to spot any html errors if they occur.
 
-### W3W validator returned <button> must not be descendant of <a>
-solution found on [stack overflow](https://stackoverflow.com/questions/6393827/can-i-nest-a-button-element-inside-an-a-using-html5)
+### Button descendant of anchor
+W3W validator returned `<button>` must not be descendant of `<a>`. Solution found on [stack overflow](https://stackoverflow.com/questions/6393827/can-i-nest-a-button-element-inside-an-a-using-html5) This has cleared the error from each page. 
 
-### W3W validator returning errors on drive and user profile pages:
+### Source code
+
+W3W validator returning errors on drive and user profile pages:
 
 I struggled with one error and a several warnings in this view. The screenshots of the issues can be found [here](static/img/readme/HTML-validator/HTML-validator-06-drive.png) and the text with marked problematic areas can be found [here](static/img/readme/HTML-validator/HTML-validator-07-drive.png).
 
@@ -688,7 +715,7 @@ I tried to reasearch about google autocomplete causing errors when validating HT
 - type attribute is unnecessary for JavaScript resources.
 I tried various different cdn links for jquery, they all had same effect as this one. 
 
-Solution was found by another student Dom Quail He has suggested to right click on the page and get to source code and copy the html from there. I was copying the HTML code from inspect the page -> edit as HTML and paste it to validator. Once I copied HTML from the source code - the validator wasn't raising the above errors and it found other errors that were not raised previously. 
+Solution was found by another student Dom Quail He has suggested to right click on the page and get to source code and copy the html from there. I was copying the HTML code from inspect the page -> edit as HTML and paste it to validator. Once I copied HTML from the source code - the validator wasn't raising the above errors.
 
 ### Form fields styling
 Problem with displaying form fields using |as_bootstrap. 
