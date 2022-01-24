@@ -23,6 +23,8 @@
 + [Automated Tests](#automated-tests)
 
 [Project Bugs and Solutions](#project-bugs-and-solutions)
++ [Form Fields Styling](#form-fields-styling)
++ [Link to Google Maps](#link-to-google-maps)
 
 [Deployment](#deployment)
 + [Forking the GitHub Respository](#forking-the-github-repository)
@@ -40,6 +42,7 @@
 Click [here](https://mileage-tracker-app.herokuapp.com/) to live site.  
 
 ## UX
+------
 
 ### Purpose
 
@@ -146,7 +149,8 @@ The design included a long form for user to type addresses in, one after another
 
 The new design includes only one pair of start and destination address. After typing them in, the user saves them and can continue typing next address. In the new design uer can look up a day report that gives him a list of his visits for the day. 
 
-## Existing Features 
+## Existing Features
+------
 
 ### Navbar and Footer
 
@@ -270,16 +274,18 @@ For mobile phone users it is very important they don't have to type the destinat
 
 
 ## Future Features 
-
+------
 
 
 ## Technologies Used
+------
 
 ### Languages Used
 
    + HTML5
    + CSS3
    + JavaScript
+   + jQuery
 
  ### Frameworks Libraries and Programs Used
 
@@ -292,9 +298,10 @@ For mobile phone users it is very important they don't have to type the destinat
 + GitHub:
     GitHub is used to store the project's code after being pushed from Git.
 
----
+
 
 ## Code Validation
+------
 
 ### HTML beautify
 
@@ -495,11 +502,57 @@ Another question is if I should validate if the user inputs date in the future. 
 
 There might be other employers who require some kind of driving plan or predicted mileage from their employers. Employer might have to plan their journey ahead and report planned journey. 
 
----
-
 ## Project Bugs and Solutions:
+------
+### Link to Google Maps
+I had two issues with link to google maps. First issue is that the link opened with no coordinates. This was resolved after reading the documentation. The second issue is the random results of clicking into this link for desktop computer users. 
 
-### Problem with displaying form fields using |as_bootstrap
+When user typed in the start and destination addres and clicked drive, he has the current journey displayed in orange box with an icon of google maps. This icon contains the link. The user should be transferred to google app (on mobile) or google maps website (on desctop computer), unfortunately initialy the google app/website was opening but with no coordinates. The documentation about google maps urls can be found [here](https://developers.google.com/maps/documentation/urls/get-started).
+
+To test the functionality that was described in the documentation I have created a sample url:
+
+```
+
+https://www.google.com/maps/place/47%C2%B035'42.6%22N+122%C2%B019'53.9%22W/@47.5951518,-122.3316393,17z/data=!3m1!4b1!4m5!3m4!1s0x0:0xca3d37fe916595c3!8m2!3d47.5951518!4d-122.3316393
+
+```
+
+This url opens google places and it would require for the user to click directions to be further transfered to google maps and use it as a sat nav. 
+
+I have learned what components the url consists of:
+- beggining of the url: `https://www.google.com/maps/dir/?api=1`
+- the word origin: `&origin=`
+- geocordinates for origin: `latitute%2Clongtitute`
+- the word destination: `&destination=`
+- geocordinates for destination: `latitute%2Clongtitute`
+
+The words latitude and longitude have to be replaced with variables - so the link is dynamicaly generated for each journey. 
+
+Another working example below takes the user to google directions, but both address start and destination is pre set for the user. This would create confusion for mobile phone users as they want to use the google maps as a sat nav.
+```
+https://www.google.com/maps/dir/?api=1&origin=51.8630529%2C0.1755065&destination=52.5000791%2C-0.7110285
+```
+
+The final version of the url contains only destination geocoordinates. This works exactly as planned for mobile phone - the user gets transfered to google maps with the destination pre-filled, while the start address google maps fetches from user's location. The user can immediately use google maps as sat nav. 
+```
+
+https://www.google.com/maps/dir/52.5000892,-0.7110479/52.3970259,-0.7309219/@52.4478939,-0.7700209,12z/data=!3m1!4b1!4m4!4m3!1m1!4e1!1m0
+```
+The link might behive in unpredictable way for desktop computer users. The google directions will try to obtain the user's location - if the user enabled location the app might get his actual location, otherwise it can get start address from unknown source or historic data. This was pointed out by one of the testers. I was unable to recreate this issue on my computer as it is clearly set to see my current location. For desktop computer users - the link should be changed to fetch both start and destination address and display the whole journey for the user. 
+
+The app was not designed or tested for other apps that can be used as sat nav for mobile phone as google maps is most popular app, widely used. 
+
+### Form on map.html not saving data
+
+I created form to save data to create instance of Journey model.
+1. I tried to add data using `<input type="hidden">` but the data wasn't being saved in the form, the view didn't recognize the manualy typed input fields as actual form and wasn't taking the data of those input fields.
+2. I tried to pass arguments in urls, but I strugled to find the right format to pass more than one argument. After reading the documentation I found solution [here](https://docs.djangoproject.com/en/3.2/topics/http/urls/#including-other-urlconfs), example that was given was passing multiple arguments using regular expession. Next step was to write correct expression to send the variables from form to view. I used [this](https://docs.djangoproject.com/en/3.2/topics/http/urls/#examples) example as guidance.
+3. I was able to pass 3 arguments in url. If I tried to add 4th (latitute), I had error return URL not found and the url did not contain data. I wasn't able to establish the reason for this error.
+4. I tried to get the latitute from map_view - latitute and longtitute are loaded on map view to URL, but I could not find the way to pass the arguments from get to post function (from map_view to add_visit)
+5. I came to the conclusion that the latitude and longditute are not essential for user to have, as they are unreadable long number. The user will be needing full address and postcode. I have decided not to post data for latitute and longditute for now. 
+
+### Form fields styling
+Problem with displaying form fields using |as_bootstrap. 
 
 Forms with added |as_bootstrap display neatly on the page, unified with the style of the app. Unfortunately displaying form|as_bootstrap causes that fields display without proper gap between each line. The fields stick too close one above another. The label is nearly touching the field above. 
 
@@ -537,58 +590,8 @@ Even if the above works I would still have to loop throuogh options to display o
 
 For now I decided to leave the forms |as_bootstraps - because they actualy work and display the content and input type correctly. This might need addressing in further development of the site.
 
-### Unable to add "likes" to "cleared"
-User is supposed to have possiblity to marked message as Road clear by clicking "cleared" icon on the traffic alert details view. The function returns error:
-
-'ManyRelatedManager' object has no attribute 'cleared'
-
-The cleared was created 
-
-### requests==2.25.1
-
-requests==2.25.1 was installed and returned error during instalation. Need to check if it affects app in any way. 
-ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.
-dj3-cloudinary-storage 0.0.6 requires requests>=2.26.0, but you have requests 2.25.1 which is incompatible.
-
-### Link to Google Maps opens with no coordinates - resolved
-
-when user sees the preview map, he can click bottom left corner "google" to be transferred to google app (on mobile) or google maps website (on desctop computer), unfortunately at the minute the google app/website opens with no coordinates.
-
-read more:
-https://developers.google.com/maps/documentation/urls/get-started
-
-example url
-
-https://www.google.com/maps/place/47%C2%B035'42.6%22N+122%C2%B019'53.9%22W/@47.5951518,-122.3316393,17z/data=!3m1!4b1!4m5!3m4!1s0x0:0xca3d37fe916595c3!8m2!3d47.5951518!4d-122.3316393
-
-this url opens directions
-
-the final api consists of those elements:
-```
-
-https://www.google.com/maps/dir/?api=1
-&origin=
-latitute
-%2C
-longtitute
-&destination=
-latitute
-%2C
-longtitute
-```
-working example:
-
-https://www.google.com/maps/dir/?api=1&origin=51.8630529%2C0.1755065&destination=52.5000791%2C-0.7110285
 
 
-### Form on map.html not saving data
-
-I created form to save data to create instance of Journey model.
-1. I tried to add data using '<input type="hidden">' but the data wasn't being saved in the form, the view didn't recognize the manualy typed input fields as actual form and wasn't taking the data of those input fields.
-2. I tried to pass arguments in urls, but I strugled to find the right format to pass more than one argument. After reading the documentation I found solution [here](https://docs.djangoproject.com/en/3.2/topics/http/urls/#including-other-urlconfs), example that was given was passing multiple arguments using regular expession. Next step was to write correct expression to send the variables from form to view. I used [this](https://docs.djangoproject.com/en/3.2/topics/http/urls/#examples) example as guidance.
-3. I was able to pass 3 arguments in url. If I tried to add 4th (latitute), I had error return URL not found and the url did not contain data. I wasn't able to establish the reason for this error.
-4. I tried to get the latitute from map_view - latitute and longtitute are loaded on map view to URL, but I could not find the way to pass the arguments from get to post function (from map_view to add_visit)
-5. I came to the conclusion that the latitude and longditute are not essential for user to have, as they are unreadable long number. The user will be needing full address and postcode. I have decided not to post data for latitute and longditute for now. 
 
 ### Problem with static files not loading on deployed site
 
