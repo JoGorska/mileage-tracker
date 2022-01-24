@@ -1,6 +1,10 @@
 from django.contrib import admin
 from .models import UserProfile
 
+
 @admin.register(UserProfile)
-class UserProfile(admin.ModelAdmin):
+class UserProfileAdmin(admin.ModelAdmin):
+    '''
+    class enabling admin see the profiles created by the user
+    '''
     list_display = ('id', 'profile_of_user', 'your_address')

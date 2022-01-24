@@ -1,12 +1,13 @@
-from django.forms import ModelForm
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
 from .models import UserProfile
 
-# forms were created by following Bobby did coding tutorial on Django and Google API
+# forms were created by following Bobby did coding tutorial
+#  on Django and Google API
 # https://github.com/bobby-didcoding/did_django_google_api_tutorial/blob/main/users/models.py
 # and adjusted to the needs of the project
+
 
 class UserForm(UserCreationForm):
     '''
@@ -51,12 +52,34 @@ class UserProfileForm(forms.ModelForm):
 
     '''
     your_address = forms.CharField(max_length=100)
-    longitude = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'readonly': 'readonly', 'placeholder': 'This will fill in automaticaly'}))
-    latitude = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'readonly': 'readonly', 'placeholder': 'This will fill in automaticaly'}))
+
+    longitude = forms.CharField(
+                max_length=50, widget=forms.TextInput(
+                    attrs={
+                            'readonly': 'readonly',
+                            'placeholder': 'This will fill in automaticaly'
+                    }))
+    latitude = forms.CharField(
+                max_length=50, widget=forms.TextInput(
+                    attrs={
+                           'readonly': 'readonly',
+                           'placeholder': 'This will fill in automaticaly'
+                    }))
 
     employer_address = forms.CharField(max_length=100)
-    employer_longitude = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'readonly': 'readonly', 'placeholder': 'This will fill in automaticaly'}))
-    employer_latitude = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'readonly': 'readonly', 'placeholder': 'This will fill in automaticaly'}))
+
+    employer_longitude = forms.CharField(
+                max_length=50, widget=forms.TextInput(
+                    attrs={
+                           'readonly': 'readonly',
+                           'placeholder': 'This will fill in automaticaly'
+                        }))
+    employer_latitude = forms.CharField(
+                max_length=50, widget=forms.TextInput(
+                    attrs={
+                           'readonly': 'readonly',
+                           'placeholder': 'This will fill in automaticaly'
+                        }))
 
     class Meta:
         model = UserProfile
