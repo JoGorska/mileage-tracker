@@ -69,10 +69,12 @@ The app conforms with mobile first approach - many of the design decisions were 
 
 ### User Stories
 
-GitHub issues were used to record the user stories. The user stories were categorised into different priorities, as below from highest to lowest:
-"Should Have"
-"Must Have" 
+GitHub issues were used to record the user stories. The user stories were categorised into different priorities, as below from highest to lowest: "Should Have" "Must Have" 
 "Could Have"
+"Might Have"
+"Won't Have"
+
+#### User stories - visits app
 
 [#1](https://github.com/JoGorska/mileage-tracker/issues/1) As a driver I can add postcodes to a list for the current day so that see where I have been on the day
 
@@ -82,21 +84,29 @@ GitHub issues were used to record the user stories. The user stories were catego
 
 [#13](https://github.com/JoGorska/mileage-tracker/issues/13) As a driver I can edit my route that I drove a few days ago so that I can correct any errors
 
-[#14](https://github.com/JoGorska/mileage-tracker/issues/14) As a driver I can if I have completed route of each day of the month so that I could fill in the missing information before reporting
-
 [#15](https://github.com/JoGorska/mileage-tracker/issues/15) As a driver I can have the route I drove automatically calculated so that I know how many miles I drove this day
+
+[#17](https://github.com/JoGorska/mileage-tracker/issues/17) As a frequent visitor  I can see the previous routes that I travelled so that I can have the record of my journeys
+
+[#22](https://github.com/JoGorska/mileage-tracker/issues/22) As a driver I can record lots of postcodes that I visited so that have whole of my journey saved
+
+[#74](https://github.com/JoGorska/mileage-tracker/issues/74) As a frequent user I can click on a button to get the maps so that I control when I am transferred to map
+
+[#86](https://github.com/JoGorska/mileage-tracker/issues/86) As a frequent user I can choose the date when adding the journey so that I only have to change it once when I update all my journeys for yesterday
+
+[#107](https://github.com/JoGorska/mileage-tracker/issues/107) As a regular user I can see the summary of miles for the day so that I can put this number in my report, I can check it against the clock on my car
+
+#### User stories - users app
 
 [#16](https://github.com/JoGorska/mileage-tracker/issues/16) As a returning visitor I can have my own profile so that data I put in is kept private
 
-[#17](https://github.com/JoGorska/mileage-tracker/issues/17) As a frequent visitor  I can see the previous routes that I travelled so that I can have the record of my journeys
+[#20](https://github.com/JoGorska/mileage-tracker/issues/20) As a frequent visitor I can stay logged in so that I don't have to type in my login and password every time I visit the website
+
+#### User stories - traffic app
 
 [#18](https://github.com/JoGorska/mileage-tracker/issues/18) As a drivers I can leave messages on the portal about problems on the road so that other drivers can avoid the area
 
 [#19](https://github.com/JoGorska/mileage-tracker/issues/19) As a driver I can see if other drivers have posted any messages about traffic issues in the area so that I could avoid getting stuck
-
-[#20](https://github.com/JoGorska/mileage-tracker/issues/20) As a frequent visitor I can stay logged in so that I don't have to type in my login and password every time I visit the website
-
-[#22](https://github.com/JoGorska/mileage-tracker/issues/22) As a driver I can record lots of postcodes that I visited so that have whole of my journey saved
 
 [#23](https://github.com/JoGorska/mileage-tracker/issues/23) As a driver I can say thank you in response to the message about traffic warning so that I can show my gratitude to fellow drivers
 
@@ -108,26 +118,27 @@ GitHub issues were used to record the user stories. The user stories were catego
 
 This feature was added, than later removed, as it was creating confusion to the testers. Also it was pointed out that google maps will provide most up to date information if the road has cleared or not
 
+[#47](https://github.com/JoGorska/mileage-tracker/issues/47) As a driver I can see traffic alerts all the time, when I use app so that I know if there is anything new going on need to add traffic messages view to Drive view
+
+[#88](https://github.com/JoGorska/mileage-tracker/issues/88) As a frequent user I can see which messages I thanked for so that I don't have to click again to thank them
+
+[#106](https://github.com/JoGorska/mileage-tracker/issues/106) As a driver I can have my traffic messages signed with my first name so that my email is kept private
+
+[#108](https://github.com/JoGorska/mileage-tracker/issues/108) As a regular driver I can have only few newest messages when I type my postcodes so that limit endless scrolling
+
+#### User stories - general features
+
 [#25](https://github.com/JoGorska/mileage-tracker/issues/25) As a visually impaired visitor I can the project to accommodate my needs so that I can use it with the help of my screen reader
 
 [#26](https://github.com/JoGorska/mileage-tracker/issues/26) As a driver I can access the app on my phone so that I can use it while on the go
 
 [#27](https://github.com/JoGorska/mileage-tracker/issues/27) As a first time user I can browse to find this app publicly available so that use it and share it
 
-
-[#47](https://github.com/JoGorska/mileage-tracker/issues/47) As a driver I can see traffic alerts all the time, when I use app so that I know if there is anything new going on need to add traffic messages view to Drive view
-
 [#64](https://github.com/JoGorska/mileage-tracker/issues/64) As a new user I can see some kind of description so that *understand the meaning of little tanks in the corner of the traffic alert
-
 
 [#71](https://github.com/JoGorska/mileage-tracker/issues/71) As a mobile phone user I can hide nav bar in hamburger button so that the nav bar doesn't hide the website
 
 [#72](https://github.com/JoGorska/mileage-tracker/issues/72) As a new user I can see more details about the makers of the site in the footer so that I can find out more about them
-
-
-
-[#74](https://github.com/JoGorska/mileage-tracker/issues/74) As a frequent user I can click on a button to get the maps so that *I control when I am transferred to map
-
 
 [#78](https://github.com/JoGorska/mileage-tracker/issues/78) As a developer I can see how the app was tested so that I know if the app is robust
 
@@ -135,21 +146,6 @@ This feature was added, than later removed, as it was creating confusion to the 
 [#80](https://github.com/JoGorska/mileage-tracker/issues/80) As a developer I can see details how the code was validated so that I know if it is robust pep8 validator html validated css validated javascript validated
 
 [#82](https://github.com/JoGorska/mileage-tracker/issues/82) As a new user I can see explanation on page 404 so that get back to the right page
-
-[#86](https://github.com/JoGorska/mileage-tracker/issues/86) As a frequent user I can choose the date when adding the journey so that I only have to change it once when I update all my journeys for yesterday
-
-
-[#88](https://github.com/JoGorska/mileage-tracker/issues/88) As a frequent user I can see which messages I thanked for so that I don't have to click again to thank them
-
-
-[#106](https://github.com/JoGorska/mileage-tracker/issues/106) As a driver I can have my traffic messages signed with my first name so that my email is kept private
-
-[#107](https://github.com/JoGorska/mileage-tracker/issues/107) As a regular user I can see the summary of miles for the day so that I can put this number in my report, I can check it against the clock on my car
-
-[#108](https://github.com/JoGorska/mileage-tracker/issues/108) As a regular driver I can have only few newest messages when I type my postcodes so that limit endless scrolling
-
-
-
 
 ### Wireframes 
 However I have designed both desktop and mobile wireframes in the same time, but I have taken mobile first approach. This is an app for drivers and it has to look good and work well on a small mobile. 
@@ -313,6 +309,7 @@ For mobile phone users it is very important they don't have to type the destinat
     Git was used for version control by utilizing the Gitpod terminal to commit to Git and Push to GitHub.
 + GitHub:
     GitHub is used to store the project's code after being pushed from Git.
++ Django
 
 
 
@@ -755,8 +752,6 @@ when I wrote `<input type="field.widget_type">` the page rendered with exactly t
 Even if the above works I would still have to loop throuogh options to display options in drop down. 
 
 For now I decided to leave the forms |as_bootstraps - because they actualy work and display the content and input type correctly. This might need addressing in further development of the site.
-
-
 
 
 ## Deployment
