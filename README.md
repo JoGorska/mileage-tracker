@@ -3,6 +3,7 @@
 [Tank Mileage Tracker](#tank-mileage-tracker)
 
 [UX](#ux)
++ [Purpose of the app](#purpose)
 + [User Stories](#user-stories)
 + [Wireframes](#wireframes)
 
@@ -40,7 +41,59 @@ Click [here](https://mileage-tracker-app.herokuapp.com/) to live site.
 
 ## UX
 
-The app aims to help the user to record daily mileage for each journey.
+### Purpose
+
+Tank mileage tracker accurately tracks and logs business miles by car. User can record mileage on the go, he can also save historic record or calculate mileage for the future journeys. It can be used within UK, it enables users to search via postcode, first line of address or town. Records are being stored in database.
+ 
+
+### User Stories
+
++ As a user, I would like to be able to …
+[#107](https://github.com/JoGorska/mileage-tracker/issues/107)
+
+
+1.  the information to be clear and informative;
+2.  the website be easy to navigate;
+[[#107](https://github.com/JoGorska/mileage-tracker/issues/107)]
+[#1](https://github.com/JoGorska/mileage-tracker/issues/1)As a driver I can add postcodes to a list for the current day so that see where I have been on the day
+[]
+
+
+### Wireframes 
+
+Wireframes created with [Balsamiq](https://balsamiq.com/wireframes/?gclid=Cj0KCQiAubmPBhCyARIsAJWNpiMYzrk_0rLzl3vgYKRLXwnX7rpqyQiUFdyt3xHGpRiHlZlozwO_pvcaAvUFEALw_wcB). The project was developed from initial wireframes and some modifications were made during the development process to assure better usability. 
+
+[Wireframes initial project](static/img/readme/wireframes/wireframes-v1.pdf)
+Initial design was focused on monthly reporting. I decided to change this do daily reporting and put monthly reporting on the list for the next relese.
+
+The design included a long form for user to type addresses in, one after another. This idea was dropped, as it could run into a danger of loosing the data half way through the journey. I thought it is important that user saves data immediately after he types it in. 
+
+[Wireframes second version](static/img/readme/wireframes/wireframes-v2.pdf)
+
+The new design includes only one pair of start and destination address. After typing them in, the user saves them and can continue typing next address. In the new design uer can look up a day report that gives him a list of his visits for the day. 
+
+## Existing Features 
+
+### Navbar and Footer
+
+* Navbar and footer has been copied from Bootstrap components and adjusted to the needs of the project
+* 
+Navbar collapses into a hamburger button for easy navigation on mobile devices.
++ Footer stays at the bottom of the page. It does not contain any relevant information for the user and if it was made "sticky" it would just take up valuble space on mobile devices screen.
+
+### Home page 
+
+Traffic alert design - I've chosen a simple card design from bootstrap. I have also chosen to stack up the cards for larger screens to see two beside each other.
+Since this is an app for driver I have taken the mobile first aproach. This app needs to be comfortable to use by someone that is using mobile phone only. This led to a decision to display only maximum of 4 messages per page. This way the mobile phone user will not have to scroll down too much, but there is an option to go to the next page.
+
+
+### Drive Page
+
+Drive page is divided into 4 sections
+1. Current journey
+2. form to input start and destination address
+3. List of journeys for the current date
+4. List of traffic messages
 
 Workflow version 1.
 App can be used every day for each journey and the driver can save each route as they go. 
@@ -74,50 +127,6 @@ Because the Tank website forces the user to regular use every day during the who
   - in work messages
   - tracking employer's progres in mileage reporting
   - advertising (if app is to be used commercialy)
-
- 
-
-### User Stories
-
-+ As a user, I would like to be able to …
-[#107](https://github.com/JoGorska/mileage-tracker/issues/107)
-
-
-1.  the information to be clear and informative;
-2.  the website be easy to navigate;
-[[#107](https://github.com/JoGorska/mileage-tracker/issues/107)]
-[#1](https://github.com/JoGorska/mileage-tracker/issues/1)As a driver I can add postcodes to a list for the current day so that see where I have been on the day
-[]
-
-
-### Wireframes 
-
-Wireframes created with Balsamiq. The project was developed from initial wireframes and some modifications were made during the development process to assure better usability. 
-
-[Wireframes](???)
-
-## Existing Features 
-
-### Navbar and Footer
-
-* Navbar and footer has been copied from Bootstrap components and adjusted to the needs of the project
-* 
-Navbar collapses into a hamburger button for easy navigation on mobile devices.
-+ Footer stays at the bottom of the page. It does not contain any relevant information for the user and if it was made "sticky" it would just take up valuble space on mobile devices screen.
-
-### Home page 
-
-Traffic alert design - I've chosen a simple card design from bootstrap. I have also chosen to stack up the cards for larger screens to see two beside each other.
-Since this is an app for driver I have taken the mobile first aproach. This app needs to be comfortable to use by someone that is using mobile phone only. This led to a decision to display only maximum of 4 messages per page. This way the mobile phone user will not have to scroll down too much, but there is an option to go to the next page.
-
-
-### Drive Page
-
-Drive page is divided into 4 sections
-1. Current journey
-2. form to input start and destination address
-3. List of journeys for the current date
-4. List of traffic messages
 
 1. **Current Journey**
   This field displays only if user has come to drive after submitting another journey. The user gets data from the current journey to fill in a accordeon style table with start and destination postcodes and distance. 
