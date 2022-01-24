@@ -34,13 +34,13 @@
 
 # Tank Mileage Tracker
 
-[![showpiece](??? img location)](??? link to live website)
+[![showpiece home page](static/img/readme/screenshots/01_home.png)](https://mileage-tracker-app.herokuapp.com/)
 
-Click [here](???) to live site.  
+Click [here](https://mileage-tracker-app.herokuapp.com/) to live site.  
 
 ## UX
 
-The app aims to record daily mileage for each journey.
+The app aims to help the user to record daily mileage for each journey.
 
 Workflow version 1.
 App can be used every day for each journey and the driver can save each route as they go. 
