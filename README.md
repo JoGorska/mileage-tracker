@@ -68,7 +68,7 @@ Initial design was focused on monthly reporting. I decided to change this do dai
 
 The design included a long form for user to type addresses in, one after another. This idea was dropped, as it could run into a danger of loosing the data half way through the journey. I thought it is important that user saves data immediately after he types it in. 
 
-[Wireframes second version](static/img/readme/wireframes/wireframes-v2.pdf)
+[Wireframes final version](static/img/readme/wireframes/wireframes-v2.pdf)
 
 The new design includes only one pair of start and destination address. After typing them in, the user saves them and can continue typing next address. In the new design uer can look up a day report that gives him a list of his visits for the day. 
 
@@ -243,9 +243,9 @@ I have right clicked on the rendered page and copied the code of each page into 
 |  [User Profile](static/img/readme/HTML-validator/HTML-validator-07-users-profile.pdf) |No errors|
 
 
-### CSS ???
+### CSS
 
-No errors were found when passing through the official [W3C validator](https://jigsaw.w3.org/css-validator/). 
+No errors were found when passing through the official [W3C validator](https://jigsaw.w3.org/css-validator/). The copy of the CSS report can be found [here](static/img/readme/CSS-validator.pdf)
 
 ### JavaScript validation with jshint
 Javascript code validation was complited on [jshint](https://jshint.com/)
