@@ -23,8 +23,13 @@
 + [Automated Tests](#automated-tests)
 
 [Project Bugs and Solutions](#project-bugs-and-solutions)
-+ [Form Fields Styling](#form-fields-styling)
 + [Link to Google Maps](#link-to-google-maps)
++ [Static files not loading](#static-files-not-loading)
++ [Styling map template](#styling-map-template)
++ [Hero image styling](#hero-image-styling)
++ [Road cleared in traffic alerts](#road-cleared-in-traffic-alerts)
++ [Form Fields Styling](#form-fields-styling)
+
 
 [Deployment](#deployment)
 + [Forking the GitHub Respository](#forking-the-github-repository)
@@ -542,63 +547,9 @@ The link might behive in unpredictable way for desktop computer users. The googl
 
 The app was not designed or tested for other apps that can be used as sat nav for mobile phone as google maps is most popular app, widely used. 
 
-### Form on map.html not saving data
-
-I created form to save data to create instance of Journey model.
-1. I tried to add data using `<input type="hidden">` but the data wasn't being saved in the form, the view didn't recognize the manualy typed input fields as actual form and wasn't taking the data of those input fields.
-2. I tried to pass arguments in urls, but I strugled to find the right format to pass more than one argument. After reading the documentation I found solution [here](https://docs.djangoproject.com/en/3.2/topics/http/urls/#including-other-urlconfs), example that was given was passing multiple arguments using regular expession. Next step was to write correct expression to send the variables from form to view. I used [this](https://docs.djangoproject.com/en/3.2/topics/http/urls/#examples) example as guidance.
-3. I was able to pass 3 arguments in url. If I tried to add 4th (latitute), I had error return URL not found and the url did not contain data. I wasn't able to establish the reason for this error.
-4. I tried to get the latitute from map_view - latitute and longtitute are loaded on map view to URL, but I could not find the way to pass the arguments from get to post function (from map_view to add_visit)
-5. I came to the conclusion that the latitude and longditute are not essential for user to have, as they are unreadable long number. The user will be needing full address and postcode. I have decided not to post data for latitute and longditute for now. 
-
-### Form fields styling
-Problem with displaying form fields using |as_bootstrap. 
-
-Forms with added |as_bootstrap display neatly on the page, unified with the style of the app. Unfortunately displaying form|as_bootstrap causes that fields display without proper gap between each line. The fields stick too close one above another. The label is nearly touching the field above. 
-
-First tried to loop through each field and use |as_bootstrap, but it was returning error. This ment that I had to prepare the whole html structure of label + input + help + wrapping div with bootstrap classes to acheve bootstrap styling. I added id, name, label information using `field.`. 
-```
-          {% for field in traffic_msg_form %}
-            <div class="mb-3">
-
-                <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
-                <input type="field.widget_type" class="form-control" id="{{ field.id_for_label }}" aria-describedby="{{ field.id_for_label }}-help" name="{{ field.html_name }}">
-                
-                <div id="{{ field.id_for_label }}-help" class="form-text">{{field.errors}}</div>
-
-             </div>
-          {% endfor %}
-```
-All this seemed to work and generated all fields that were needed by django model and set by forms.py, except of input type. The fields with text area or select input type just rendered as if the input type was set to text.
-
-I tried to loop through each field, but the input type doesn't change. Django documentation about input type field ([here](https://docs.djangoproject.com/en/3.2/ref/forms/api/#django.forms.BoundField)) mentiones that field.widget_type should return the type of input.
-
-
-django documentation provides example:
-```
-  {% for field in form %}
-      {% if field.widget_type == 'checkbox' %}
-          # render one way
-      {% else %}
-          # render another way
-      {% endif %}
-    {% endfor %}
-```
-when I wrote `<input type="field.widget_type">` the page rendered with exactly the same `<input type="field.widget_type">`. It did not fill in the apropriate input type for each field. I might have to adjust forms.py to add widgets.
-
-Even if the above works I would still have to loop throuogh options to display options in drop down. 
-
-For now I decided to leave the forms |as_bootstraps - because they actualy work and display the content and input type correctly. This might need addressing in further development of the site.
-
-
-
-
-### Problem with static files not loading on deployed site
-
-Page was displaying white without any css or js files loaded. 
-
+### Static files not loading
+I deployed page to heroku. Page was displaying white without any css or js files loaded. 
 ![deployed site without static files rendering correctly](static/img/readme/static1.png)
-
 
 The below error was displaying on console:
 
@@ -630,27 +581,30 @@ else:
 ```
 `os.environ["DEVELOPMENT"] = "True"` variable needs to be added to env.py file, while in heroku - do not add this variable at all. 
 
-### Problem with styling the map.html template
+### Styling map template
 
-The google javascript api map requires special setting on the body and element that will hold the map:
+In the first release of the project - the user had a possibility to see a map preview. I had initialy lots of problems to make the javascript map load. The google javascript api map requires special setting on the body and element that will hold the map:
 ```
 #map-route {
 height: 100%;
 ```
-
-Unfortunately once the bootstrap css have been applied, this setting was not correct for page to render the map. I have tried to add `!important` but this has not worked. I tried all settings that were working from oryginal map-only.css and set them all as `!important` but this has not worked either. I could see on the developer's tools that map's div was rendering, but the div size was 0px hight. I tried various different settings in dev tools in chrome but none gave right scale of the map. I wasn't able to locate which part of bootstrap's styling needs to be overriden.
+After this settings was applied - the map rendered. Unfortunately once the bootstrap css have been added, this setting was not correct for page to render the map. I have tried to add `!important` but this has not worked. I tried all settings that were working from oryginal map-only.css and set them all as `!important` but this has not worked either. I could see on the developer's tools that map's div was rendering, but the div size was 0px hight. I tried various different settings in dev tools in chrome but none gave right scale of the map. I wasn't able to locate which part of bootstrap's styling needs to be overriden.
 
 In the end I decided to style this page similarly as bootstrap looks - same background color and fonts. I have also styled javascript map in night mode to blend into the overall style of the app. 
 
-### Hero image wondering to the left on the smaller screen sizes
+In the next relese of the app - I decided to drop the map pre-view all together as it was not bringing any value to a mobile phone user and it was forcing the user to do multiple clicks before data was saved and he could input next journey. 
 
-I've noticed when testing responsivness on chrome dev tools that hero image on index.html is moving to the left of the screen, doesn't stay in the middle. I have tested in dev tools various different bootstrap classes and different css properties. The solution was adding some more classes in row div to control the number of columns depending on the screen size (`row row-cols-1 row-cols-sm-1 row-cols-md-1 row-cols-lg-2`), while the col divs will have only `col` class. Previously img div had set col width depending on screen size, while text col div had only settings for large screens. They did not seem to add up to 12 as per bootstrap's standard. I copied the classes from dev tools to the template, which has resolved the issue.
+### Hero image styling
 
-### Road cleared column of the TrafficMessage model
+The hero was copied from Bootstrap examples as a whole item with all styling already applied by bootstra's classes. I've noticed when testing responsivness on chrome dev tools that hero image on index.html is moving to the left of the screen, doesn't stay in the middle. I have tested in dev tools various different bootstrap classes and different css properties. The solution was adding some more classes in row div to control the number of columns depending on the screen size (`row row-cols-1 row-cols-sm-1 row-cols-md-1 row-cols-lg-2`), while the col divs will have only `col` class. Previously img div had set col width depending on screen size, while text col div had only settings for large screens. They did not seem to add up to 12 as per bootstrap's standard. I copied the classes from dev tools to the template, which has resolved the issue.
+
+### Road cleared in traffic alerts
+The traffic alerts had oryginaly two buttons that were resembling "like" functionality on social media platforms. Tank icon is representing "thank you" and two arrows were supposed to represent "road cleared". I have come accross lots of issues with my "road cleared" functionality.
 
 - the number of road cleared has not been displaying on the messages list view - found error in spelling, which has resolved the issue
 - the view that was supposed to submit the `cleared` to the database was returning various different errors. I found missing `filter` method in the view
 - number of Thanks wasn't increasing after the button to thank was clicked. I found that closing tag for form was missing.
+- this feature was removed in the final release as the meaning of the icon wasn't obvious and it didn't seem to bring any value to the user. The user can easily check the up to date traffic on google maps. 
 
 
 ### User unable to reaserch places using UK postcode
@@ -735,6 +689,48 @@ I tried to reasearch about google autocomplete causing errors when validating HT
 I tried various different cdn links for jquery, they all had same effect as this one. 
 
 Solution was found by another student Dom Quail He has suggested to right click on the page and get to source code and copy the html from there. I was copying the HTML code from inspect the page -> edit as HTML and paste it to validator. Once I copied HTML from the source code - the validator wasn't raising the above errors and it found other errors that were not raised previously. 
+
+### Form fields styling
+Problem with displaying form fields using |as_bootstrap. 
+
+Forms with added |as_bootstrap display neatly on the page, unified with the style of the app. Unfortunately displaying form|as_bootstrap causes that fields display without proper gap between each line. The fields stick too close one above another. The label is nearly touching the field above. 
+
+First tried to loop through each field and use |as_bootstrap, but it was returning error. This ment that I had to prepare the whole html structure of label + input + help + wrapping div with bootstrap classes to acheve bootstrap styling. I added id, name, label information using `field.`. 
+```
+          {% for field in traffic_msg_form %}
+            <div class="mb-3">
+
+                <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                <input type="field.widget_type" class="form-control" id="{{ field.id_for_label }}" aria-describedby="{{ field.id_for_label }}-help" name="{{ field.html_name }}">
+                
+                <div id="{{ field.id_for_label }}-help" class="form-text">{{field.errors}}</div>
+
+             </div>
+          {% endfor %}
+```
+All this seemed to work and generated all fields that were needed by django model and set by forms.py, except of input type. The fields with text area or select input type just rendered as if the input type was set to text.
+
+I tried to loop through each field, but the input type doesn't change. Django documentation about input type field ([here](https://docs.djangoproject.com/en/3.2/ref/forms/api/#django.forms.BoundField)) mentiones that field.widget_type should return the type of input.
+
+
+django documentation provides example:
+```
+  {% for field in form %}
+      {% if field.widget_type == 'checkbox' %}
+          # render one way
+      {% else %}
+          # render another way
+      {% endif %}
+    {% endfor %}
+```
+when I wrote `<input type="field.widget_type">` the page rendered with exactly the same `<input type="field.widget_type">`. It did not fill in the apropriate input type for each field. I might have to adjust forms.py to add widgets.
+
+Even if the above works I would still have to loop throuogh options to display options in drop down. 
+
+For now I decided to leave the forms |as_bootstraps - because they actualy work and display the content and input type correctly. This might need addressing in further development of the site.
+
+
+
 
 ## Deployment
 
