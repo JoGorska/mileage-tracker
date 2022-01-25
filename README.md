@@ -6,14 +6,16 @@
 + [Purpose of the app](#purpose)
 + [User Stories](#user-stories)
 + [User Stories for next relese](#User-Stories-for-next-relese)
-
 + [Wireframes](#wireframes)
 
 [Existing Features](#existing-features)
-+ [Navbar](#navbar)
++ [Navbar and Footer](#Navbar-and-Footer)
 + [Home Page](#home-page)
++ [Date Picker](#Date-Picker)
 + [Drive Page](#drive-page)
-+ [Contact Page](#contact-page)
++ [Google APIs](#Google-APIs)
++ [Form validation](#Form-validation)
++ [Day report](#day-report)
 
 [Future Features](#future-features)
 + [Reporting app](#Reporting-app)
@@ -21,7 +23,6 @@
 + [SMS communication app](#SMS-communication-app)
 + [Employer app](#Employer-app)
 + [Traffic app further development](#Traffic-app-further-development)
-
 
 [Technologies Used](#technologies-used)
 + [Languages Used](#languages-used)
@@ -227,15 +228,18 @@ Navbar collapses into a hamburger button for easy navigation on mobile devices.
 Traffic alert design - I've chosen a simple card design from bootstrap. I have also chosen to stack up the cards for larger screens to see two beside each other.
 Since this is an app for driver I have taken the mobile first aproach. This app needs to be comfortable to use by someone that is using mobile phone only. This led to a decision to display only maximum of 6 messages per page. This way the mobile phone user will not have to scroll down too much, but there is an option to go to the next page.
 
+### Date Picker
+
 
 ### Drive Page
 
-Drive page is divided into 4 sections
+**Drive page is divided into 4 sections**
 1. Current journey
 2. form to input start and destination address
 3. List of journeys for the current date
 4. List of traffic messages
 
+**Workflow for Drive**
 Workflow version 1.
 App can be used every day for each journey and the driver can save each route as they go. 
   - log in
@@ -269,7 +273,8 @@ Because the Tank website forces the user to regular use every day during the who
   - tracking employer's progres in mileage reporting
   - advertising (if app is to be used commercialy)
 
-1. **Current Journey**
+ **1. Current Journey**
+
   This field displays only if user has come to drive after submitting another journey. The user gets data from the current journey to fill in a accordeon style table with start and destination postcodes and distance. 
 
   This accordeon button is styled with orange to distinguish it visually from the list of journeys of the day. The button also features an old google maps icon that was taken from [here](https://icons8.com/icon/32215/google-maps-old) The icon is linked up with the destination address of the current journey. 
@@ -282,7 +287,8 @@ Because the Tank website forces the user to regular use every day during the who
 
   Once the user opens the accordeon button he can see the full address start and destination as well as buttons to edit or delete the journey. 
 
-2. **Form to input start and destination address**
+**2. Form to input start and destination address**
+
 javascript validation on input with helper text apearing in red or green
 
 django form validation 
@@ -298,9 +304,12 @@ django validation - error messages
 
 ### Google APIs
 
-In this project I am using 2 google APIs: google Places and google Directions.
+In this project I am using:
+1. Google Places 
+2. Google Directions
+3. Google Maps link
 
-### 1. Google Places API
+**1. Google Places API**
 A javascript function on input shows a drop down box with google logo that contains default addreses based on input so far. The user needs to click into the chosen field in this drop down box. Once the user clicks it the function fetches the geocordinates of this particular location as well as full address. User can change his mind and edit the field, he gets a new dropdown box to choose the address and the function will fetch new geocoordinates. 
 
 Initialy the function was allowing to search by what is called in UK - "fist line of the address" meaning door nubmer, street and town. This has proved to be too much for the UK drivers. They are used to getting the directions by using postcode only. After extensive reading on the subject I have found documentation indicating what the object that I am fetching consists of. Initialy I have found this [article](https://atomizedobjects.com/blog/javascript/how-to-get-postcodes-from-google-places-and-google-maps/) it describes in details - what data I am getting from google places API and what is available. The code was written in react, but the article gave me more in depth understanding of the issue. I have found [Google documentation](https://developers.google.com/maps/documentation/places/web-service/supported_types#table3) that describes the types of data I can get from google places. 
@@ -323,15 +332,81 @@ Edgware Road
 ```
 As a result of this problem I decided on a different solution - to search the results of google places and google directions full address field for a postcode using a regex. Even this method has proven to return some errors. I have found that Victoria Station in London is not returning postcode whether in google places or google directions. In this case the user will get full address in their report instead of the postcode. Those situations are rare and most drivers in the UK use postcodes constantly and residential addresses, rather than train stations. 
 
-### 2. Google Directions API
+**2. Google Directions API**
 A python function takes the geocoordinates from the form and gets the distance between two points on the map. Google Directions returns me a full address of start and destination in a slight different form than google Places. If I search google places for a town I get for examle "Northampton", while google directions would be a full address with street and postcode for a geocoordinates. This means that for the daily report I have a way of obtaining postcodes - either from googe places or google directions version of the full address. 
 
-### 3. Google maps link
+Google directions returns also the distance between two points by car. The car drive mode is default. The returned distance is in km, I have put a function to change to miles and round up to one decimal place. 
+
+From google direction I can also get the time it will take to travel, but I didn't think this feature would be usefull for me. 
+
+**3. Google maps link**
 For mobile phone users it is very important they don't have to type the destination address twice - once in the Tank app and second time in their sat nav. I am assuming most mobile phone users use google maps for their journeys. I have found how to create URL for the user to be transfered to google maps with the direction pre set for him. I am making the user of geocoordinates provided by Google Places API and I build the url using a variables with geocoordinates.
 
-### Contact Page
 
 ### Form validation
+
+Forms validation:
+1. HTML validation using HTML atributes
+2. Javascript validation (only in Drive view)
+3. Django form validation
+4. Question of validating date
+
+Drive view consists of 2 input fields for start and destination adress. For correct functioning of both functions that are fetching google API user needs to input data in a specific way. The form validation guides the user through the process. 
+
+### custom validation attempt
+
+```
+            address_start_form_data = request.POST.get("address_start")
+            address_destination_form_data = request.POST.get("address_destination")
+            address_start = directions["origin"]
+            address_destination = directions["destination"]
+            print(f'form data {address_start_form_data}')
+            print(f'from google direcions {address_start}')
+            if (
+                address_start_form_data == address_start) and (
+                address_destination_form_data == address_destination):
+                
+                print(f'ALL OK ADDRESS ARE IDENTICAL')
+            else:
+                print(f'these fields are different')
+```
+
+
+Unfortunately the print returned the differences that come from two different queries from google
+```
+form google places  Doncaster, UK
+from google direcions 14 Prince's St, Doncaster DN1 2HJ, UK
+```
+- when querying google places - I might get just the town or full address
+- when querying google directions - I am usualy getting full set of data including postcode 
+
+
+**2. javascript validation for Drive**
+
+I have added Javascript function detecting input on the start address and destination address fields. The function adds and removes classes showing the user in red and green if the field is filled in correctly. 
+
+I have also allowed html validation - by adding "required" attribute to both elements.
+
+the "ok" status for both fields is changed by the function handling google places api query. Once the query is completed and data is submited to the fields this function adds and removes classes so it shows user in green that geocoodinates have been found. 
+
+**3. Django validation for Drive (AddJourney)**
+
+If user decides to ignore the above messages from JavaScript, the form gets submitted with some missing data, but django form validation function prevents the item to be submitted to database with missing data. 
+
+The user gets displayed a message describing the error.
+
+The most common error will be submitting form with geocoordinates missing. I decided that I would preffer user not to see geocoordinates as it would be too much information for a little phone application. Geocoordinates would need to be inside not editable input elements anyway. 
+
+I am adding detailed message describing what to do if the drop down input field from google places api doesn't show up. I am also clearing the form data - hopefuly when user types both addresses again, he understands how to do this correctly. 
+
+**Question of validating date**
+I have asked myself qustion - Do I want to thoroughly validate date?
+
+I like the users to have the ability to add the dates in the past. The driver might have forgotted to add mileage daily and he will be forced to back date all entries.
+
+Another question is if I should validate if the user inputs date in the future. I would like to think that this option might be usefull. Some drivers are required to give their employers predicted distance to claim petrol advance. 
+
+I have made the decision not to validate the date at all and allow users to put dates in the future or in the past or choose the current date. The mileage - tracker app can have so many uses that it would be a shame to limit's it's usage. 
 
 ## Future Features 
 ------
@@ -484,9 +559,17 @@ Automated tests have not been created due to time constrains of the project.
 
 ### Manual tests
 
-#### 1. First set of manual testing on Version 1
+#### 1. First set of manual testing on Version 1 (branch Visits)
 
-  * Initial version did not have submit button, but the form has been submitted automaticaly, this was assessed negatively, as the user likes to have control over when he goes to the next page. 
+**Relese main fetures:**
+
+* users app - user was able to register and log in
+* traffic app - user was able to add traffic alerts
+* visits app - drive view: user was able to type in start and destination address, than he was automaticaly transfered to map pre view, where user could add the entry to database and click the link to go to google maps.
+
+**Reported issues:**
+
+  * Initial version did not have submit button, but the form has been submitted automaticaly after the user chose the destination address from dropdown box, this was assessed negatively, as the user likes to have control over when he goes to the next page. 
 
   I have added the button to submit the addresses
 
@@ -518,13 +601,20 @@ Automated tests have not been created due to time constrains of the project.
 
   * Users appraised the dark theme of the website and the general design. 
 
-  * Users didn't like the fact that nav bar wasn't folding into a button for mobile phone. The fact that the icons were troppind down in un organized way was particulary distracting. 
+  * Users didn't like the fact that nav bar wasn't folding into a button for mobile phone. The fact that the icons were dropping down in un organized way was particulary distracting. 
 
-  Since this app is directed for mobile phone users mainly I have build special dedicated nav bar for mobile only. I have used media query to show and hyde the nav bars appropriately.<br>
+  Since this app is directed for mobile phone users mainly I have build special dedicated nav bar for mobile only. I have used media query to show and hyde the nav bars appropriately.
 
 #### 2. Set of tests Version 2 (new-drive branch)
 
-* user spotted error in the link in the button that is supposed to take him to the destination address on google maps.
+**Main features:**
+
+* Rebuild the drive view with drive button and removed map view.
+* Added nav bar for mobile phones
+
+**Reported issues:**
+
+* user spotted error in the link in the button that is supposed to take him to the destination address on google maps. There was no coordinates in the link.
 
 I've noticed that this link has variables that were in previous release, updated variables to up to dates, geocoordinates are now loading correctly.
 
@@ -534,11 +624,19 @@ The user was using particulary small phone - screen witdht 320px
 
 I added autofocus to the start address input element. Hopefuly this will scroll the element automaticaly to the top of the page. 
 
-* footer was covering lots of content of the drive page, fotter was made non sticky as it doesn't contain any vital information that driver would need in every day use.<br>
+* footer was covering lots of content of the drive page, fotter was made non sticky as it doesn't contain any vital information that driver would need in every day use.
 
 #### 3. Sets of tests Version 3
+
+**Main features:**
+* Added option to edit journey
+* Improved footer, to get it to the bottom of each page. 
+* Added little description to explain tank incon and road clear icon in the traffic messages lists view.
+
+**Reporeted issues:**
+
 * edit_journey - was adding new journey, instead of editing it - I fixed this error
-* footer is no longer covering content, but it floats half way through the page - like in date pickers, still floats on login ??? 
+* footer is no longer covering content, but it floats half way through the page - like in date pickers, still floats on login page.
 * user complained that his email is visible when he posts traffic alert - changed this to display first name only.
 * drive template, current journey accodreon - when user clicks on the map - the accordeon automaticaly opens and there is too much information for a small mobile to display. Also once the accordeon on orange box current journey opens, the form to add next journey goes down below and user has to scroll. - changed to div. 
 
@@ -547,65 +645,6 @@ On the journeys list down below on the page - the current journey is marked with
 * user raised concern that two arrows up and down are not clear - only after you hover over them it becomes clear - that they reffer to road clear. User pointed out that any driver would see on google maps how is the current traffic situation and google maps will provide most up to date information if the road has cleared or not. Therefor the little icon and voting "road_clear" is irrelevant and confusing for some users. - I removed road clear icon from the traffic_msg_list template and the "road clear" button from the modal as well as view responsible for adding road clear. It seemed to acheve much cleaner look of the card containing the traffic alert. 
 
 * user has expressed his worry - why one of the links on the nav bar have become inactive. This was the nav bar link becoming gray instead of white for the current page. It wasn't very intuitive for the user. I changed this feature so the nav link becomes orange for the current page - both for mobile and for desktop nav bar.
-
-
-## Form validation
-
-Drive view consists of 2 input fields for start and destination adress. For correct functioning of both functions that are fetching google API user needs to input data in a specific way. The form validation guides the user through the process. 
-
-### custom validation attempt
-
-```
-            address_start_form_data = request.POST.get("address_start")
-            address_destination_form_data = request.POST.get("address_destination")
-            address_start = directions["origin"]
-            address_destination = directions["destination"]
-            print(f'form data {address_start_form_data}')
-            print(f'from google direcions {address_start}')
-            if (
-                address_start_form_data == address_start) and (
-                address_destination_form_data == address_destination):
-                
-                print(f'ALL OK ADDRESS ARE IDENTICAL')
-            else:
-                print(f'these fields are different')
-```
-
-
-Unfortunately the print returned the differences that come from two different queries from google
-```
-form google places  Doncaster, UK
-from google direcions 14 Prince's St, Doncaster DN1 2HJ, UK
-```
-- when querying google places - I might get just the town or full address
-- when querying google directions - I am usualy getting full set of data including postcode 
-
-
-### javascript validation for Drive
-
-I have added Javascript function detecting input on the start address and destination address fields. The function adds and removes classes showing the user in red and green if the field is filled in correctly. 
-
-I have also allowed html validation - by adding "required" attribute to both elements.
-
-the "ok" status for both fields is changed by the function handling google places api query. Once the query is completed and data is submited to the fields this function adds and removes classes so it shows user in green that geocoodinates have been found. 
-
-### Django validation for AddJourney
-
-If user decides to ignore the above messages from JavaScript, the form gets submitted with some missing data, but django form validation function prevents the item to be submitted to database with missing data. 
-
-The user gets displayed a message describing the error.
-
-The most common error will be submitting form with geocoordinates missing. I decided that I would preffer user not to see geocoordinates as it would be too much information for a little phone application. Geocoordinates would need to be inside not editable input elements anyway. 
-
-I am adding detailed message describing what to do if the drop down input field from google places api doesn't show up. I am also clearing the form data - hopefuly when user types both addresses again, he understands how to do this correctly. 
-
-### Do I want to thoroughly validate date
-
-I like the users to have the ability to add the dates in the past. The driver might have forgotted to add mileage daily and he will be forced to back date all entries.
-
-Another question is if I should validate if the user inputs date in the future. I would like to think that this option might be usefull. I am required to submit my mileage on the last day of the month. I would write the report the previous day and submit it to employer once I finish driving. 
-
-There might be other employers who require some kind of driving plan or predicted mileage from their employers. Employer might have to plan their journey ahead and report planned journey. 
 
 ## Project Bugs and Solutions:
 ------
