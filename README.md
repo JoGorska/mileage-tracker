@@ -5,6 +5,8 @@
 [UX](#ux)
 + [Purpose of the app](#purpose)
 + [User Stories](#user-stories)
++ [User Stories for next relese](#User-Stories-for-next-relese)
+
 + [Wireframes](#wireframes)
 
 [Existing Features](#existing-features)
@@ -14,15 +16,48 @@
 + [Contact Page](#contact-page)
 
 [Future Features](#future-features)
++ [Reporting app](#Reporting-app)
++ [Timesheet app](#Timesheet-app)
++ [SMS communication app](#SMS-communication-app)
++ [Employer app](#Employer-app)
++ [Traffic app further development](#Traffic-app-further-development)
+
 
 [Technologies Used](#technologies-used)
 + [Languages Used](#languages-used)
 + [Frameworks, Libraries & Programs Used](#frameworks-libraries-and-programs-used)
 
 [Code Validation](#code-validation)
++ [HTML beautify](#HTML-beautify)
++ [HTML valiation](#HTML-valiation)
++ [CSS validation](#CSS-validation)
++ [JavaScript validation](#JavaScript-validation)
++ [Python beautify](#Python-beautify)
++ [Python validator](#Python-validator)
+
+[Tests](#tests)
 + [Automated Tests](#automated-tests)
++ [Manual tests](#Manual-tests)
 
 [Project Bugs and Solutions](#project-bugs-and-solutions)
++ [Link to Google Maps](#link-to-google-maps)
++ [Static files not loading](#static-files-not-loading)
++ [Styling map template](#styling-map-template)
++ [Hero image styling](#hero-image-styling)
++ [Road cleared in traffic alerts](#road-cleared-in-traffic-alerts)
++ [UK postcode search](#uk-postcode-search)
++ [Navbar Current Link](#navbar-current-link)
++ [New traffic alert](#new-traffic-alert)
++ [Journey form errors](#journey-form-errors)
++ [Geocoordinates](#geocoordinates)
++ [Postcode extraction](#postcode-extraction)
++ [Edit_journey](#edit_journey)
++ [Traffic_msg_list pagination](#Traffic_msg_list-pagination)
++ [Pre-populated Journey Form](#pre-populated-journey-form)
++ [Button descendant of anchor](#button-descendant-of-anchor)
++ [Source code](#source-code)
++ [Form Fields Styling](#form-fields-styling)
+
 
 [Deployment](#deployment)
 + [Forking the GitHub Respository](#forking-the-github-repository)
@@ -40,26 +75,131 @@
 Click [here](https://mileage-tracker-app.herokuapp.com/) to live site.  
 
 ## UX
+------
 
 ### Purpose
 
 Tank mileage tracker accurately tracks and logs business miles by car. User can record mileage on the go, he can also save historic record or calculate mileage for the future journeys. It can be used within UK, it enables users to search via postcode, first line of address or town. Records are being stored in database.
+
+The app conforms with mobile first approach - many of the design decisions were driven by the way the app looks and works for a user of a small mobile phone. 
  
 
 ### User Stories
 
-+ As a user, I would like to be able to …
-[#107](https://github.com/JoGorska/mileage-tracker/issues/107)
+GitHub issues were used to record the user stories. The user stories were categorised into different priorities, as below from highest to lowest: "Should Have" "Must Have" 
+"Could Have"
+"Might Have"
+"Won't Have"
+
+#### User stories - visits app
+
+[#1](https://github.com/JoGorska/mileage-tracker/issues/1) As a driver I can add postcodes to a list for the current day so that see where I have been on the day
+
+[#2](https://github.com/JoGorska/mileage-tracker/issues/2) As a driver I can have a button to copy postcode and transfer me to google maps so that I can follow google maps without typing postcode second time
+
+[#3](https://github.com/JoGorska/mileage-tracker/issues/3) As a driver I can save each daily route so that do my monthly reporting for my employer database day postcodes miles
+
+[#13](https://github.com/JoGorska/mileage-tracker/issues/13) As a driver I can edit my route that I drove a few days ago so that I can correct any errors
+
+[#15](https://github.com/JoGorska/mileage-tracker/issues/15) As a driver I can have the route I drove automatically calculated so that I know how many miles I drove this day
+
+[#17](https://github.com/JoGorska/mileage-tracker/issues/17) As a frequent visitor  I can see the previous routes that I travelled so that I can have the record of my journeys
+
+[#22](https://github.com/JoGorska/mileage-tracker/issues/22) As a driver I can record lots of postcodes that I visited so that have whole of my journey saved
+
+[#74](https://github.com/JoGorska/mileage-tracker/issues/74) As a frequent user I can click on a button to get the maps so that I control when I am transferred to map
+
+[#86](https://github.com/JoGorska/mileage-tracker/issues/86) As a frequent user I can choose the date when adding the journey so that I only have to change it once when I update all my journeys for yesterday
+
+[#107](https://github.com/JoGorska/mileage-tracker/issues/107) As a regular user I can see the summary of miles for the day so that I can put this number in my report, I can check it against the clock on my car
+
+#### User stories - users app
+
+[#16](https://github.com/JoGorska/mileage-tracker/issues/16) As a returning visitor I can have my own profile so that data I put in is kept private
+
+[#20](https://github.com/JoGorska/mileage-tracker/issues/20) As a frequent visitor I can stay logged in so that I don't have to type in my login and password every time I visit the website
+
+#### User stories - traffic app
+
+[#18](https://github.com/JoGorska/mileage-tracker/issues/18) As a drivers I can leave messages on the portal about problems on the road so that other drivers can avoid the area
+
+[#19](https://github.com/JoGorska/mileage-tracker/issues/19) As a driver I can see if other drivers have posted any messages about traffic issues in the area so that I could avoid getting stuck
+
+[#23](https://github.com/JoGorska/mileage-tracker/issues/23) As a driver I can say thank you in response to the message about traffic warning so that I can show my gratitude to fellow drivers
+
+[#28](https://github.com/JoGorska/mileage-tracker/issues/28) As a driver I can thank the driver that posted the traffic alert so that the other driver feels appreciated
+
+[#24](https://github.com/JoGorska/mileage-tracker/issues/24) As a driver I can mark traffic warning message as out of date so that other fellow drivers know that the traffic issue was resolved and the area is safe
+
+[#29](https://github.com/JoGorska/mileage-tracker/issues/29) As a driver I can mark the traffic alert - road clear so that other drivers know that the alert doesn't apply any more
+
+This feature was added, than later removed, as it was creating confusion to the testers. Also it was pointed out that google maps will provide most up to date information if the road has cleared or not
+
+[#47](https://github.com/JoGorska/mileage-tracker/issues/47) As a driver I can see traffic alerts all the time, when I use app so that I know if there is anything new going on need to add traffic messages view to Drive view
+
+[#88](https://github.com/JoGorska/mileage-tracker/issues/88) As a frequent user I can see which messages I thanked for so that I don't have to click again to thank them
+
+[#106](https://github.com/JoGorska/mileage-tracker/issues/106) As a driver I can have my traffic messages signed with my first name so that my email is kept private
+
+[#108](https://github.com/JoGorska/mileage-tracker/issues/108) As a regular driver I can have only few newest messages when I type my postcodes so that limit endless scrolling
+
+#### User stories - general features
+
+[#25](https://github.com/JoGorska/mileage-tracker/issues/25) As a visually impaired visitor I can the project to accommodate my needs so that I can use it with the help of my screen reader
+
+[#26](https://github.com/JoGorska/mileage-tracker/issues/26) As a driver I can access the app on my phone so that I can use it while on the go
+
+[#27](https://github.com/JoGorska/mileage-tracker/issues/27) As a first time user I can browse to find this app publicly available so that use it and share it
+
+[#64](https://github.com/JoGorska/mileage-tracker/issues/64) As a new user I can see some kind of description so that *understand the meaning of little tanks in the corner of the traffic alert
+
+[#71](https://github.com/JoGorska/mileage-tracker/issues/71) As a mobile phone user I can hide nav bar in hamburger button so that the nav bar doesn't hide the website
+
+[#72](https://github.com/JoGorska/mileage-tracker/issues/72) As a new user I can see more details about the makers of the site in the footer so that I can find out more about them
+
+[#78](https://github.com/JoGorska/mileage-tracker/issues/78) As a developer I can see how the app was tested so that I know if the app is robust
 
 
-1.  the information to be clear and informative;
-2.  the website be easy to navigate;
-[[#107](https://github.com/JoGorska/mileage-tracker/issues/107)]
-[#1](https://github.com/JoGorska/mileage-tracker/issues/1)As a driver I can add postcodes to a list for the current day so that see where I have been on the day
-[]
+[#80](https://github.com/JoGorska/mileage-tracker/issues/80) As a developer I can see details how the code was validated so that I know if it is robust pep8 validator html validated css validated javascript validated
 
+[#82](https://github.com/JoGorska/mileage-tracker/issues/82) As a new user I can see explanation on page 404 so that get back to the right page
+
+### User Stories for next relese
+
+The following user stories were marked as to be planned for next relese:
+
+#### User stories - Reporting app
+[#4](https://github.com/JoGorska/mileage-tracker/issues/4) As a driver I can have option to get an annual report so that submit my mileage to HRMC
+
+[#21](https://github.com/JoGorska/mileage-tracker/issues/21) As a worker I can have additional safety measures, when accessing the reporting so that if unauthorised person gets hold of my phone, when I am logged in, they don't have access to historic data
+
+#### User stories - Timesheet  app
+[#5](https://github.com/JoGorska/mileage-tracker/issues/5) As a worker I can upload my monthly schedule so that see when is my day off and what time I start work
+
+[#6](https://github.com/JoGorska/mileage-tracker/issues/6) As a worker I can have my schedule automatically applied to the future months so that I know what day off I will have in a few months time
+
+[#7](https://github.com/JoGorska/mileage-tracker/issues/7) As a worker I can print out monthly time sheets on the basis on my schedule so that submit monthly timesheets to myemployer
+
+[#8](https://github.com/JoGorska/mileage-tracker/issues/8) As a worker I can edit monthly time sheet report so that put down the extra days I was off so the report is accurate
+
+#### User stories - SMS communication app
+[#9](https://github.com/JoGorska/mileage-tracker/issues/9) As a worker I can receive SMS reminders so that I remember to switch the app on before starting the shift
+
+[#10](https://github.com/JoGorska/mileage-tracker/issues/10) As a worker I can receive sms reminders so that that monthly mileage report is due to be submitted to my employer
+
+#### User stories - Employer app
+[#11](https://github.com/JoGorska/mileage-tracker/issues/11) As a employer I can see the recorded mileage of each worker so that I could see if someone is behind with their mileage tracking
+
+[#12](https://github.com/JoGorska/mileage-tracker/issues/12) As a HR worker I can copy and paste reports so that I can easily update payroll system with the mileage for each employer
+
+#### User stories - Traffic app further development
+
+[#30](https://github.com/JoGorska/mileage-tracker/issues/30) As a site owner I can edit and delete the traffic alerts so that I can remove inappropriate content
+
+[#58](https://github.com/JoGorska/mileage-tracker/issues/58) As a driver I can see traffic alerts added by other drivers displayed on a map so that see any problems in my area
 
 ### Wireframes 
+However I have designed both desktop and mobile wireframes in the same time, but I have taken mobile first approach. This is an app for drivers and it has to look good and work well on a small mobile. 
 
 Wireframes created with [Balsamiq](https://balsamiq.com/wireframes/?gclid=Cj0KCQiAubmPBhCyARIsAJWNpiMYzrk_0rLzl3vgYKRLXwnX7rpqyQiUFdyt3xHGpRiHlZlozwO_pvcaAvUFEALw_wcB). The project was developed from initial wireframes and some modifications were made during the development process to assure better usability. 
 
@@ -68,11 +208,12 @@ Initial design was focused on monthly reporting. I decided to change this do dai
 
 The design included a long form for user to type addresses in, one after another. This idea was dropped, as it could run into a danger of loosing the data half way through the journey. I thought it is important that user saves data immediately after he types it in. 
 
-[Wireframes second version](static/img/readme/wireframes/wireframes-v2.pdf)
+[Wireframes final version](static/img/readme/wireframes/wireframes-v2.pdf)
 
 The new design includes only one pair of start and destination address. After typing them in, the user saves them and can continue typing next address. In the new design uer can look up a day report that gives him a list of his visits for the day. 
 
-## Existing Features 
+## Existing Features
+------
 
 ### Navbar and Footer
 
@@ -84,7 +225,7 @@ Navbar collapses into a hamburger button for easy navigation on mobile devices.
 ### Home page 
 
 Traffic alert design - I've chosen a simple card design from bootstrap. I have also chosen to stack up the cards for larger screens to see two beside each other.
-Since this is an app for driver I have taken the mobile first aproach. This app needs to be comfortable to use by someone that is using mobile phone only. This led to a decision to display only maximum of 4 messages per page. This way the mobile phone user will not have to scroll down too much, but there is an option to go to the next page.
+Since this is an app for driver I have taken the mobile first aproach. This app needs to be comfortable to use by someone that is using mobile phone only. This led to a decision to display only maximum of 6 messages per page. This way the mobile phone user will not have to scroll down too much, but there is an option to go to the next page.
 
 
 ### Drive Page
@@ -192,20 +333,57 @@ For mobile phone users it is very important they don't have to type the destinat
 
 ### Form validation
 
-
-
-
 ## Future Features 
+------
 
+### Reporting app
 
+Having the visits data in the database allows the future development of various reports
+- month
+- week
+- annual
+
+This could enable driver easy monthly reporting of mileage to the employer or annual report to HMRC
+
+Havig the visits data bears some risk as well. In the report the user can obtain a list of people's addresses including their house number and geolocation. The user stays logged all the time, so if the phone is stolen or lost - someone could access the data on the website. It would be advisable to secure the reporting app with additional safety features. Accessing a few addresses in current day view seems smaller risk, than accessing a full month or year worth of private addresses. Having that said, it might be a safer to get the user to type in password at least once a day for accessing the app.
+
+### Timesheet app
+
+Workers that have rolling shift patterns for their time shedule would find a feature of some kind of timesheets quite usefull. 
+- timesheets reporting - reporting to the employer the work time
+- calendar view - for the worker to check when the next shift is due - having a 4 weekly rolling shedule makes it difficult to make any appointments, as each week is different. The calendar view - that would include the shift pattern would be a great help. 
+- adding abscences and overtime - for the purpose of time sheets reporting to the employer - the app can be set to communicate with visits app - to check if the user has been driving that day and what time. This way app could make suggestions if the worker was off or if he has done overtime.
+
+### SMS communication app
+
+Some drivers might find it helpfull to receive text message reminders to switch their app on when their shift is due to start. Another usefull feature would be to receive sms reminders that monthly / annual report is due.
+
+### Employer app
+
+This app can be very helpful for employers that need to have up to date view of their employees mileage. The employer could see if the workers are keeping their mileage records up to date. There is also a wide area of developing various reports that would help the employer to upload the data for payroll.
+
+### Traffic app further development
+
+Further development of Traffic Alerts can include allowing the site owner to moderate the Traffic Alerts posted by the drivers and remove inapropriate content. 
+
+Another major change that many drivers might find interesting is to allow driver to point on the map where the traffic issue has occured, instead of typing the description. 
+
+The next step would be displaying the traffic alerts in a minature map for other drivers to see as markers or markers clusters. 
+
+### Google AdSense
+The owner of the site will be charged by Google Places API and google Directions API depending on the usage of those APIs. If the cost proves to be great - it might be advisable to look into google AdSense and add some small fields for google ads. There should be also a further option for the users to have paid subscription without ads. 
+
+The google ads connected with cars are quite well priced and due to the repetetive nature of typing the mileage in the Drive page gets refreshed regulary, therefore even one user would generate lots of views of the ads. 
 
 ## Technologies Used
+------
 
 ### Languages Used
 
    + HTML5
    + CSS3
    + JavaScript
+   + jQuery
 
  ### Frameworks Libraries and Programs Used
 
@@ -217,10 +395,12 @@ For mobile phone users it is very important they don't have to type the destinat
     Git was used for version control by utilizing the Gitpod terminal to commit to Git and Push to GitHub.
 + GitHub:
     GitHub is used to store the project's code after being pushed from Git.
++ Django
 
----
+
 
 ## Code Validation
+------
 
 ### HTML beautify
 
@@ -243,11 +423,11 @@ I have right clicked on the rendered page and copied the code of each page into 
 |  [User Profile](static/img/readme/HTML-validator/HTML-validator-07-users-profile.pdf) |No errors|
 
 
-### CSS ???
+### CSS validation
 
-No errors were found when passing through the official [W3C validator](https://jigsaw.w3.org/css-validator/). 
+No errors were found when passing through the official [W3C validator](https://jigsaw.w3.org/css-validator/). The copy of the CSS report can be found [here](static/img/readme/CSS-validator.pdf)
 
-### JavaScript validation with jshint
+### JavaScript validation
 Javascript code validation was complited on [jshint](https://jshint.com/)
 Initialy it was returning errors in relation of ES6 syntax, which was resolved by adding this line to the beggining of the file
 ```
@@ -269,8 +449,10 @@ I have left two warnings in the code, which do not seem to have affected the wor
 248	The body of a for in should be wrapped in an if statement to filter unwanted properties from the prototype.
 ```
 
-### Python - beautify
+### Python beautify
 All pages were initialy put through [Python Formatter](https://codebeautify.org/python-formatter-beautifier) which automaticaly sorted most of the too long lines errors. Than the code was checked by pylint and problems were displayed in the console. Once the issues were cleared I have put all code though pep8 validator.
+
+### Python validator
 
 
 | App name  |  file name | result |
@@ -293,8 +475,12 @@ All pages were initialy put through [Python Formatter](https://codebeautify.org/
 | visits |  urls.py |  [all ok](static/img/readme/pep8-validator/04-visits-urls.txt) |
 | visits |  views.py |  [all ok](static/img/readme/pep8-validator/04-visits-views.txt) |
 
+## Tests
+------
 
 ### Automated tests
+
+Automated tests have not been created due to time constrains of the project.
 
 ### Manual tests
 
@@ -421,11 +607,207 @@ Another question is if I should validate if the user inputs date in the future. 
 
 There might be other employers who require some kind of driving plan or predicted mileage from their employers. Employer might have to plan their journey ahead and report planned journey. 
 
----
-
 ## Project Bugs and Solutions:
+------
+### Link to Google Maps
+I had two issues with link to google maps. First issue is that the link opened with no coordinates. This was resolved after reading the documentation. The second issue is the random results of clicking into this link for desktop computer users. 
 
-### Problem with displaying form fields using |as_bootstrap
+When user typed in the start and destination addres and clicked drive, he has the current journey displayed in orange box with an icon of google maps. This icon contains the link. The user should be transferred to google app (on mobile) or google maps website (on desctop computer), unfortunately initialy the google app/website was opening but with no coordinates. The documentation about google maps urls can be found [here](https://developers.google.com/maps/documentation/urls/get-started).
+
+To test the functionality that was described in the documentation I have created a sample url:
+
+```
+
+https://www.google.com/maps/place/47%C2%B035'42.6%22N+122%C2%B019'53.9%22W/@47.5951518,-122.3316393,17z/data=!3m1!4b1!4m5!3m4!1s0x0:0xca3d37fe916595c3!8m2!3d47.5951518!4d-122.3316393
+
+```
+
+This url opens google places and it would require for the user to click directions to be further transfered to google maps and use it as a sat nav. 
+
+I have learned what components the url consists of:
+- beggining of the url: `https://www.google.com/maps/dir/?api=1`
+- the word origin: `&origin=`
+- geocordinates for origin: `latitute%2Clongtitute`
+- the word destination: `&destination=`
+- geocordinates for destination: `latitute%2Clongtitute`
+
+The words latitude and longitude have to be replaced with variables - so the link is dynamicaly generated for each journey. 
+
+Another working example below takes the user to google directions, but both address start and destination is pre set for the user. This would create confusion for mobile phone users as they want to use the google maps as a sat nav.
+```
+https://www.google.com/maps/dir/?api=1&origin=51.8630529%2C0.1755065&destination=52.5000791%2C-0.7110285
+```
+
+The final version of the url contains only destination geocoordinates. This works exactly as planned for mobile phone - the user gets transfered to google maps with the destination pre-filled, while the start address google maps fetches from user's location. The user can immediately use google maps as sat nav. 
+```
+
+https://www.google.com/maps/dir/52.5000892,-0.7110479/52.3970259,-0.7309219/@52.4478939,-0.7700209,12z/data=!3m1!4b1!4m4!4m3!1m1!4e1!1m0
+```
+The link might behive in unpredictable way for desktop computer users. The google directions will try to obtain the user's location - if the user enabled location the app might get his actual location, otherwise it can get start address from unknown source or historic data. This was pointed out by one of the testers. I was unable to recreate this issue on my computer as it is clearly set to see my current location. For desktop computer users - the link should be changed to fetch both start and destination address and display the whole journey for the user. 
+
+The app was not designed or tested for other apps that can be used as sat nav for mobile phone as google maps is most popular app, widely used. 
+
+### Static files not loading
+I deployed page to heroku. Page was displaying white without any css or js files loaded. 
+![deployed site without static files rendering correctly](static/img/readme/static1.png)
+
+The below error was displaying on console:
+
+![error message on the console](static/img/readme/static2.png)
+
+Tried several solutions:
+
+Not worked:
+
+- import mimetypes - solution found [here](https://stackoverflow.com/questions/35557129/css-not-loading-wrong-mime-type-django) 
+- changes to file path in settings and / or in base.html file, which was suggested in one of the answeres [here](https://stackoverflow.com/questions/48248832/stylesheet-not-loaded-because-of-mime-type)
+
+- assumption that the problem is caused by CSS library starting with comments - solution found [here](https://stackoverflow.com/questions/48248832/stylesheet-not-loaded-because-of-mime-type)
+
+Worked:
+
+- change `DEBUG = False` - solution found [here](https://stackoverflow.com/questions/35557129/css-not-loading-wrong-mime-type-django).
+
+- make DEBUG variable dependable on development variable. If app can find development variable in enviroment - it sets the debug to the value of the variable, if no development variable found - the debug goes to False as default. Solution proposed in [this](https://learn.codeinstitute.net/courses/course-v1:CodeInstitute+FST101+2021_T1/courseware/dc049b343a9b474f8d75822c5fda1582/00bc94313a374f519dbec8dfb7ed0fbd/) Code Institute video. 
+```
+development = os.environ.get('DEVELOPMENT', False)
+
+DEBUG = development
+
+if development:
+    ALLOWED_HOSTS = ['localhost', '127.0.0.1', '127.0.0.1:8000']
+else:
+    ALLOWED_HOSTS = ["mileage-tracker-app.herokuapp.com"]
+```
+`os.environ["DEVELOPMENT"] = "True"` variable needs to be added to env.py file, while in heroku - do not add this variable at all. 
+
+### Styling map template
+
+In the first release of the project - the user had a possibility to see a map preview. I had initialy lots of problems to make the javascript map load. The google javascript api map requires special setting on the body and element that will hold the map:
+```
+#map-route {
+height: 100%;
+```
+After this settings was applied - the map rendered. Unfortunately once the bootstrap css have been added, this setting was not correct for page to render the map. I have tried to add `!important` but this has not worked. I tried all settings that were working from oryginal map-only.css and set them all as `!important` but this has not worked either. I could see on the developer's tools that map's div was rendering, but the div size was 0px hight. I tried various different settings in dev tools in chrome but none gave right scale of the map. I wasn't able to locate which part of bootstrap's styling needs to be overriden.
+
+In the end I decided to style this page similarly as bootstrap looks - same background color and fonts. I have also styled javascript map in night mode to blend into the overall style of the app. 
+
+In the next relese of the app - I decided to drop the map pre-view all together as it was not bringing any value to a mobile phone user and it was forcing the user to do multiple clicks before data was saved and he could input next journey. 
+
+### Hero image styling
+
+The hero was copied from Bootstrap examples as a whole item with all styling already applied by bootstra's classes. I've noticed when testing responsivness on chrome dev tools that hero image on index.html is moving to the left of the screen, doesn't stay in the middle. I have tested in dev tools various different bootstrap classes and different css properties. The solution was adding some more classes in row div to control the number of columns depending on the screen size (`row row-cols-1 row-cols-sm-1 row-cols-md-1 row-cols-lg-2`), while the col divs will have only `col` class. Previously img div had set col width depending on screen size, while text col div had only settings for large screens. They did not seem to add up to 12 as per bootstrap's standard. I copied the classes from dev tools to the template, which has resolved the issue.
+
+### Road cleared in traffic alerts
+The traffic alerts had oryginaly two buttons that were resembling "like" functionality on social media platforms. Tank icon is representing "thank you" and two arrows were supposed to represent "road cleared". I have come accross lots of issues with my "road cleared" functionality.
+
+- the number of road cleared has not been displaying on the messages list view - found error in spelling, which has resolved the issue
+- the view that was supposed to submit the `cleared` to the database was returning various different errors. I found missing `filter` method in the view
+- number of Thanks wasn't increasing after the button to thank was clicked. I found that closing tag for form was missing.
+- this feature was removed in the final release as the meaning of the icon wasn't obvious and it didn't seem to bring any value to the user. The user can easily check the up to date traffic on google maps. 
+
+### UK postcode search
+
+Drivers in UK are using postcodes (combination of letters and numbers) to get to next location. In UK postcode area is relatively small and google maps takes you ony a few doors down from the right address. It is much quicker to input postccode than type number, road and town.
+
+Initial function that I found at "Bobby did Coding" has been using full address. After reading extensive documentation I have found out that I only need to replace the word "address" with "postal code". 
+
+The function started getting the longtitude and latitude of the given postcode, but I've lost autocomplete functionality. I added the "postal code" as a second argument together with address and now user has ability to input full address and use drop down box or postal code. 
+
+After this modification user had to click into the field and press enter. This would not work right on the mobile. 
+
+This article [about](https://atomizedobjects.com/blog/javascript/how-to-get-postcodes-from-google-places-and-google-maps/) has helped me understand what sort of data I am getting from google places API. Google documentation can be found [here](https://developers.google.com/maps/documentation/places/web-service/supported_types#table3) that describes exactly what types I can get. 
+
+I replaced the word "address" with "regions" and I had full functionality of autocomplete back and also user had ability to search by
+- postcode
+- first line of address
+- name of the town
+
+### Navbar Current Link
+
+I wanted to ensure that user understands where in the structure of the page he currently is. I have added a feature that changes the color of navbar icon when the user is in the given url. I've done it with multiple `if else` statements. 
+
+In attempt to simplyfy the template I tried to use `if .. or .. or `. The line of code became very long and unconvenient to read or modify. I tried to split `if... or` to seperate lines. This resulted in an error:
+```
+Error Invalid block tag on line 113: 'endif', expected 'endblock'. 
+```
+I decided that I preffer to have a repeated `if else` statement, rather than an extremly long line of `if or` statement. I have come back to `if else` statement for most of the navbar elements. 
+
+### New traffic alert
+
+One of the testers reported that a new traffic alert is not displaying on the list of messages. I tested if the new messages were being added to database - they were. I logged in to amin and I could see those new messages in the database. I found that the new messages have been created as "draft" rater than "published". The filter to display messages checks only for "published". 
+
+I have changed the view function that posts the new messages to the database that it sets the published property automaticaly for every new message. The error with displaying new messages was fixed. The functionality of "draft" and "published" might be expanded in the future to allow user to save draft messages in the future, but due to high paste of changes of traffic I doubt there will be a need for this. 
+
+### Journey form errors
+
+I have created quite robust form validation for the journey form. To have very clear communication to the user - as to what has happened - I have decided to use messages to display errors to the user. Unfortunately for some reason the for loop `{% for message in messages %}` was generating a few red fields with identical messages. I tried to manipulate with the form_errors object, but the `{% forloop.first %}` seemed quickest solution. 
+
+The final solution was that user was transfered to empty form with one message displayed in red square - informing the user of the errors list.
+
+### Geocoordinates
+
+As a part of manual testing I have added "Victoria Station" in London to address destination and once I tried to submit it I have got error that no latitute or longitude was found. I have added a print statement to get the full list of errors. The error was that the latitude was longer than 10 decimal places, while model was letting maximum of 10. 
+
+I have tried to reaserch how many maximum decimal places can be in geocoodinates returned by google places api, but I was not able to find definite answer. 
+
+I have changed the model. I have increased the number of decimal places to 20. I have tested Victoria station in London and the error was cleared. 
+
+
+### Postcode extraction
+
+I have noticed that postcode saved in journey object was different than google places.
+
+I have tested postcode "CM23 3DH" and chosen this postcode from drop down list. When I saved the journey, the journey's postcode was showing "CM23 3DP". It is probably somewhere near by, but it is not the postcode I've chosen from drop down box. 
+
+I have changed extract_postcode function in mixins to priorotise extracting postcode from google places full address, only if this one doesn't return postcode, check google directions full address. Once they both fail, the postcode is returned as google places full address. During testing I often chose randomly a town or a venue and in some cases the google places on drop down field did not have postcode at all. 
+
+It is likely that the app would be used by driver typing one postcode after another, not type name of the town as a destination, as it wouldn't be specific enough. When user types the postcode to search google places - the google places object always contains that particular postcode. This way postcode extraction function will extract exactly intended postcode. 
+
+### Edit_journey
+Clicking Submit on the Edit_journey url has been adding new journey, not editing the current journey
+
+After testing lots of solutions within EditJourney Class post method I have realised that the form is set to AddJourney class every time the page renders. I have added an if statement for the `<form>` element. When url contains edit_journey it will post data to edit_journey url, otherwise it will post data to add_journey url.
+
+After fixing this issue I have realised that Edit Journey post method return render / return redirect are getting various errors. I couldn't display drive template due to those errors.
+
+To fix this issue I have decided that once the user has submitted the changes to the journey, he will need to see the overview of all journeys for the day, therefore I am redirecting him to day report with the date passed as a slug. It is likely that if user edited one visit in the middle of his run, other visits might need updating as well. This way the user will have overview of how the updated list of journeys look for this day. 
+
+### Traffic_msg_list pagination
+
+The traffic_msg_list template was being paginated only on index.html page. I have tried various settings to enable the pagination, but nothing seemed to have worked. After using the app at a small mobile phone I have decided that it would be a benefit for the user if there is only 3 messages displayed at the time. This seemed a better solution than 6 paginated messages.
+
+To fix this error - index page remained paginated, while in drive, the user can only see first 3 messages. I also added links to home page to see more messages if user wishes to. 
+
+
+### Pre-populated Journey Form
+
+The drive.html template that displays journey form contained multiple if else statements that was making various versions of the page depending on the url on which user currently was. The complexity of the changes made by if else statements was quite significant. The html code became unclear and confusing.
+
+I have decided to duplicate the form three times and include 3 versions of the whole form, rather than split each part of the form to if else statements. This makes much cleaner structure and comment make it easy to see what is happening where. It is also much easier to spot any html errors if they occur.
+
+### Button descendant of anchor
+W3W validator returned `<button>` must not be descendant of `<a>`. Solution found on [stack overflow](https://stackoverflow.com/questions/6393827/can-i-nest-a-button-element-inside-an-a-using-html5) This has cleared the error from each page. 
+
+### Source code
+
+W3W validator returning errors on drive and user profile pages:
+
+I struggled with one error and a several warnings in this view. The screenshots of the issues can be found [here](static/img/readme/HTML-validator/HTML-validator-06-drive.png) and the text with marked problematic areas can be found [here](static/img/readme/HTML-validator/HTML-validator-07-drive.png).
+
+* The error shows up for `<meta charset="utf-8">` from the head.  w3w validator is complaining that it was found after first 1024 bytes. It seeems that w3w is expecting this to be the first tag in the head. Unfortunately javascript places seems to inject styling at the beggining of the head and pushes meta charset down below it. I found interesting article [here](https://dev.to/maggiecodes_/why-is-lt-meta-charset-utf-8-gt-important-59hl#:~:text=Furthermore%2C%20most%20browsers%20use%20UTF,There%20you%20have%20it.) why this tag is important.
+
+I tried to reasearch about google autocomplete causing errors when validating HTML, but all results have been pointing to errors within google autocomplete, not HTML validation errors. 
+
+* It seems that jquery cdn script is injecting the script below the title inside the head. This script contains the below expressions, which showed up as warnings in html validator: 
+- charset attribute on the script being obselete 
+- type attribute is unnecessary for JavaScript resources.
+I tried various different cdn links for jquery, they all had same effect as this one. 
+
+Solution was found by another student Dom Quail He has suggested to right click on the page and get to source code and copy the html from there. I was copying the HTML code from inspect the page -> edit as HTML and paste it to validator. Once I copied HTML from the source code - the validator wasn't raising the above errors.
+
+### Form fields styling
+Problem with displaying form fields using |as_bootstrap. 
 
 Forms with added |as_bootstrap display neatly on the page, unified with the style of the app. Unfortunately displaying form|as_bootstrap causes that fields display without proper gap between each line. The fields stick too close one above another. The label is nearly touching the field above. 
 
@@ -463,201 +845,6 @@ Even if the above works I would still have to loop throuogh options to display o
 
 For now I decided to leave the forms |as_bootstraps - because they actualy work and display the content and input type correctly. This might need addressing in further development of the site.
 
-### Unable to add "likes" to "cleared"
-User is supposed to have possiblity to marked message as Road clear by clicking "cleared" icon on the traffic alert details view. The function returns error:
-
-'ManyRelatedManager' object has no attribute 'cleared'
-
-The cleared was created 
-
-### requests==2.25.1
-
-requests==2.25.1 was installed and returned error during instalation. Need to check if it affects app in any way. 
-ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.
-dj3-cloudinary-storage 0.0.6 requires requests>=2.26.0, but you have requests 2.25.1 which is incompatible.
-
-### Link to Google Maps opens with no coordinates - resolved
-
-when user sees the preview map, he can click bottom left corner "google" to be transferred to google app (on mobile) or google maps website (on desctop computer), unfortunately at the minute the google app/website opens with no coordinates.
-
-read more:
-https://developers.google.com/maps/documentation/urls/get-started
-
-example url
-
-https://www.google.com/maps/place/47%C2%B035'42.6%22N+122%C2%B019'53.9%22W/@47.5951518,-122.3316393,17z/data=!3m1!4b1!4m5!3m4!1s0x0:0xca3d37fe916595c3!8m2!3d47.5951518!4d-122.3316393
-
-this url opens directions
-
-the final api consists of those elements:
-```
-
-https://www.google.com/maps/dir/?api=1
-&origin=
-latitute
-%2C
-longtitute
-&destination=
-latitute
-%2C
-longtitute
-```
-working example:
-
-https://www.google.com/maps/dir/?api=1&origin=51.8630529%2C0.1755065&destination=52.5000791%2C-0.7110285
-
-
-### Form on map.html not saving data
-
-I created form to save data to create instance of Journey model.
-1. I tried to add data using '<input type="hidden">' but the data wasn't being saved in the form, the view didn't recognize the manualy typed input fields as actual form and wasn't taking the data of those input fields.
-2. I tried to pass arguments in urls, but I strugled to find the right format to pass more than one argument. After reading the documentation I found solution [here](https://docs.djangoproject.com/en/3.2/topics/http/urls/#including-other-urlconfs), example that was given was passing multiple arguments using regular expession. Next step was to write correct expression to send the variables from form to view. I used [this](https://docs.djangoproject.com/en/3.2/topics/http/urls/#examples) example as guidance.
-3. I was able to pass 3 arguments in url. If I tried to add 4th (latitute), I had error return URL not found and the url did not contain data. I wasn't able to establish the reason for this error.
-4. I tried to get the latitute from map_view - latitute and longtitute are loaded on map view to URL, but I could not find the way to pass the arguments from get to post function (from map_view to add_visit)
-5. I came to the conclusion that the latitude and longditute are not essential for user to have, as they are unreadable long number. The user will be needing full address and postcode. I have decided not to post data for latitute and longditute for now. 
-
-### Problem with static files not loading on deployed site
-
-Page was displaying white without any css or js files loaded. 
-
-![deployed site without static files rendering correctly](static/img/readme/static1.png)
-
-
-The below error was displaying on console:
-
-![error message on the console](static/img/readme/static2.png)
-
-Tried several solutions:
-
-Not worked:
-
-- import mimetypes - solution found [here](https://stackoverflow.com/questions/35557129/css-not-loading-wrong-mime-type-django) 
-- changes to file path in settings and / or in base.html file, which was suggested in one of the answeres [here](https://stackoverflow.com/questions/48248832/stylesheet-not-loaded-because-of-mime-type)
-
-- assumption that the problem is caused by CSS library starting with comments - solution found [here](https://stackoverflow.com/questions/48248832/stylesheet-not-loaded-because-of-mime-type)
-
-Worked:
-
-- change `DEBUG = False` - solution found [here](https://stackoverflow.com/questions/35557129/css-not-loading-wrong-mime-type-django).
-
-- make DEBUG variable dependable on development variable. If app can find development variable in enviroment - it sets the debug to the value of the variable, if no development variable found - the debug goes to False as default. Solution proposed in [this](https://learn.codeinstitute.net/courses/course-v1:CodeInstitute+FST101+2021_T1/courseware/dc049b343a9b474f8d75822c5fda1582/00bc94313a374f519dbec8dfb7ed0fbd/) Code Institute video. 
-```
-development = os.environ.get('DEVELOPMENT', False)
-
-DEBUG = development
-
-if development:
-    ALLOWED_HOSTS = ['localhost', '127.0.0.1', '127.0.0.1:8000']
-else:
-    ALLOWED_HOSTS = ["mileage-tracker-app.herokuapp.com"]
-```
-`os.environ["DEVELOPMENT"] = "True"` variable needs to be added to env.py file, while in heroku - do not add this variable at all. 
-
-### Problem with styling the map.html template
-
-The google javascript api map requires special setting on the body and element that will hold the map:
-```
-#map-route {
-height: 100%;
-```
-
-Unfortunately once the bootstrap css have been applied, this setting was not correct for page to render the map. I have tried to add `!important` but this has not worked. I tried all settings that were working from oryginal map-only.css and set them all as `!important` but this has not worked either. I could see on the developer's tools that map's div was rendering, but the div size was 0px hight. I tried various different settings in dev tools in chrome but none gave right scale of the map. I wasn't able to locate which part of bootstrap's styling needs to be overriden.
-
-In the end I decided to style this page similarly as bootstrap looks - same background color and fonts. I have also styled javascript map in night mode to blend into the overall style of the app. 
-
-### Hero image wondering to the left on the smaller screen sizes
-
-I've noticed when testing responsivness on chrome dev tools that hero image on index.html is moving to the left of the screen, doesn't stay in the middle. I have tested in dev tools various different bootstrap classes and different css properties. The solution was adding some more classes in row div to control the number of columns depending on the screen size (`row row-cols-1 row-cols-sm-1 row-cols-md-1 row-cols-lg-2`), while the col divs will have only `col` class. Previously img div had set col width depending on screen size, while text col div had only settings for large screens. They did not seem to add up to 12 as per bootstrap's standard. I copied the classes from dev tools to the template, which has resolved the issue.
-
-### Road cleared column of the TrafficMessage model
-
-- the number of road cleared has not been displaying on the messages list view - found error in spelling, which has resolved the issue
-- the view that was supposed to submit the `cleared` to the database was returning various different errors. I found missing `filter` method in the view
-- number of Thanks wasn't increasing after the button to thank was clicked. I found that closing tag for form was missing.
-
-
-### User unable to reaserch places using UK postcode
-
-Drivers in UK are using postcodes (combination of letters and numbers) to get to next location. In uk postcode area is relatively small and google maps takes you ony a few doors down from the right address. It is much quicker to input postccode than type number, road and town.
-
-Initial function that I found at Bobby did Coding has been using full address. After reading extensive documentation I have found out that I only need to replace the word "address" with "postal code". 
-
-The function started getting the longtitude and latitude of the given postcode, but I've lost autocomplete. I added the "postal code" as a second argument together with address and now user has ability to input full address and use drop down box or postal code. 
-
-Right now user has to click into the field and press enter. This will not work right on the mobile. 
-
-This article [about](https://atomizedobjects.com/blog/javascript/how-to-get-postcodes-from-google-places-and-google-maps/) has helped me understand what sort of data I am getting from google places API. Google documentation can be found [here](https://developers.google.com/maps/documentation/places/web-service/supported_types#table3) that describes exactly what types I can get. 
-
-### Error Invalid block tag on line 113: 'endif', expected 'endblock'. 
-
-This error apears in nav bar if I split the `if .. or .. or `to seperate lines. In consequence the `if` statement is very long, but it seemed better to leave it long, than repeat `elif` again and again in seperate lines.
-
-### New traffic messages not displaying on the list
-
-Tested if the new messages are being added to database - they are. I logged in to amin and I could see those new messages in admin panel. I found that the new messages have been created as "draft" rater than "published". The filter to display messages checks only for "published". 
-
-I have change the view that posts the new messages to the database that it sets the published property automaticaly for every new message. This functionality might be expanded and allow user to save draft messages in the future, but due to high paste of changes of traffic I doubt there will be a need for this. 
-
-### List of errors once add journey form was submitted
-
-  The for loop `{% for message in messages %}` was generating a few red fields with identical messages. I tried to manipulate with the form_errors object, but the `{% forloop.first %}` seemed quickest solution. 
-
-### Error message that coordinates were not found
-
-I have added Victoria station in London to address destination and once I tried to submitt it I have got error that no latitute or longitude was found. I have added a print statement to get the full list of errors. The error was that the latitude was longer than 10 decimal places, while model was letting maximum of 10. 
-
-I have tried to reaserch how many maximum decimal places can be in geocoodinates returned by google places api, but I was not able to find definite answer. 
-
-I have changed the model. I have increased the number of decimal places to 20. I have tested Victoria station in London and the error was cleared. 
-
-
-### Postcode saved in journey object different than google places
-
-I have tested postcode "CM23 3DH" and chosen this postcode from drop down list. When I saved the journey, the journey's postcode was showing "CM23 3DP". It is probably somewhere near by, but it is not the postcode I've chosen from drop down box. 
-
-I have changed extract_postcode function in mixins to priorotise extracting postcode from google places full address, only if this one doesn't return postcode, check google directions full address. Once they both fail, the postcode is returned as google places full address. During testing I often chose randomly a town or a venue and in some cases the google places on drop down field did not have postcode at all. 
-
-In normal circumstances driver would record journeys from one postcode to another, not choose the name of the town from the list. 
-
-### Clicking Submit on the Edit_journey url has been adding new journey, not editing the current journey
-
-After testing lots of solutions within EditJourney's post method I have realised that the form is set to AddJourney class every time the page renders. I have added an if statement for the `<form>` element. When url contains edit_journey it will post data to edit_journey url, otherwise it will post data to add_journey url.
-
-### Edit Journey post method return render / return redirect are getting various errors
-
-To fix this issue I have decided that once the user has submitted the changes to the journey, he will need to see the overview of all journeys for the day, therefore I am redirecting him to day report with the date passed as a slug. It is likely that if one visit needs to be edited in the middle of the run, other visits might need updating as well. This way the user will have overview of how the updated list of journeys look for this day. 
-
-### traffic_msg_list paginates only in home view
-
-I have tried various settings to enable the pagination, but nothing seemed to have worked. After using the app at a small mobile phone I have decided that it would be a benefit for the user if there is only 3 messages displayed at the time. This seemed a better solution than 6 paginated messages. I also added links to home page to see more messages if user wishes to. 
-
-### nav bars - setting the current page icon to have darker fonts than other icons
-
-I have used If / or statement to change the color of the icon on nav bar  for the current page. Unfortunately when the if / or statement became very long for more complex pages containing many url under the same icon. I tried to cut if / or statement to seperate lines but I got errors that django expected elif or endif. I decided to add multiple elif statements in nav bar, so the code isn't very long. This ment repeating a few lines, but in the same time I was able to see all code in one glance and edit it without scrolling sideways. 
-
-### multible if else statement in drive.html
-
-The drive.html template contained multiple if else statements that was making various versions of the page depending on the url on which user currently was. The complexity of the changes made by if else statements was quite significant. The html code became unclear and confusing.
-
-I have decided to duplicate the form three times and include 3 versions of the whole form, rather than split each part of the form to if else statements. This makes much cleaner structure and comment make it easy to see what is happening where. It is also much easier to spot any html errors if they occur.
-
-### W3W validator returned <button> must not be descendant of <a>
-solution found on [stack overflow](https://stackoverflow.com/questions/6393827/can-i-nest-a-button-element-inside-an-a-using-html5)
-
-### W3W validator returning errors on drive and user profile pages:
-
-I struggled with one error and a several warnings in this view. The screenshots of the issues can be found [here](static/img/readme/HTML-validator/HTML-validator-06-drive.png) and the text with marked problematic areas can be found [here](static/img/readme/HTML-validator/HTML-validator-07-drive.png).
-
-* The error shows up for `<meta charset="utf-8">` from the head.  w3w validator is complaining that it was found after first 1024 bytes. It seeems that w3w is expecting this to be the first tag in the head. Unfortunately javascript places seems to inject styling at the beggining of the head and pushes meta charset down below it. I found interesting article [here](https://dev.to/maggiecodes_/why-is-lt-meta-charset-utf-8-gt-important-59hl#:~:text=Furthermore%2C%20most%20browsers%20use%20UTF,There%20you%20have%20it.) why this tag is important.
-
-I tried to reasearch about google autocomplete causing errors when validating HTML, but all results have been pointing to errors within google autocomplete, not HTML validation errors. 
-
-* It seems that jquery cdn script is injecting the script below the title inside the head. This script contains the below expressions, which showed up as warnings in html validator: 
-- charset attribute on the script being obselete 
-- type attribute is unnecessary for JavaScript resources.
-I tried various different cdn links for jquery, they all had same effect as this one. 
-
-Solution was found by another student Dom Quail He has suggested to right click on the page and get to source code and copy the html from there. I was copying the HTML code from inspect the page -> edit as HTML and paste it to validator. Once I copied HTML from the source code - the validator wasn't raising the above errors and it found other errors that were not raised previously. 
 
 ## Deployment
 
