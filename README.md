@@ -87,12 +87,19 @@ The app conforms with mobile first approach - many of the design decisions were 
 
 ### User Stories
 
-GitHub issues were used to record the user stories. The user stories were categorised into different priorities, as below from highest to lowest: "Should Have" "Must Have" 
-"Could Have"
-"Might Have"
-"Won't Have"
+GitHub issues were used to record the user stories. The user stories were categorised into different priorities, as below from highest to lowest: "Should Have" "Must Have" "Could Have" "Might Have" "Won't Have"
 
 #### User stories - visits app
+
+The following user stories were satisfied by creation of visits app, including the features:
+- adding postcodes to the database as a journey
+- google maps button
+- saving journeys to database
+- edit journey function
+- view day report - displays the list of journeys for the day
+- button Drive - to submit to database when user is ready
+- unlimited amount of journeys can be saved for each day 
+- summary of miles for the day feature visible in drive and day view
 
 [#1](https://github.com/JoGorska/mileage-tracker/issues/1) As a driver I can add postcodes to a list for the current day so that see where I have been on the day
 
@@ -116,11 +123,25 @@ GitHub issues were used to record the user stories. The user stories were catego
 
 #### User stories - users app
 
+The following user stories were satisfied by creation of users app, including the features:
+- user ability to register as a user for this website
+- build in django feature that makes the user remained logged in, even when the website is closed and re opened again. 
+
 [#16](https://github.com/JoGorska/mileage-tracker/issues/16) As a returning visitor I can have my own profile so that data I put in is kept private
 
 [#20](https://github.com/JoGorska/mileage-tracker/issues/20) As a frequent visitor I can stay logged in so that I don't have to type in my login and password every time I visit the website
 
 #### User stories - traffic app
+
+The following user stories were satisfied by creation of traffic app, including the features:
+
+- adding new traffic alert for other drivers
+- display a list off traffic alerts to the users
+- "thank you" button allowing drivers to show appreciation for the traffic alert
+- "road clear" buttton allowing drivers to notify that the road has cleared (feature later removed due to testers raising concer that the use of the button is unclear and that google maps shows most up to date road cleard information)
+- traffic alert list displayed on home page as well as in drive view
+- pagination of traffic alerts on home page and displaying only 3 alerts on drive view limits long scrolling on mobile phone
+- information label by the little tank button explaining it is a button to "thank you"
 
 [#18](https://github.com/JoGorska/mileage-tracker/issues/18) As a drivers I can leave messages on the portal about problems on the road so that other drivers can avoid the area
 
@@ -134,8 +155,6 @@ GitHub issues were used to record the user stories. The user stories were catego
 
 [#29](https://github.com/JoGorska/mileage-tracker/issues/29) As a driver I can mark the traffic alert - road clear so that other drivers know that the alert doesn't apply any more
 
-This feature was added, than later removed, as it was creating confusion to the testers. Also it was pointed out that google maps will provide most up to date information if the road has cleared or not
-
 [#47](https://github.com/JoGorska/mileage-tracker/issues/47) As a driver I can see traffic alerts all the time, when I use app so that I know if there is anything new going on need to add traffic messages view to Drive view
 
 [#88](https://github.com/JoGorska/mileage-tracker/issues/88) As a frequent user I can see which messages I thanked for so that I don't have to click again to thank them
@@ -144,7 +163,19 @@ This feature was added, than later removed, as it was creating confusion to the 
 
 [#108](https://github.com/JoGorska/mileage-tracker/issues/108) As a regular driver I can have only few newest messages when I type my postcodes so that limit endless scrolling
 
+[#64](https://github.com/JoGorska/mileage-tracker/issues/64) As a new user I can see some kind of description so that *understand the meaning of little tanks in the corner of the traffic alert
+
 #### User stories - general features
+
+The following user stories were satisfied, including the features:
+
+- accessibility including aria-labels
+- responsivness of all elements of the page, simple design easy to use on mobile
+- page deployed to heroku so it can be browsed by members of the public
+- fully responsive nav bar with hamburger button for mobile phone users
+- footer with short information about site owner
+- detailed readme including va
+
 
 [#25](https://github.com/JoGorska/mileage-tracker/issues/25) As a visually impaired visitor I can the project to accommodate my needs so that I can use it with the help of my screen reader
 
@@ -152,18 +183,11 @@ This feature was added, than later removed, as it was creating confusion to the 
 
 [#27](https://github.com/JoGorska/mileage-tracker/issues/27) As a first time user I can browse to find this app publicly available so that use it and share it
 
-[#64](https://github.com/JoGorska/mileage-tracker/issues/64) As a new user I can see some kind of description so that *understand the meaning of little tanks in the corner of the traffic alert
 
 [#71](https://github.com/JoGorska/mileage-tracker/issues/71) As a mobile phone user I can hide nav bar in hamburger button so that the nav bar doesn't hide the website
 
 [#72](https://github.com/JoGorska/mileage-tracker/issues/72) As a new user I can see more details about the makers of the site in the footer so that I can find out more about them
 
-[#78](https://github.com/JoGorska/mileage-tracker/issues/78) As a developer I can see how the app was tested so that I know if the app is robust
-
-
-[#80](https://github.com/JoGorska/mileage-tracker/issues/80) As a developer I can see details how the code was validated so that I know if it is robust pep8 validator html validated css validated javascript validated
-
-[#82](https://github.com/JoGorska/mileage-tracker/issues/82) As a new user I can see explanation on page 404 so that get back to the right page
 
 ### User Stories for next relese
 
@@ -406,7 +430,7 @@ I like the users to have the ability to add the dates in the past. The driver mi
 
 Another question is if I should validate if the user inputs date in the future. I would like to think that this option might be usefull. Some drivers are required to give their employers predicted distance to claim petrol advance. 
 
-I have made the decision not to validate the date at all and allow users to put dates in the future or in the past or choose the current date. The mileage - tracker app can have so many uses that it would be a shame to limit's it's usage. 
+I have made the decision not to validate the date at all and allow users to put dates in the future or in the past or choose the current date. The mileage - tracker app can have so many uses that it would be a shame to limit it's usage. 
 
 ## Future Features 
 ------
@@ -556,6 +580,19 @@ All pages were initialy put through [Python Formatter](https://codebeautify.org/
 ### Automated tests
 
 Automated tests have not been created due to time constrains of the project.
+
+### Lighthouse
+
+![Lighthouse general report](static/img/readme/Lighthouse/Lighthouse_01_all.png)
+The Lighthouse in Chrome dev tools has been run. The results indicated very positive outcome of testing Accessibility, Best Practice and SEO, unfortunately the Performance has been assesed very low.  
+
+![Lighthouse Performance report](static/img/readme/Lighthouse/Lighthouse_02_performance.png)
+
+It seems that perfo is hindered by the fact I have all bootstrap files in cludinary. I would normaly use cdn link provided by bootstrap. In the case of this project I used bootstwatch. This ment that I had to download all css files that bootstrap is made off and replace the main bootstrap.css with the one that is provide by bootstwatch. 
+
+Another hiderance in performance must have been heroku - as a free user I am provided with much slower performance than commercial websites. 
+
+The images were compressed - using [tiny.png](https://tinypng.com/) to prevent any issues.
 
 ### Manual tests
 
