@@ -147,6 +147,40 @@ This feature was added, than later removed, as it was creating confusion to the 
 
 [#82](https://github.com/JoGorska/mileage-tracker/issues/82) As a new user I can see explanation on page 404 so that get back to the right page
 
+### User Stories for next relese
+
+The following user stories were marked as to be planned for next relese:
+
+#### Month / Year report app
+[#4](https://github.com/JoGorska/mileage-tracker/issues/4) As a driver I can have option to get an annual report so that submit my mileage to HRMC
+
+[#21](https://github.com/JoGorska/mileage-tracker/issues/21) As a worker I can have additional safety measures, when accessing the reporting so that if unauthorised person gets hold of my phone, when I am logged in, they don't have access to historic data
+
+#### Timesheet / sheduling app
+[#5](https://github.com/JoGorska/mileage-tracker/issues/5) As a worker I can upload my monthly schedule so that see when is my day off and what time I start work
+
+[#6](https://github.com/JoGorska/mileage-tracker/issues/6) As a worker I can have my schedule automatically applied to the future months so that I know what day off I will have in a few months time
+
+[#7](https://github.com/JoGorska/mileage-tracker/issues/7) As a worker I can print out monthly time sheets on the basis on my schedule so that submit monthly timesheets to myemployer
+
+[#8](https://github.com/JoGorska/mileage-tracker/issues/8) As a worker I can edit monthly time sheet report so that put down the extra days I was off so the report is accurate
+
+#### SMS communication with driver
+[#9](https://github.com/JoGorska/mileage-tracker/issues/9) As a worker I can receive SMS reminders so that I remember to switch the app on before starting the shift
+
+[#10](https://github.com/JoGorska/mileage-tracker/issues/10) As a worker I can receive sms reminders so that that monthly mileage report is due to be submitted to my employer
+
+#### Employer app or employer access to admin page
+[#11](https://github.com/JoGorska/mileage-tracker/issues/11) As a employer I can see the recorded mileage of each worker so that I could see if someone is behind with their mileage tracking
+
+[#12](https://github.com/JoGorska/mileage-tracker/issues/12) As a HR worker I can copy and paste reports so that I can easily update payroll system with the mileage for each employer
+
+#### Traffic app further development
+
+[#30](https://github.com/JoGorska/mileage-tracker/issues/30) As a site owner I can edit and delete the traffic alerts so that I can remove inappropriate content
+
+[#58](https://github.com/JoGorska/mileage-tracker/issues/58) As a driver I can see traffic alerts added by other drivers displayed on a map so that see any problems in my area
+
 ### Wireframes 
 However I have designed both desktop and mobile wireframes in the same time, but I have taken mobile first approach. This is an app for drivers and it has to look good and work well on a small mobile. 
 
@@ -288,6 +322,44 @@ For mobile phone users it is very important they don't have to type the destinat
 ## Future Features 
 ------
 
+### Month / Year report app
+
+Having the visits data in the database allows the future development of various reports
+- month
+- week
+- annual
+
+This could enable driver easy monthly reporting of mileage to the employer or annual report to HMRC
+
+Havig the visits data bears some risk as well. In the report the user can obtain a list of people's addresses including their house number and geolocation. The user stays logged all the time, so if the phone is stolen or lost - someone could access the data on the website. It would be advisable to secure the reporting app with additional safety features. Accessing a few addresses in current day view seems smaller risk, than accessing a full month or year worth of private addresses. Having that said, it might be a safer to get the user to type in password at least once a day for accessing the app.
+
+### Timesheet / sheduling app
+
+Workers that have rolling shift patterns for their time shedule would find a feature of some kind of timesheets quite usefull. 
+- timesheets reporting - reporting to the employer the work time
+- calendar view - for the worker to check when the next shift is due - having a 4 weekly rolling shedule makes it difficult to make any appointments, as each week is different. The calendar view - that would include the shift pattern would be a great help. 
+- adding abscences and overtime - for the purpose of time sheets reporting to the employer - the app can be set to communicate with visits app - to check if the user has been driving that day and what time. This way app could make suggestions if the worker was off or if he has done overtime.
+
+### SMS communication with driver
+
+Some drivers might find it helpfull to receive text message reminders to switch their app on when their shift is due to start. Another usefull feature would be to receive sms reminders that monthly / annual report is due.
+
+### Employer app or employer access to admin page
+
+This app can be very helpful for employers that need to have up to date view of their employees mileage. The employer could see if the workers are keeping their mileage records up to date. There is also a wide area of developing various reports that would help the employer to upload the data for payroll.
+
+### Traffic app further development
+
+Further development of Traffic Alerts can include allowing the site owner to moderate the Traffic Alerts posted by the drivers and remove inapropriate content. 
+
+Another major change that many drivers might find interesting is to allow driver to point on the map where the traffic issue has occured, instead of typing the description. 
+
+The next step would be displaying the traffic alerts in a minature map for other drivers to see as markers or markers clusters. 
+
+### Google AdSense
+The owner of the site will be charged by Google Places API and google Directions API depending on the usage of those APIs. If the cost proves to be great - it might be advisable to look into google AdSense and add some small fields for google ads. There should be also a further option for the users to have paid subscription without ads. 
+
+The google ads connected with cars are quite well priced and due to the repetetive nature of typing the mileage in the Drive page gets refreshed regulary, therefore even one user would generate lots of views of the ads. 
 
 ## Technologies Used
 ------
