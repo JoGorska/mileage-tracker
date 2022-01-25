@@ -499,8 +499,23 @@ The google ads connected with cars are quite well priced and due to the repeteti
    + JavaScript
    + jQuery
    + Python
+   + Django
 
-
+### Technologies and Programs Used:
++ GitHub
+    The Git was used for version control
+    Git issues were used for user stories
+    GitPod was used as IDE to write the code and push to GitHub
++ Heroku 
+    The page was deployed to Heroku
++ PostgreSQL
+    PostgreSQL was used as database for this project
++ VSCode
+    VSCode was used on the days when GitPod was down
++ Google Cloud
+    to get api key
++ cloudinary storage
+    for storing static files
 
  ### Frameworks Libraries and Programs Used
 
@@ -508,13 +523,10 @@ The google ads connected with cars are quite well priced and due to the repeteti
     Balsamiq was used to create the wireframes during the design process.
 + Bootstrap 5:
     Bootstrap was used to add style to the website.
-+ Git
-    Git was used for version control by utilizing the Gitpod terminal to commit to Git and Push to GitHub.
-+ GitHub:
-    GitHub is used to store the project's code after being pushed from Git.
++ Bootswach:
+    Bootswatch wass added to change the standard styling and color pallette provided by bootstrap
++ Bootstrap icons
 + Django
-
-
 
 ## Code Validation
 ------
