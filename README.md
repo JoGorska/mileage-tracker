@@ -266,7 +266,13 @@ Date picker could have been really created as a seperate app. The date picker fo
 
 If the user is updating historic records - he needs to choose date that he needs to update - type all postcodes in and than go to next date that he needs to update.
 
-Date picker is not validated in the way - it allows the users to put dates in the future or in the past or the current date. This is to allow the flexibility if the users want to record their future miles or the historic data. 
+I have asked myself qustion - Do I want to thoroughly validate date? Date picker is not validated in the way - it allows the users to put dates in the future or in the past or the current date. This is to allow the flexibility if the users want to record their future miles or the historic data. 
+
+I like the users to have the ability to add the dates in the past. The driver might have forgotted to add mileage daily and he will be forced to back date all entries.
+
+Another question is if I should validate if the user inputs date in the future. I would like to think that this option might be usefull. Some drivers are required to give their employers predicted distance to claim petrol advance. 
+
+I have made the decision not to validate the date at all and allow users to put dates in the future or in the past or choose the current date. The mileage - tracker app can have so many uses that it would be a shame to limit it's usage. 
 
 ### Drive Page
 
@@ -385,7 +391,6 @@ Forms validation:
 1. HTML validation using HTML atributes
 2. Javascript validation (only in Drive view)
 3. Django form validation
-4. Question of validating date
 
 The drive view is the most complex part of the app and the most important one. I have focused on this view to make sure I have various levels of validation to help the user to submit the data correctly. Drive view consists of 2 input fields for start and destination adress. For correct functioning of both functions that are fetching google API user needs to input data in a specific way. The form validation guides the user through the process. 
 
@@ -413,15 +418,11 @@ The most common error will be submitting form with geocoordinates missing. I dec
 
 I am adding detailed message describing what to do if the drop down input field from google places api doesn't show up. I am also clearing the form data - hopefuly when user types both addresses again, he understands how to do this correctly. 
 
-**4. Question of validating date**
+### Day Report
 
-I have asked myself qustion - Do I want to thoroughly validate date?
+### Traffic Alert
 
-I like the users to have the ability to add the dates in the past. The driver might have forgotted to add mileage daily and he will be forced to back date all entries.
 
-Another question is if I should validate if the user inputs date in the future. I would like to think that this option might be usefull. Some drivers are required to give their employers predicted distance to claim petrol advance. 
-
-I have made the decision not to validate the date at all and allow users to put dates in the future or in the past or choose the current date. The mileage - tracker app can have so many uses that it would be a shame to limit it's usage. 
 
 ## Future Features 
 ------
