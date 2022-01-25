@@ -38,6 +38,7 @@
 
 [Tests](#tests)
 + [Automated Tests](#automated-tests)
++ [Lighthouse](#Lighthouse)
 + [Manual tests](#Manual-tests)
 
 [Project Bugs and Solutions](#project-bugs-and-solutions)
@@ -80,10 +81,11 @@ Click [here](https://mileage-tracker-app.herokuapp.com/) to live site.
 
 ### Purpose
 
+Tanks are known for using lots of fuel. If you were driving a tank, you would really like your mileage to be calculated with military precision. 
+
 Tank mileage tracker accurately tracks and logs business miles by car. User can record mileage on the go, he can also save historic record or calculate mileage for the future journeys. It can be used within UK, it enables users to search via postcode, first line of address or town. Records are being stored in database.
 
 The app conforms with mobile first approach - many of the design decisions were driven by the way the app looks and works for a user of a small mobile phone. 
- 
 
 ### User Stories
 
@@ -242,18 +244,29 @@ The new design includes only one pair of start and destination address. After ty
 
 ### Navbar and Footer
 
-* Navbar and footer has been copied from Bootstrap components and adjusted to the needs of the project
-* 
-Navbar collapses into a hamburger button for easy navigation on mobile devices.
-+ Footer stays at the bottom of the page. It does not contain any relevant information for the user and if it was made "sticky" it would just take up valuble space on mobile devices screen.
+Navbar and footer has been copied from Bootstrap components and adjusted to the needs of the project
+
+I have used a beautiful nav bar with icons found in bootstrap examples in headers. Unfortunately this nav bar didn't have the feature to collapse into hamburger menu. I tried adding the bootstrap's classess to create the hamburger menu but this has changed the look of the nav bar. The design was quite unique and bootstrap classes have hindered the design. I removed the nav bar classes and left the nav bar styled as oryginally copied from bootstrap examples - headers.
+
+Since the app is designed for mobile phone users as a main group of clients - it needed a robust and well designed mobile nav bar. I decided to make a second nav bar for mobile phones only. I have used a different nav bar from bootstrap and I have used the same icons inside this design. This way the whole nav bar was collapsing into a hamburger button, which was much easier for mobile phone users. 
+
+Footer contains only minimal information about the author of the page. It stays at the bottom of the page. It does not contain any relevant information for the user and if it was made "sticky" it would just take up valuble space on mobile devices screen.
 
 ### Home page 
 
-Traffic alert design - I've chosen a simple card design from bootstrap. I have also chosen to stack up the cards for larger screens to see two beside each other.
-Since this is an app for driver I have taken the mobile first aproach. This app needs to be comfortable to use by someone that is using mobile phone only. This led to a decision to display only maximum of 6 messages per page. This way the mobile phone user will not have to scroll down too much, but there is an option to go to the next page.
+Home page consists of a hero with a short message with buttons and a little image reffering to Tank
+
+Second part of the home page is the list of traffic alerts. The list is generated dynamicly as per most current alert first. 
+
+Traffic alert design - I've chosen a simple card design from bootstrap. Since this is an app for drivers I have taken the mobile first aproach. This app needs to be comfortable to use by someone that is using mobile phone only. This led to a decision to display only maximum of 6 alerts per page. This way the mobile phone user will not have to scroll down too much, but there is an option to go to the next page. The rest of messages is paginated and is available under a little nav menu with page numbers.
 
 ### Date Picker
 
+Date picker could have been really created as a seperate app. The date picker form is used for both drive and day view. This form enables user to choose the date once - at the beggining of the journey and than all subsequent journeys are added to the same date.
+
+If the user is updating historic records - he needs to choose date that he needs to update - type all postcodes in and than go to next date that he needs to update.
+
+Date picker is not validated in the way - it allows the users to put dates in the future or in the past or the current date. This is to allow the flexibility if the users want to record their future miles or the historic data. 
 
 ### Drive Page
 
