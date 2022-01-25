@@ -60,11 +60,14 @@
 + [Button descendant of anchor](#button-descendant-of-anchor)
 + [Source code](#source-code)
 + [Form Fields Styling](#form-fields-styling)
++ [Bugs left](#Bugs-left)
 
 
-[Deployment](#deployment)
+[Deployment and making a clone](#Deployment-and-making-a-clone)
++ [Deployment to heroku](#Deployment-to-heroku)
 + [Forking the GitHub Respository](#forking-the-github-repository)
 + [Making a Local Clone](#making-a-local-clone)
++ [Setting up your local enviroment](#Setting-up-your-local-enviroment)
 
 
 [Credits](#credits)
@@ -859,7 +862,6 @@ I have tried to reaserch how many maximum decimal places can be in geocoodinates
 
 I have changed the model. I have increased the number of decimal places to 20. I have tested Victoria station in London and the error was cleared. 
 
-
 ### Postcode extraction
 
 I have noticed that postcode saved in journey object was different than google places.
@@ -893,6 +895,7 @@ The drive.html template that displays journey form contained multiple if else st
 I have decided to duplicate the form three times and include 3 versions of the whole form, rather than split each part of the form to if else statements. This makes much cleaner structure and comment make it easy to see what is happening where. It is also much easier to spot any html errors if they occur.
 
 ### Button descendant of anchor
+
 W3W validator returned `<button>` must not be descendant of `<a>`. Solution found on [stack overflow](https://stackoverflow.com/questions/6393827/can-i-nest-a-button-element-inside-an-a-using-html5) This has cleared the error from each page. 
 
 ### Source code
@@ -951,17 +954,58 @@ Even if the above works I would still have to loop throuogh options to display o
 
 For now I decided to leave the forms |as_bootstraps - because they actualy work and display the content and input type correctly. This might need addressing in further development of the site.
 
+### Bugs left
+Out of the above list bugs that were left to be delt with in the next release:
 
-## Deployment
+- styling of some of the forms could be improved as default |as_bootstrap styling of the form leaves too small gap between the label and the next input field above
 
- The site was deployed to Heroku pages. 
- 
- * The steps to deploy are as follows: 
+- traffic list pagination - not working on drive - this was changed into a feature - the list of traffic message for drive is only 3 messages long - to limit scrolling the screen on mobile phones
 
- ??? need to update this to explain heroku steps
+- link to google maps - it gives random results for some desktop computers as the google maps might struggle to obtain user's current location, as unlike mobile phones - no automatic data is provided.
 
- plus install requirements txt
- plus obtain google api key
+
+## Deployment and making a clone
+
+### Deployment to heroku
+
+1. add the list of requirements by writing in the terminal "pip3 freeze > requirements.txt"
+2. Add six and colorama==0.4.4 as they didn't seem to add automatically
+2. Git add and git commit the changes made
+3. Log into [Heroku](https://dashboard.heroku.com/apps) or create a new account and log in
+
+4. top right-hand corner click "New" and choose the option Create new app, if you are a new user, the "Create new app" button will appear in the middle of the screen
+5. Write app name - it has to be unique, it cannot be the same as this app
+6. Choose Region - I am in Europe
+7. Click "Create App"
+
+The page of your project opens.
+8. Choose "settings" from the menu on the top of the page
+9. Go to section "Config Vars" and click button "Reveal Config Vars"
+
+10. Go to git pod and copy the content of "creds.json" file
+11. In the field for "KEY" enter "CREDS" - all capital letters
+12. Paste the content of "creds.json" and paste to field "VALUE" Click button "Add"
+13. Add another key "PORT" and value "8000"
+
+14. Go to section "Build packs" and click "Add build pack"
+    - in this new window - click Python and "Save changes"
+    - click "Add build pack" again
+    - in this new window - click Node.js and "Save changes"
+    - take care to have those apps in this order: Python first, Node.js second, drag and drop if needed
+
+15. Next go to "Deploy" in the menu bar on the top 
+16. Go to section "deployment method", choose "GitHub"
+17. New section will appear "Connect to GitHub" - Search for the repository to connect to
+18. type the name of your repository and click "search"
+19. once Heroku finds your repository - click "connect"
+
+20. Scroll down to the section "Automatic Deploys"
+21. Click "Enable automatic deploys" or choose "Deploy branch" and manually deploy
+22. Click "Deploy branch"
+
+Once the program runs:
+you should see the message "the app was sussesfully deployed"
+23. Click the button "View"
 
 
 
@@ -980,7 +1024,7 @@ By forking the GitHub Repository you will be able to make a copy of the original
 1. Log in to GitHub and locate the [GitHub Repository](https://github.com/JoGorska/mileage-tracker)
 2. Under the repository name, click "Clone or download".
 3. To clone the repository using HTTPS, under "Clone with HTTPS", copy the link.
-4. Open Git Bash
+4. Open commandline interface on your computer
 5. Change the current working directory to the location where you want the cloned directory to be made.
 6. Type `git clone`, and then paste the URL you copied in Step 3.
 
@@ -990,7 +1034,28 @@ $ git clone https://github.com/JoGorska/mileage-tracker
 
 7. Press Enter. Your local clone will be created.
 
+### Setting up your local enviroment
 
+1. Create Virtual enviroment on your computer or use gitpod built in virtual enviroment feature.
+
+2. Create env.py file. It needs to contain those 5 variables. 
+* Database URL can be obtained from heroku. 
+* Secret_key - is the djnago secret key can be generated here. 
+* Cloudinary URL can be obtained from cloudinary. 
+* Google API key can be obtained here.
+
+```
+os.environ["DATABASE_URL"] = "..."
+os.environ["SECRET_KEY"] = "..."
+os.environ["CLOUDINARY_URL"] = "..."
+os.environ["GOOGLE_API_KEY"] = "..."
+os.environ["DEVELOPMENT"] = "True"
+```
+
+3. Run command 
+```
+pip3 install -r requirements.txt
+```
 
 
 ## Credits 
