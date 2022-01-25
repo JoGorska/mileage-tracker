@@ -5,6 +5,8 @@
 [UX](#ux)
 + [Purpose of the app](#purpose)
 + [User Stories](#user-stories)
++ [User Stories for next relese](#User-Stories-for-next-relese)
+
 + [Wireframes](#wireframes)
 
 [Existing Features](#existing-features)
@@ -14,13 +16,28 @@
 + [Contact Page](#contact-page)
 
 [Future Features](#future-features)
++ [Reporting app](#Reporting-app)
++ [Timesheet app](#Timesheet-app)
++ [SMS communication app](#SMS-communication-app)
++ [Employer app](#Employer-app)
++ [Traffic app further development](#Traffic-app-further-development)
+
 
 [Technologies Used](#technologies-used)
 + [Languages Used](#languages-used)
 + [Frameworks, Libraries & Programs Used](#frameworks-libraries-and-programs-used)
 
 [Code Validation](#code-validation)
++ [HTML beautify](#HTML-beautify)
++ [HTML valiation](#HTML-valiation)
++ [CSS validation](#CSS-validation)
++ [JavaScript validation](#JavaScript-validation)
++ [Python beautify](#Python-beautify)
++ [Python validator](#Python-validator)
+
+[Tests](#tests)
 + [Automated Tests](#automated-tests)
++ [Manual tests](#Manual-tests)
 
 [Project Bugs and Solutions](#project-bugs-and-solutions)
 + [Link to Google Maps](#link-to-google-maps)
@@ -151,12 +168,12 @@ This feature was added, than later removed, as it was creating confusion to the 
 
 The following user stories were marked as to be planned for next relese:
 
-#### Month / Year report app
+#### User stories - Reporting app
 [#4](https://github.com/JoGorska/mileage-tracker/issues/4) As a driver I can have option to get an annual report so that submit my mileage to HRMC
 
 [#21](https://github.com/JoGorska/mileage-tracker/issues/21) As a worker I can have additional safety measures, when accessing the reporting so that if unauthorised person gets hold of my phone, when I am logged in, they don't have access to historic data
 
-#### Timesheet / sheduling app
+#### User stories - Timesheet  app
 [#5](https://github.com/JoGorska/mileage-tracker/issues/5) As a worker I can upload my monthly schedule so that see when is my day off and what time I start work
 
 [#6](https://github.com/JoGorska/mileage-tracker/issues/6) As a worker I can have my schedule automatically applied to the future months so that I know what day off I will have in a few months time
@@ -165,17 +182,17 @@ The following user stories were marked as to be planned for next relese:
 
 [#8](https://github.com/JoGorska/mileage-tracker/issues/8) As a worker I can edit monthly time sheet report so that put down the extra days I was off so the report is accurate
 
-#### SMS communication with driver
+#### User stories - SMS communication app
 [#9](https://github.com/JoGorska/mileage-tracker/issues/9) As a worker I can receive SMS reminders so that I remember to switch the app on before starting the shift
 
 [#10](https://github.com/JoGorska/mileage-tracker/issues/10) As a worker I can receive sms reminders so that that monthly mileage report is due to be submitted to my employer
 
-#### Employer app or employer access to admin page
+#### User stories - Employer app
 [#11](https://github.com/JoGorska/mileage-tracker/issues/11) As a employer I can see the recorded mileage of each worker so that I could see if someone is behind with their mileage tracking
 
 [#12](https://github.com/JoGorska/mileage-tracker/issues/12) As a HR worker I can copy and paste reports so that I can easily update payroll system with the mileage for each employer
 
-#### Traffic app further development
+#### User stories - Traffic app further development
 
 [#30](https://github.com/JoGorska/mileage-tracker/issues/30) As a site owner I can edit and delete the traffic alerts so that I can remove inappropriate content
 
@@ -316,13 +333,10 @@ For mobile phone users it is very important they don't have to type the destinat
 
 ### Form validation
 
-
-
-
 ## Future Features 
 ------
 
-### Month / Year report app
+### Reporting app
 
 Having the visits data in the database allows the future development of various reports
 - month
@@ -333,18 +347,18 @@ This could enable driver easy monthly reporting of mileage to the employer or an
 
 Havig the visits data bears some risk as well. In the report the user can obtain a list of people's addresses including their house number and geolocation. The user stays logged all the time, so if the phone is stolen or lost - someone could access the data on the website. It would be advisable to secure the reporting app with additional safety features. Accessing a few addresses in current day view seems smaller risk, than accessing a full month or year worth of private addresses. Having that said, it might be a safer to get the user to type in password at least once a day for accessing the app.
 
-### Timesheet / sheduling app
+### Timesheet app
 
 Workers that have rolling shift patterns for their time shedule would find a feature of some kind of timesheets quite usefull. 
 - timesheets reporting - reporting to the employer the work time
 - calendar view - for the worker to check when the next shift is due - having a 4 weekly rolling shedule makes it difficult to make any appointments, as each week is different. The calendar view - that would include the shift pattern would be a great help. 
 - adding abscences and overtime - for the purpose of time sheets reporting to the employer - the app can be set to communicate with visits app - to check if the user has been driving that day and what time. This way app could make suggestions if the worker was off or if he has done overtime.
 
-### SMS communication with driver
+### SMS communication app
 
 Some drivers might find it helpfull to receive text message reminders to switch their app on when their shift is due to start. Another usefull feature would be to receive sms reminders that monthly / annual report is due.
 
-### Employer app or employer access to admin page
+### Employer app
 
 This app can be very helpful for employers that need to have up to date view of their employees mileage. The employer could see if the workers are keeping their mileage records up to date. There is also a wide area of developing various reports that would help the employer to upload the data for payroll.
 
@@ -409,11 +423,11 @@ I have right clicked on the rendered page and copied the code of each page into 
 |  [User Profile](static/img/readme/HTML-validator/HTML-validator-07-users-profile.pdf) |No errors|
 
 
-### CSS
+### CSS validation
 
 No errors were found when passing through the official [W3C validator](https://jigsaw.w3.org/css-validator/). The copy of the CSS report can be found [here](static/img/readme/CSS-validator.pdf)
 
-### JavaScript validation with jshint
+### JavaScript validation
 Javascript code validation was complited on [jshint](https://jshint.com/)
 Initialy it was returning errors in relation of ES6 syntax, which was resolved by adding this line to the beggining of the file
 ```
@@ -435,8 +449,10 @@ I have left two warnings in the code, which do not seem to have affected the wor
 248	The body of a for in should be wrapped in an if statement to filter unwanted properties from the prototype.
 ```
 
-### Python - beautify
+### Python beautify
 All pages were initialy put through [Python Formatter](https://codebeautify.org/python-formatter-beautifier) which automaticaly sorted most of the too long lines errors. Than the code was checked by pylint and problems were displayed in the console. Once the issues were cleared I have put all code though pep8 validator.
+
+### Python validator
 
 
 | App name  |  file name | result |
@@ -459,8 +475,12 @@ All pages were initialy put through [Python Formatter](https://codebeautify.org/
 | visits |  urls.py |  [all ok](static/img/readme/pep8-validator/04-visits-urls.txt) |
 | visits |  views.py |  [all ok](static/img/readme/pep8-validator/04-visits-views.txt) |
 
+## Tests
+------
 
 ### Automated tests
+
+Automated tests have not been created due to time constrains of the project.
 
 ### Manual tests
 
