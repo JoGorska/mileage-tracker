@@ -1059,49 +1059,31 @@ pip3 install -r requirements.txt
 
 
 ## Credits 
+### Online resources
 * [Icons8](https://icons8.com/)
 * [unsplash](https://unsplash.com/)
 * [Fontawsome](https://fontawesome.com/)
 * [Bootstrap 5]()
-* The project walkthrough I Think Therefore I Blog tutorial provided instpiration for traffic alerts the repository can be found [here]()
+* [Markdown best practices](https://www.markdownguide.org/basic-syntax/)
+
+### Tutorials and inspiration
+
+* The project walkthrough I Think Therefore I Blog tutorial provided instpiration for traffic alerts the repository can be found [here](https://github.com/Code-Institute-Solutions/Django3blog/blob/master/12_final_deployment/blog/views.py)
+
 * Django Google API by Bobby did coding [tutorial](https://www.youtube.com/watch?v=_vCT42vDfgw&t=962s) provided clear guidance how to use google API in a django project, how to fetch data and how to use them within the project. 
+
 * Django Google API tutorial repository can be found [here](https://github.com/bobby-didcoding/did_django_google_api_tutorial)
+
+* Hello Django tutorial by Mr Zielinski. Link to repository can be found [here](https://github.com/ckz8780/ci-fsf-hello-django/tree/c13b414fd2e87a54b4f2788ceffec55be4ade925) This helped me to understand various Django errors.
+
+### People
+
 * Igor_ci for explaining how to do django forms styled by bootstrap
 
-Zielinski
+* Mr Zielinski for creating tutorial and showing bugs on the way
 
-@igor_ci
-I used Crispy Forms in my MS4 and they worked nicely (except for a few HTML code validator errors that didn’t affect display in any way).
-But if you want to still use Django Bootstrap like in the videos, you need to
-pip3 install django-forms-bootstrap
-add "django_forms_bootstrap" to INSTALLED_APPS in settings.py
-add the tag {% load bootstrap_tags %} to the top of every template you want to use Django Bootstrap forms in.
-add the tag |as_bootstrap to every form you want to be styled with Django Bootstrap.
+* Dave Horrocks, Kamil Kwiatkowski, Daisy Gunn - for intense testing of the App and valuble suggestions for improvement
 
-)
-
- 
- icon for tank (simple)
-https://www.iconfinder.com/search?q=tank&price=free
- Ilham Albab
- license free to share https://creativecommons.org/licenses/by/3.0/
-
- icon for thumbs up from fonawsome
- https://github.com/FortAwesome/Font-Awesome/tree/master/svgs/regular
-
-icons 
-<a href="https://icons8.com/icon/32215/google-maps-old">Google Maps Old icon by Icons8</a>
+* Felipe Souza Alarcon - for mentoring, suggestions and encouragement
 
 
-google maps API + javascript map API
-
-Visits app is making API calls to get distance and lenght of the journey and displays a map. This was created by following tutorial [Python Django application walkthrough tutorial for Google maps](https://www.youtube.com/watch?v=wCn8WND-JpU&t=8s) Bobby did coding. For more details the repository is located [here](https://github.com/bobby-didcoding/did_django_google_maps_api).
-
-#### Markdown best practices
-https://www.markdownguide.org/basic-syntax/
-
-
-
-
-
-### Content
