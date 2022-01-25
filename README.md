@@ -290,9 +290,9 @@ App can be used every day for each journey and the driver can save each route as
   - go back to "drive"
   - put in start and destinaton
 
-This workflow requires the driver to juggle beetween google maps and Tank website and the work app that tells him the next address. This workflow required too many steps, after speaking with my mentor Felippe Souza Alarcon I decided to rebuild the drive view completly. 
+This workflow required the driver to juggle beetween google maps and Tank website and the work app that tells him the next address. This workflow required too many steps, after speaking with my mentor Felippe Souza Alarcon I decided to rebuild the drive view completly. 
 
-I dropped the map view as it has not been bringing any value for a driver / mobile phone user. The driver needs an interactive map in a google maps app, not a display javascript area inside a website. 
+I dropped the map view as it has not been bringing any value for a driver / mobile phone user. The driver needs an interactive map in a google maps app, not a display javascript map area inside a website. 
 
 Workflow version 2.
 App can be used for every day recording or recording past or future journeys:
@@ -300,11 +300,11 @@ App can be used for every day recording or recording past or future journeys:
 - go to "drive"
 - put in start and destination of the jouurney
 - press "Drive!"
-- you can see the journey you just saved in orange fonts and a link to google maps, if you need to use your phone as sat nav
+- page refreshes, you can see the journey you just saved in orange fonts and a link to google maps, if you need to use your phone as sat nav
 - the form is set up with the start of journey so you only need to put in the next journey's address
 - press "Drive!" again for the next journey
 
-Because the Tank website forces the user to regular use every day during the whole shift - it can be a good platform for:
+Because the Tank website forces the user to regular use every day during the whole shift and refres the whole page after each journey - it can be a good platform for:
   - trafficc alerts
   - in work messages
   - tracking employer's progres in mileage reporting
@@ -312,31 +312,32 @@ Because the Tank website forces the user to regular use every day during the who
 
  **1. Current Journey**
 
-  This field displays only if user has come to drive after submitting another journey. The user gets data from the current journey to fill in a accordeon style table with start and destination postcodes and distance. 
+ It is an orange div with orange borders and orange fonts and a little map icon.
 
-  This accordeon button is styled with orange to distinguish it visually from the list of journeys of the day. The button also features an old google maps icon that was taken from [here](https://icons8.com/icon/32215/google-maps-old) The icon is linked up with the destination address of the current journey. 
+  This field displays only if user has come to drive after submitting another journey. The user gets data from the current journey variable.
 
-  The logic of this is that once the user types in start and destination address - the data gets saved in the database and he can now go to maps and drive. This works nicely on the mobile as user gets transferred to google maps with this address already inputed. This uses the geocoordinates to set the google maps up with destination. 
+  The div also features an old google maps icon that was taken from [here](https://icons8.com/icon/32215/google-maps-old) The icon is linked up with the destination address of the current journey. 
 
-  The icon is featured with little description available for large and medium screens. This was due to the fact that on larger screens the accordeon button is so long and large that this icon gets lost at the end of it with a big gap in between the description of the journey and the icon. 
+  The logic of this is that once the user types in start and destination address - the data gets saved in the database and he can now go to maps and drive (use google maps as sat nav). This works nicely on the mobile as user gets transferred to google maps with this address already inputed. This uses the geocoordinates to set the google maps up with destination. 
+
+  The icon is featured with little description available for large and medium screens. This was due to the fact that on larger screens the div is so long that this icon gets lost at the end of it with a big gap in between the description of the journey and the icon. The div is stretching full width of the container - just to unify it's styling with the accordeons below.
 
   For mobile phones this description was not needed as the responsive grid pushes the icon right next to the table which makes it quite intuitive. 
 
-  Once the user opens the accordeon button he can see the full address start and destination as well as buttons to edit or delete the journey. 
-
 **2. Form to input start and destination address**
 
-javascript validation on input with helper text apearing in red or green
+The form input fields for start and destination address are the only visible elements of a Journey Form - that creates a journey object. The start and destination address can be typed by the user initialy, but than user needs to choose the address from a drop down box. The minute when the user clicks into drop down box - the javascript fetches google places API and gets the geocoordinates for this particular location.
 
-django form validation 
+![input boxes showing javascript validation](static/img/readme/screenshots/features_form_javascript.png)
 
-django validation - error messages
-            else:
-                # this captures any other errors that might apear, it displays a message
-                # containing <ul> of all errors and fields associated with them.
-                # this should be handled by html atribute "required",
-                # but this one is just in case
-                messages.error(request, form_errors)
+At every stage of filling in the form the user is guided with javascript validation and djnago form validation. Initialy the user gets a grey text with instruction below the input field and a place holder in the input field encouraging to type in the address. User will get red text if the field is left empty or if he types address but doesn't click into drop down box. Once the geocoordinates are fetched the user gets a green text - geocoordinates found. User can edit the field again and choose a different address again. 
+![error message displayed after validation has failed](static/img/readme/screenshots/features_form_django.png)
+
+If user decides to submit the form, even though the javascript validation shows errors, than django form validation takes over and displays error in a red box to the user describing the issue.
+
+The rest of Journey Form is hidden from user - it contains geocoordinates that are added by javascipt. 
+
+Drive! button initializes a set of actions. First the form is validated. Once the form is valid the function fetches google directions API to get distance for the journey. Next the object gets saved into the database and user gets redirected back to drive view with the current journey displayed in orange on top. 
 
 
 ### Google APIs
@@ -370,6 +371,7 @@ Edgware Road
 As a result of this problem I decided on a different solution - to search the results of google places and google directions full address field for a postcode using a regex. Even this method has proven to return some errors. I have found that Victoria Station in London is not returning postcode whether in google places or google directions. In this case the user will get full address in their report instead of the postcode. Those situations are rare and most drivers in the UK use postcodes constantly and residential addresses, rather than train stations. 
 
 **2. Google Directions API**
+
 A python function takes the geocoordinates from the form and gets the distance between two points on the map. Google Directions returns me a full address of start and destination in a slight different form than google Places. If I search google places for a town I get for examle "Northampton", while google directions would be a full address with street and postcode for a geocoordinates. This means that for the daily report I have a way of obtaining postcodes - either from googe places or google directions version of the full address. 
 
 Google directions returns also the distance between two points by car. The car drive mode is default. The returned distance is in km, I have put a function to change to miles and round up to one decimal place. 
@@ -377,6 +379,7 @@ Google directions returns also the distance between two points by car. The car d
 From google direction I can also get the time it will take to travel, but I didn't think this feature would be usefull for me. 
 
 **3. Google maps link**
+
 For mobile phone users it is very important they don't have to type the destination address twice - once in the Tank app and second time in their sat nav. I am assuming most mobile phone users use google maps for their journeys. I have found how to create URL for the user to be transfered to google maps with the direction pre set for him. I am making the user of geocoordinates provided by Google Places API and I build the url using a variables with geocoordinates.
 
 
