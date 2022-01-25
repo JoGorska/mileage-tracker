@@ -7,6 +7,7 @@
 + [User Stories](#user-stories)
 + [User Stories for next relese](#User-Stories-for-next-relese)
 + [Wireframes](#wireframes)
++ [Agile Methodology](#Agile-Methodology)
 
 [Existing Features](#existing-features)
 + [Navbar and Footer](#Navbar-and-Footer)
@@ -239,6 +240,14 @@ The design included a long form for user to type addresses in, one after another
 
 The new design includes only one pair of start and destination address. After typing them in, the user saves them and can continue typing next address. In the new design uer can look up a day report that gives him a list of his visits for the day. 
 
+### Agile Methodology
+
+![Screenshot of the canban board](static/img/readme/canban-board.png)
+
+Github issues were used to create the User stories and group them according to MoSCoW prioritization technique. Link to the project with live issues can be found [here](https://github.com/JoGorska/mileage-tracker/projects/1). The issues are currently in two categories - done or for the next relese. 
+
+The issues were than closed automaticaly when the pull request was linked to the issue. 
+
 ## Existing Features
 ------
 
@@ -420,9 +429,23 @@ I am adding detailed message describing what to do if the drop down input field 
 
 ### Day Report
 
+Day report allows the user to see all journeys travelled in a day and it also displays the summary of the miles. The journeys are displayed in accordeon with more details available inside, as well as edit and delete button.
+
 ### Traffic Alert
 
+The Traffic Alert app allows the users to add traffic alerts for other drivers to see. I have added a form that submits new traffic alerts to the database. The user can also interact with the traffic alerts - to add "thank you" by clicking a tank icon. 
 
+In my current employment the office uses internal in app messages to describe issue on the road for example "by the big Mcdonadls in Kettering" This explains the location very clearly for locals and co workers. The user can type the location of the incident in such descriptive way so it is understandable. 
+
+The traffic alerts are displayed as cards stacked in rows. The cards contain only minimal information - category and location. They need to be small to make them easy to view in a small mobile. There is availibity to see further details of the traffic alert by clicking into the card and a modal with details will show up. 
+
+### Users App
+
+User - build in django user model enables users to register log in and log out. 
+
+I have added a User Profile model and form to enable user to give us more data about themselves. This data will be useful for reporting the mileage to the employer. The profile asks about their employer details and email addres.
+
+Another idea is to add a special Drive Home button for the user - once the user has submitted their private address in their user profile. 
 
 ## Future Features 
 ------
@@ -475,6 +498,9 @@ The google ads connected with cars are quite well priced and due to the repeteti
    + CSS3
    + JavaScript
    + jQuery
+   + Python
+
+
 
  ### Frameworks Libraries and Programs Used
 
