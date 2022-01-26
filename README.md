@@ -968,46 +968,69 @@ Out of the above list bugs that were left to be delt with in the next release:
 
 ### Deployment to heroku
 
-1. add the list of requirements by writing in the terminal "pip3 freeze > requirements.txt"
-2. Add six and colorama==0.4.4 as they didn't seem to add automatically
+**In your app** 
+
+1. add the list of requirements by writing in the terminal "pip3 freeze --local > requirements.txt"
 2. Git add and git commit the changes made
+
+**Log into heroku**
+
 3. Log into [Heroku](https://dashboard.heroku.com/apps) or create a new account and log in
 
 4. top right-hand corner click "New" and choose the option Create new app, if you are a new user, the "Create new app" button will appear in the middle of the screen
+
 5. Write app name - it has to be unique, it cannot be the same as this app
 6. Choose Region - I am in Europe
 7. Click "Create App"
 
-The page of your project opens.
-8. Choose "settings" from the menu on the top of the page
-9. Go to section "Config Vars" and click button "Reveal Config Vars"
+**The page of your project opens.**
 
-10. Go to git pod and copy the content of "creds.json" file
-11. In the field for "KEY" enter "CREDS" - all capital letters
-12. Paste the content of "creds.json" and paste to field "VALUE" Click button "Add"
-13. Add another key "PORT" and value "8000"
+8. Go to Resources Tab, Add-ons, search and add Heroku Postgres
 
-14. Go to section "Build packs" and click "Add build pack"
-    - in this new window - click Python and "Save changes"
-    - click "Add build pack" again
-    - in this new window - click Node.js and "Save changes"
-    - take care to have those apps in this order: Python first, Node.js second, drag and drop if needed
+9. Choose "settings" from the menu on the top of the page
+
+10. Go to section "Config Vars" and click button "Reveal Config Vars". 
+
+11. Add the below variables to the list
+
+    * Database URL will be added automaticaly
+    * Secret_key - is the djnago secret key can be generated [here](https://miniwebtool.com/django-secret-key-generator/). 
+    * Cloudinary URL can be obtained from [cloudinary](https://cloudinary.com/) follow the steps on the website to register. 
+    * Google API key can be obtained [here](https://cloud.google.com/gcp?authuser=1) you will have to register with google and create new app to get the API key. Follow the instructions on the website.
+
+**Go back to your code**
+
+12. Procfile needs to be created in your app
+```
+web: gunicorn PROJ_NAME.wsgi
+```
+
+13. In settings in your app add Heroku to ALLOWED_HOSTS
+
+14. Add and commit the changes in your code and push to github
+
+**Final step - deployment**
 
 15. Next go to "Deploy" in the menu bar on the top 
+
 16. Go to section "deployment method", choose "GitHub"
+
 17. New section will appear "Connect to GitHub" - Search for the repository to connect to
+
 18. type the name of your repository and click "search"
+
 19. once Heroku finds your repository - click "connect"
 
 20. Scroll down to the section "Automatic Deploys"
+
 21. Click "Enable automatic deploys" or choose "Deploy branch" and manually deploy
+
 22. Click "Deploy branch"
 
 Once the program runs:
 you should see the message "the app was sussesfully deployed"
+
 23. Click the button "View"
-
-
 
 The live link can be found [here](https://mileage-tracker-app.herokuapp.com/).
 
@@ -1038,11 +1061,12 @@ $ git clone https://github.com/JoGorska/mileage-tracker
 
 1. Create Virtual enviroment on your computer or use gitpod built in virtual enviroment feature.
 
-2. Create env.py file. It needs to contain those 5 variables. 
-* Database URL can be obtained from heroku. 
-* Secret_key - is the djnago secret key can be generated here. 
-* Cloudinary URL can be obtained from cloudinary. 
-* Google API key can be obtained here.
+2. Create env.py file. It needs to contain those 5 variables.
+
+* Database URL can be obtained from [heroku](https://dashboard.heroku.com/), add PostgreSQL as an add on when creating an app. 
+* Secret_key - is the djnago secret key can be generated [here](https://miniwebtool.com/django-secret-key-generator/). 
+* Cloudinary URL can be obtained from [cloudinary](https://cloudinary.com/) follow the steps on the website to register. 
+* Google API key can be obtained [here](https://cloud.google.com/gcp?authuser=1) you will have to register with google and create new app to get the API key. Follow the instructions on the website.
 
 ```
 os.environ["DATABASE_URL"] = "..."
@@ -1056,7 +1080,6 @@ os.environ["DEVELOPMENT"] = "True"
 ```
 pip3 install -r requirements.txt
 ```
-
 
 ## Credits 
 ### Online resources
