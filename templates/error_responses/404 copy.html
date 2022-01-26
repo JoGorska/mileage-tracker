@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="container col-xxl-8 px-4 py-1">
+  <div class="row row-cols-1 row-cols-sm-1 row-cols-md-1 row-cols-lg-2 flex-lg-row-reverse align-items-center g-5 py-3">
+    <div class="col">
+      <img src="{% static 'img/01-hero-pexels-bigworldinalens-7912257.jpg' %}" class="d-block mx-lg-auto img-fluid" alt="Photo of a military tank" width="700" height="500" loading="lazy">
+    </div>
+    <div class="col">
+      <h1 class="display-5 fw-bold lh-1 mb-3 border-warning pb-3 border-bottom">Error 404
+      </h1>
+      <p class="lead">We lost you. Come back to safety
+      </p>
+      <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+        <a href="{% url '' %}" class="btn btn-warning btn-lg px-4 me-md-2">
+          Home
+        </a>
+        <a href="{% url 'visits:date_picker_drive' %}" class="btn btn-secondary btn-lg px-4">
+          Drive
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+{% endblock %}

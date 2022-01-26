@@ -36,15 +36,16 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 
 development = os.environ.get('DEVELOPMENT', False)
 
-# DEBUG = development
+DEBUG = development
 
 if development:
-    ALLOWED_HOSTS = ['*', 'localhost', '127.0.0.1', '127.0.0.1:8000']
+    ALLOWED_HOSTS = ['localhost', '127.0.0.1', '127.0.0.1:8000']
 else:
     ALLOWED_HOSTS = ["mileage-tracker-app.herokuapp.com"]
 
 
-DEBUG = False
+# DEBUG = False
+# ALLOWED_HOSTS = ['localhost', '127.0.0.1', '127.0.0.1:8000']
 
 
 INSTALLED_APPS = [
