@@ -7,6 +7,7 @@
 + [User Stories](#user-stories)
 + [User Stories for next relese](#User-Stories-for-next-relese)
 + [Wireframes](#wireframes)
++ [Agile Methodology](#Agile-Methodology)
 
 [Existing Features](#existing-features)
 + [Navbar and Footer](#Navbar-and-Footer)
@@ -59,11 +60,14 @@
 + [Button descendant of anchor](#button-descendant-of-anchor)
 + [Source code](#source-code)
 + [Form Fields Styling](#form-fields-styling)
++ [Bugs left](#Bugs-left)
 
 
-[Deployment](#deployment)
+[Deployment and making a clone](#Deployment-and-making-a-clone)
++ [Deployment to heroku](#Deployment-to-heroku)
 + [Forking the GitHub Respository](#forking-the-github-repository)
 + [Making a Local Clone](#making-a-local-clone)
++ [Setting up your local enviroment](#Setting-up-your-local-enviroment)
 
 
 [Credits](#credits)
@@ -239,6 +243,14 @@ The design included a long form for user to type addresses in, one after another
 
 The new design includes only one pair of start and destination address. After typing them in, the user saves them and can continue typing next address. In the new design uer can look up a day report that gives him a list of his visits for the day. 
 
+### Agile Methodology
+
+![Screenshot of the canban board](static/img/readme/canban-board.png)
+
+Github issues were used to create the User stories and group them according to MoSCoW prioritization technique. Link to the project with live issues can be found [here](https://github.com/JoGorska/mileage-tracker/projects/1). The issues are currently in two categories - done or for the next relese. 
+
+The issues were than closed automaticaly when the pull request was linked to the issue. 
+
 ## Existing Features
 ------
 
@@ -266,7 +278,13 @@ Date picker could have been really created as a seperate app. The date picker fo
 
 If the user is updating historic records - he needs to choose date that he needs to update - type all postcodes in and than go to next date that he needs to update.
 
-Date picker is not validated in the way - it allows the users to put dates in the future or in the past or the current date. This is to allow the flexibility if the users want to record their future miles or the historic data. 
+I have asked myself qustion - Do I want to thoroughly validate date? Date picker is not validated in the way - it allows the users to put dates in the future or in the past or the current date. This is to allow the flexibility if the users want to record their future miles or the historic data. 
+
+I like the users to have the ability to add the dates in the past. The driver might have forgotted to add mileage daily and he will be forced to back date all entries.
+
+Another question is if I should validate if the user inputs date in the future. I would like to think that this option might be usefull. Some drivers are required to give their employers predicted distance to claim petrol advance. 
+
+I have made the decision not to validate the date at all and allow users to put dates in the future or in the past or choose the current date. The mileage - tracker app can have so many uses that it would be a shame to limit it's usage. 
 
 ### Drive Page
 
@@ -290,9 +308,9 @@ App can be used every day for each journey and the driver can save each route as
   - go back to "drive"
   - put in start and destinaton
 
-This workflow requires the driver to juggle beetween google maps and Tank website and the work app that tells him the next address. This workflow required too many steps, after speaking with my mentor Felippe Souza Alarcon I decided to rebuild the drive view completly. 
+This workflow required the driver to juggle beetween google maps and Tank website and the work app that tells him the next address. This workflow required too many steps, after speaking with my mentor Felippe Souza Alarcon I decided to rebuild the drive view completly. 
 
-I dropped the map view as it has not been bringing any value for a driver / mobile phone user. The driver needs an interactive map in a google maps app, not a display javascript area inside a website. 
+I dropped the map view as it has not been bringing any value for a driver / mobile phone user. The driver needs an interactive map in a google maps app, not a display javascript map area inside a website. 
 
 Workflow version 2.
 App can be used for every day recording or recording past or future journeys:
@@ -300,11 +318,11 @@ App can be used for every day recording or recording past or future journeys:
 - go to "drive"
 - put in start and destination of the jouurney
 - press "Drive!"
-- you can see the journey you just saved in orange fonts and a link to google maps, if you need to use your phone as sat nav
+- page refreshes, you can see the journey you just saved in orange fonts and a link to google maps, if you need to use your phone as sat nav
 - the form is set up with the start of journey so you only need to put in the next journey's address
 - press "Drive!" again for the next journey
 
-Because the Tank website forces the user to regular use every day during the whole shift - it can be a good platform for:
+Because the Tank website forces the user to regular use every day during the whole shift and refres the whole page after each journey - it can be a good platform for:
   - trafficc alerts
   - in work messages
   - tracking employer's progres in mileage reporting
@@ -312,31 +330,27 @@ Because the Tank website forces the user to regular use every day during the who
 
  **1. Current Journey**
 
-  This field displays only if user has come to drive after submitting another journey. The user gets data from the current journey to fill in a accordeon style table with start and destination postcodes and distance. 
+ It is an orange div with orange borders and orange fonts and a little map icon.
 
-  This accordeon button is styled with orange to distinguish it visually from the list of journeys of the day. The button also features an old google maps icon that was taken from [here](https://icons8.com/icon/32215/google-maps-old) The icon is linked up with the destination address of the current journey. 
+  This field displays only if user has come to drive after submitting another journey. The user gets data from the current journey variable.
 
-  The logic of this is that once the user types in start and destination address - the data gets saved in the database and he can now go to maps and drive. This works nicely on the mobile as user gets transferred to google maps with this address already inputed. This uses the geocoordinates to set the google maps up with destination. 
+  The div also features an old google maps icon that was taken from [here](https://icons8.com/icon/32215/google-maps-old) The icon is linked up with the destination address of the current journey. 
 
-  The icon is featured with little description available for large and medium screens. This was due to the fact that on larger screens the accordeon button is so long and large that this icon gets lost at the end of it with a big gap in between the description of the journey and the icon. 
+  The logic of this is that once the user types in start and destination address - the data gets saved in the database and he can now go to maps and drive (use google maps as sat nav). This works nicely on the mobile as user gets transferred to google maps with this address already inputed. This uses the geocoordinates to set the google maps up with destination. 
+
+  The icon is featured with little description available for large and medium screens. This was due to the fact that on larger screens the div is so long that this icon gets lost at the end of it with a big gap in between the description of the journey and the icon. The div is stretching full width of the container - just to unify it's styling with the accordeons below.
 
   For mobile phones this description was not needed as the responsive grid pushes the icon right next to the table which makes it quite intuitive. 
 
-  Once the user opens the accordeon button he can see the full address start and destination as well as buttons to edit or delete the journey. 
-
 **2. Form to input start and destination address**
 
-javascript validation on input with helper text apearing in red or green
+The form input fields for start and destination address are the only visible elements of a Journey Form - that creates a journey object. The start and destination address can be typed by the user initialy, but than user needs to choose the address from a drop down box. The minute when the user clicks into drop down box - the javascript fetches google places API and gets the geocoordinates for this particular location.
 
-django form validation 
+At every stage of filling in the form the user is guided with javascript validation and djnago form validation. (more about validation [here](#form-validation)) The rest of Journey Form is hidden from user - it contains geocoordinates that are added by javascipt. 
 
-django validation - error messages
-            else:
-                # this captures any other errors that might apear, it displays a message
-                # containing <ul> of all errors and fields associated with them.
-                # this should be handled by html atribute "required",
-                # but this one is just in case
-                messages.error(request, form_errors)
+Drive! button initializes a set of actions. First the form is validated. Once the form is valid the function fetches google directions API to get distance for the journey. Next the object gets saved into the database and user gets redirected back to drive view with the current journey displayed in orange on top. 
+
+An issue has been spotted by a small mobile phone user that when the user types in address and has the keyboard covering half of the screen - he doesn't actually see the drop down box. He has to click into the website to get the keyboard disapear than he can see the drop down box. This might be hiderance for first time users. I have added focus for start address in attempt to move the input field to the top of the screen, but it wasn't high enough for small phones. In second instance the red description generated by javascript validation should help the user to resolve the issue and find the drop down box.
 
 
 ### Google APIs
@@ -347,6 +361,7 @@ In this project I am using:
 3. Google Maps link
 
 **1. Google Places API**
+
 A javascript function on input shows a drop down box with google logo that contains default addreses based on input so far. The user needs to click into the chosen field in this drop down box. Once the user clicks it the function fetches the geocordinates of this particular location as well as full address. User can change his mind and edit the field, he gets a new dropdown box to choose the address and the function will fetch new geocoordinates. 
 
 Initialy the function was allowing to search by what is called in UK - "fist line of the address" meaning door nubmer, street and town. This has proved to be too much for the UK drivers. They are used to getting the directions by using postcode only. After extensive reading on the subject I have found documentation indicating what the object that I am fetching consists of. Initialy I have found this [article](https://atomizedobjects.com/blog/javascript/how-to-get-postcodes-from-google-places-and-google-maps/) it describes in details - what data I am getting from google places API and what is available. The code was written in react, but the article gave me more in depth understanding of the issue. I have found [Google documentation](https://developers.google.com/maps/documentation/places/web-service/supported_types#table3) that describes the types of data I can get from google places. 
@@ -370,6 +385,7 @@ Edgware Road
 As a result of this problem I decided on a different solution - to search the results of google places and google directions full address field for a postcode using a regex. Even this method has proven to return some errors. I have found that Victoria Station in London is not returning postcode whether in google places or google directions. In this case the user will get full address in their report instead of the postcode. Those situations are rare and most drivers in the UK use postcodes constantly and residential addresses, rather than train stations. 
 
 **2. Google Directions API**
+
 A python function takes the geocoordinates from the form and gets the distance between two points on the map. Google Directions returns me a full address of start and destination in a slight different form than google Places. If I search google places for a town I get for examle "Northampton", while google directions would be a full address with street and postcode for a geocoordinates. This means that for the daily report I have a way of obtaining postcodes - either from googe places or google directions version of the full address. 
 
 Google directions returns also the distance between two points by car. The car drive mode is default. The returned distance is in km, I have put a function to change to miles and round up to one decimal place. 
@@ -377,6 +393,7 @@ Google directions returns also the distance between two points by car. The car d
 From google direction I can also get the time it will take to travel, but I didn't think this feature would be usefull for me. 
 
 **3. Google maps link**
+
 For mobile phone users it is very important they don't have to type the destination address twice - once in the Tank app and second time in their sat nav. I am assuming most mobile phone users use google maps for their journeys. I have found how to create URL for the user to be transfered to google maps with the direction pre set for him. I am making the user of geocoordinates provided by Google Places API and I build the url using a variables with geocoordinates.
 
 
@@ -386,47 +403,24 @@ Forms validation:
 1. HTML validation using HTML atributes
 2. Javascript validation (only in Drive view)
 3. Django form validation
-4. Question of validating date
 
-Drive view consists of 2 input fields for start and destination adress. For correct functioning of both functions that are fetching google API user needs to input data in a specific way. The form validation guides the user through the process. 
+The drive view is the most complex part of the app and the most important one. I have focused on this view to make sure I have various levels of validation to help the user to submit the data correctly. Drive view consists of 2 input fields for start and destination adress. For correct functioning of both functions that are fetching google API user needs to input data in a specific way. The form validation guides the user through the process. 
 
-### custom validation attempt
+In the next release some features of this validation can be added to other forms especially the User profile view. 
 
-```
-            address_start_form_data = request.POST.get("address_start")
-            address_destination_form_data = request.POST.get("address_destination")
-            address_start = directions["origin"]
-            address_destination = directions["destination"]
-            print(f'form data {address_start_form_data}')
-            print(f'from google direcions {address_start}')
-            if (
-                address_start_form_data == address_start) and (
-                address_destination_form_data == address_destination):
-                
-                print(f'ALL OK ADDRESS ARE IDENTICAL')
-            else:
-                print(f'these fields are different')
-```
+**1. HTML validation**
 
-
-Unfortunately the print returned the differences that come from two different queries from google
-```
-form google places  Doncaster, UK
-from google direcions 14 Prince's St, Doncaster DN1 2HJ, UK
-```
-- when querying google places - I might get just the town or full address
-- when querying google directions - I am usualy getting full set of data including postcode 
-
+Some input fields are given attribute "required" to prevent the user from submitting the empty form.
 
 **2. javascript validation for Drive**
+![input boxes showing javascript validation](static/img/readme/screenshots/features_form_javascript.png)
 
 I have added Javascript function detecting input on the start address and destination address fields. The function adds and removes classes showing the user in red and green if the field is filled in correctly. 
 
-I have also allowed html validation - by adding "required" attribute to both elements.
-
-the "ok" status for both fields is changed by the function handling google places api query. Once the query is completed and data is submited to the fields this function adds and removes classes so it shows user in green that geocoodinates have been found. 
+The green text explaining "ok" status for both fields is added by the function handling google places api query. Once the query is completed and data is submited to the fields this function adds and removes classes so it shows user in green that geocoodinates have been found. 
 
 **3. Django validation for Drive (AddJourney)**
+![error message displayed after validation has failed](static/img/readme/screenshots/features_form_django.png)
 
 If user decides to ignore the above messages from JavaScript, the form gets submitted with some missing data, but django form validation function prevents the item to be submitted to database with missing data. 
 
@@ -436,14 +430,25 @@ The most common error will be submitting form with geocoordinates missing. I dec
 
 I am adding detailed message describing what to do if the drop down input field from google places api doesn't show up. I am also clearing the form data - hopefuly when user types both addresses again, he understands how to do this correctly. 
 
-**Question of validating date**
-I have asked myself qustion - Do I want to thoroughly validate date?
+### Day Report
 
-I like the users to have the ability to add the dates in the past. The driver might have forgotted to add mileage daily and he will be forced to back date all entries.
+Day report allows the user to see all journeys travelled in a day and it also displays the summary of the miles. The journeys are displayed in accordeon with more details available inside, as well as edit and delete button.
 
-Another question is if I should validate if the user inputs date in the future. I would like to think that this option might be usefull. Some drivers are required to give their employers predicted distance to claim petrol advance. 
+### Traffic Alert
 
-I have made the decision not to validate the date at all and allow users to put dates in the future or in the past or choose the current date. The mileage - tracker app can have so many uses that it would be a shame to limit it's usage. 
+The Traffic Alert app allows the users to add traffic alerts for other drivers to see. I have added a form that submits new traffic alerts to the database. The user can also interact with the traffic alerts - to add "thank you" by clicking a tank icon. 
+
+In my current employment the office uses internal in app messages to describe issue on the road for example "by the big Mcdonadls in Kettering" This explains the location very clearly for locals and co workers. The user can type the location of the incident in such descriptive way so it is understandable. 
+
+The traffic alerts are displayed as cards stacked in rows. The cards contain only minimal information - category and location. They need to be small to make them easy to view in a small mobile. There is availibity to see further details of the traffic alert by clicking into the card and a modal with details will show up. 
+
+### Users App
+
+User - build in django user model enables users to register log in and log out. 
+
+I have added a User Profile model and form to enable user to give us more data about themselves. This data will be useful for reporting the mileage to the employer. The profile asks about their employer details and email addres.
+
+Another idea is to add a special Drive Home button for the user - once the user has submitted their private address in their user profile. 
 
 ## Future Features 
 ------
@@ -496,6 +501,24 @@ The google ads connected with cars are quite well priced and due to the repeteti
    + CSS3
    + JavaScript
    + jQuery
+   + Python
+   + Django
+
+### Technologies and Programs Used:
++ GitHub
+    The Git was used for version control
+    Git issues were used for user stories
+    GitPod was used as IDE to write the code and push to GitHub
++ Heroku 
+    The page was deployed to Heroku
++ PostgreSQL
+    PostgreSQL was used as database for this project
++ VSCode
+    VSCode was used on the days when GitPod was down
++ Google Cloud
+    to get api key
++ cloudinary storage
+    for storing static files
 
  ### Frameworks Libraries and Programs Used
 
@@ -503,13 +526,10 @@ The google ads connected with cars are quite well priced and due to the repeteti
     Balsamiq was used to create the wireframes during the design process.
 + Bootstrap 5:
     Bootstrap was used to add style to the website.
-+ Git
-    Git was used for version control by utilizing the Gitpod terminal to commit to Git and Push to GitHub.
-+ GitHub:
-    GitHub is used to store the project's code after being pushed from Git.
++ Bootswach:
+    Bootswatch wass added to change the standard styling and color pallette provided by bootstrap
++ Bootstrap icons
 + Django
-
-
 
 ## Code Validation
 ------
@@ -842,7 +862,6 @@ I have tried to reaserch how many maximum decimal places can be in geocoodinates
 
 I have changed the model. I have increased the number of decimal places to 20. I have tested Victoria station in London and the error was cleared. 
 
-
 ### Postcode extraction
 
 I have noticed that postcode saved in journey object was different than google places.
@@ -876,6 +895,7 @@ The drive.html template that displays journey form contained multiple if else st
 I have decided to duplicate the form three times and include 3 versions of the whole form, rather than split each part of the form to if else statements. This makes much cleaner structure and comment make it easy to see what is happening where. It is also much easier to spot any html errors if they occur.
 
 ### Button descendant of anchor
+
 W3W validator returned `<button>` must not be descendant of `<a>`. Solution found on [stack overflow](https://stackoverflow.com/questions/6393827/can-i-nest-a-button-element-inside-an-a-using-html5) This has cleared the error from each page. 
 
 ### Source code
@@ -934,19 +954,83 @@ Even if the above works I would still have to loop throuogh options to display o
 
 For now I decided to leave the forms |as_bootstraps - because they actualy work and display the content and input type correctly. This might need addressing in further development of the site.
 
+### Bugs left
+Out of the above list bugs that were left to be delt with in the next release:
 
-## Deployment
+- styling of some of the forms could be improved as default |as_bootstrap styling of the form leaves too small gap between the label and the next input field above
 
- The site was deployed to Heroku pages. 
- 
- * The steps to deploy are as follows: 
+- traffic list pagination - not working on drive - this was changed into a feature - the list of traffic message for drive is only 3 messages long - to limit scrolling the screen on mobile phones
 
- ??? need to update this to explain heroku steps
-
- plus install requirements txt
- plus obtain google api key
+- link to google maps - it gives random results for some desktop computers as the google maps might struggle to obtain user's current location, as unlike mobile phones - no automatic data is provided.
 
 
+## Deployment and making a clone
+
+### Deployment to heroku
+
+**In your app** 
+
+1. add the list of requirements by writing in the terminal "pip3 freeze --local > requirements.txt"
+2. Git add and git commit the changes made
+
+**Log into heroku**
+
+3. Log into [Heroku](https://dashboard.heroku.com/apps) or create a new account and log in
+
+4. top right-hand corner click "New" and choose the option Create new app, if you are a new user, the "Create new app" button will appear in the middle of the screen
+
+5. Write app name - it has to be unique, it cannot be the same as this app
+6. Choose Region - I am in Europe
+7. Click "Create App"
+
+**The page of your project opens.**
+
+8. Go to Resources Tab, Add-ons, search and add Heroku Postgres
+
+9. Choose "settings" from the menu on the top of the page
+
+10. Go to section "Config Vars" and click button "Reveal Config Vars". 
+
+11. Add the below variables to the list
+
+    * Database URL will be added automaticaly
+    * Secret_key - is the djnago secret key can be generated [here](https://miniwebtool.com/django-secret-key-generator/). 
+    * Cloudinary URL can be obtained from [cloudinary](https://cloudinary.com/) follow the steps on the website to register. 
+    * Google API key can be obtained [here](https://cloud.google.com/gcp?authuser=1) you will have to register with google and create new app to get the API key. Follow the instructions on the website.
+
+**Go back to your code**
+
+12. Procfile needs to be created in your app
+```
+web: gunicorn PROJ_NAME.wsgi
+```
+
+13. In settings in your app add Heroku to ALLOWED_HOSTS
+
+14. Add and commit the changes in your code and push to github
+
+**Final step - deployment**
+
+15. Next go to "Deploy" in the menu bar on the top 
+
+16. Go to section "deployment method", choose "GitHub"
+
+17. New section will appear "Connect to GitHub" - Search for the repository to connect to
+
+18. type the name of your repository and click "search"
+
+19. once Heroku finds your repository - click "connect"
+
+20. Scroll down to the section "Automatic Deploys"
+
+21. Click "Enable automatic deploys" or choose "Deploy branch" and manually deploy
+
+22. Click "Deploy branch"
+
+Once the program runs:
+you should see the message "the app was sussesfully deployed"
+
+23. Click the button "View"
 
 The live link can be found [here](https://mileage-tracker-app.herokuapp.com/).
 
@@ -963,7 +1047,7 @@ By forking the GitHub Repository you will be able to make a copy of the original
 1. Log in to GitHub and locate the [GitHub Repository](https://github.com/JoGorska/mileage-tracker)
 2. Under the repository name, click "Clone or download".
 3. To clone the repository using HTTPS, under "Clone with HTTPS", copy the link.
-4. Open Git Bash
+4. Open commandline interface on your computer
 5. Change the current working directory to the location where you want the cloned directory to be made.
 6. Type `git clone`, and then paste the URL you copied in Step 3.
 
@@ -973,53 +1057,56 @@ $ git clone https://github.com/JoGorska/mileage-tracker
 
 7. Press Enter. Your local clone will be created.
 
+### Setting up your local enviroment
 
+1. Create Virtual enviroment on your computer or use gitpod built in virtual enviroment feature.
 
+2. Create env.py file. It needs to contain those 5 variables.
+
+* Database URL can be obtained from [heroku](https://dashboard.heroku.com/), add PostgreSQL as an add on when creating an app. 
+* Secret_key - is the djnago secret key can be generated [here](https://miniwebtool.com/django-secret-key-generator/). 
+* Cloudinary URL can be obtained from [cloudinary](https://cloudinary.com/) follow the steps on the website to register. 
+* Google API key can be obtained [here](https://cloud.google.com/gcp?authuser=1) you will have to register with google and create new app to get the API key. Follow the instructions on the website.
+
+```
+os.environ["DATABASE_URL"] = "..."
+os.environ["SECRET_KEY"] = "..."
+os.environ["CLOUDINARY_URL"] = "..."
+os.environ["GOOGLE_API_KEY"] = "..."
+os.environ["DEVELOPMENT"] = "True"
+```
+
+3. Run command 
+```
+pip3 install -r requirements.txt
+```
 
 ## Credits 
+### Online resources
 * [Icons8](https://icons8.com/)
 * [unsplash](https://unsplash.com/)
 * [Fontawsome](https://fontawesome.com/)
 * [Bootstrap 5]()
-* The project walkthrough I Think Therefore I Blog tutorial provided instpiration for traffic alerts the repository can be found [here]()
+* [Markdown best practices](https://www.markdownguide.org/basic-syntax/)
+
+### Tutorials and inspiration
+
+* The project walkthrough I Think Therefore I Blog tutorial provided instpiration for traffic alerts the repository can be found [here](https://github.com/Code-Institute-Solutions/Django3blog/blob/master/12_final_deployment/blog/views.py)
+
 * Django Google API by Bobby did coding [tutorial](https://www.youtube.com/watch?v=_vCT42vDfgw&t=962s) provided clear guidance how to use google API in a django project, how to fetch data and how to use them within the project. 
+
 * Django Google API tutorial repository can be found [here](https://github.com/bobby-didcoding/did_django_google_api_tutorial)
+
+* Hello Django tutorial by Mr Zielinski. Link to repository can be found [here](https://github.com/ckz8780/ci-fsf-hello-django/tree/c13b414fd2e87a54b4f2788ceffec55be4ade925) This helped me to understand various Django errors.
+
+### People
+
 * Igor_ci for explaining how to do django forms styled by bootstrap
 
-Zielinski
+* Mr Zielinski for creating tutorial and showing bugs on the way
 
-@igor_ci
-I used Crispy Forms in my MS4 and they worked nicely (except for a few HTML code validator errors that didn’t affect display in any way).
-But if you want to still use Django Bootstrap like in the videos, you need to
-pip3 install django-forms-bootstrap
-add "django_forms_bootstrap" to INSTALLED_APPS in settings.py
-add the tag {% load bootstrap_tags %} to the top of every template you want to use Django Bootstrap forms in.
-add the tag |as_bootstrap to every form you want to be styled with Django Bootstrap.
+* Dave Horrocks, Kamil Kwiatkowski, Daisy Gunn - for intense testing of the App and valuble suggestions for improvement
 
-)
-
- 
- icon for tank (simple)
-https://www.iconfinder.com/search?q=tank&price=free
- Ilham Albab
- license free to share https://creativecommons.org/licenses/by/3.0/
-
- icon for thumbs up from fonawsome
- https://github.com/FortAwesome/Font-Awesome/tree/master/svgs/regular
-
-icons 
-<a href="https://icons8.com/icon/32215/google-maps-old">Google Maps Old icon by Icons8</a>
+* Felipe Souza Alarcon - for mentoring, suggestions and encouragement
 
 
-google maps API + javascript map API
-
-Visits app is making API calls to get distance and lenght of the journey and displays a map. This was created by following tutorial [Python Django application walkthrough tutorial for Google maps](https://www.youtube.com/watch?v=wCn8WND-JpU&t=8s) Bobby did coding. For more details the repository is located [here](https://github.com/bobby-didcoding/did_django_google_maps_api).
-
-#### Markdown best practices
-https://www.markdownguide.org/basic-syntax/
-
-
-
-
-
-### Content
