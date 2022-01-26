@@ -41,11 +41,11 @@ DEBUG = development
 if development:
     ALLOWED_HOSTS = ['localhost', '127.0.0.1', '127.0.0.1:8000']
 else:
-    ALLOWED_HOSTS = ["mileage-tracker-app.herokuapp.com"]
+    ALLOWED_HOSTS = ['*', "mileage-tracker-app.herokuapp.com"]
 
 
 # DEBUG = False
-# ALLOWED_HOSTS = ['localhost', '127.0.0.1', '127.0.0.1:8000']
+# ALLOWED_HOSTS = ['*', 'localhost', '127.0.0.1', '127.0.0.1:8000']
 
 
 INSTALLED_APPS = [
@@ -62,7 +62,7 @@ INSTALLED_APPS = [
     'users',
     'traffic',
     'visits',
-    'error_pages'
+    'error_pages',
 ]
 
 SITE_ID = 1
