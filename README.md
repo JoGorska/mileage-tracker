@@ -1070,11 +1070,11 @@ $ git clone https://github.com/JoGorska/mileage-tracker
 * Google API key can be obtained [here](https://cloud.google.com/gcp?authuser=1) you will have to register with google and create new app to get the API key. Follow the instructions on the website.
 
 ```
-os.environ["DATABASE_URL"] = "..."
-os.environ["SECRET_KEY"] = "..."
-os.environ["CLOUDINARY_URL"] = "..."
-os.environ["GOOGLE_API_KEY"] = "..."
-os.environ["DEVELOPMENT"] = "True"
+DATABASE_URL = "..."
+SECRET_KEY = "..."
+CLOUDINARY_URL = "..."
+GOOGLE_API_KEY = "..."
+DEVELOPMENT = "True"
 ```
 
 3. Run command 
