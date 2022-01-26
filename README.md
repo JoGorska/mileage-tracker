@@ -71,8 +71,9 @@
 
 
 [Credits](#credits)
-+ [Content](#content)
-+ [Media](#media)
++ [Online resources](#Online-resources)
++ [Tutorials and inspiration](#Tutorials-and-inspiration)
++ [People](#People)
 
 # Tank Mileage Tracker
 
