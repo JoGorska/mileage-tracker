@@ -608,7 +608,7 @@ All pages were initialy put through [Python Formatter](https://codebeautify.org/
 | visits |  urls.py |  [all ok](static/img/readme/pep8-validator/04-visits-urls.txt) |
 | visits |  views.py |  [all ok](static/img/readme/pep8-validator/04-visits-views.txt) |
 
-## Tests
+ ## Tests
 ------
 
 ### Automated tests

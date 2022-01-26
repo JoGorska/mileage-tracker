@@ -14,6 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.conf.urls import handler404, handler500
 from django.urls import path, include
 from users.views import RegisterUserView
 from django.views.generic import TemplateView
@@ -28,3 +29,5 @@ urlpatterns = [
     path('users/', include('users.urls'), name='users_urls'),
     path('visits/', include('visits.urls', namespace="visits")),
 ]
+
+handler404 = 'error_pages.views.error_404'

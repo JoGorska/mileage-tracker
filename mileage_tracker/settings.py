@@ -32,24 +32,20 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 # solution to setting debug to false for heroku found here:
 # https://learn.codeinstitute.net/courses/course-v1:CodeInstitute+FST101+2021_T1/courseware/dc049b343a9b474f8d75822c5fda1582/00bc94313a374f519dbec8dfb7ed0fbd/
-# can this stay ???
+
 
 development = os.environ.get('DEVELOPMENT', False)
 
-DEBUG = development
+# DEBUG = development
 
 if development:
-    ALLOWED_HOSTS = ['localhost', '127.0.0.1', '127.0.0.1:8000']
+    ALLOWED_HOSTS = ['*', 'localhost', '127.0.0.1', '127.0.0.1:8000']
 else:
     ALLOWED_HOSTS = ["mileage-tracker-app.herokuapp.com"]
 
 
-# DEBUG = False
+DEBUG = False
 
-# ALLOWED_HOSTS = ["mileage-tracker-app.herokuapp.com", "localhost", '127.0.0.1']
-
-
-# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
