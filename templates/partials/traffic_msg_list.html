@@ -10,8 +10,12 @@
         <!-- card body -->
         <div class="card-body">
           <!-- Modal Trigger -->
-          <div  class="" data-bs-toggle="modal" data-bs-target="#id-modal-{{trafficmessage.id}}" data-bs-show="true">
-            <p class="card-text fs-5 text">{{trafficmessage.area}} in {{trafficmessage.county}} (more)
+          <div  class="" >
+            <p class="card-text fs-5 text">{{trafficmessage.area}} in {{trafficmessage.county}}
+            <button class="btn btn-secondary btn-sm float-end text-dark"
+            data-bs-toggle="modal" data-bs-target="#id-modal-{{trafficmessage.id}}" data-bs-show="true">
+            more
+          </button>
             </p>
           </div>
         </div>
