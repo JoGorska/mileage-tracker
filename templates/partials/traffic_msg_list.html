@@ -4,19 +4,25 @@
     <!-- forloop to display all messages in the database -->
     {% for trafficmessage in trafficmessage_list %}
     <div class="col mt-1 mb-3">
-      <div class="card border-warning shadow-lg">
+      <div class="card border-warning shadow-lg h-100">
         <!-- card header -->
         {% include 'partials/traffic_msg_header.html' %}
         <!-- card body -->
         <div class="card-body">
           <!-- Modal Trigger -->
-          <div  class="" >
-            <p class="card-text fs-5 text">{{trafficmessage.area}} in {{trafficmessage.county}}
-            <button class="btn btn-secondary btn-sm float-end text-dark"
-            data-bs-toggle="modal" data-bs-target="#id-modal-{{trafficmessage.id}}" data-bs-show="true">
-            more
-          </button>
-            </p>
+          <div  class="row" >
+            <div class="col-9">
+              <p class="card-text small ">{{trafficmessage.area}} in {{trafficmessage.county}}</p>
+            </div>
+            <div class="col-3">
+              <button class="btn btn-secondary btn-sm float-end text-dark"
+              data-bs-toggle="modal" data-bs-target="#id-modal-{{trafficmessage.id}}" data-bs-show="true">
+              more
+            </button>
+            </div>
+
+
+
           </div>
         </div>
       </div>
@@ -34,13 +40,13 @@
     <ul class="pagination justify-content-center">
       {% if page_obj.has_previous %}
       <li>
-        <a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; PREV 
+        <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-secondary btn-sm me-2">&laquo; PREV 
         </a>
       </li>
       {% endif %}
       {% if page_obj.has_next %}
       <li>
-        <a href="?page={{ page_obj.next_page_number }}" class="page-link"> NEXT &raquo;
+        <a href="?page={{ page_obj.next_page_number }}" class="btn btn-secondary btn-sm"> NEXT &raquo;
         </a>
       </li>
       {% endif %}
