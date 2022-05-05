@@ -27,4 +27,10 @@ urlpatterns = [
     path('', include('traffic.urls'), name='traffic_urls'),
     path('users/', include('users.urls'), name='users_urls'),
     path('visits/', include('visits.urls', namespace="visits")),
+    # login from build in user model
+    path(
+        "login",
+        auth_views.LoginView.as_view(template_name="registration/login.html"),
+        name="login",
+    ),
 ]
