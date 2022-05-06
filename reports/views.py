@@ -1,6 +1,5 @@
-from django.shortcuts import render
-from django.views import View
 from django.shortcuts import render, get_object_or_404
+from django.views import View
 from django.contrib.auth.models import User
 from visits.models import Journey
 
@@ -39,7 +38,22 @@ class ReportView(View):
             Journey.objects
             .filter(date_of_journey__range=[start_date, end_date])
             .filter(driver=user))
-        print(f'JORUNEY DATE {journey.date for journey in all_journeys_in_period}')
+        print(f'JORUNEY DATE {journey.date_of_journey for journey in all_journeys_in_period}')
+
+        # dictionary: date: list of journeys
+        # plus I need all mileage of the day
+
+# https://stackoverflow.com/questions/993358/creating-a-range-of-dates-in-python
+
+        for date in range(start_date, end_date):
+            all_journeys_in_one_day = Journey.objects.filter(date).filter(driver=user)
+            # I am making a list with postcode start of the first visit
+            # and all postcode destinations for all other visits
+            list_of_postcodes = [all_journeys_in_one_day[0].postcode_start]
+            for journey in all_journeys_in_one_day:
+                list_of_postcodes.append(journey.postcode_destination)
+        print(f'ALL POSTCODES FOR ONE DAY {list_of_postcodes}')
+                
         context = {
             'all_journeys_in_period': all_journeys_in_period,
         }
