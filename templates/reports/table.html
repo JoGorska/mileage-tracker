@@ -5,7 +5,7 @@
 
 <h2 class="display-6 text-center mb-4">Compare plans</h2>
 
-<div class="table-responsive">
+<div class="table-responsive container">
   <table class="table text-center">
     <thead>
       <tr>
@@ -16,6 +16,14 @@
       </tr>
     </thead>
     <tbody>
+      <p class="text-white">
+        {% for journey in all_journeys_in_period %}
+        {{ journey.date_of_journey }}
+        {{ journey.postcode_start }}
+        {{ journey.postcode_destination }}
+        {{ journey.driver }}
+        {% endfor %}
+      </p>
       <tr>
         <th scope="row" class="text-start">Public</th>
         <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
