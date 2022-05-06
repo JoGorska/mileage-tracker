@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+<div>
+  <div class="page-overlay d-flex justify-content-center align-items-center">
+      <div class="container options-container p-5">
+<form action="#" method="POST">
+    {% csrf_token %}
+
+    <div class="row">
+      <div class="col-12 col-lg-6">
+        <div class="mb-3">
+          <label for="id-start-date" class="form-label">Start Date
+          </label>
+          <input type="date" class="form-control" id="id-start-date" 
+                 aria-describedby="start-date-help" name="start_date" 
+                 required>
+          <div id="start-date-help" class="form-text">
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-lg-6">
+        <div class="mb-3">
+          <label for="id-end-date" class="form-label">End Date
+          </label>
+          <input type="date" class="form-control" id="id-end-date"
+                 aria-describedby="end-date-help" name="end_date" 
+                 required>
+          <div id="end-date-help" class="form-text">
+          </div>
+          <input type="hidden" name="user_id" value="{{user.id}}">
+        </div>
+      </div>
+    </div>     
+    <div>
+      <button type="submit" class="btn btn-warning btn-lg">Mileage Report
+      </button>
+    </div>
+  </form> 
+</div>
+</div>
+</div>
+
+{% endif %}
+
+
+  {% endblock %}
