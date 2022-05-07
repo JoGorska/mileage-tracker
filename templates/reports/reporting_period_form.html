@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
-
+{% load bootstrap_tags %}
 {% block content %}
 
 {% if user.is_authenticated %}
@@ -9,6 +9,10 @@
       <div class="container options-container p-5">
 <form action="#" method="POST">
     {% csrf_token %}
+<div class="row">
+  {{ reporting_period_form.start_date |as_bootstrap }}
+</div>
+
 
     <div class="row">
       <div class="col-12 col-lg-6">

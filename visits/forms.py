@@ -1,3 +1,4 @@
+'''forms for visits app'''
 from django import forms
 from .models import Journey
 from .models import DatePicker
@@ -18,6 +19,10 @@ class JourneyForm(forms.ModelForm):
     '''
 
     class Meta:
+        '''
+        class meta points to the model, Journey, which form will reffer to and 
+        specifies the fields off the model that need to be rendered 
+        '''
         model = Journey
         fields = (
             'address_start',
@@ -35,6 +40,10 @@ class DatePickerForm(forms.ModelForm):
     form to pick a date for a list of journeys to be displayed
     '''
     class Meta:
+        '''
+        Form refers to model datepicker and renders date_picked field
+        with widget DateInput
+        '''
         model = DatePicker
         fields = ('date_picked', )
         widgets = {
