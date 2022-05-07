@@ -1,13 +1,7 @@
 '''forms for reports app'''
 import datetime
 from django import forms
-
-
-class DateInput(forms.DateInput):
-    '''
-    class that ads input_type date to to the widget
-    '''
-    input_type = 'date'
+from django.conf import settings
 
 
 class ReportingPeriodForm(forms.Form):
@@ -17,12 +11,24 @@ class ReportingPeriodForm(forms.Form):
     start_date = forms.DateField(
         initial=datetime.date.today,
         widget=forms.DateInput(
-            attrs={'class': 'col-12 col-lg-6',
-                   'id': 'start_date'})
-
+            format=settings.DATE_INPUT_FORMATS,
+            attrs={'class': 'mt-2'}),
     )
-    end_date = forms.DateField(initial=datetime.date.today)
+    end_date = forms.DateField(
+        input_formats=settings.DATE_INPUT_FORMATS,
+        initial=datetime.date.today,
+        widget=forms.DateInput(
+            format=settings.DATE_INPUT_FORMATS,
+            attrs={'class': 'mt-2'}))
 
-
-# date field django docs
-# https://docs.djangoproject.com/en/3.2/ref/forms/fields/#datefield
+    def clean_start_date(self):
+        '''
+        returns errors if the field is filled in incorrectly
+        '''
+        self.cleaned_data['start_date']
+        if data != None and data > datetime.now():
+            raise forms.ValidationError(
+                    """
+                    \'to\' date cannot be later than today.
+                    """)
+# clean the data
