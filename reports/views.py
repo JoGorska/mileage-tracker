@@ -1,9 +1,9 @@
+'''views for reports app'''
+# pylint: disable=no-member
 from django.shortcuts import render, get_object_or_404
 from django.views import View
 from django.contrib.auth.models import User
 from visits.models import Journey
-
-# Create your views here.
 
 
 class ReportView(View):
