@@ -16,16 +16,12 @@ class ReportingPeriodForm(forms.Form):
     form that renders start date and end date of the report
     '''
     start_date = forms.DateField(
-        input_formats=settings.DATE_INPUT_FORMATS,
         initial=datetime.date.today,
         widget=forms.DateInput(
-            attrs={'class': 'mt-2', 'type': 'date'}),
-    )
+            attrs={'class': 'mt-2', 'type': 'date'}))
     end_date = forms.DateField(
-        input_formats=settings.DATE_INPUT_FORMATS,
         initial=datetime.date.today,
         widget=forms.DateInput(
-
             attrs={'class': 'mt-2', 'type': 'date'}))
 
     # class Meta:
@@ -33,14 +29,14 @@ class ReportingPeriodForm(forms.Form):
     #     widgets = {
     #         'date_picked': DateInput(),
     #     }
-    def clean_start_date(self):
-        '''
-        returns errors if the field is filled in incorrectly
-        '''
-        data = self.cleaned_data['start_date']
-        if data > datetime.datetime.today:
-            raise forms.ValidationError(
-                """
-                \'to\' date cannot be later than today.
-                """)
+    # def clean_start_date(self):
+    #     '''
+    #     returns errors if the field is filled in incorrectly
+    #     '''
+    #     data = self.cleaned_data['start_date']
+    #     if data > datetime.datetime.today:
+    #         raise forms.ValidationError(
+    #             """
+    #             \'to\' date cannot be later than today.
+    #             """)
 # clean the data

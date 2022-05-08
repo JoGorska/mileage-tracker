@@ -1,3 +1,5 @@
+'''views for traffic messages app'''
+# pylint: disable=no-member
 from django.shortcuts import render, get_object_or_404
 from django.views import generic, View
 from django.views.generic.edit import CreateView
@@ -58,6 +60,9 @@ class MsgThanks(View):
     the thanks get canceled
     '''
     def post(self, request, msg_id):
+        '''
+        POST method for when the user click the button
+        '''
         traffic_message = get_object_or_404(TrafficMessage, id=msg_id)
         if traffic_message.thanks.filter(id=request.user.id).exists():
             traffic_message.thanks.remove(request.user)
