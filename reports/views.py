@@ -49,7 +49,7 @@ class ReportView(View):
             query = (
                 Journey.objects
                 .filter(date_of_journey__range=[start_date, end_date])
-                .filter(driver=user_id))
+                .filter(driver=user_id)).order_by('created_on')
             print(
                 f'JORUNEY DATE {journey.date_of_journey for journey in query}')
             results_dict = {}
@@ -70,11 +70,14 @@ class ReportView(View):
                     # add start address to postcodes
                     # add all destination addresses to postcodes
                     # need to test if the start and destination match - if they create a fluid journey ???
-                    list_of_postcodes_in_a_day.append(list_of_joruneys_in_a_day[0].postcode_start)
-                    print(f'SHOULD BE ONE POSTCODE {list_of_postcodes_in_a_day}')
-                    for one_journey in list_of_joruneys_in_a_day:
-                        list_of_postcodes_in_a_day.append(one_journey.postcode_destination)
-                    print(f'should be long list of postcodes {list_of_postcodes_in_a_day}')
+                    if len(list_of_joruneys_in_a_day) > 0:
+                        list_of_postcodes_in_a_day.append(list_of_joruneys_in_a_day[0].postcode_start)
+                        print(f'SHOULD BE ONE POSTCODE {list_of_postcodes_in_a_day}')
+                        for one_journey in list_of_joruneys_in_a_day:
+                            list_of_postcodes_in_a_day.append(one_journey.postcode_destination)
+                        print(f'should be long list of postcodes {list_of_postcodes_in_a_day}')
+                results_dict.update({each_date: list_of_postcodes_in_a_day})
+            print(f'RESULTS DICCTIONARY {results_dict}')
 
                         
 
