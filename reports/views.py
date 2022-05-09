@@ -1,5 +1,6 @@
 '''views for reports app'''
 # pylint: disable=no-member
+from decimal import Decimal
 from datetime import date, datetime, timedelta
 from django.shortcuts import render, get_object_or_404
 from django.views import View
@@ -60,45 +61,40 @@ class ReportView(View):
             # loops through each day starting from start_date
             # in range of the lenght of the reporting period chosen
             for each_date in (start_date + timedelta(n) for n in range(period_integer_of_days + 1)):
-                print(f'DATE {each_date}')
+                # date is the key in the results dictionary
+                date_nice_format = each_date.strftime("%d %B %Y")
+                
                 for journey in query:
+                    # list of journeys in a day contains journey objects
                     list_of_joruneys_in_a_day = []
-
                     if journey.date_of_journey == each_date:
                         list_of_joruneys_in_a_day.append(journey)
+                    # list of postcodes in a day is the value in the results dictionary
+                    day_journeys_data = {
+                        'postcodes': [],
+                        'miles': 0
+                    }
                     list_of_postcodes_in_a_day = []
-                    # add start address to postcodes
-                    # add all destination addresses to postcodes
-                    # need to test if the start and destination match - if they create a fluid journey ???
+                    all_miles_in_a_day = 0.0
+                    # add start address to postcodes - daily travel starts there
+                    # add each destination addresses to postcodes
+                    # TODO need to test if the start and destination match - if they create a fluid journey ???
                     if len(list_of_joruneys_in_a_day) > 0:
                         list_of_postcodes_in_a_day.append(list_of_joruneys_in_a_day[0].postcode_start)
-                        print(f'SHOULD BE ONE POSTCODE {list_of_postcodes_in_a_day}')
+
                         for one_journey in list_of_joruneys_in_a_day:
                             list_of_postcodes_in_a_day.append(one_journey.postcode_destination)
-                        print(f'should be long list of postcodes {list_of_postcodes_in_a_day}')
-                results_dict.update({each_date: list_of_postcodes_in_a_day})
+                            all_miles_in_a_day += float(one_journey.distance)
+                    day_journeys_data['miles'] += all_miles_in_a_day
+                    day_journeys_data['postcodes'] = list_of_postcodes_in_a_day
+                    print(f'DAY JOURNEYs DATA {day_journeys_data}')
+                    print(f'ALL MILES IN A DAY {all_miles_in_a_day}')
+
+                results_dict.update({date_nice_format: day_journeys_data})
             print(f'RESULTS DICCTIONARY {results_dict}')
 
-                        
-
-
-#         # dictionary:
-#         # date: list of journeys = keys
-#         # plus I need all mileage of the day = values = []
-
-# # https://stackoverflow.com/questions/993358/creating-a-range-of-dates-in-python
-
-#         for date in range(start_date, end_date):
-#             all_journeys_in_one_day = Journey.objects.filter(date).filter(driver=user)
-#             # I am making a list with postcode start of the first visit
-#             # and all postcode destinations for all other visits
-#             list_of_postcodes = [all_journeys_in_one_day[0].postcode_start]
-#             for journey in all_journeys_in_one_day:
-#                 list_of_postcodes.append(journey.postcode_destination)
-#         print(f'ALL POSTCODES FOR ONE DAY {list_of_postcodes}')
-                
-            # context = {
-            #     'all_journeys_in_period': all_journeys_in_period,
-            # }
-            return render(request, 'reports/table.html')
+            context = {
+                'results_dict': results_dict,
+            }
+            return render(request, 'reports/table.html', context)
         return render(request, '/')
