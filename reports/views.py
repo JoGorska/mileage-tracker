@@ -33,37 +33,55 @@ class ReportView(View):
         # gets data posted by the html form
         form = ReportingPeriodForm(data=request.POST)
         if form.is_valid():
-
+            user_id = request.user.id
             start_date = form.cleaned_data['start_date']
             end_date = form.cleaned_data['end_date']
-            user_id = request.user.id
+            # how many days is the queried period in days
+            # as python datetime object
+            period_datetime = end_date - start_date
+            period_integer_of_days = period_datetime.days
 
-            context = {}
+            # query contains all data that I will need for this report
+            # I query the database once, than filter results to display
+            # in the context
+
+            # need to order by datetime - when created
+            query = (
+                Journey.objects
+                .filter(date_of_journey__range=[start_date, end_date])
+                .filter(driver=user_id))
+            print(
+                f'JORUNEY DATE {journey.date_of_journey for journey in query}')
+            results_dict = {}
             # two ways of converting date to datetime object
-            final = start_date.strftime('%Y-%m-%dT%H:%M:%S.%f')
-            combine = datetime.combine(end_date, datetime.min.time())
-            delta = end_date - start_date
+            start_date_datetime = start_date.strftime('%Y-%m-%dT%H:%M:%S.%f')
+            end_date_datetime = datetime.combine(end_date, datetime.min.time())
 
-            print(f'TIME DELTA datetime object {delta}')
-            print(f'INTEGER??? {delta.days}')
-            for each_date in (start_date + timedelta(n) for n in range(delta.days + 1)):
+            # loops through each day starting from start_date
+            # in range of the lenght of the reporting period chosen
+            for each_date in (start_date + timedelta(n) for n in range(period_integer_of_days + 1)):
                 print(f'DATE {each_date}')
+                for journey in query:
+                    list_of_joruneys_in_a_day = []
 
-#         # user_id = request.POST.get('user_id')
-#         # gets user object
-#         user = get_object_or_404(User, id=user_id)
+                    if journey.date_of_journey == each_date:
+                        list_of_joruneys_in_a_day.append(journey)
+                    list_of_postcodes_in_a_day = []
+                    # add start address to postcodes
+                    # add all destination addresses to postcodes
+                    # need to test if the start and destination match - if they create a fluid journey ???
+                    list_of_postcodes_in_a_day.append(list_of_joruneys_in_a_day[0].postcode_start)
+                    print(f'SHOULD BE ONE POSTCODE {list_of_postcodes_in_a_day}')
+                    for one_journey in list_of_joruneys_in_a_day:
+                        list_of_postcodes_in_a_day.append(one_journey.postcode_destination)
+                    print(f'should be long list of postcodes {list_of_postcodes_in_a_day}')
 
-#         # filter visits by:
-#         # - user
-#         # - dates
-#         all_journeys_in_period = (
-#             Journey.objects
-#             .filter(date_of_journey__range=[start_date, end_date])
-#             .filter(driver=user))
-#         print(f'JORUNEY DATE {journey.date_of_journey for journey in all_journeys_in_period}')
+                        
 
-#         # dictionary: date: list of journeys
-#         # plus I need all mileage of the day
+
+#         # dictionary:
+#         # date: list of journeys = keys
+#         # plus I need all mileage of the day = values = []
 
 # # https://stackoverflow.com/questions/993358/creating-a-range-of-dates-in-python
 
