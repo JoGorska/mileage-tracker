@@ -620,6 +620,7 @@ Automated tests have not been created due to time constrains of the project.
 ### Lighthouse
 
 ![Lighthouse general report](README_docs/Lighthouse/Lighthouse_01_all.png)
+
 The Lighthouse in Chrome dev tools has been run. The results indicated very positive outcome of testing Accessibility, Best Practice and SEO, unfortunately the Performance has been assesed very low.  
 
 ![Lighthouse Performance report](README_docs/Lighthouse/Lighthouse_02_performance.png)
@@ -765,7 +766,7 @@ I deployed page to heroku. Page was displaying white without any css or js files
 
 The below error was displaying on console:
 
-![error message on the console](mileage_tracker/README_docs/static2.png)
+![error message on the console](README_docs/static2.png)
 
 Tried several solutions:
 
