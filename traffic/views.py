@@ -1,5 +1,5 @@
 '''views for traffic messages app'''
-# pylint: disable=no-member
+
 from django.shortcuts import render, get_object_or_404
 from django.views import generic, View
 from django.views.generic.edit import CreateView

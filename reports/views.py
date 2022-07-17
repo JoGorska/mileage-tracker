@@ -1,10 +1,7 @@
 '''views for reports app'''
-# pylint: disable=no-member
-from decimal import Decimal
-from datetime import date, datetime, timedelta
-from django.shortcuts import render, get_object_or_404
+from datetime import timedelta
+from django.shortcuts import render
 from django.views import View
-from django.contrib.auth.models import User
 from visits.models import Journey
 from .forms import ReportingPeriodForm
 
@@ -55,8 +52,9 @@ class ReportView(View):
                 f'JORUNEY DATE {journey.date_of_journey for journey in query}')
             results_dict = {}
             # two ways of converting date to datetime object
-            start_date_datetime = start_date.strftime('%Y-%m-%dT%H:%M:%S.%f')
-            end_date_datetime = datetime.combine(end_date, datetime.min.time())
+            # from datetime import datetime, timedelta
+            # start_date_datetime = start_date.strftime('%Y-%m-%dT%H:%M:%S.%f')
+            # end_date_datetime = datetime.combine(end_date, datetime.min.time())
 
             # loops through each day starting from start_date
             # in range of the lenght of the reporting period chosen
@@ -78,7 +76,8 @@ class ReportView(View):
                     all_miles_in_a_day = 0.0
                     # add start address to postcodes - daily travel starts there
                     # add each destination addresses to postcodes
-                    # TODO need to test if the start and destination match - if they create a fluid journey ???
+                    # TODO need to test if the start and destination match
+                    # - if they create a fluid journey ???
                     if len(list_of_joruneys_in_a_day) > 0:
                         list_of_postcodes_in_a_day.append(list_of_joruneys_in_a_day[0].postcode_start)
 

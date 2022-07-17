@@ -587,6 +587,8 @@ All pages were initialy put through [Python Formatter](https://codebeautify.org/
 
 ### Python validator
 
+The PEP8 style rules were followed with exceptions specified in the files setup.cfg and .pylintrc. Those files were used to custom configure python validation.
+More about .pylintrc can be found [here](https://www.getcodeflow.com/pylint-configuration.html) and about setup.cfg can be found [here](https://pep8.readthedocs.io/en/release-1.7.x/intro.html#configuration)
 
 | App name  |  file name | result |
 | ------ | ------ |------ |
@@ -617,10 +619,10 @@ Automated tests have not been created due to time constrains of the project.
 
 ### Lighthouse
 
-![Lighthouse general report](mileage_tracker/README_docs/Lighthouse/Lighthouse_01_all.png)
+![Lighthouse general report](README_docs/Lighthouse/Lighthouse_01_all.png)
 The Lighthouse in Chrome dev tools has been run. The results indicated very positive outcome of testing Accessibility, Best Practice and SEO, unfortunately the Performance has been assesed very low.  
 
-![Lighthouse Performance report](mileage_tracker/README_docs/Lighthouse/Lighthouse_02_performance.png)
+![Lighthouse Performance report](README_docs/Lighthouse/Lighthouse_02_performance.png)
 
 It seems that perfo is hindered by the fact I have all bootstrap files in cludinary. I would normaly use cdn link provided by bootstrap. In the case of this project I used bootstwatch. This ment that I had to download all css files that bootstrap is made off and replace the main bootstrap.css with the one that is provide by bootstwatch. 
 
