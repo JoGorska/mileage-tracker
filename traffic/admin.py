@@ -1,3 +1,4 @@
+'''admin for traffic messages app'''
 from django.contrib import admin
 from .models import TrafficMessage
 

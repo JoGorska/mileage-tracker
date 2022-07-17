@@ -14,7 +14,13 @@
       <div class="modal-body">
         <h4>{{trafficmessage.content}}
         </h4>
-        <p>From: {{trafficmessage.author.first_name}} on {{trafficmessage.created_on}}
+        <p>From: 
+          {% if trafficmessage.author.first_name %}
+          {{trafficmessage.author.first_name}}
+          {% else %}
+          {{trafficmessage.author.email}}
+          {% endif %}
+           on {{trafficmessage.created_on}}
         </p>
       </div>
       <div class="modal-footer">
