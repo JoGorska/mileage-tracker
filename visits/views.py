@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic.edit import CreateView
 from django.views import View
@@ -9,7 +10,7 @@ from .forms import JourneyForm, DatePickerForm
 from .mixins import Directions, extract_postcode, sum_all_miles
 
 
-class Drive(CreateView):
+class Drive(LoginRequiredMixin, CreateView):
     '''
     displays the drive.html template with form to submit new journey,
     list of journeys for the day and 3 most recent traffic alerts
