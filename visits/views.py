@@ -298,10 +298,11 @@ class EditJourney(MyLoginReqMixin, CreateView):
 
             # seperate message for errors caused by missing geocoordinates
             if (
-                ("latitude_start" in list_of_fields_with_errors) or (
-                 "longitude_start" in list_of_fields_with_errors) or (
-                 "latitude_destination" in list_of_fields_with_errors) or (
-                 "longitude_destination" in list_of_fields_with_errors)):
+                (
+                    "latitude_start" in list_of_fields_with_errors) or (
+                    "longitude_start" in list_of_fields_with_errors) or (
+                    "latitude_destination" in list_of_fields_with_errors) or (
+                    "longitude_destination" in list_of_fields_with_errors)):
 
                 messages.error(
                     request,
