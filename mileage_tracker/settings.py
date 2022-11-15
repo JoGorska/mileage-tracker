@@ -41,7 +41,7 @@ DEBUG = development
 if development:
     ALLOWED_HOSTS = ['localhost', '127.0.0.1', '127.0.0.1:8000']
 else:
-    ALLOWED_HOSTS = ["mileage-tracker-app.herokuapp.com", "https://tank.up.railway.app/"]
+    ALLOWED_HOSTS = ["mileage-tracker-app.herokuapp.com", "tank.up.railway.app/"]
 
 
 # Application definition
@@ -59,8 +59,6 @@ INSTALLED_APPS = [
     'users',
     'traffic',
     'visits',
-    'reports',
-    'crispy_forms',
 ]
 
 SITE_ID = 1
@@ -81,8 +79,6 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'mileage_tracker.urls'
 
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -95,10 +91,6 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
-            'builtins': [
-                'crispy_forms.templatetags.crispy_forms_tags',
-                'crispy_forms.templatetags.crispy_forms_field',
-            ]
         },
     },
 ]
@@ -170,6 +162,5 @@ MEDIA_URL = '/media/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-DATE_INPUT_FORMATS = ('%d-%m-%Y')
 
 GOOGLE_API_KEY = os.environ.get('GOOGLE_API_KEY')
