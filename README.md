@@ -77,7 +77,7 @@
 
 # Tank Mileage Tracker
 
-[![showpiece home page](mileage_tracker/README_docs/screenshots/01_home.png)](https://mileage-tracker-app.herokuapp.com/)
+[![showpiece home page](README_docs/screenshots/01_home.png)](https://mileage-tracker-app.herokuapp.com/)
 
 Click [here](https://mileage-tracker-app.herokuapp.com/) to live site.  
 
@@ -235,18 +235,18 @@ However I have designed both desktop and mobile wireframes in the same time, but
 
 Wireframes created with [Balsamiq](https://balsamiq.com/wireframes/?gclid=Cj0KCQiAubmPBhCyARIsAJWNpiMYzrk_0rLzl3vgYKRLXwnX7rpqyQiUFdyt3xHGpRiHlZlozwO_pvcaAvUFEALw_wcB). The project was developed from initial wireframes and some modifications were made during the development process to assure better usability. 
 
-[Wireframes initial project](mileage_tracker/README_docs/wireframes/wireframes-v1.pdf)
+[Wireframes initial project](README_docs/wireframes/wireframes-v1.pdf)
 Initial design was focused on monthly reporting. I decided to change this do daily reporting and put monthly reporting on the list for the next relese.
 
 The design included a long form for user to type addresses in, one after another. This idea was dropped, as it could run into a danger of loosing the data half way through the journey. I thought it is important that user saves data immediately after he types it in. 
 
-[Wireframes final version](mileage_tracker/README_docs/wireframes/wireframes-v2.pdf)
+[Wireframes final version](README_docs/wireframes/wireframes-v2.pdf)
 
 The new design includes only one pair of start and destination address. After typing them in, the user saves them and can continue typing next address. In the new design uer can look up a day report that gives him a list of his visits for the day. 
 
 ### Agile Methodology
 
-![Screenshot of the canban board](mileage_tracker/README_docs/canban-board.png)
+![Screenshot of the canban board](README_docs/canban-board.png)
 
 Github issues were used to create the User stories and group them according to MoSCoW prioritization technique. Link to the project with live issues can be found [here](https://github.com/JoGorska/mileage-tracker/projects/1). The issues are currently in two categories - done or for the next relese. 
 
@@ -414,14 +414,14 @@ In the next release some features of this validation can be added to other forms
 Some input fields are given attribute "required" to prevent the user from submitting the empty form.
 
 **2. javascript validation for Drive**
-![input boxes showing javascript validation](mileage_tracker/README_docs/screenshots/features_form_javascript.png)
+![input boxes showing javascript validation](README_docs/screenshots/features_form_javascript.png)
 
 I have added Javascript function detecting input on the start address and destination address fields. The function adds and removes classes showing the user in red and green if the field is filled in correctly. 
 
 The green text explaining "ok" status for both fields is added by the function handling google places api query. Once the query is completed and data is submited to the fields this function adds and removes classes so it shows user in green that geocoodinates have been found. 
 
 **3. Django validation for Drive (AddJourney)**
-![error message displayed after validation has failed](mileage_tracker/README_docs/screenshots/features_form_django.png)
+![error message displayed after validation has failed](README_docs/screenshots/features_form_django.png)
 
 If user decides to ignore the above messages from JavaScript, the form gets submitted with some missing data, but django form validation function prevents the item to be submitted to database with missing data. 
 
@@ -546,19 +546,19 @@ I have right clicked on the rendered page and copied the code of each page into 
 
 | Page  |  result
 | ------ | ------ |
-|  [Index](mileage_tracker/README_docs/HTML-validator/HTML-validator-01-index.pdf) |  No errors |
-|  [Date pickeer](mileage_tracker/README_docs/HTML-validator/HTML-validator-02-date-picker.pdf)|No errors|
-|  [Drive](mileage_tracker/README_docs/HTML-validator/HTML-validator-03-drive.pdf) |No errors|
-|  [Day Report](mileage_tracker/README_docs/HTML-validator/HTML-validator-04-day-report.pdf) |No errors|
-|  [New Traffic Alert](mileage_tracker/README_docs/HTML-validator/HTML-validator-05-new-traffic-alert.pdf) |No errors|
-|  [Login](mileage_tracker/README_docs/HTML-validator/HTML-validator-06-users-login.pdf) |No errors|
-|  [Register](mileage_tracker/README_docs/HTML-validator/HTML-validator-06-users-register.pdf) |No errors|
-|  [User Profile](mileage_tracker/README_docs/HTML-validator/HTML-validator-07-users-profile.pdf) |No errors|
+|  [Index](README_docs/HTML-validator/HTML-validator-01-index.pdf) |  No errors |
+|  [Date pickeer](README_docs/HTML-validator/HTML-validator-02-date-picker.pdf)|No errors|
+|  [Drive](README_docs/HTML-validator/HTML-validator-03-drive.pdf) |No errors|
+|  [Day Report](README_docs/HTML-validator/HTML-validator-04-day-report.pdf) |No errors|
+|  [New Traffic Alert](README_docs/HTML-validator/HTML-validator-05-new-traffic-alert.pdf) |No errors|
+|  [Login](README_docs/HTML-validator/HTML-validator-06-users-login.pdf) |No errors|
+|  [Register](README_docs/HTML-validator/HTML-validator-06-users-register.pdf) |No errors|
+|  [User Profile](README_docs/HTML-validator/HTML-validator-07-users-profile.pdf) |No errors|
 
 
 ### CSS validation
 
-No errors were found when passing through the official [W3C validator](https://jigsaw.w3.org/css-validator/). The copy of the CSS report can be found [here](mileage_tracker/README_docs/CSS-validator.pdf)
+No errors were found when passing through the official [W3C validator](https://jigsaw.w3.org/css-validator/). The copy of the CSS report can be found [here](README_docs/CSS-validator.pdf)
 
 ### JavaScript validation
 Javascript code validation was complited on [jshint](https://jshint.com/)
@@ -569,8 +569,8 @@ Initialy it was returning errors in relation of ES6 syntax, which was resolved b
 
 | Page  |  result
 | ------ | ------ |
-|  [Google Places](mileage_tracker/README_docs/JSHint-google-places.pdf) |  two warnings |
-|  [User Profile](mileage_tracker/README_docs/JSHint-user-profile.pdf) |  two warnings |
+|  [Google Places](README_docs/JSHint-google-places.pdf) |  two warnings |
+|  [User Profile](README_docs/JSHint-user-profile.pdf) |  two warnings |
 
 
 Unfortunately it has been also returning errors connected with the use of JQuery, which I have not managed to resolve. It claims I have 3 undefined variables '$', 'google-api-key', 'google'.
@@ -587,26 +587,28 @@ All pages were initialy put through [Python Formatter](https://codebeautify.org/
 
 ### Python validator
 
+The PEP8 style rules were followed with exceptions specified in the files setup.cfg and .pylintrc. Those files were used to custom configure python validation.
+More about .pylintrc can be found [here](https://www.getcodeflow.com/pylint-configuration.html) and about setup.cfg can be found [here](https://pep8.readthedocs.io/en/release-1.7.x/intro.html#configuration)
 
 | App name  |  file name | result |
 | ------ | ------ |------ |
-| mileage-tracker |  urls.py |  [all ok](mileage_tracker/README_docs/pep8-validator/01-mileage-tracker-urls.txt) |
-| traffic |  admin.py |  [all ok](mileage_tracker/README_docs/pep8-validator/02-traffic-admin.txt) |
-| traffic |  forms.py |  [all ok](mileage_tracker/README_docs/pep8-validator/02-traffic-forms.txt) |
-| traffic |  models.py |  [all ok](mileage_tracker/README_docs/pep8-validator/02-traffic-models.txt) |
-| traffic |  urls.py |  [all ok](mileage_tracker/README_docs/pep8-validator/02-traffic-urls.txt) |
-| traffic |  views.py |  [all ok](mileage_tracker/README_docs/pep8-validator/02-traffic-views.txt) |
-| users |  admin.py |  [all ok](mileage_tracker/README_docs/pep8-validator/03-users-admin.txt) |
-| users |  forms.py |  [all ok](mileage_tracker/README_docs/pep8-validator/03-users-forms.txt) |
-| users |  models.py |  [all ok](mileage_tracker/README_docs/pep8-validator/03-users-models.txt) |
-| users |  urls.py |  [all ok](mileage_tracker/README_docs/pep8-validator/03-users-urls.txt) |
-| users |  views.py |  [all ok](mileage_tracker/README_docs/pep8-validator/03-users-views.txt) |
-| visits |  admin.py |  [all ok](mileage_tracker/README_docs/pep8-validator/04-visits-admin.txt) |
-| visits |  forms.py |  [all ok](mileage_tracker/README_docs/pep8-validator/04-visits-forms.txt) |
-| visits |  mixins.py |  [all ok](mileage_tracker/README_docs/pep8-validator/04-visits-mixins.txt) |
-| visits |  models.py |  [all ok](mileage_tracker/README_docs/pep8-validator/04-visits-models.txt) |
-| visits |  urls.py |  [all ok](mileage_tracker/README_docs/pep8-validator/04-visits-urls.txt) |
-| visits |  views.py |  [all ok](mileage_tracker/README_docs/pep8-validator/04-visits-views.txt) |
+| mileage-tracker |  urls.py |  [all ok](README_docs/pep8-validator/01-mileage-tracker-urls.txt) |
+| traffic |  admin.py |  [all ok](README_docs/pep8-validator/02-traffic-admin.txt) |
+| traffic |  forms.py |  [all ok](README_docs/pep8-validator/02-traffic-forms.txt) |
+| traffic |  models.py |  [all ok](README_docs/pep8-validator/02-traffic-models.txt) |
+| traffic |  urls.py |  [all ok](README_docs/pep8-validator/02-traffic-urls.txt) |
+| traffic |  views.py |  [all ok](README_docs/pep8-validator/02-traffic-views.txt) |
+| users |  admin.py |  [all ok](README_docs/pep8-validator/03-users-admin.txt) |
+| users |  forms.py |  [all ok](README_docs/pep8-validator/03-users-forms.txt) |
+| users |  models.py |  [all ok](README_docs/pep8-validator/03-users-models.txt) |
+| users |  urls.py |  [all ok](README_docs/pep8-validator/03-users-urls.txt) |
+| users |  views.py |  [all ok](README_docs/pep8-validator/03-users-views.txt) |
+| visits |  admin.py |  [all ok](README_docs/pep8-validator/04-visits-admin.txt) |
+| visits |  forms.py |  [all ok](README_docs/pep8-validator/04-visits-forms.txt) |
+| visits |  mixins.py |  [all ok](README_docs/pep8-validator/04-visits-mixins.txt) |
+| visits |  models.py |  [all ok](README_docs/pep8-validator/04-visits-models.txt) |
+| visits |  urls.py |  [all ok](README_docs/pep8-validator/04-visits-urls.txt) |
+| visits |  views.py |  [all ok](README_docs/pep8-validator/04-visits-views.txt) |
 
 ## Tests
 ------
@@ -617,10 +619,11 @@ Automated tests have not been created due to time constrains of the project.
 
 ### Lighthouse
 
-![Lighthouse general report](mileage_tracker/README_docs/Lighthouse/Lighthouse_01_all.png)
+![Lighthouse general report](README_docs/Lighthouse/Lighthouse_01_all.png)
+
 The Lighthouse in Chrome dev tools has been run. The results indicated very positive outcome of testing Accessibility, Best Practice and SEO, unfortunately the Performance has been assesed very low.  
 
-![Lighthouse Performance report](mileage_tracker/README_docs/Lighthouse/Lighthouse_02_performance.png)
+![Lighthouse Performance report](README_docs/Lighthouse/Lighthouse_02_performance.png)
 
 It seems that perfo is hindered by the fact I have all bootstrap files in cludinary. I would normaly use cdn link provided by bootstrap. In the case of this project I used bootstwatch. This ment that I had to download all css files that bootstrap is made off and replace the main bootstrap.css with the one that is provide by bootstwatch. 
 
@@ -759,11 +762,11 @@ The app was not designed or tested for other apps that can be used as sat nav fo
 
 ### Static files not loading
 I deployed page to heroku. Page was displaying white without any css or js files loaded. 
-![deployed site without static files rendering correctly](mileage_tracker/README_docs/static1.png)
+![deployed site without static files rendering correctly](README_docs/static1.png)
 
 The below error was displaying on console:
 
-![error message on the console](mileage_tracker/README_docs/static2.png)
+![error message on the console](README_docs/static2.png)
 
 Tried several solutions:
 
@@ -903,7 +906,7 @@ W3W validator returned `<button>` must not be descendant of `<a>`. Solution foun
 
 W3W validator returning errors on drive and user profile pages:
 
-I struggled with one error and a several warnings in this view. The screenshots of the issues can be found [here](mileage_tracker/README_docs/HTML-validator/HTML-validator-06-drive.png) and the text with marked problematic areas can be found [here](mileage_tracker/README_docs/HTML-validator/HTML-validator-07-drive.png).
+I struggled with one error and a several warnings in this view. The screenshots of the issues can be found [here](README_docs/HTML-validator/HTML-validator-06-drive.png) and the text with marked problematic areas can be found [here](README_docs/HTML-validator/HTML-validator-07-drive.png).
 
 * The error shows up for `<meta charset="utf-8">` from the head.  w3w validator is complaining that it was found after first 1024 bytes. It seeems that w3w is expecting this to be the first tag in the head. Unfortunately javascript places seems to inject styling at the beggining of the head and pushes meta charset down below it. I found interesting article [here](https://dev.to/maggiecodes_/why-is-lt-meta-charset-utf-8-gt-important-59hl#:~:text=Furthermore%2C%20most%20browsers%20use%20UTF,There%20you%20have%20it.) why this tag is important.
 
