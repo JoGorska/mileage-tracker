@@ -1,12 +1,15 @@
 '''views for reports app'''
 from datetime import timedelta
+
 from django.shortcuts import render
 from django.views import View
+
 from visits.models import Journey
+from users.mixins import MyLoginReqMixin
 from .forms import ReportingPeriodForm
 
 
-class ReportView(View):
+class ReportView(MyLoginReqMixin, View):
     '''
     In get displys date picker to pick start date and end date
     of the report
