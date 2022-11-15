@@ -13,4 +13,9 @@ urlpatterns = [
         "edit_profile/<int:user_id>",
         views.EditProfile.as_view(), name="edit_profile"
     ),
+    path(
+        "accounts/login",
+        auth_views.LoginView.as_view(template_name="registration/login.html"),
+        name="login",
+    ),
 ]
