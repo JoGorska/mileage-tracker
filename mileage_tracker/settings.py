@@ -41,12 +41,7 @@ DEBUG = development
 if development:
     ALLOWED_HOSTS = ['localhost', '127.0.0.1', '127.0.0.1:8000']
 else:
-    ALLOWED_HOSTS = ["mileage-tracker-app.herokuapp.com"]
-
-
-# DEBUG = False
-
-# ALLOWED_HOSTS = ["mileage-tracker-app.herokuapp.com", "localhost", '127.0.0.1']
+    ALLOWED_HOSTS = ["mileage-tracker-app.herokuapp.com", "https://tank.up.railway.app/"]
 
 
 # Application definition
@@ -115,7 +110,7 @@ WSGI_APPLICATION = 'mileage_tracker.wsgi.application'
 
 DATABASES = {
     'default':
-    dj_database_url.parse(os.environ.get("DATABASE_URL"))
+    dj_database_url.parse(os.environ.get("NEW_DATABASE_URL"))
 }
 
 
