@@ -118,7 +118,7 @@ WSGI_APPLICATION = 'mileage_tracker.wsgi.application'
 # else:
 DATABASES = {
     'default':
-    dj_database_url.parse(os.environ.get("NEW_DATABASE_URL"))
+    dj_database_url.parse(os.environ.get("DATABASE_URL"))
 }
 
 
