@@ -4,6 +4,8 @@ from django.shortcuts import render, get_object_or_404
 from django.views import generic, View
 from django.views.generic.edit import CreateView
 from django.http import HttpResponseRedirect
+
+from users.mixins import MyLoginReqMixin
 from .models import TrafficMessage
 from .forms import TrafficMessageForm
 
@@ -18,7 +20,7 @@ class TrafficMessagesList(generic.ListView):
     paginate_by = 6
 
 
-class AddNewTrafficMsg(CreateView):
+class AddNewTrafficMsg(MyLoginReqMixin, CreateView):
     '''
     class view in get - gets the traffic_msg_form and in post - posts the form
     and creates new traffic alert
@@ -53,7 +55,7 @@ class AddNewTrafficMsg(CreateView):
         return HttpResponseRedirect('/')
 
 
-class MsgThanks(View):
+class MsgThanks(MyLoginReqMixin, View):
     '''
     posts thanks when user clicks the button, this ads user to the list of
     users that added thanks to particular traffic alert, if user double clicks

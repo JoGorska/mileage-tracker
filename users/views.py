@@ -5,6 +5,8 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.conf import settings
+
+from users.mixins import MyLoginReqMixin
 from .models import UserProfile
 from .forms import (
     UserForm,
@@ -31,7 +33,7 @@ class RegisterUserView(CreateView):
         return HttpResponseRedirect(self.success_url)
 
 
-class UserProfileView(CreateView):
+class UserProfileView(MyLoginReqMixin, CreateView):
     """
     view to register UserProfile once the user has registered
     """
@@ -71,13 +73,13 @@ class UserProfileView(CreateView):
         return HttpResponseRedirect("/")
 
 
-class EditProfile(CreateView):
+class EditProfile(MyLoginReqMixin, CreateView):
     """
     view to edit or add UserProfile once the user has registered as a User
     """
     def get(self, request, user_id, *args, **kwargs):
         profile_instance_list = UserProfile.objects.filter(
-                                    profile_of_user=user_id)
+            profile_of_user=user_id)
         if len(profile_instance_list) == 0:
             return render(
                 request,
@@ -95,14 +97,14 @@ class EditProfile(CreateView):
                 "users/user_profile.html",
                 {
                     "user_profile_form": UserProfileForm(
-                                instance=profile_instance),
+                        instance=profile_instance),
                     "google_api_key": settings.GOOGLE_API_KEY,
                 },
             )
 
     def post(self, request, user_id, *args, **kwargs):
         profile_instance_list = UserProfile.objects.filter(
-                                    profile_of_user=user_id)
+            profile_of_user=user_id)
         user_profile_form = UserProfileForm(data=request.POST)
         if user_profile_form.is_valid():
             if len(profile_instance_list) == 0:

@@ -1,16 +1,17 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic.edit import CreateView
 from django.views import View
 from django.conf import settings
 from django.contrib import messages
+
 from traffic.models import TrafficMessage
+from users.mixins import MyLoginReqMixin
 from .models import Journey, DatePicker
 from .forms import JourneyForm, DatePickerForm
 from .mixins import Directions, extract_postcode, sum_all_miles
 
 
-class Drive(LoginRequiredMixin, CreateView):
+class Drive(MyLoginReqMixin, CreateView):
     '''
     displays the drive.html template with form to submit new journey,
     list of journeys for the day and 3 most recent traffic alerts
@@ -43,7 +44,7 @@ class Drive(LoginRequiredMixin, CreateView):
         return render(request, "visits/drive.html", context)
 
 
-class AddJourney(CreateView):
+class AddJourney(MyLoginReqMixin, CreateView):
     """
     when form is being posted the latitude and longditude is collected
     from the the form and passed to Directions functions
@@ -177,7 +178,7 @@ class AddJourney(CreateView):
             return render(request, "visits/drive.html", context)
 
 
-class EditJourney(CreateView):
+class EditJourney(MyLoginReqMixin, CreateView):
     """
     gets the drive.html pre filled and posts the journey form
     """
@@ -347,7 +348,7 @@ def delete_journey(request, slug, journey_id):
     return redirect("visits:day_report", slug)
 
 
-class DatePickerView(View):
+class DatePickerView(MyLoginReqMixin, View):
     '''
     Date picker that allows the user to choose which day to display
     successfull url redirects to the page where url contains date
@@ -381,7 +382,7 @@ class DatePickerView(View):
             return redirect("visits:day_report", slug)
 
 
-class DatePickerDrive(View):
+class DatePickerDrive(MyLoginReqMixin, View):
     """
     view that posts the data from the date picker form
     and transfers the user to vie drive_date_ready
@@ -416,7 +417,7 @@ class DatePickerDrive(View):
             return redirect("visits:drive_date_ready", slug)
 
 
-class DayReport(View):
+class DayReport(MyLoginReqMixin, View):
     """
     Displays the list of journeys that the user has made
     on the day and date picker form in case if user
