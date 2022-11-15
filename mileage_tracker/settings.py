@@ -107,19 +107,19 @@ WSGI_APPLICATION = 'mileage_tracker.wsgi.application'
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
-HEROKU = os.environ.get('HEROKU', False)
+# HEROKU = os.environ.get('HEROKU', False)
 
-if HEROKU in os.environ:
+# if HEROKU in os.environ:
 
-    DATABASES = {
-        'default':
-        dj_database_url.parse(os.environ.get("DATABASE_URL"))
-    }
-else:
-    DATABASES = {
-        'default':
-        dj_database_url.parse(os.environ.get("NEW_DATABASE_URL"))
-    }
+#     DATABASES = {
+#         'default':
+#         dj_database_url.parse(os.environ.get("DATABASE_URL"))
+#     }
+# else:
+DATABASES = {
+    'default':
+    dj_database_url.parse(os.environ.get("NEW_DATABASE_URL"))
+}
 
 
 # Password validation
