@@ -1,11 +1,11 @@
+
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic.edit import CreateView
 from django.views import View
 from django.conf import settings
 from django.contrib import messages
-
-from traffic.models import TrafficMessage
 from users.mixins import MyLoginReqMixin
+from traffic.models import TrafficMessage
 from .models import Journey, DatePicker
 from .forms import JourneyForm, DatePickerForm
 from .mixins import Directions, extract_postcode, sum_all_miles
@@ -297,11 +297,10 @@ class EditJourney(MyLoginReqMixin, CreateView):
             list_of_fields_with_errors = form_as_data.keys()
 
             # seperate message for errors caused by missing geocoordinates
-            if (
-                (
-                    "latitude_start" in list_of_fields_with_errors) or (
-                    "longitude_start" in list_of_fields_with_errors) or (
-                    "latitude_destination" in list_of_fields_with_errors) or (
+            if ((
+                "latitude_start" in list_of_fields_with_errors) or (
+                "longitude_start" in list_of_fields_with_errors) or (
+                "latitude_destination" in list_of_fields_with_errors) or (
                     "longitude_destination" in list_of_fields_with_errors)):
 
                 messages.error(
