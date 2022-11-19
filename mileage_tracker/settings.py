@@ -14,8 +14,11 @@ from pathlib import Path
 import os
 import dj_database_url
 
-if os.path.isfile("env.py"):
-    import env
+import environ
+
+
+env = environ.Env()
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,21 +30,21 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # solution to setting debug to false for heroku found here:
 # https://learn.codeinstitute.net/courses/course-v1:CodeInstitute+FST101+2021_T1/courseware/dc049b343a9b474f8d75822c5fda1582/00bc94313a374f519dbec8dfb7ed0fbd/
 # can this stay ???
 
-development = os.environ.get('DEVELOPMENT', False)
+DEVELOPMENT = env('DEVELOPMENT') if 'DEVELOPMENT' in os.environ else False
 
-DEBUG = development
+DEBUG = DEVELOPMENT
 
-if development:
-    ALLOWED_HOSTS = ['localhost', '127.0.0.1', '127.0.0.1:8000']
+if DEVELOPMENT:
+    ALLOWED_HOSTS = ['localhost', '127.0.0.1', '127.0.0.1:8000', "tank.up.railway.app"]
 else:
-    ALLOWED_HOSTS = ["mileage-tracker-app.herokuapp.com", "tank.up.railway.app/"]
+    ALLOWED_HOSTS = ["mileage-tracker-app.herokuapp.com", "tank.up.railway.app"]
 
 
 # Application definition
@@ -59,6 +62,7 @@ INSTALLED_APPS = [
     'users',
     'traffic',
     'visits',
+    'reports',
 ]
 
 SITE_ID = 1
@@ -98,28 +102,20 @@ TEMPLATES = [
 WSGI_APPLICATION = 'mileage_tracker.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
+if 'DATABASE_URL' in os.environ:
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-# HEROKU = os.environ.get('HEROKU', False)
+    DATABASES = {
+        'default': dj_database_url.parse(env("DATABASE_URL"))
+    }
 
-# if HEROKU in os.environ:
+else:
 
-#     DATABASES = {
-#         'default':
-#         dj_database_url.parse(os.environ.get("DATABASE_URL"))
-#     }
-# else:
-DATABASES = {
-    'default':
-    dj_database_url.parse(os.environ.get("DATABASE_URL"))
-}
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+            }
+        }
 
 
 # Password validation
@@ -171,4 +167,4 @@ MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-GOOGLE_API_KEY = os.environ.get('GOOGLE_API_KEY')
+GOOGLE_API_KEY = env('GOOGLE_API_KEY')
