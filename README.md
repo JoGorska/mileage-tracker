@@ -77,9 +77,9 @@
 
 # Tank Mileage Tracker
 
-[![showpiece home page](README_docs/screenshots/01_home.png)](https://mileage-tracker-app.herokuapp.com/)
+[![showpiece home page](README_docs/screenshots/01_home.png)](https://tank.up.railway.app/)
 
-Click [here](https://mileage-tracker-app.herokuapp.com/) to live site.  
+Click [here](https://tank.up.railway.app/) to live site.  
 
 ## UX
 ------
@@ -511,7 +511,9 @@ The google ads connected with cars are quite well priced and due to the repeteti
     Git issues were used for user stories
     GitPod was used as IDE to write the code and push to GitHub
 + Heroku 
-    The page was deployed to Heroku
+    The page was initially deployed to Heroku
++ Railway App
+    The page was removed from Heroku and move to Railway
 + PostgreSQL
     PostgreSQL was used as database for this project
 + VSCode
@@ -790,7 +792,7 @@ DEBUG = development
 if development:
     ALLOWED_HOSTS = ['localhost', '127.0.0.1', '127.0.0.1:8000']
 else:
-    ALLOWED_HOSTS = ["mileage-tracker-app.herokuapp.com"]
+    ALLOWED_HOSTS = ["tank.up.railway.app"]
 ```
 `os.environ["DEVELOPMENT"] = "True"` variable needs to be added to env.py file, while in heroku - do not add this variable at all. 
 
@@ -1036,7 +1038,16 @@ you should see the message "the app was sussesfully deployed"
 
 23. Click the button "View"
 
-The live link can be found [here](https://mileage-tracker-app.herokuapp.com/).
+The live link can be found [here](https://tank.up.railway.app/), but currently deployed to Railway - as described below. 
+
+### Deployment to Railway app
+
+Due to heroku starting to charge for deploying full stack application I moved my app to [railway app](https://railway.app/)
+I needed to change the way env variables are refered in settings.py
+
+Needed to add runtime.txt that was stating what version of python the app runs.
+
+I copied env variables to heroku and deployed on Railway appp
 
 ### Forking the GitHub Repository
 
@@ -1065,17 +1076,15 @@ $ git clone https://github.com/JoGorska/mileage-tracker
 
 1. Create Virtual enviroment on your computer or use gitpod built in virtual enviroment feature.
 
-2. Create env.py file. It needs to contain those 5 variables.
+2. Create .env file. It needs to contain those 4 variables.
 
-* Database URL can be obtained from [heroku](https://dashboard.heroku.com/), add PostgreSQL as an add on when creating an app. 
+* Database URL can be obtained from [railway app](https://railway.app/), add PostgreSQL as an add on when creating an app. 
 * Secret_key - is the djnago secret key can be generated [here](https://miniwebtool.com/django-secret-key-generator/). 
-* Cloudinary URL can be obtained from [cloudinary](https://cloudinary.com/) follow the steps on the website to register. 
 * Google API key can be obtained [here](https://cloud.google.com/gcp?authuser=1) you will have to register with google and create new app to get the API key. Follow the instructions on the website.
 
 ```
 os.environ["DATABASE_URL"] = "..."
 os.environ["SECRET_KEY"] = "..."
-os.environ["CLOUDINARY_URL"] = "..."
 os.environ["GOOGLE_API_KEY"] = "..."
 os.environ["DEVELOPMENT"] = "True"
 ```
