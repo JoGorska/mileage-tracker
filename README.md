@@ -1076,17 +1076,17 @@ $ git clone https://github.com/JoGorska/mileage-tracker
 
 1. Create Virtual enviroment on your computer or use gitpod built in virtual enviroment feature.
 
-2. Create .env file. It needs to contain those 4 variables.
+2. Create .env file. Place in inside mileage_tracker folder. It needs to contain those 4 variables.
 
 * Database URL can be obtained from [railway app](https://railway.app/), add PostgreSQL as an add on when creating an app. 
 * Secret_key - is the djnago secret key can be generated [here](https://miniwebtool.com/django-secret-key-generator/). 
 * Google API key can be obtained [here](https://cloud.google.com/gcp?authuser=1) you will have to register with google and create new app to get the API key. Follow the instructions on the website.
 
 ```
-os.environ["DATABASE_URL"] = "..."
-os.environ["SECRET_KEY"] = "..."
-os.environ["GOOGLE_API_KEY"] = "..."
-os.environ["DEVELOPMENT"] = "True"
+DATABASE_URL = ...
+SECRET_KEY = ...
+GOOGLE_API_KEY = ...
+DEVELOPMENT = True
 ```
 
 3. Run command 
