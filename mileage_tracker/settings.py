@@ -44,7 +44,7 @@ DEBUG = DEVELOPMENT
 if DEVELOPMENT:
     ALLOWED_HOSTS = ['localhost', '127.0.0.1', '127.0.0.1:8000', "tank.up.railway.app"]
 else:
-    ALLOWED_HOSTS = ["mileage-tracker-app.herokuapp.com", "tank.up.railway.app"]
+    ALLOWED_HOSTS = ["tank.up.railway.app"]
 
 
 # Application definition
