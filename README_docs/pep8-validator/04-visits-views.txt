@@ -293,7 +293,7 @@ class EditJourney(CreateView):
                 ]
             )
 
-            return redirect("visits:day_report", slug)
+            return redirect("reports:day_report", slug)
 
         else:
             # this block handles when the form fails form validation
@@ -350,7 +350,7 @@ def delete_journey(request, slug, journey_id):
     '''
     journey = get_object_or_404(Journey, id=journey_id)
     journey.delete()
-    return redirect("visits:day_report", slug)
+    return redirect("reports:day_report", slug)
 
 
 class DatePickerView(View):
@@ -381,10 +381,10 @@ class DatePickerView(View):
             date_picked_instance = date_picker_form.save(commit=False)
             date_picked_instance.save()
             slug = date_picked_instance.slug
-            return redirect("visits:day_report", slug)
+            return redirect("reports:day_report", slug)
         else:
             slug = request.POST.get("date_picked")
-            return redirect("visits:day_report", slug)
+            return redirect("reports:day_report", slug)
 
 
 class DatePickerDrive(View):
@@ -393,7 +393,7 @@ class DatePickerDrive(View):
     and transfers the user to vie drive_date_ready
     with pre-filled date and url reflecting the date
     """
-    template_name = "visits/date_picker.html"
+    template_name = "reports/date_picker.html"
     form_class = DatePickerForm
 
     def get(self, request, *args, **kwargs):
@@ -466,7 +466,7 @@ class DayReport(View):
             date_picked_instance = date_picker_form.save(commit=False)
             date_picked_instance.save()
             slug = date_picked_instance.slug
-            return redirect("visits:day_report", slug)
+            return redirect("reports:day_report", slug)
         else:
             slug = request.POST.get("date_picked")
-            return redirect("visits:day_report", slug)
+            return redirect("reports:day_report", slug)

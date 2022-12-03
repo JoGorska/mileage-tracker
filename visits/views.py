@@ -288,7 +288,7 @@ class EditJourney(MyLoginReqMixin, CreateView):
                 ]
             )
 
-            return redirect("visits:day_report", slug)
+            return redirect("reports:day_report", slug)
 
         else:
             # this block handles when the form fails form validation
@@ -345,7 +345,7 @@ def delete_journey(request, slug, journey_id):
     '''
     journey = get_object_or_404(Journey, id=journey_id)
     journey.delete()
-    return redirect("visits:day_report", slug)
+    return redirect("reports:day_report", slug)
 
 
 class DatePickerView(MyLoginReqMixin, View):
@@ -376,10 +376,10 @@ class DatePickerView(MyLoginReqMixin, View):
             date_picked_instance = date_picker_form.save(commit=False)
             date_picked_instance.save()
             slug = date_picked_instance.slug
-            return redirect("visits:day_report", slug)
+            return redirect("reports:day_report", slug)
         else:
             slug = request.POST.get("date_picked")
-            return redirect("visits:day_report", slug)
+            return redirect("reports:day_report", slug)
 
 
 class DatePickerDrive(MyLoginReqMixin, View):
@@ -415,53 +415,3 @@ class DatePickerDrive(MyLoginReqMixin, View):
             slug = request.POST.get("date_picked")
 
             return redirect("visits:drive_date_ready", slug)
-
-
-class DayReport(MyLoginReqMixin, View):
-    """
-    Displays the list of journeys that the user has made
-    on the day and date picker form in case if user
-    wants to display a different day
-    """
-    def get(self, request, slug, *args, **kwargs):
-        """
-        gets the date picker form and
-        gets Journey objects
-        takes slug from datepicker view
-        """
-        date_picker_item = get_object_or_404(DatePicker, slug=slug)
-        date_picked = date_picker_item.date_picked
-        date_to_string = date_picked.strftime("%d %B %Y")
-        driver_id = request.user.id
-        journeys = (
-            Journey.objects.filter(date_of_journey=date_picked)
-            .filter(driver=driver_id)
-            .order_by("created_on")
-        )
-        sum_miles_day = sum_all_miles(date_picked, Journey, driver_id)
-        return render(
-            request,
-            "visits/visits_by_date.html",
-            {
-                "slug": slug,
-                "date_picker_form": DatePickerForm(),
-                "journeys": journeys,
-                "date_to_string": date_to_string,
-                "driver_id": driver_id,
-                "sum_miles_day": sum_miles_day,
-            },
-        )
-
-    def post(self, request, *args, **kwargs):
-        '''
-        posts data from datepicker form
-        '''
-        date_picker_form = DatePickerForm(data=request.POST)
-        if date_picker_form.is_valid():
-            date_picked_instance = date_picker_form.save(commit=False)
-            date_picked_instance.save()
-            slug = date_picked_instance.slug
-            return redirect("visits:day_report", slug)
-        else:
-            slug = request.POST.get("date_picked")
-            return redirect("visits:day_report", slug)
