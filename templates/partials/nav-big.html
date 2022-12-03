@@ -49,10 +49,10 @@
               </a>
             </li>
             <li>
-              <a href="{% url 'reports:reports_view' %}" 
+              <a href="{% url 'reports:reporting_options' %}" 
                  class="nav-link {% if request.resolver_match.url_name == 'date_picker'%}
                         text-warning
-                        {% elif request.resolver_match.url_name == 'reports_view' %}
+                        {% elif request.resolver_match.url_name == 'reporting_options' %}
                         text-warning 
                         {% else %} text-white {% endif %}">
                 <svg class="bi d-block mx-auto mb-1" width="24" height="24">

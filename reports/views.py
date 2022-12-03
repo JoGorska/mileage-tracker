@@ -3,6 +3,7 @@ from datetime import timedelta
 
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
+from django.views.generic import TemplateView
 
 from visits.mixins import sum_all_miles
 from visits.forms import DatePickerForm
@@ -11,7 +12,11 @@ from users.mixins import MyLoginReqMixin
 from .forms import ReportingPeriodForm
 
 
-class ReportView(MyLoginReqMixin, View):
+class ReportingOptionsView(MyLoginReqMixin, TemplateView):
+    template_name = 'reports/reporting_options.html'
+
+
+class ChoosePeriodView(MyLoginReqMixin, View):
     '''
     In get displys date picker to pick start date and end date
     of the report
@@ -104,6 +109,40 @@ class ReportView(MyLoginReqMixin, View):
         return render(request, '/')
 
 
+class DatePickerView(MyLoginReqMixin, View):
+    '''
+    Date picker that allows the user to choose which day to display
+    successfull url redirects to the page where url contains date
+    '''
+    template_name = "visits/date_picker.html"
+    form_class = DatePickerForm
+
+    def get(self, request, *args, **kwargs):
+        '''
+        gets date picker form
+        '''
+        return render(
+            request,
+            "visits/date_picker.html",
+            {"date_picker_form": DatePickerForm()},
+        )
+
+    def post(self, request, *args, **kwargs):
+        '''
+        posts date picker form data
+        '''
+        date_picker_form = DatePickerForm(data=request.POST)
+
+        if date_picker_form.is_valid():
+            date_picked_instance = date_picker_form.save(commit=False)
+            date_picked_instance.save()
+            slug = date_picked_instance.slug
+            return redirect("reports:day_report", slug)
+        else:
+            slug = request.POST.get("date_picked")
+            return redirect("reports:day_report", slug)
+
+
 class DayReport(MyLoginReqMixin, View):
     """
     Displays the list of journeys that the user has made
@@ -148,7 +187,7 @@ class DayReport(MyLoginReqMixin, View):
             date_picked_instance = date_picker_form.save(commit=False)
             date_picked_instance.save()
             slug = date_picked_instance.slug
-            return redirect("visits:day_report", slug)
+            return redirect("reports:day_report", slug)
         else:
             slug = request.POST.get("date_picked")
-            return redirect("visits:day_report", slug)
+            return redirect("reports:day_report", slug)

@@ -348,39 +348,6 @@ def delete_journey(request, slug, journey_id):
     return redirect("reports:day_report", slug)
 
 
-class DatePickerView(MyLoginReqMixin, View):
-    '''
-    Date picker that allows the user to choose which day to display
-    successfull url redirects to the page where url contains date
-    '''
-    template_name = "visits/date_picker.html"
-    form_class = DatePickerForm
-
-    def get(self, request, *args, **kwargs):
-        '''
-        gets date picker form
-        '''
-        return render(
-            request,
-            "visits/date_picker.html",
-            {"date_picker_form": DatePickerForm()},
-        )
-
-    def post(self, request, *args, **kwargs):
-        '''
-        posts date picker form data
-        '''
-        date_picker_form = DatePickerForm(data=request.POST)
-
-        if date_picker_form.is_valid():
-            date_picked_instance = date_picker_form.save(commit=False)
-            date_picked_instance.save()
-            slug = date_picked_instance.slug
-            return redirect("reports:day_report", slug)
-        else:
-            slug = request.POST.get("date_picked")
-            return redirect("reports:day_report", slug)
-
 
 class DatePickerDrive(MyLoginReqMixin, View):
     """

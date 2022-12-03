@@ -95,11 +95,11 @@
         </li>
         <!-- day -->
         <li class="nav-item">
-          <a href="{% url 'reports:reports_view' %}" 
+          <a href="{% url 'reports:reporting_options' %}" 
              class="nav-link 
                     {% if request.resolver_match.url_name == 'date_picker'%}
                     text-warning
-                    {% elif request.resolver_match.url_name == 'reports_view'%}
+                    {% elif request.resolver_match.url_name == 'reporting_options'%}
                     text-warning
                     {% else %} text-white {% endif %}">
             <div class="row">
