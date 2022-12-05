@@ -2,33 +2,34 @@
 {% load static %}
 {% load bootstrap_tags %}
 {% block content %}
-
 {% if user.is_authenticated %}
-<div>
+<div class="container mt-5">
+  <h1 class="display-5 fw-bold lh-1 ">
+    <span class="border-warning pb-3 border-bottom">Report
+    </span>
+  </h1>
+  </div>
+  <div>
+</div>
   <div class="page-overlay d-flex justify-content-center align-items-center">
-      <div class="container options-container p-5">
-<form action="" method="POST">
-    {% csrf_token %}
-<div class="row">
-  <div class="col-12 col-lg-6 mb-3">
-    {{ reporting_period_form.start_date | as_bootstrap }}
+
+    <div class="container options-container p-5">
+      
+      <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+        <form action="" method="POST">
+          {% csrf_token %}
+          {{ reporting_period_form | as_bootstrap }}
+          <button type="submit" class="btn btn-warning btn-lg mt-3">Mileage Report
+          </button>
+        </form>
+      </div>
+      <div class="col-md-4"></div>
+
+    </div>
+    </div>
   </div>
-  <div class="col-12 col-lg-6 mb-3">
-    {{ reporting_period_form.end_date | as_bootstrap }}
-  </div>
-
 </div>
-<button type="submit" class="btn btn-warning btn-lg">Mileage Report
-</button>
-
-
-
-  </form> 
-</div>
-</div>
-</div>
-
 {% endif %}
-
-
-  {% endblock %}
+{% endblock %}

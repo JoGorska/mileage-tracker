@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static bootstrap_tags %}
+{% block content %}
+
+<div class="container mt-5">
+  <h1 class="display-5 fw-bold lh-1 ">
+    <span class="border-warning pb-3 border-bottom">Report
+    </span>
+  </h1>
+
+    <h2 class="mt-5">Choose one day report or reporting period.
+    </h2>
+
+
+<div class="row mt-3">
+    <div class="col-md-4">
+        <div>
+        <a href="{% url 'reports:choose_date' %}" class="btn btn-warning btn-lg px-4 me-md-2">
+            Choose Day
+          </a>
+        </div>
+    </div>
+    <div class="col-md-4">
+    <div>
+    <a href="{% url 'reports:choose_period' %}" class="btn btn-secondary btn-lg px-4 me-md-2">
+        Choose Period
+      </a>
+    </div>
+</div>
+    <div class="col-md-3"></div>
+</div>
+
+
+
+
+</div>
+
+
+{% endblock %}

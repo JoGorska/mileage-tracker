@@ -6,7 +6,7 @@
       <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
           <!-- logo and brand -->
-          <a href="{% url 'home' %}" class="d-flex align-items-center justify-content-center justify-content-lg-start my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
+          <a href="{% url 'home' %}" id="nav-big-logo-brand" class="d-flex align-items-center justify-content-center justify-content-lg-start my-2 my-lg-0 me-lg-auto text-decoration-none">
             <svg class="pb-2" width="20%" height="20%" fill="currentColor" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;" version="1.1" viewBox="0 0 64 64" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
               <g transform="matrix(1,0,0,1,-508,-162.338)">
                 <g id="tank-nav-big" transform="matrix(1,0,0,1,174.83,162.338)">
@@ -17,10 +17,10 @@
                 </g>
               </g>
             </svg>
-            <p class="text fs-1 ms-2">Tank
+            <p class="text fs-1 ms-2 fw-bold">Tank
             </p>
           </a>
-          <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
+          <ul id="nav-big-items" class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
             <li>
               <!--"if" statement changes the text color for nav item depending on url name-->
               <a href="{% url 'home' %}" 
@@ -49,10 +49,10 @@
               </a>
             </li>
             <li>
-              <a href="{% url 'reports:reports_view' %}" 
+              <a href="{% url 'reports:reporting_options' %}" 
                  class="nav-link {% if request.resolver_match.url_name == 'date_picker'%}
                         text-warning
-                        {% elif request.resolver_match.url_name == 'reports_view' %}
+                        {% elif request.resolver_match.url_name == 'reporting_options' %}
                         text-warning 
                         {% else %} text-white {% endif %}">
                 <svg class="bi d-block mx-auto mb-1" width="24" height="24">
@@ -72,7 +72,7 @@
             </li>
             <li>
               <!-- user-->
-              <a href="#" class="nav-link
+              <a id="nav-big-user-dropdown" href="#" class="nav-link
                                  {% if request.resolver_match.url_name == 'login' %}
                                  text-warning
                                  {% elif request.resolver_match.url_name == 'register' %}
