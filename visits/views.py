@@ -137,10 +137,10 @@ class AddJourney(MyLoginReqMixin, CreateView):
 
             # seperate message for errors caused by missing geocoordinates
             if (
-                ("latitude_start" in list_of_fields_with_errors) or (
-                 "longitude_start" in list_of_fields_with_errors) or (
-                 "latitude_destination" in list_of_fields_with_errors) or (
-                 "longitude_destination" in list_of_fields_with_errors)):
+                    ("latitude_start" in list_of_fields_with_errors) or (
+                    "longitude_start" in list_of_fields_with_errors) or (
+                    "latitude_destination" in list_of_fields_with_errors) or (
+                    "longitude_destination" in list_of_fields_with_errors)):
 
                 messages.error(
                     request,
@@ -346,7 +346,6 @@ def delete_journey(request, slug, journey_id):
     journey = get_object_or_404(Journey, id=journey_id)
     journey.delete()
     return redirect("reports:day_report", slug)
-
 
 
 class DatePickerDrive(MyLoginReqMixin, View):
