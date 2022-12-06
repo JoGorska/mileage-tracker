@@ -61,7 +61,7 @@ class PeriodReportView(MyLoginReqMixin, View):
         journeys = Journey.objects.filter(date_of_journey__range=[start_date_str, end_date_str])
 
         print(journeys)
-        context = {}
+        context = {'journeys': journeys}
         return render(request, template_name, context)
 
 

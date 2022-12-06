@@ -22,19 +22,19 @@
     </thead>
     <tbody>
       <p class="text-white">
-        {% for journey in all_journeys_in_period %}
-        {{ journey.date_of_journey }}
+        {% for journey in journeys %}
+        
         {{ journey.postcode_start }}
         {{ journey.postcode_destination }}
-        {{ journey.driver }}
-        {% endfor %}
+
       </p>
       <tr>
-        <th scope="row" class="text-start">Public</th>
+        <th scope="row" class="text-start">{{ journey.date_of_journey }}</th>
         <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
         <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
         <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
       </tr>
+      {% endfor %}
       <tr>
         <th scope="row" class="text-start">Private</th>
         <td></td>
