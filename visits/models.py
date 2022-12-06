@@ -56,6 +56,9 @@ class Journey(models.Model):
         verbose_name="Destination Postcode",
         max_length=100, null=False, blank=True
     )
+    class Meta:
+        # todo - add ordering number 
+        ordering = ['-date_of_journey', 'created_on']
 
 
 class DatePicker(models.Model):
