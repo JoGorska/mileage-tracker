@@ -1,5 +1,5 @@
 '''views for reports app'''
-from datetime import timedelta
+from datetime import timedelta, datetime
 
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
@@ -53,9 +53,16 @@ class ChoosePeriodView(MyLoginReqMixin, View):
 class PeriodReportView(MyLoginReqMixin, View):
     def get(self, request, **kwargs):
         template_name = 'reports/table.html'
+        start_date_str = kwargs['start_date']
+        end_date_str = kwargs['end_date']
+        start_date = datetime.strptime(start_date_str, "%Y-%m-%d")
+        end_date = datetime.strptime(end_date_str, "%Y-%m-%d")
+        print(end_date)
+        journeys = Journey.objects.filter(date_of_journey__range=[start_date_str, end_date_str])
+
+        print(journeys)
         context = {}
         return render(request, template_name, context)
-
 
 
 class DatePickerView(MyLoginReqMixin, View):
