@@ -7,7 +7,8 @@
   <span class="border-warning pb-3 border-bottom">Report {{start_date}}
   </span>
 </h1>
-<a href="/reports/excell/2022-12-05/2022-12-07" class="btn btn-secondary">export to excell</a>
+<!-- <a href="/reports/excell/2022-12-05/2022-12-07" class="btn btn-secondary">export to excell</a> -->
+<a href="{% url 'reports:excel_journeys' start_date end_date %}" class="btn btn-secondary">export to excell</a>
 </div>
 
 <div class="table-responsive container">
