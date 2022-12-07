@@ -15,11 +15,10 @@ def get_mileage_headers():
 
 
 def get_mileage_row(data):
-
     row = [
-        data.date,
-        data.postcodes,
-        data.distance,
+        data['date'],
+        data['postcodes'],
+        data['distance'],
     ]
     return row
 
@@ -62,4 +61,4 @@ class ExcellExporter():
                     cell = worksheet.cell(row=row_num, column=col_num)
                     cell.value = cell_value
             # self.set_column_widths(worksheet)
-            return self.excel_response()
+        return self.excel_response()
