@@ -51,17 +51,41 @@ class ChoosePeriodView(MyLoginReqMixin, View):
 
 
 class PeriodReportView(MyLoginReqMixin, View):
+
+
     def get(self, request, **kwargs):
         template_name = 'reports/table.html'
         start_date_str = kwargs['start_date']
         end_date_str = kwargs['end_date']
-        start_date = datetime.strptime(start_date_str, "%Y-%m-%d")
-        end_date = datetime.strptime(end_date_str, "%Y-%m-%d")
-        print(end_date)
-        journeys = Journey.objects.filter(date_of_journey__range=[start_date_str, end_date_str])
+        all_journeys = Journey.objects.filter(date_of_journey__range=[start_date_str, end_date_str])
+        dates = [journey.date_of_journey for journey in all_journeys]
+        all_days_dict_list = []
+        for date in dates:
+            this_day_dict = {}
+            this_day_journey_objects = []
+            this_day_postcodes = []
+            this_day_distance = 0
+            for journey in all_journeys:
+                if journey.date_of_journey == date:
+                    this_day_journey_objects.append(journey)
+                    this_day_postcodes.append(journey.postcode_destination)
+                    this_day_distance += journey.distance
+            this_day_postcodes.insert(0, this_day_journey_objects[0].postcode_start)
+            postcodes = str(this_day_postcodes)
+            bracket = postcodes.replace('[', '')
+            other_bracket = bracket.replace(']', '')
+            final = other_bracket.replace("'", '')
+            this_day_dict = {
+                'date': date,
+                'postcodes': final,
+                'distance': this_day_distance,
+            }
+            all_days_dict_list.append(this_day_dict)
 
-        print(journeys)
-        context = {'journeys': journeys}
+        context = {
+
+            'journeys': all_days_dict_list,
+        }
         return render(request, template_name, context)
 
 

@@ -14,60 +14,20 @@
   <table class="table text-center">
     <thead>
       <tr>
-        <th style="width: 34%;"></th>
-        <th style="width: 22%;">start</th>
-        <th style="width: 22%;">destination</th>
-        <th style="width: 22%;">mileage</th>
+        <th style="width: 15%;" class="text-start">date</th>
+        <th style="width: 60%;">postcodes</th>
+        <th style="width: 15%;">mileage</th>
       </tr>
     </thead>
     <tbody>
-      <p class="text-white">
-        {% for journey in journeys %}
-        
-        {{ journey.postcode_start }}
-        {{ journey.postcode_destination }}
-
-      </p>
+      {% for journey in journeys %}
       <tr>
-        <th scope="row" class="text-start">{{ journey.date_of_journey }}</th>
-        <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
-        <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
-        <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
+        <th scope="row" class="text-start">{{ journey.date }}</th>
+        <td>{{ journey.postcodes }}</svg></td>
+        <td>{{ journey.distance }}</svg></td>
+
       </tr>
       {% endfor %}
-      <tr>
-        <th scope="row" class="text-start">Private</th>
-        <td></td>
-        <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
-        <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
-      </tr>
-    </tbody>
-
-    <tbody>
-      <tr>
-        <th scope="row" class="text-start">Permissions</th>
-        <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
-        <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
-        <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
-      </tr>
-      <tr>
-        <th scope="row" class="text-start">Sharing</th>
-        <td></td>
-        <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
-        <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
-      </tr>
-      <tr>
-        <th scope="row" class="text-start">Unlimited members</th>
-        <td></td>
-        <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
-        <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
-      </tr>
-      <tr>
-        <th scope="row" class="text-start">Extra security</th>
-        <td></td>
-        <td></td>
-        <td><svg class="bi" width="24" height="24"><use xlink:href="#check"/></svg></td>
-      </tr>
     </tbody>
   </table>
 </div>
