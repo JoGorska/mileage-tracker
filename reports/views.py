@@ -100,9 +100,9 @@ class excelExportJourneys(MyLoginReqMixin, View):
         end_date_str = kwargs['end_date']
         all_journeys = Journey.objects.filter(date_of_journey__range=[start_date_str, end_date_str])
         journeys_dicts = PeriodReportView.get_all_day_data(self, all_journeys=all_journeys)
-        print(journeys_dicts)
         headers = get_mileage_headers()
-        ExcellExporter(queryset=journeys_dicts, export_object='mileage', headers=headers)
+        excel = ExcellExporter(queryset=journeys_dicts, export_object='mileage', headers=headers)
+        return excel.export_worksheet()
 
 
 class DatePickerView(MyLoginReqMixin, View):
