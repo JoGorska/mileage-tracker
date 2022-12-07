@@ -11,7 +11,7 @@ from visits.forms import DatePickerForm
 from visits.models import Journey, DatePicker
 from users.mixins import MyLoginReqMixin
 from .forms import ReportingPeriodForm
-
+from .exporter import ExcellExporter, get_mileage_headers
 
 class ReportingOptionsView(MyLoginReqMixin, TemplateView):
     template_name = 'reports/reporting_options.html'
@@ -52,12 +52,7 @@ class ChoosePeriodView(MyLoginReqMixin, View):
 
 class PeriodReportView(MyLoginReqMixin, View):
 
-
-    def get(self, request, **kwargs):
-        template_name = 'reports/table.html'
-        start_date_str = kwargs['start_date']
-        end_date_str = kwargs['end_date']
-        all_journeys = Journey.objects.filter(date_of_journey__range=[start_date_str, end_date_str])
+    def get_all_day_data(self, all_journeys):
         dates = [journey.date_of_journey for journey in all_journeys]
         all_days_dict_list = []
         for date in dates:
@@ -76,17 +71,38 @@ class PeriodReportView(MyLoginReqMixin, View):
             other_bracket = bracket.replace(']', '')
             final = other_bracket.replace("'", '')
             this_day_dict = {
-                'date': date,
+                'date': date.strftime('%d.%m.%Y'),
                 'postcodes': final,
                 'distance': this_day_distance,
             }
             all_days_dict_list.append(this_day_dict)
+        return all_days_dict_list
 
+    def get(self, request, **kwargs):
+        template_name = 'reports/table.html'
+        start_date_str = kwargs['start_date']
+        end_date_str = kwargs['end_date']
+        all_journeys = Journey.objects.filter(date_of_journey__range=[start_date_str, end_date_str])
+        journeys_dicts = self.get_all_day_data(all_journeys)
         context = {
 
-            'journeys': all_days_dict_list,
+            'journeys': journeys_dicts,
+            'start_date': start_date_str,
+            'end_date': end_date_str,
         }
         return render(request, template_name, context)
+
+
+class excelExportJourneys(MyLoginReqMixin, View):
+
+    def get(self, request, **kwargs):
+        start_date_str = kwargs['start_date']
+        end_date_str = kwargs['end_date']
+        all_journeys = Journey.objects.filter(date_of_journey__range=[start_date_str, end_date_str])
+        journeys_dicts = PeriodReportView.get_all_day_data(self, all_journeys=all_journeys)
+        print(journeys_dicts)
+        headers = get_mileage_headers()
+        ExcellExporter(queryset=journeys_dicts, export_object='mileage', headers=headers)
 
 
 class DatePickerView(MyLoginReqMixin, View):
