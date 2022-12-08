@@ -8,30 +8,59 @@
     </span>
   </h1>
 
-    <h2 class="mt-5">Choose one day report or reporting period.
-    </h2>
 
-
-<div class="row mt-3">
-    <div class="col-md-4">
-        <div>
-        <a href="{% url 'reports:choose_date' %}" class="btn btn-warning btn-lg px-4 me-md-2">
-            Choose Day
-          </a>
+  <ul id="sorting-tiles-container" class="mx-2 mt-5 row row-cols-3 row-cols-sm-4 row-cols-lg-6 row-cols-xl-8 list-unstyled list justify-content-center">
+    <!-- excel -->
+    <li id="all-trees" class="col mb-4" >
+      <a class="d-block bg-secondary rounded text-white text-decoration-none" 
+         href=""
+         aria-label="go to excel export">
+        <div class="display-5 p-3 py-4  bg-secondary text-center rounded">
+          <svg class="bi" width="1em" height="1em" fill="currentColor">
+            <use xlink:href="#export-excel">
+            </use>
+          </svg>
         </div>
-    </div>
-    <div class="col-md-4">
-    <div>
-    <a href="{% url 'reports:choose_period' %}" class="btn btn-secondary btn-lg px-4 me-md-2">
-        Choose Period
+        <p class="small name text-white text-center pb-2">Export to excel
+        </p>
       </a>
-    </div>
-</div>
-    <div class="col-md-3"></div>
-</div>
-
-
-
+    </li>
+    <!-- day report -->
+    <li class="col mb-4" >
+        <a class="d-block bg-secondary rounded text-white text-decoration-none" 
+        href="{% url 'reports:choose_date' %}"
+        aria-label="go to excel export">
+      <div id="filter-tile" class="d-block bg-secondary rounded text-white" aria-label="Show menu for filtering trees">
+        <div  class="display-5 p-3 py-4  bg-secondary text-center rounded">
+          <svg class="bi" width="1em" height="1em" fill="currentColor">
+            <use xlink:href="#calendar-date">
+            </use>
+          </svg>
+        </div>
+        <div class="small name text-white text-center pb-2">View one day
+        </div>
+      </div>
+        </a>
+    </li>
+    <!-- period -->
+    <li class="col mb-4 d-none-xxs" >
+        <a class="d-block bg-secondary rounded text-white text-decoration-none" 
+        href="{% url 'reports:choose_period' %}"
+        aria-label="go to excel export">
+      <div id="sorting-tile-wide" class="d-block bg-secondary rounded text-white" aria-label="Show menu for sorting trees">
+        <div class="display-5 p-3 py-4  bg-secondary text-center rounded">
+          <svg class="bi" width="1em" height="1em" fill="currentColor">
+            <use xlink:href="#calendar-period">
+            </use>
+          </svg>
+        </div>
+        <div class="name text-white text-center pb-2">View period
+        </div>
+      </div>
+    </a>
+    </li>
+    
+  </ul>
 
 </div>
 
