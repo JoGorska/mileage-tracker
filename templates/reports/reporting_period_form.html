@@ -5,9 +5,10 @@
 {% if user.is_authenticated %}
 <div class="container mt-5">
   <h1 class="display-5 fw-bold lh-1 ">
-    <span class="border-warning pb-3 border-bottom">Report
+    <span class="border-warning pb-3 border-bottom">Reports
     </span>
   </h1>
+  <h2 class="mt-5">{{ subtitle }}</h2>
   </div>
   <div>
 </div>
@@ -20,7 +21,7 @@
         <div class="col-md-4">
         <form action="" method="POST">
           {% csrf_token %}
-          {{ reporting_period_form | as_bootstrap }}
+          {{ form | as_bootstrap }}
           <button type="submit" class="btn btn-warning btn-lg mt-3">Mileage Report
           </button>
         </form>

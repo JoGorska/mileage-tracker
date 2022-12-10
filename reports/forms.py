@@ -24,19 +24,13 @@ class ReportingPeriodForm(forms.Form):
         widget=forms.DateInput(
             attrs={'class': 'mt-2', 'type': 'date'}))
 
-    # class Meta:
-    #     fields = ('start_date', 'end_date',)
-    #     widgets = {
-    #         'date_picked': DateInput(),
-    #     }
-    # def clean_start_date(self):
-    #     '''
-    #     returns errors if the field is filled in incorrectly
-    #     '''
-    #     data = self.cleaned_data['start_date']
-    #     if data > datetime.datetime.today:
-    #         raise forms.ValidationError(
-    #             """
-    #             \'to\' date cannot be later than today.
-    #             """)
-# clean the data
+
+class PickDateForm(forms.Form):
+    '''
+    form that renders one input for date of the report
+    '''
+    date = forms.DateField(
+        initial=datetime.date.today,
+        widget=forms.DateInput(
+            attrs={'class': 'mt-2', 'type': 'date'}))
+

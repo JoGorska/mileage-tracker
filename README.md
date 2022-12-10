@@ -431,9 +431,12 @@ The most common error will be submitting form with geocoordinates missing. I dec
 
 I am adding detailed message describing what to do if the drop down input field from google places api doesn't show up. I am also clearing the form data - hopefuly when user types both addresses again, he understands how to do this correctly. 
 
-### Day Report
+### Report
 
-Day report allows the user to see all journeys travelled in a day and it also displays the summary of the miles. The journeys are displayed in accordeon with more details available inside, as well as edit and delete button.
+Reporting app is divided to three main functionalities:
+- display one day report, this is displayed as accordion with buttons pointing user to edit or delete the journey
+- display a period report - this is displayed as table 
+- excel exporting - exports choosen period to mileage
 
 ### Traffic Alert
 
@@ -521,7 +524,9 @@ The google ads connected with cars are quite well priced and due to the repeteti
 + Google Cloud
     to get api key
 + cloudinary storage
-    for storing static files
+    for storing static files (later removed)
++ whitenoise
+    for soring static files to replace cloudinary
 
  ### Frameworks Libraries and Programs Used
 
@@ -530,9 +535,9 @@ The google ads connected with cars are quite well priced and due to the repeteti
 + Bootstrap 5:
     Bootstrap was used to add style to the website.
 + Bootswach:
-    Bootswatch wass added to change the standard styling and color pallette provided by bootstrap
+    Bootswatch was added to change the standard styling and color pallette provided by bootstrap
 + Bootstrap icons
-+ Django
++ Django 3.2
 
 ## Code Validation
 ------
