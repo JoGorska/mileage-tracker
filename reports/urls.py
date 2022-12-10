@@ -9,7 +9,7 @@ urlpatterns = [
     # date pickers
     path('period/', views.ChoosePeriodView.as_view(), name='choose_period'),
     path('excell/', views.PeriodExcelView.as_view(), name='choose_period_excel'),
-    path("date/", views.DatePickerView.as_view(), name="choose_date"),
+    path("date/", views.PickDateView.as_view(), name="choose_date"),
 
     # reports
     path('period/<slug:start_date>/<slug:end_date>', views.PeriodReportView.as_view(), name='period_report'),  # noqa
