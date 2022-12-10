@@ -524,7 +524,9 @@ The google ads connected with cars are quite well priced and due to the repeteti
 + Google Cloud
     to get api key
 + cloudinary storage
-    for storing static files
+    for storing static files (later removed)
++ whitenoise
+    for soring static files to replace cloudinary
 
  ### Frameworks Libraries and Programs Used
 
@@ -533,9 +535,9 @@ The google ads connected with cars are quite well priced and due to the repeteti
 + Bootstrap 5:
     Bootstrap was used to add style to the website.
 + Bootswach:
-    Bootswatch wass added to change the standard styling and color pallette provided by bootstrap
+    Bootswatch was added to change the standard styling and color pallette provided by bootstrap
 + Bootstrap icons
-+ Django
++ Django 3.2
 
 ## Code Validation
 ------
