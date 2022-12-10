@@ -13,6 +13,7 @@ from users.mixins import MyLoginReqMixin
 from .forms import ReportingPeriodForm
 from .exporter import ExcellExporter, get_mileage_headers
 
+
 class ReportingOptionsView(MyLoginReqMixin, TemplateView):
     template_name = 'reports/reporting_options.html'
 
@@ -23,6 +24,8 @@ class ChoosePeriodView(MyLoginReqMixin, View):
     of the report
     In post makes query for data from journeys model
     '''
+    def get_success_url(self, request, start_date, end_date):
+        return redirect('reports:period_report', start_date=start_date, end_date=end_date)
 
     def get(self, request):
         '''
@@ -46,8 +49,16 @@ class ChoosePeriodView(MyLoginReqMixin, View):
             end_date = str(form.cleaned_data['end_date'])
             # how many days is the queried period in days
             # as python datetime object
-            return redirect('reports:period_report', start_date=start_date, end_date=end_date)
-        return render(request, '/')
+            return self.get_success_url(request, start_date, end_date)
+        context = {
+            'reporting_period_form': form
+        }
+        return render(request, 'reports/reporting_period_form.html', context)
+
+
+class PeriodExcelView(ChoosePeriodView):
+    def get_success_url(self, request, start_date, end_date):
+        return redirect('reports:excel_report', start_date=start_date, end_date=end_date)
 
 
 class PeriodReportView(MyLoginReqMixin, View):
