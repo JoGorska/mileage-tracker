@@ -431,9 +431,12 @@ The most common error will be submitting form with geocoordinates missing. I dec
 
 I am adding detailed message describing what to do if the drop down input field from google places api doesn't show up. I am also clearing the form data - hopefuly when user types both addresses again, he understands how to do this correctly. 
 
-### Day Report
+### Report
 
-Day report allows the user to see all journeys travelled in a day and it also displays the summary of the miles. The journeys are displayed in accordeon with more details available inside, as well as edit and delete button.
+Reporting app is divided to three main functionalities:
+- display one day report, this is displayed as accordion with buttons pointing user to edit or delete the journey
+- display a period report - this is displayed as table 
+- excel exporting - exports choosen period to mileage
 
 ### Traffic Alert
 
