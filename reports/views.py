@@ -24,8 +24,8 @@ class ChoosePeriodView(MyLoginReqMixin, View):
     of the report
     In post makes query for data from journeys model
     '''
-    def get_success_url(self, request, start_date, end_date):
-        return redirect('reports:period_report', start_date=start_date, end_date=end_date)
+    success_url_name = 'reports:period_report'
+    page_sub_title = 'Choose period'
 
     def get(self, request):
         '''
@@ -34,7 +34,8 @@ class ChoosePeriodView(MyLoginReqMixin, View):
         '''
         form = ReportingPeriodForm()
         context = {
-            'reporting_period_form': form
+            'reporting_period_form': form,
+            'subtitle': self.page_sub_title,
         }
         return render(request, 'reports/reporting_period_form.html', context)
 
@@ -47,18 +48,19 @@ class ChoosePeriodView(MyLoginReqMixin, View):
         if form.is_valid():
             start_date = str(form.cleaned_data['start_date'])
             end_date = str(form.cleaned_data['end_date'])
-            # how many days is the queried period in days
-            # as python datetime object
-            return self.get_success_url(request, start_date, end_date)
+            print(f'success inside period report {self.success_url_name}')
+            return redirect(self.success_url_name, start_date=start_date, end_date=end_date)
+
         context = {
-            'reporting_period_form': form
+            'reporting_period_form': form,
+            'subtitle': self.page_sub_title,
         }
         return render(request, 'reports/reporting_period_form.html', context)
 
 
 class PeriodExcelView(ChoosePeriodView):
-    def get_success_url(self, request, start_date, end_date):
-        return redirect('reports:excel_report', start_date=start_date, end_date=end_date)
+    success_url_name = 'reports:excel_report'
+    page_sub_title = 'Excel download'
 
 
 class PeriodReportView(MyLoginReqMixin, View):
@@ -104,7 +106,7 @@ class PeriodReportView(MyLoginReqMixin, View):
         return render(request, template_name, context)
 
 
-class excelExportJourneys(MyLoginReqMixin, View):
+class ExcelExportJourneys(MyLoginReqMixin, View):
 
     def get(self, request, **kwargs):
         start_date_str = kwargs['start_date']
