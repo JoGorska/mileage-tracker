@@ -9,7 +9,11 @@ input {
   } */
 
 
-#nav-big-logo-brand, #nav-big-items{
+/* #nav-big-logo-brand, #nav-big-items{
+    color:#aaa !important;
+} */
+
+.text-secondary-light {
     color:#aaa !important;
 }
 /* this one doesn't work anyway */
