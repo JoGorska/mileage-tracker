@@ -99,6 +99,7 @@ class PeriodReportView(MyLoginReqMixin, View):
 
     def get_all_day_data(self, all_journeys):
         dates = [journey.date_of_journey for journey in all_journeys]
+        dates = set(dates)
         all_days_dict_list = []
         for date in dates:
             this_day_dict = {}
