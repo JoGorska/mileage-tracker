@@ -98,7 +98,8 @@ class PickDateView(MyLoginReqMixin, View):
 class PeriodReportView(MyLoginReqMixin, View):
 
     def get_all_day_data(self, all_journeys):
-        dates = [journey.date_of_journey for journey in all_journeys]
+        ordered_journeys = all_journeys.order_by('date_of_journey')
+        dates = [journey.date_of_journey for journey in ordered_journeys]
         dates = set(dates)
         all_days_dict_list = []
         for date in dates:
